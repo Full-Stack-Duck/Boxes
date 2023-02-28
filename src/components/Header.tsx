@@ -3,7 +3,7 @@ import logoIcon from '../assets/logoIcon.svg'
 
 export function Header(){
     return(
-        <header className="flex justify-between items-center bg-purple-500 w-full h-16 ">
+        <header className="flex justify-between items-center bg-purple-dark w-full h-16 ">
         <div className="w-[50%] flex items-center justify-start">
           <a href="" className="pl-5 ">
             <img src={logoIcon} alt="Logomarca da Manager Box" />
