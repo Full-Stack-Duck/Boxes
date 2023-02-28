@@ -1,4 +1,7 @@
-
+import twitterIcon from '../assets/twitterIcon.svg'
+import whatsappIcon from '../assets/whatsappIcon.svg'
+import facebookIcon from '../assets/facebookIcon.svg'
+import githubIcon from '../assets/githubIcon.svg'
 
 export function FooterNav(){
     return(
@@ -14,10 +17,10 @@ export function FooterNav(){
         </nav>
         <p>SOCIAL</p>
         <div className="flex flex-row">
-            <a href=""><img src="" alt="logo-twitter" /></a>
-            <a href=""><img src="" alt="logo-wpp" /></a>
-            <a href=""><img src="" alt="logo-facebook" /></a>
-            <a href=""><img src="" alt="logo-github" /></a>
+            <a href=""><img src={twitterIcon} alt="logo-twitter" /></a>
+            <a href=""><img src={whatsappIcon} alt="logo-wpp" /></a>
+            <a href=""><img src={facebookIcon} alt="logo-facebook" /></a>
+            <a href=""><img src={githubIcon} alt="logo-github" /></a>
         </div>
         <address>
             <p>FEIRA DE SANTANA, BA</p>
