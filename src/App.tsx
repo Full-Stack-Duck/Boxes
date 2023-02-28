@@ -1,4 +1,5 @@
-import { Header } from "./components/header";
+import { FooterNav } from "./components/FooterNav";
+import { Header } from "./components/Header";
 
 export function App() {
 
@@ -6,6 +7,7 @@ export function App() {
   return (
    <>
     <Header />
+    <FooterNav />
    </>
   )
 }
