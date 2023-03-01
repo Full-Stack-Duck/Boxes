@@ -9,5 +9,7 @@
         border-b-2
         border-b-purple-light
         mb-2.5
+        flex
+        items-center
     }
 }
