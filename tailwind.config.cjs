@@ -3,7 +3,8 @@ module.exports = {
   content: ["./src/**/*.tsx"],
   theme: {
     fontFamily:{
-      'viga' : [ 'viga']
+      'viga' : [ '"viga"' ],
+      'quicksand' : ['"quicksand"']
     },
     extend: {
       colors:{

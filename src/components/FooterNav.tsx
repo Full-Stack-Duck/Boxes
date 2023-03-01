@@ -2,18 +2,19 @@ import twitterIcon from '../assets/twitterIcon.svg'
 import whatsappIcon from '../assets/whatsappIcon.svg'
 import facebookIcon from '../assets/facebookIcon.svg'
 import githubIcon from '../assets/githubIcon.svg'
+import styles from '../components/FooterNav.module.css'
 
 export function FooterNav(){
     return(
-       <footer className="flex flex-col bg-purple-dark text-purple-light">
-        <h5 className="text-white">BOXES</h5>
-        <nav className="flex flex-col">
-            <a href="#"> Sua Conta</a>
-            <a href="#"> Contatos</a>
-            <a href="#"> Planos e Preços</a>
-            <a href="#"> Termo de Uso</a>
-            <a href="#"> Declaração de Uso de Cookies</a>
-            <a href="#"> Política de Privacidade e Segurança</a>
+       <footer className="font-quicksand font-medium flex flex-col px-7 bg-purple-dark text-purple-light">
+        <h5 className="my-7 text-white">BOXES</h5>
+        <nav className="flex flex-col my-2.5">
+            <a href="#" className={styles.aFooter}> Sua Conta</a>
+            <a href="#" className={styles.aFooter}> Contatos</a>
+            <a href="#" className={styles.aFooter}> Planos e Preços</a>
+            <a href="#" className={styles.aFooter}> Termo de Uso</a>
+            <a href="#" className={styles.aFooter}> Declaração de Uso de Cookies</a>
+            <a href="#" className={styles.aFooter}> Política de Privacidade e Segurança</a>
         </nav>
         <p className="text-white">SOCIAL</p>
         <div className="flex flex-row">

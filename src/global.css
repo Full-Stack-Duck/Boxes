@@ -1,9 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital@1&family=Quicksand:wght@400;500;600;700&family=Viga&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Viga&display=swap');
-
-* {
-    font-family: 'Viga', sans-serif;
-}

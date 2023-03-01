@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .aFooter{ 
+        @apply
+        py-2.5
+        border-b-2
+        border-b-purple-light
+        mb-2.5
+    }
+}
