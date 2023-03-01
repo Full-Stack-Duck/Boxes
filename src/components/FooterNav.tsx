@@ -28,7 +28,7 @@ export function FooterNav(){
             <p className="mt-4">Av. Eduardo Froes da Mota, 500</p>
             <div className="flex mb-9">
                 <p>Telefone:</p>
-                <a className="text-white" href="tel:(+55)075991988661">75 9999-8888</a>
+                <a className="text-white pl-2" href="tel:(+55)07599998888">(75) 9999-8888</a>
             </div>
         </address>
        </footer>

@@ -1,5 +1,6 @@
 import { FooterNav } from "./components/FooterNav";
 import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 
 export function App() {
 
@@ -8,6 +9,7 @@ export function App() {
    <>
     <Header />
     <FooterNav />
+    <Footer />
    </>
   )
 }
