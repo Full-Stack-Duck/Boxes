@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .botaoPesquisar{ 
+        @apply
+        flex
+        items-center
+        justify-center
+        w-44
+        h-10
+        border-2
+        rounded
+        bg-purple-medium
+        border-purple-dark
+    }
+
+    .iconPesquisar{
+        @apply 
+        w-5
+        h-5
+        mx-1
+        bg-purple-medium
+    }
+}
