@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     fontFamily:{
       'viga' : [ '"viga"' ],
-      'quicksand' : ['"quicksand"']
+      'quicksand' : ['"quicksand"'],
+      'nunito' : ['"nunito"']
     },
     extend: {
       colors:{
