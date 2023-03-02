@@ -13,7 +13,8 @@ module.exports = {
           'darker' : '#151126',
           'dark' : '#251D43',
           'medium' : '#6851AC',
-          'light' : '#B9B2C6'
+          'light' : '#B9B2C6',
+          'shadow' : '#B9B2C6'
         }
       }
     },

@@ -4,25 +4,19 @@
 
 @layer components {
     .botaoPesquisar{ 
-        @apply
-        flex
-        items-center
-        justify-center
-        w-44
-        h-10
-        border-2
-        rounded
-        bg-purple-medium
-        border-purple-dark
-        mt-2
-        mb-4
+        @apply 
+        flex items-center justify-center
+        w-44 h-10 mt-2 mb-4
+        border-2 rounded
+        bg-purple-medium border-purple-dark
+        shadow-md shadow-purple-shadow
+        text-white
+
     }
 
     .iconPesquisar{
         @apply 
-        w-5
-        h-5
-        mx-1
+        w-5 h-5 mx-1
         bg-purple-medium
     }
 }
