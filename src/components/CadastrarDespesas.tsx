@@ -26,6 +26,10 @@ export function CadastrarDespesa(){
                             </select>
                         </div>
                     </article>
+                    <article className="mb-4 text-sm">
+                        <label htmlFor="">DATA DA DESPESA</label>
+                        <input type="date" id="data" name="data" className="w-full h-8 border rounded border-purple-light" />
+                    </article>
                     <article className="flex flex-wrap items-center text-sm mb-5">
                         <label htmlFor="">DESCRIÇÃO</label>
                         <p className="italic pl-5 text-xs text-purple-light"> (opcional) </p>
