@@ -1,4 +1,4 @@
-
+import despesaIcon from '../assets/despesaIcon.svg'
 
 export function CadastrarDespesa(){
     return(
@@ -34,7 +34,7 @@ export function CadastrarDespesa(){
                 </div>
                 <div>
                     <button className="flex items-center justify-center w-full h-10 mt-2 mb-4 border-2 rounded  bg-purple-medium border-purple-dark shadow-md shadow-purple-shadow text-white"> CADASTRAR DESPESA
-                        <img src="" alt="" />
+                        <img className="mx-1" src={despesaIcon} alt="" />
                     </button>
                 </div>
             </div>
