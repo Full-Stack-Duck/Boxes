@@ -3,8 +3,7 @@ import searchIcon from '../assets/searchIcon.svg'
 
 export function Pesquisar(){
     return(
-        <section className="flex-col px-7 bg-white font-quicksand font-semibold">
-            <div className="h-px bg-purple-light my-1.5"></div>
+        <section className="flex-col px-7 my-1 border-y bg-white font-quicksand font-semibold">
             <div className="flex pt-3">
                 <h3 className="text-lg pr-2">Pesquisar</h3>
                 <p>"INSERIR VARIAVEL"</p>
@@ -29,7 +28,6 @@ export function Pesquisar(){
                     <img className="w-5 h-5 mx-1 bg-purple-medium" src={searchIcon} alt="lupa_de_pesquisa" />
                 </button>
             </div>
-            <div className="h-px bg-purple-light my-1.5"></div>
         </section>
     )
 }
