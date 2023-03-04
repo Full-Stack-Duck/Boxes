@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .fontNavbar{ 
+        @apply
+        font-quicksand
+        text-white 
+        pl-2
+        text-sm
+    }
+    .iconNavbar{
+        @apply
+        w-5
+    }
+}

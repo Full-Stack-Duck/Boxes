@@ -1,4 +1,5 @@
 import { Header } from "./components/Header";
+import { Navbar } from "./components/Navbar"
 import { CadastrarDespesa } from "./components/CadastrarDespesas";
 import { Pesquisar } from "./components/Pesquisar";
 import { FooterNav } from "./components/FooterNav";
@@ -10,6 +11,7 @@ export function App() {
   return (
    <>
     <Header />
+    <Navbar />
     <CadastrarDespesa />
     <Pesquisar />
     <FooterNav />
