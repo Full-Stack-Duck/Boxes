@@ -20,7 +20,10 @@
 <pre align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain-wordmark.svg" heigt=100px width=100px/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain-wordmark.svg" heigt=100px width=100px/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original-wordmark.svg" heigt=100px width=100px/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg" heigt=100px width=100px/></pre>
 
 ## Back-end
-<pre align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original-wordmark.svg" heigt=100px width=100px/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original-wordmark.svg" heigt=100px width=100px/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-plain-wordmark.svg" heigt=100px width=100px/></pre>
+<pre align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original-wordmark.svg" heigt=100px width=100px/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original-wordmark.svg" heigt=100px width=100px/></pre>
+
+## Database
+<pre align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-plain-wordmark.svg" heigt=100px width=100px/></pre>
 
 # Protótipo
 ## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" heigt=20px width=20px/> Figma
@@ -45,4 +48,4 @@
 - Coorientador: *Aécio P. Santiago Junior*, **Engenheiro de Software**
 
   <a href="https://www.linkedin.com/in/aeciojunior/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/aeciojunior"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
-  
+ 
