@@ -22,6 +22,10 @@
 ## Back-end
 <pre align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original-wordmark.svg" heigt=100px width=100px/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original-wordmark.svg" heigt=100px width=100px/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-plain-wordmark.svg" heigt=100px width=100px/></pre>
 
+# Protótipo
+## Figma
+- https://www.figma.com/file/9nVVBEDxGZxFZkrxh9TRRH/BBM?node-id=0%3A1
+
 # Autores
 - Bruno Marques
 - José Marcos
