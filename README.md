@@ -23,12 +23,26 @@
 <pre align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original-wordmark.svg" heigt=100px width=100px/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original-wordmark.svg" heigt=100px width=100px/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-plain-wordmark.svg" heigt=100px width=100px/></pre>
 
 # Protótipo
-## Figma
+## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" heigt=20px width=20px/> Figma
 - https://www.figma.com/file/9nVVBEDxGZxFZkrxh9TRRH/BBM?node-id=0%3A1
 
 # Autores
-- Bruno Marques
-- José Marcos
-- Kelvin Argolo
+- <h3>Bruno Marques</h3> <a href="https://www.linkedin.com/in/b-marques/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/o-Drive"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
+
+- <h3>José Marcos</h3> <a href="https://www.linkedin.com/in/jos%C3%A9-marcos-8761b419b/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/socramcz"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
+
+- <h3>Kelvin Argolo</h3> <a href="https://www.linkedin.com/in/kelvin-argolo-923846138/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/Kelvin4rgolo"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
+
 - <h3>Lucas Mendes</h3> <a href="https://www.linkedin.com/in/luckasz-mendes/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/Luckaszfsa/"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
+
 - <h3>Vinícius de Assis</h3> <a href="https://www.linkedin.com/in/viniciusdevassis/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/ViniciusDevAssis/"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
+
+# Agradecimento
+- Orientador: *Erik do Carmo Marques*, **Gerente de Sistemas**
+
+  <a href="https://www.linkedin.com/in/erik-do-carmo-marques-a11289145/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/erikmarquesfsa"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
+
+- Coorientador: *Aécio P. Santiago Junior*, **Engenheiro de Software**
+
+  <a href="https://www.linkedin.com/in/aeciojunior/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/aeciojunior"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
+  
