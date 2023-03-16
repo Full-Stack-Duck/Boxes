@@ -1,10 +1,8 @@
 package com.fullstackduck.boxes.entities;
 
 import java.io.Serializable;
-import java.time.Instant;
 
-import com.fullstackduck.boxes.entities.enums.StatusLicenca;
-import com.fullstackduck.boxes.entities.enums.TipoLicenca;
+import com.fullstackduck.boxes.entities.enums.Status;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,19 +17,23 @@ import lombok.Setter;
 
 //Mapeamento JPA e Lombok
 @Entity
-@Table(name="tb_licenca")
+@Table(name="tb_usuario")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
-public class Licenca implements Serializable {
+public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//Atributos da classe
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter private Long id;
-	@Getter @Setter private StatusLicenca statusLicenca;
-	@Getter @Setter private Instant dataAquisicao;
-	@Getter @Setter private TipoLicenca tipoLicenca;
-	@Getter @Setter private Double valor;
+	@Getter @Setter private String nome;
+	@Getter @Setter private String documento;
+	@Getter @Setter private String email;
+	@Getter @Setter private String telefone;
+	@Getter @Setter private String senha;
+	@Getter @Setter private String endereco;
+	@Getter @Setter private String logo;
+	@Getter @Setter private Status status;
 	
 }
