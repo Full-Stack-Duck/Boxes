@@ -9,13 +9,17 @@ import org.springframework.context.annotation.Profile;
 
 import com.fullstackduck.boxes.entities.Cliente;
 import com.fullstackduck.boxes.entities.Licenca;
+import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.StatusCliente;
 import com.fullstackduck.boxes.entities.enums.StatusLicenca;
+import com.fullstackduck.boxes.entities.enums.TipoArmazenamento;
 import com.fullstackduck.boxes.entities.enums.TipoLicenca;
+import com.fullstackduck.boxes.entities.enums.TipoProduto;
 import com.fullstackduck.boxes.repositories.ClienteRepository;
 import com.fullstackduck.boxes.repositories.LicencaRepository;
+import com.fullstackduck.boxes.repositories.ProdutoRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
 
 // Classe auxiliar de configuração para o perfil de testes
@@ -31,6 +35,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -45,5 +52,9 @@ public class TestConfig implements CommandLineRunner{
 		Cliente c1 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", null,StatusCliente.ATIVA);
 		
 		clienteRepository.saveAll(Arrays.asList(c1));
+		
+		Produto p1 = new Produto(null, "Coxinha",3.0, TipoArmazenamento.ESTOCAVEl, TipoProduto.FRITO, Status.ATIVO, "quero congelado");
+		
+		produtoRepository.saveAll(Arrays.asList(p1));
 	}
 }
