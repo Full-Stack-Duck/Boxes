@@ -8,9 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.fullstackduck.boxes.entities.Cliente;
+import com.fullstackduck.boxes.entities.Despesa;
+import com.fullstackduck.boxes.entities.Estoque;
 import com.fullstackduck.boxes.entities.Licenca;
 import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.entities.Usuario;
+import com.fullstackduck.boxes.entities.enums.Categoria;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.StatusCliente;
 import com.fullstackduck.boxes.entities.enums.StatusLicenca;
@@ -18,6 +21,8 @@ import com.fullstackduck.boxes.entities.enums.TipoArmazenamento;
 import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 import com.fullstackduck.boxes.entities.enums.TipoProduto;
 import com.fullstackduck.boxes.repositories.ClienteRepository;
+import com.fullstackduck.boxes.repositories.DespesaRepository;
+import com.fullstackduck.boxes.repositories.EstoqueRepository;
 import com.fullstackduck.boxes.repositories.LicencaRepository;
 import com.fullstackduck.boxes.repositories.ProdutoRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
@@ -38,6 +43,12 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private DespesaRepository despesaRepository;
+	
+	@Autowired
+	private EstoqueRepository estoqueRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -56,5 +67,14 @@ public class TestConfig implements CommandLineRunner{
 		Produto p1 = new Produto(null, "Coxinha",3.0, TipoArmazenamento.ESTOCAVEl, TipoProduto.FRITO, Status.ATIVO, "quero congelado");
 		
 		produtoRepository.saveAll(Arrays.asList(p1));
+		
+		
+		Despesa d1 = new Despesa(null, "Energia",Categoria.FIXA, 250.0, null, null);
+		
+		despesaRepository.saveAll(Arrays.asList(d1));
+		
+		Estoque e1 = new Estoque(null, 20,"Coxinha", TipoProduto.FRITO, 2.50);
+		
+		estoqueRepository.saveAll(Arrays.asList(e1));
 	}
 }
