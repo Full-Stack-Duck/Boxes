@@ -13,12 +13,14 @@ import com.fullstackduck.boxes.entities.Despesa;
 import com.fullstackduck.boxes.entities.Estoque;
 import com.fullstackduck.boxes.entities.Licenca;
 import com.fullstackduck.boxes.entities.Orcamento;
+import com.fullstackduck.boxes.entities.Pedido;
 import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.Categoria;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.StatusCliente;
 import com.fullstackduck.boxes.entities.enums.StatusLicenca;
+import com.fullstackduck.boxes.entities.enums.StatusPedido;
 import com.fullstackduck.boxes.entities.enums.TipoArmazenamento;
 import com.fullstackduck.boxes.entities.enums.TipoEntrega;
 import com.fullstackduck.boxes.entities.enums.TipoLicenca;
@@ -28,6 +30,7 @@ import com.fullstackduck.boxes.repositories.DespesaRepository;
 import com.fullstackduck.boxes.repositories.EstoqueRepository;
 import com.fullstackduck.boxes.repositories.LicencaRepository;
 import com.fullstackduck.boxes.repositories.OrcamentoRepository;
+import com.fullstackduck.boxes.repositories.PedidoRepository;
 import com.fullstackduck.boxes.repositories.ProdutoRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
 
@@ -56,35 +59,51 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private OrcamentoRepository orcamentoRepository;
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
+		//Teste Licença
 		Licenca l1 = new Licenca(null, StatusLicenca.ATIVA, null, TipoLicenca.ANUAL, 98.90);
 		
 		licencaRepository.saveAll(Arrays.asList(l1));
 		
+		//Teste Usuário
 		Usuario u1 = new Usuario(null, "Lucas", "123456789","lucas@gmail.com","7512345678", null, "Tomba", null,Status.ATIVO);
 		
 		usuarioRepository.saveAll(Arrays.asList(u1));
 		
+		//Teste Cliente
 		Cliente c1 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", null,StatusCliente.ATIVA);
 		
 		clienteRepository.saveAll(Arrays.asList(c1));
 		
+		//Teste Produto
 		Produto p1 = new Produto(null, "Coxinha",3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FRITO, Status.ATIVO, "quero congelado");
 		
 		produtoRepository.saveAll(Arrays.asList(p1));
 		
+		//Teste Despesa
 		Despesa d1 = new Despesa(null, "Energia",Categoria.FIXA, 250.0, null, null);
 		
 		despesaRepository.saveAll(Arrays.asList(d1));
 		
+		//Teste Estoque
 		Estoque e1 = new Estoque(null, 20,"Coxinha", TipoProduto.FRITO, 2.50);
 		
 		estoqueRepository.saveAll(Arrays.asList(e1));
 		
-		Orcamento o1 = new Orcamento(null, TipoEntrega.ENTREGA, "Fim do mundo", Instant.now(), Status.ATIVO);
+		//Teste Orçamento
+		Orcamento o1 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO);
 		
 		orcamentoRepository.saveAll(Arrays.asList(o1));
+		
+		//Teste Pedido
+		Pedido pd1 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o1.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO);
+		
+		pedidoRepository.saveAll(Arrays.asList(pd1));
+		
 	}
 }
