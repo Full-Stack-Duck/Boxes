@@ -3,7 +3,7 @@ package com.fullstackduck.boxes.entities.enums;
 public enum TipoArmazenamento {
 
 	//Atribuidos valores numéricos para cada enum
-		ESTOCAVEl(1),
+		ESTOCAVEL(1),
 		NAO_ESTOCAVEL(2);
 		
 		//Atributo para o código do enum
