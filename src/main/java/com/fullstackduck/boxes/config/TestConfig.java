@@ -15,6 +15,7 @@ import com.fullstackduck.boxes.entities.Licenca;
 import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.entities.Pedido;
 import com.fullstackduck.boxes.entities.Produto;
+import com.fullstackduck.boxes.entities.Receita;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.Categoria;
 import com.fullstackduck.boxes.entities.enums.Status;
@@ -32,6 +33,7 @@ import com.fullstackduck.boxes.repositories.LicencaRepository;
 import com.fullstackduck.boxes.repositories.OrcamentoRepository;
 import com.fullstackduck.boxes.repositories.PedidoRepository;
 import com.fullstackduck.boxes.repositories.ProdutoRepository;
+import com.fullstackduck.boxes.repositories.ReceitaRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
 
 // Classe auxiliar de configuração para o perfil de testes
@@ -62,6 +64,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private ReceitaRepository receitaRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -104,6 +109,11 @@ public class TestConfig implements CommandLineRunner{
 		Pedido pd1 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o1.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO);
 		
 		pedidoRepository.saveAll(Arrays.asList(pd1));
+		
+		//Teste Receita
+		Receita r1 = new Receita(null, Instant.now());
+		
+		receitaRepository.saveAll(Arrays.asList(r1));
 		
 	}
 }
