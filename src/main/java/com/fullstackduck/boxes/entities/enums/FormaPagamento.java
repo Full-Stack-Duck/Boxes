@@ -1,23 +1,18 @@
 package com.fullstackduck.boxes.entities.enums;
 
-public enum TipoProduto {
+public enum FormaPagamento {
 
 	//Atribuidos valores numéricos para cada enum
-	FRITO(1),
-	FORNO(2),
-	PRATO(3),
-	BEBIDA(4),
-	SOBREMESA(5),
-	DOCE(6),
-	ACOMPANHAMENTO(7),
-	BEBIDA_NE(8),
-	BOLOS_E_TORTAS(9);
+	DINHEIRO(1),
+	PIX_TRANSFERENCIA(2),
+	DEBITO(3),
+	CREDITO(4);
 	
 	//Atributo para o código do enum
 	private int code;
 	
 	//Construtor do enum
-	private TipoProduto(int code) {
+	private FormaPagamento(int code) {
 		this.code = code;
 	}
 	
@@ -27,8 +22,8 @@ public enum TipoProduto {
 	}
 	
 	//Método para converter o código para o enum correspondente  
-	public static TipoProduto valueOf(int code) {
-		for(TipoProduto value : TipoProduto.values()) {
+	public static FormaPagamento valueOf(int code) {
+		for(FormaPagamento value : FormaPagamento.values()) {
 			if(value.getCode() == code) {
 				return value;
 			}
