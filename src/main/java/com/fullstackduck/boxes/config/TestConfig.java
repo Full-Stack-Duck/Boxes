@@ -1,7 +1,9 @@
 package com.fullstackduck.boxes.config;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -70,16 +72,17 @@ public class TestConfig implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		//Teste Usuário
-		Usuario u1 = new Usuario(null, "Lucas", "123456789", "lucas@gmail.com", "7512345678", null, "Tomba", null, Status.ATIVO, null);
-		u1 = usuarioRepository.save(u1);
-
 		//Teste Licença
-		Licenca l1 = new Licenca(null, StatusLicenca.ATIVA, null, TipoLicenca.ANUAL, 98.90, u1);
+		List<Licenca> licencas = new ArrayList<>();
+		Licenca l1 = new Licenca(null, StatusLicenca.ATIVA, null, TipoLicenca.ANUAL, 98.90, null);
+		licencas.add(l1);
 		l1 = licencaRepository.save(l1);
 
-		u1.setLicenca(l1);
-		usuarioRepository.save(u1);
+		//Teste Usuário
+		Usuario u1 = new Usuario(null, "Lucas", "123456789", "lucas@gmail.com", "7512345678", null, "Tomba", null, Status.ATIVO, null);
+		u1.setLicencas(licencas);
+		
+		u1 = usuarioRepository.save(u1);
 		
 		//Teste Cliente
 		Cliente c1 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", null,StatusCliente.ATIVA);

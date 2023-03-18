@@ -1,6 +1,7 @@
 package com.fullstackduck.boxes.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.fullstackduck.boxes.entities.enums.Status;
 
@@ -8,7 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -37,7 +38,8 @@ public class Usuario implements Serializable {
 	@Getter @Setter private String logo;
 	@Getter @Setter private Status status;
 	
-	@OneToOne
-	@Getter @Setter private Licenca licenca;
+	//Relacionamento com a entidade de Licenca
+    @OneToMany(mappedBy = "usuario")
+    @Getter @Setter private List<Licenca> licencas;
 	
 }
