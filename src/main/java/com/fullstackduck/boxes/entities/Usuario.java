@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -35,5 +36,8 @@ public class Usuario implements Serializable {
 	@Getter @Setter private String endereco;
 	@Getter @Setter private String logo;
 	@Getter @Setter private Status status;
+	
+	@OneToOne
+	@Getter @Setter private Licenca licenca;
 	
 }
