@@ -170,9 +170,23 @@ public class TestConfig implements CommandLineRunner{
 		
 		
 		//Teste Receita
-		Receita r1 = new Receita(null, Instant.now());
+		Receita r01 = new Receita(null, Instant.now(), u1);
+		Receita r02 = new Receita(null, Instant.now(), u1);
+		Receita r03 = new Receita(null, Instant.now(), u1);
+		Receita r04 = new Receita(null, Instant.now(), u2);
+		Receita r05 = new Receita(null, Instant.now(), u2);
+		Receita r06 = new Receita(null, Instant.now(), u2);
+		Receita r07 = new Receita(null, Instant.now(), u3);
+		Receita r08 = new Receita(null, Instant.now(), u3);
+		Receita r09 = new Receita(null, Instant.now(), u3);
+		Receita r10 = new Receita(null, Instant.now(), u4);
+		Receita r11 = new Receita(null, Instant.now(), u4);
+		Receita r12 = new Receita(null, Instant.now(), u4);
+		Receita r13 = new Receita(null, Instant.now(), u5);
+		Receita r14 = new Receita(null, Instant.now(), u5);
+		Receita r15 = new Receita(null, Instant.now(), u5);
 		
-		receitaRepository.saveAll(Arrays.asList(r1));
+		receitaRepository.saveAll(Arrays.asList(r01, r02, r03, r04, r05, r06, r07, r08, r09, r10, r11, r12, r13, r14, r15));
 		
 	}
 }
