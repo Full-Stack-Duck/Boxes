@@ -104,14 +104,28 @@ public class TestConfig implements CommandLineRunner{
 
 		
 		//Teste Cliente
-		Cliente c1 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", null,StatusCliente.ATIVA);
+		Cliente c01 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", null,StatusCliente.ATIVA);
 		
-		clienteRepository.saveAll(Arrays.asList(c1));
+		clienteRepository.saveAll(Arrays.asList(c01));
 		
 		//Teste Produto
-		Produto p1 = new Produto(null, "Coxinha",3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FRITO, Status.ATIVO, "quero congelado");
+		Produto p01 = new Produto(null, "Coxinha", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FRITO, Status.ATIVO, "quero congelado", u1);
+		Produto p02 = new Produto(null, "Empada", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FORNO, Status.ATIVO, "quero congelado", u1);
+		Produto p03 = new Produto(null, "Lasanha", 3.0, TipoArmazenamento.NAO_ESTOCAVEL, TipoProduto.PRATO, Status.ATIVO, "Usar massa de pastel", u1);
+		Produto p04 = new Produto(null, "Coxinha", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FRITO, Status.ATIVO, "quero congelado", u2);
+		Produto p05 = new Produto(null, "Empada", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FORNO, Status.ATIVO, "quero congelado", u2);
+		Produto p06 = new Produto(null, "Lasanha", 3.0, TipoArmazenamento.NAO_ESTOCAVEL, TipoProduto.PRATO, Status.ATIVO, "Usar massa de pastel", u2);
+		Produto p07 = new Produto(null, "Coxinha", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FRITO, Status.ATIVO, "quero congelado", u3);
+		Produto p08 = new Produto(null, "Empada", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FORNO, Status.ATIVO, "quero congelado", u3);
+		Produto p09 = new Produto(null, "Lasanha", 3.0, TipoArmazenamento.NAO_ESTOCAVEL, TipoProduto.PRATO, Status.ATIVO, "Usar massa de pastel", u3);
+		Produto p10 = new Produto(null, "Coxinha", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FRITO, Status.ATIVO, "quero congelado", u4);
+		Produto p11 = new Produto(null, "Empada", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FORNO, Status.ATIVO, "quero congelado", u4);
+		Produto p12 = new Produto(null, "Lasanha", 3.0, TipoArmazenamento.NAO_ESTOCAVEL, TipoProduto.PRATO, Status.ATIVO, "Usar massa de pastel", u4);
+		Produto p13 = new Produto(null, "Coxinha", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FRITO, Status.ATIVO, "quero congelado", u5);
+		Produto p14 = new Produto(null, "Empada", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FORNO, Status.ATIVO, "quero congelado", u5);
+		Produto p15 = new Produto(null, "Lasanha", 3.0, TipoArmazenamento.NAO_ESTOCAVEL, TipoProduto.PRATO, Status.ATIVO, "Usar massa de pastel", u5);
 		
-		produtoRepository.saveAll(Arrays.asList(p1));
+		produtoRepository.saveAll(Arrays.asList(p01, p02, p03, p04, p05, p06, p07, p08, p09, p10, p11, p12, p13, p14, p15));
 		
 		//Teste Despesa
 		Despesa d1 = new Despesa(null, "Energia",Categoria.FIXA, 250.0, null, null);

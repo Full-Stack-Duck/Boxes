@@ -39,10 +39,15 @@ public class Usuario implements Serializable {
 	@Getter @Setter private String logo;
 	@Getter @Setter private Status status;
 	
-	//Relacionamento com a entidade de Usuario
+	//Relacionamento com a entidade de Licencas
 	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
     @Getter private List<Licenca> licencas = new ArrayList<>();
+	
+	//Relacionamento com a entidade de Produtos
+	@JsonIgnore
+	@OneToMany(mappedBy = "usuario")
+    @Getter private List<Produto> produto = new ArrayList<>();
 
 	public Usuario(Long id, String nome, String documento, String email, String telefone, String senha, String endereco,
 			String logo, Status status) {
