@@ -33,7 +33,7 @@ export function CadastrarDespesa(){
                     <article className="flex flex-wrap items-center text-sm mb-5">
                         <label htmlFor="">DESCRIÇÃO</label>
                         <p className="italic pl-5 text-xs text-purple-light"> (opcional) </p>
-                        <textarea className="w-full max-h-20 resize-none over-flow-y-auto border rounded" id="" name="" placeholder="Escreva uma breve descrição da despesa..." />
+                        <textarea className="w-full h-20 resize-none over-flow-y-auto border rounded" id="" name="" placeholder="Escreva uma breve descrição da despesa..." />
                     </article>
                 </div>
                 <div>

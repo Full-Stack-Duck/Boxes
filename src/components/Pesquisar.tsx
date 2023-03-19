@@ -14,7 +14,7 @@ export function Pesquisar(){
                     <select className="border rounded w-44 h-8 border-purple-light font-nunito ml-7 my-1.5" name="" id="">
                         <option className=" text-purple-light text-xs" value="valor0">Selecione o filtro</option>
                         <option value="valor1">Valor 1</option>
-                        <option value="valor2">Valor 2 </option>
+                        <option value="valor2">Valor 2</option>
                         <option value="valor3">Valor 3</option>
                     </select>
                 </form>
