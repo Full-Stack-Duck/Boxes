@@ -3,6 +3,10 @@ package com.fullstackduck.boxes.entities;
 import java.io.Serializable;
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonValueFormat;
 import com.fullstackduck.boxes.entities.enums.StatusLicenca;
 import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 
@@ -32,13 +36,15 @@ public class Licenca implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter private Long id;
 	@Getter @Setter private StatusLicenca statusLicenca;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	@Getter @Setter private Instant dataAquisicao;
 	@Getter @Setter private TipoLicenca tipoLicenca;
 	@Getter @Setter private Double valor;
 	
 	
-	 //Relacionamento com a entidade de Usuario
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
+	//Relacionamento com a entidade de Usuario
+	@ManyToOne
+	@JoinColumn(name = "usuario_id")
     @Getter @Setter private Usuario usuario;
 }

@@ -1,8 +1,10 @@
 package com.fullstackduck.boxes.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.Status;
 
 import jakarta.persistence.Entity;
@@ -20,7 +22,6 @@ import lombok.Setter;
 //Mapeamento JPA e Lombok
 @Entity
 @Table(name="tb_usuario")
-@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
 public class Usuario implements Serializable {
@@ -38,8 +39,22 @@ public class Usuario implements Serializable {
 	@Getter @Setter private String logo;
 	@Getter @Setter private Status status;
 	
-	//Relacionamento com a entidade de Licenca
-    @OneToMany(mappedBy = "usuario")
-    @Getter @Setter private List<Licenca> licencas;
-	
+	//Relacionamento com a entidade de Usuario
+	@JsonIgnore
+	@OneToMany(mappedBy = "usuario")
+    @Getter private List<Licenca> licencas = new ArrayList<>();
+
+	public Usuario(Long id, String nome, String documento, String email, String telefone, String senha, String endereco,
+			String logo, Status status) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.documento = documento;
+		this.email = email;
+		this.telefone = telefone;
+		this.senha = senha;
+		this.endereco = endereco;
+		this.logo = logo;
+		this.status = status;
+	}
 }
