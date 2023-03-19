@@ -13,7 +13,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -68,7 +67,7 @@ public class Usuario implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
     @Getter private List<Pedido> pedidos = new ArrayList<>();
-
+	
 
 	public Usuario(Long id, String nome, String documento, String email, String telefone, String senha, String endereco,
 			String logo, Status status) {

@@ -1,13 +1,17 @@
 package com.fullstackduck.boxes.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.TipoProduto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -18,7 +22,6 @@ import lombok.Setter;
 //Mapeamento JPA e Lombok
 @Entity
 @Table(name="tb_estoque")
-@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
 public class Estoque implements Serializable {
@@ -31,4 +34,20 @@ public class Estoque implements Serializable {
 	@Getter @Setter private String nome;
 	@Getter @Setter private TipoProduto tipo;
 	@Getter @Setter private Double valor;
+	
+	//Relacionamento com a entidade de Produtos
+	@JsonIgnore
+	@OneToMany(mappedBy = "estoque")
+    @Getter private List<Produto> produtos = new ArrayList<>();
+
+	public Estoque(Long id, Integer quantidade, String nome, TipoProduto tipo, Double valor) {
+		super();
+		this.id = id;
+		this.quantidade = quantidade;
+		this.nome = nome;
+		this.tipo = tipo;
+		this.valor = valor;
+	}
+	
+	
 }
