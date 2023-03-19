@@ -47,7 +47,12 @@ public class Usuario implements Serializable {
 	//Relacionamento com a entidade de Produtos
 	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
-    @Getter private List<Produto> produto = new ArrayList<>();
+    @Getter private List<Produto> produtos = new ArrayList<>();
+
+	//Relacionamento com a entidade de Produtos
+	@JsonIgnore
+	@OneToMany(mappedBy = "usuario")
+    @Getter private List<Despesa> despesas = new ArrayList<>();
 
 	public Usuario(Long id, String nome, String documento, String email, String telefone, String senha, String endereco,
 			String logo, Status status) {

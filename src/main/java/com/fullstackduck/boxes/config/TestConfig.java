@@ -82,6 +82,9 @@ public class TestConfig implements CommandLineRunner{
 		Usuario u4 = new Usuario(null, "Lucas", "123456789", "lucas@gmail.com", "7512345678", "dddddddd", "Tomba", null, Status.ATIVO);
 		Usuario u5 = new Usuario(null, "Vinícius", "123456789", "vinicius@gmail.com", "7512345678", "eeeeeeee", "Tomba", null, Status.ATIVO);
 		
+		usuarioRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5));
+		
+		
 		//Teste Licença
 		Licenca l01 = new Licenca(null, StatusLicenca.ATIVA, Instant.now(), TipoLicenca.MENSAL, 91.00, u1);
 		Licenca l02 = new Licenca(null, StatusLicenca.ATIVA, Instant.now(), TipoLicenca.SEMESTRAL, 516.00, u2);
@@ -99,7 +102,6 @@ public class TestConfig implements CommandLineRunner{
 		Licenca l14 = new Licenca(null, StatusLicenca.CANCELADA, Instant.now(), TipoLicenca.MENSAL, 91.00, u4);
 		Licenca l15 = new Licenca(null, StatusLicenca.CANCELADA, Instant.now(), TipoLicenca.GRATUITA, 00.00, u5);
 		
-		usuarioRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5));
 		licencaRepository.saveAll(Arrays.asList(l01, l02, l03, l04, l05, l06, l07, l08, l09, l10, l11, l12, l13, l14, l15));
 
 		
@@ -107,6 +109,7 @@ public class TestConfig implements CommandLineRunner{
 		Cliente c01 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", null,StatusCliente.ATIVA);
 		
 		clienteRepository.saveAll(Arrays.asList(c01));
+		
 		
 		//Teste Produto
 		Produto p01 = new Produto(null, "Coxinha", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FRITO, Status.ATIVO, "quero congelado", u1);
@@ -127,25 +130,44 @@ public class TestConfig implements CommandLineRunner{
 		
 		produtoRepository.saveAll(Arrays.asList(p01, p02, p03, p04, p05, p06, p07, p08, p09, p10, p11, p12, p13, p14, p15));
 		
-		//Teste Despesa
-		Despesa d1 = new Despesa(null, "Energia",Categoria.FIXA, 250.0, null, null);
 		
-		despesaRepository.saveAll(Arrays.asList(d1));
+		//Teste Despesa
+		Despesa d01 = new Despesa(null, "Energia",Categoria.FIXA, 250.0, "Coelba", Instant.now(), u1);
+		Despesa d02 = new Despesa(null, "Água e Esgoto",Categoria.FIXA, 250.0, "Embasa", Instant.now(), u1);
+		Despesa d03 = new Despesa(null, "Internet",Categoria.FIXA, 250.0, "Java.Network", Instant.now(), u1);
+		Despesa d04 = new Despesa(null, "Energia",Categoria.FIXA, 250.0, "Coelba", Instant.now(), u2);
+		Despesa d05 = new Despesa(null, "Água e Esgoto",Categoria.FIXA, 250.0, "Embasa", Instant.now(), u2);
+		Despesa d06 = new Despesa(null, "Internet",Categoria.FIXA, 250.0, "Java.Network", Instant.now(), u2);
+		Despesa d07 = new Despesa(null, "Energia",Categoria.FIXA, 250.0, "Coelba", Instant.now(), u3);
+		Despesa d08 = new Despesa(null, "Água e Esgoto",Categoria.FIXA, 250.0, "Embasa", Instant.now(), u3);
+		Despesa d09 = new Despesa(null, "Internet",Categoria.FIXA, 250.0, "Java.Network", Instant.now(), u3);
+		Despesa d10 = new Despesa(null, "Energia",Categoria.FIXA, 250.0, "Coelba", Instant.now(), u4);
+		Despesa d11 = new Despesa(null, "Água e Esgoto",Categoria.FIXA, 250.0, "Embasa", Instant.now(), u4);
+		Despesa d12 = new Despesa(null, "Internet",Categoria.FIXA, 250.0, "Java.Network", Instant.now(), u4);
+		Despesa d13 = new Despesa(null, "Energia",Categoria.FIXA, 250.0, "Coelba", Instant.now(), u5);
+		Despesa d14 = new Despesa(null, "Água e Esgoto",Categoria.FIXA, 250.0, "Embasa", Instant.now(), u5);
+		Despesa d15 = new Despesa(null, "Internet",Categoria.FIXA, 250.0, "Java.Network", Instant.now(), u5);
+		
+		despesaRepository.saveAll(Arrays.asList(d01, d02, d03, d04, d05, d06, d07, d08, d09, d10, d11, d12, d13, d14, d15));
+		
 		
 		//Teste Estoque
 		Estoque e1 = new Estoque(null, 20,"Coxinha", TipoProduto.FRITO, 2.50);
 		
 		estoqueRepository.saveAll(Arrays.asList(e1));
 		
+		
 		//Teste Orçamento
 		Orcamento o1 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO);
 		
 		orcamentoRepository.saveAll(Arrays.asList(o1));
 		
+		
 		//Teste Pedido
 		Pedido pd1 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o1.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO);
 		
 		pedidoRepository.saveAll(Arrays.asList(pd1));
+		
 		
 		//Teste Receita
 		Receita r1 = new Receita(null, Instant.now());
