@@ -158,13 +158,27 @@ public class TestConfig implements CommandLineRunner{
 		
 		
 		//Teste Orçamento
-		Orcamento o1 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO);
+		Orcamento o01 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u1);
+		Orcamento o02 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u1);
+		Orcamento o03 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u1);
+		Orcamento o04 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u2);
+		Orcamento o05 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u2);
+		Orcamento o06 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u2);
+		Orcamento o07 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u3);
+		Orcamento o08 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u3);
+		Orcamento o09 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u3);
+		Orcamento o10 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u4);
+		Orcamento o11 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u4);
+		Orcamento o12 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u4);
+		Orcamento o13 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u5);
+		Orcamento o14 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u5);
+		Orcamento o15 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u5);
 		
-		orcamentoRepository.saveAll(Arrays.asList(o1));
+		orcamentoRepository.saveAll(Arrays.asList(o01, o02, o03, o04, o05, o06, o07, o08, o09, o10, o11, o12, o13, o14, o15));
 		
 		
 		//Teste Pedido
-		Pedido pd1 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o1.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO);
+		Pedido pd1 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO);
 		
 		pedidoRepository.saveAll(Arrays.asList(pd1));
 		
