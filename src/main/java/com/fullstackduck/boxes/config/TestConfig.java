@@ -112,11 +112,11 @@ public class TestConfig implements CommandLineRunner{
 		
 		
 		//Teste Estoque
-		Estoque e01 = new Estoque(null, 20,"Coxinha", TipoProduto.FRITO, 2.50);
-		Estoque e02 = new Estoque(null, 20,"Coxinha", TipoProduto.FRITO, 2.50);
-		Estoque e03 = new Estoque(null, 20,"Coxinha", TipoProduto.FRITO, 2.50);
-		Estoque e04 = new Estoque(null, 20,"Coxinha", TipoProduto.FRITO, 2.50);
-		Estoque e05 = new Estoque(null, 20,"Coxinha", TipoProduto.FRITO, 2.50);
+		Estoque e01 = new Estoque(null, 20,"Coxinha", TipoProduto.FRITO, 2.50, u1);
+		Estoque e02 = new Estoque(null, 20,"Coxinha", TipoProduto.FRITO, 2.50, u2);
+		Estoque e03 = new Estoque(null, 20,"Coxinha", TipoProduto.FRITO, 2.50, u3);
+		Estoque e04 = new Estoque(null, 20,"Coxinha", TipoProduto.FRITO, 2.50, u4);
+		Estoque e05 = new Estoque(null, 20,"Coxinha", TipoProduto.FRITO, 2.50, u5);
 		
 		estoqueRepository.saveAll(Arrays.asList(e01, e02, e03, e04, e05));
 		

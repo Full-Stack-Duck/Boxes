@@ -11,9 +11,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,14 +40,20 @@ public class Estoque implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "estoque")
     @Getter private List<Produto> produtos = new ArrayList<>();
+	
+	//Relacionamento com a entidade de Usuario
+	@OneToOne
+	@JoinColumn(name = "usuario_id")
+    @Getter @Setter private Usuario usuario;
 
-	public Estoque(Long id, Integer quantidade, String nome, TipoProduto tipo, Double valor) {
+	public Estoque(Long id, Integer quantidade, String nome, TipoProduto tipo, Double valor, Usuario usuario) {
 		super();
 		this.id = id;
 		this.quantidade = quantidade;
 		this.nome = nome;
 		this.tipo = tipo;
 		this.valor = valor;
+		this.usuario = usuario;
 	}
 	
 	
