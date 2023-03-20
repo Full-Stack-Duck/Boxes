@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.TipoEntrega;
 
@@ -13,8 +14,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,6 @@ import lombok.Setter;
 //Mapeamento JPA e Lombok
 @Entity
 @Table(name="tb_orcamento")
-@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
 public class Orcamento implements Serializable {
@@ -47,4 +47,21 @@ public class Orcamento implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
     @Getter @Setter private Cliente cliente;
+
+	//Relacionamento com a entidade de Pedido
+	@JsonIgnore
+	@OneToOne(mappedBy = "orcamento")
+	@Getter @Setter private Pedido pedido;
+
+	public Orcamento(Long id, TipoEntrega tipoEntrega, Instant dataOrcamento, Status status, Usuario usuario,
+			Cliente cliente) {
+		super();
+		this.id = id;
+		this.tipoEntrega = tipoEntrega;
+		this.dataOrcamento = dataOrcamento;
+		this.status = status;
+		this.usuario = usuario;
+		this.cliente = cliente;
+	}
+	
 }

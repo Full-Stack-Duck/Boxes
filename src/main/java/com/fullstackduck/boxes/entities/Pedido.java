@@ -17,6 +17,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -45,6 +46,11 @@ public class Pedido implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
     @Getter @Setter private Usuario usuario;
+	
+	//Relacionamento com a entidade de Orcamento
+	@OneToOne
+	@JoinColumn(name = "orcamento_id")
+    @Getter @Setter private Orcamento orcamento;
 
 	//Relacionamento com a entidade de Pagamento
 	@JsonIgnore
@@ -52,7 +58,7 @@ public class Pedido implements Serializable {
     @Getter private List<Pagamento> pagamentos = new ArrayList<>();
 
 	public Pedido(Long id, Double total, TipoEntrega tipoEntrega, Instant dataOrcamento, Instant dataEntrega,
-			Status status, StatusPedido statusPedido, Usuario usuario) {
+			Status status, StatusPedido statusPedido, Usuario usuario, Orcamento orcamento) {
 		super();
 		this.id = id;
 		this.total = total;
@@ -62,6 +68,7 @@ public class Pedido implements Serializable {
 		this.status = status;
 		this.statusPedido = statusPedido;
 		this.usuario = usuario;
+		this.orcamento = orcamento;
 	}
 	
 	
