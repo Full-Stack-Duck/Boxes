@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cadastro de Cliente</title>
+</head>
+<body>
+	<h1>Cadastro de Cliente</h1>
+
+	<section>
+		<h2>Novo Cliente</h2>
+		<form action="/clientes" method="post">
+			<label for="nomeCompleto">Nome completo:</label>
+			<input type="text" id="nomeCompleto" name="nomeCompleto" required>
+
+			<label for="email">E-mail:</label>
+			<input type="email" id="email" name="email" required>
+
+			<label for="telefone">Telefone:</label>
+			<input type="tel" id="telefone" name="telefone" required>
+
+			<button type="submit">Cadastrar Cliente</button>
+		</form>
+	</section>
+
+	<section>
+		<h2>Pesquisar Clientes</h2>
+		<form action="/clientes" method="get">
+			<label for="filtro">Filtro:</label>
+			<select id="filtro" name="filtro">
+				<option value="nome">Nome</option>
+				<option value="email">E-mail</option>
+			</select>
+
+			<label for="palavraChave">Palavra-chave:</label>
+			<input type="text" id="palavraChave" name="palavraChave">
+
+			<button type="submit">Pesquisar</button>
+		</form>
+	</section>
+
+</body>
+</html>

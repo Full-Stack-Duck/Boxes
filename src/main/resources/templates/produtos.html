@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cadastro de Produto</title>
+</head>
+<body>
+	<h1>Cadastro de Produto</h1>
+
+	<section>
+		<h2>Novo Produto</h2>
+		<form action="/produtos" method="post">
+			<label for="nomeProduto">Nome do Produto:</label>
+			<input type="text" id="nomeProduto" name="nomeProduto" required>
+
+			<label for="precoUnitario">Preço Unitário:</label>
+			<input type="number" id="precoUnitario" name="precoUnitario" step="0.01" min="0" required>
+
+			<label>Tipo:</label>
+			<select id="tipoProduto" name="tipoProduto">
+				<option value="frito">Frito</option>
+				<option value="forno">Forno</option>
+				<option value="prato">Prato</option>
+				<option value="bebida">Bebida</option>
+				<option value="sobremesa">Sobremesa</option>
+				<option value="doce">Doce</option>
+				<option value="acompanhamento">Acompanhamento</option>
+				<option value="bolosetortas">Bolos e Tortas</option>
+			</select>
+
+			<label>Estocável:</label>
+			<input type="radio" id="estocavel" name="estocavel" value="sim" checked>
+			<label for="estocavel">Sim</label>
+
+			<input type="radio" id="naoEstocavel" name="estocavel" value="nao">
+			<label for="naoEstocavel">Não</label>
+
+			<label for="descricao">Descrição:</label>
+			<textarea id="descricao" name="descricao"></textarea>
+
+			<button type="submit">Cadastrar Produto</button>
+		</form>
+	</section>
+
+	<section>
+		<h2>Pesquisar Produtos</h2>
+		<form action="/produtos" method="get">
+			<label for="pesquisarPor">Pesquisar por:</label>
+			<select id="pesquisarPor" name="pesquisarPor">
+				<option value="tipo">Tipo</option>
+				<option value="nome">Nome</option>
+			</select>
+
+			<label for="palavraChave">Palavra-chave:</label>
+			<input type="text" id="palavraChave" name="palavraChave">
+
+			<button type="submit">Pesquisar</button>
+		</form>
+	</section>
+
+</body>
+</html>

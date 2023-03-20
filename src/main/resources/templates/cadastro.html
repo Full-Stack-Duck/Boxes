@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cadastro</title>
+</head>
+<body>
+
+	<h1>Cadastro</h1>
+	
+	<form method="post" action="/cadastro">
+	
+		<label>Tipo de cadastro:</label><br>
+		<input type="radio" id="pf" name="tipoCadastro" value="PF" checked>
+		<label for="pf">Pessoa Física</label><br>
+		<input type="radio" id="pj" name="tipoCadastro" value="PJ">
+		<label for="pj">Pessoa Jurídica</label><br><br>
+		
+		<label>E-mail:</label><br>
+		<input type="email" id="email" name="email" required><br><br>
+		
+		<label>Nome de usuário:</label><br>
+		<input type="text" id="usuario" name="usuario" required><br><br>
+		
+		<label id="cpfLabel">CPF:</label><br>
+		<input type="text" id="cpf" name="cpf"><br><br>
+		
+		<label id="cnpjLabel">CNPJ:</label><br>
+		<input type="text" id="cnpj" name="cnpj"><br><br>
+		
+		<label>Senha:</label><br>
+		<input type="password" id="senha" name="senha" required><br><br>
+		
+		<label>Confirme a senha:</label><br>
+		<input type="password" id="confirmSenha" name="confirmSenha" required><br><br>
+		
+		<label>
+			<input type="checkbox" name="termosUso" required> Eu li e concordo com os termos de uso.
+		</label><br><br>
+		
+		<input type="submit" value="Cadastrar">
+	
+	</form>
+
+	<script>
+		// Esconde o campo de CPF ou CNPJ, dependendo do tipo de cadastro selecionado
+		document.getElementById("pf").addEventListener("click", function() {
+			document.getElementById("cpf").style.display = "block";
+			document.getElementById("cnpj").style.display = "none";
+			document.getElementById("cpfLabel").style.display = "block";
+			document.getElementById("cnpjLabel").style.display = "none";
+		});
+		
+		document.getElementById("pj").addEventListener("click", function() {
+			document.getElementById("cpf").style.display = "none";
+			document.getElementById("cnpj").style.display = "block";
+			document.getElementById("cpfLabel").style.display = "none";
+			document.getElementById("cnpjLabel").style.display = "block";
+		});
+	</script>
+	
+</body>
+</html>
