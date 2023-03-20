@@ -58,11 +58,6 @@ public class Usuario implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
     @Getter private List<Despesa> despesas = new ArrayList<>();
-	
-	//Relacionamento com a entidade de Receitas
-	@JsonIgnore
-	@OneToMany(mappedBy = "usuario")
-    @Getter private List<Receita> receitas = new ArrayList<>();
 
 	//Relacionamento com a entidade de Orcamentos
 	@JsonIgnore

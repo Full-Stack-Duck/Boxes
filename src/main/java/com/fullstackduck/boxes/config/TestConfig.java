@@ -247,23 +247,34 @@ public class TestConfig implements CommandLineRunner{
 		
 		
 		//Teste Receita
-		Receita r01 = new Receita(null, Instant.now(), u1);
-		Receita r02 = new Receita(null, Instant.now(), u1);
-		Receita r03 = new Receita(null, Instant.now(), u1);
-		Receita r04 = new Receita(null, Instant.now(), u2);
-		Receita r05 = new Receita(null, Instant.now(), u2);
-		Receita r06 = new Receita(null, Instant.now(), u2);
-		Receita r07 = new Receita(null, Instant.now(), u3);
-		Receita r08 = new Receita(null, Instant.now(), u3);
-		Receita r09 = new Receita(null, Instant.now(), u3);
-		Receita r10 = new Receita(null, Instant.now(), u4);
-		Receita r11 = new Receita(null, Instant.now(), u4);
-		Receita r12 = new Receita(null, Instant.now(), u4);
-		Receita r13 = new Receita(null, Instant.now(), u5);
-		Receita r14 = new Receita(null, Instant.now(), u5);
-		Receita r15 = new Receita(null, Instant.now(), u5);
+		Receita r01 = new Receita(null, Instant.now(), pg01);
+		Receita r02 = new Receita(null, Instant.now(), pg02);
+		Receita r03 = new Receita(null, Instant.now(), pg03);
+		Receita r04 = new Receita(null, Instant.now(), pg04);
+		Receita r05 = new Receita(null, Instant.now(), pg05);
+		Receita r06 = new Receita(null, Instant.now(), pg06);
+		Receita r07 = new Receita(null, Instant.now(), pg07);
+		Receita r08 = new Receita(null, Instant.now(), pg08);
+		Receita r09 = new Receita(null, Instant.now(), pg09);
+		Receita r10 = new Receita(null, Instant.now(), pg10);
+		Receita r11 = new Receita(null, Instant.now(), pg11);
+		Receita r12 = new Receita(null, Instant.now(), pg12);
+		Receita r13 = new Receita(null, Instant.now(), pg13);
+		Receita r14 = new Receita(null, Instant.now(), pg14);
+		Receita r15 = new Receita(null, Instant.now(), pg15);
+		Receita r16 = new Receita(null, Instant.now(), pg16);
+		Receita r17 = new Receita(null, Instant.now(), pg17);
+		Receita r18 = new Receita(null, Instant.now(), pg18);
+		Receita r19 = new Receita(null, Instant.now(), pg19);
+		Receita r20 = new Receita(null, Instant.now(), pg20);
+		Receita r21 = new Receita(null, Instant.now(), pg21);
+		Receita r22 = new Receita(null, Instant.now(), pg22);
+		Receita r23 = new Receita(null, Instant.now(), pg23);
+		Receita r24 = new Receita(null, Instant.now(), pg24);
+		Receita r25 = new Receita(null, Instant.now(), pg25);
 		
-		receitaRepository.saveAll(Arrays.asList(r01, r02, r03, r04, r05, r06, r07, r08, r09, r10, r11, r12, r13, r14, r15));
+		receitaRepository.saveAll(Arrays.asList(r01, r02, r03, r04, r05, r06, r07, r08, r09, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19,
+				r20, r21, r22, r23, r24, r25));
 		
 	}
 }
