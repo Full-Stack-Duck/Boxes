@@ -42,4 +42,9 @@ public class Orcamento implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
     @Getter @Setter private Usuario usuario;
+	
+	//Relacionamento com a entidade de Cliente
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+    @Getter @Setter private Cliente cliente;
 }
