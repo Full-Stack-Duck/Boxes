@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -31,5 +33,10 @@ public class Pagamento implements Serializable {
 	@Getter @Setter private Double valor;
 	@Getter @Setter private Instant dataPagamento;
 	@Getter @Setter private FormaPagamento formaPagamento;
+
+	//Relacionamento com a entidade de Pedido
+	@ManyToOne
+	@JoinColumn(name = "pedido_id")
+    @Getter @Setter private Pedido pedidos;
 
 }
