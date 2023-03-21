@@ -42,11 +42,6 @@ public class Pedido implements Serializable {
 	@Getter @Setter private Status status;
 	@Getter @Setter private StatusPedido statusPedido;
 	
-	//Relacionamento com a entidade de Usuario
-	@ManyToOne
-	@JoinColumn(name = "usuario_id")
-    @Getter @Setter private Usuario usuario;
-	
 	//Relacionamento com a entidade de Orcamento
 	@OneToOne
 	@JoinColumn(name = "orcamento_id")
@@ -58,7 +53,7 @@ public class Pedido implements Serializable {
     @Getter private List<Pagamento> pagamentos = new ArrayList<>();
 
 	public Pedido(Long id, Double total, TipoEntrega tipoEntrega, Instant dataOrcamento, Instant dataEntrega,
-			Status status, StatusPedido statusPedido, Usuario usuario, Orcamento orcamento) {
+			Status status, StatusPedido statusPedido, Orcamento orcamento) {
 		super();
 		this.id = id;
 		this.total = total;
@@ -67,7 +62,6 @@ public class Pedido implements Serializable {
 		this.dataEntrega = dataEntrega;
 		this.status = status;
 		this.statusPedido = statusPedido;
-		this.usuario = usuario;
 		this.orcamento = orcamento;
 	}
 	

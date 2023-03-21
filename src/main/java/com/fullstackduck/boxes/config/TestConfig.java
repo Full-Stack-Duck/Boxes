@@ -173,42 +173,42 @@ public class TestConfig implements CommandLineRunner{
 		
 		
 		//Teste Orçamento
-		Orcamento o01 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u1, c01);
-		Orcamento o02 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u1, c02);
-		Orcamento o03 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u1, c03);
-		Orcamento o04 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u2, c04);
-		Orcamento o05 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u2, c05);
-		Orcamento o06 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u2, c06);
-		Orcamento o07 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u3, c01);
-		Orcamento o08 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u3, c04);
-		Orcamento o09 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u3, c07);
-		Orcamento o10 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u4, c08);
-		Orcamento o11 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u4, c10);
-		Orcamento o12 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u4, c10);
-		Orcamento o13 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u5, c05);
-		Orcamento o14 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u5, c09);
-		Orcamento o15 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, u5, c01);
+		Orcamento o01 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c01);
+		Orcamento o02 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c02);
+		Orcamento o03 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c03);
+		Orcamento o04 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c04);
+		Orcamento o05 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c05);
+		Orcamento o06 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c06);
+		Orcamento o07 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c01);
+		Orcamento o08 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c04);
+		Orcamento o09 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c07);
+		Orcamento o10 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c08);
+		Orcamento o11 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c10);
+		Orcamento o12 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c10);
+		Orcamento o13 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c05);
+		Orcamento o14 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c09);
+		Orcamento o15 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c01);
 		
 		orcamentoRepository.saveAll(Arrays.asList(o01, o02, o03, o04, o05, o06, o07, o08, o09, o10, o11, o12, o13, o14, o15));
 		
 		
 		//Teste Pedido
 
-		Pedido pd01 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, u1, o01);
-		Pedido pd02 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, u1, o02);
-		Pedido pd03 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, u1, o03);
-		Pedido pd04 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, u2, o04);
-		Pedido pd05 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, u2, o05);
-		Pedido pd06 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, u2, o06);
-		Pedido pd07 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, u3, o07);
-		Pedido pd08 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, u3, o08);
-		Pedido pd09 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, u3, o09);
-		Pedido pd10 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, u4, o10);
-		Pedido pd11 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, u4, o11);
-		Pedido pd12 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, u4, o12);
-		Pedido pd13 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, u5, o13);
-		Pedido pd14 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, u5, o14);
-		Pedido pd15 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, u5, o15);
+		Pedido pd01 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o01);
+		Pedido pd02 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o02);
+		Pedido pd03 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o03);
+		Pedido pd04 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o04);
+		Pedido pd05 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o05);
+		Pedido pd06 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o06);
+		Pedido pd07 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o07);
+		Pedido pd08 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o08);
+		Pedido pd09 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o09);
+		Pedido pd10 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o10);
+		Pedido pd11 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o11);
+		Pedido pd12 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o12);
+		Pedido pd13 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o13);
+		Pedido pd14 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o14);
+		Pedido pd15 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o15);
 		
 		pedidoRepository.saveAll(Arrays.asList(pd01, pd02, pd03, pd04, pd05, pd06, pd07, pd08, pd09, pd10, pd11, pd12, pd13, pd14, pd15));
 		
