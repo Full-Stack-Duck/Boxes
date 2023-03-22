@@ -2,7 +2,8 @@ package com.fullstackduck.boxes.entities;
 
 import java.io.Serializable;
 
-import com.fullstackduck.boxes.entities.pk.ItensPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fullstackduck.boxes.entities.pk.ItensOrcamentoPK;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -14,19 +15,19 @@ import lombok.Setter;
 
 //Mapeamento JPA e Lombok
 @Entity
-@Table(name="tb_itens")
+@Table(name="tb_item_orcamento")
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
-public class Itens implements Serializable {
+public class ItensOrcamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private ItensPK id;
+	private ItensOrcamentoPK id = new ItensOrcamentoPK();
 	
 	@Getter @Setter private Integer quantidade;
 	@Getter @Setter private Double preco;
 
-	public Itens(Orcamento orcamento, Produto produto, Integer quantidade, Double preco) {
+	public ItensOrcamento(Orcamento orcamento, Produto produto, Integer quantidade, Double preco) {
 		super();
 		id.setOrcamento(orcamento);
 		id.setProduto(produto);
@@ -42,6 +43,7 @@ public class Itens implements Serializable {
 		id.setProduto(cliente);
 	}
 	
+	@JsonIgnore
 	public Orcamento getOrcamento() {
 		return id.getOrcamento();
 	}

@@ -2,7 +2,7 @@ package com.fullstackduck.boxes.entities;
 
 import java.io.Serializable;
 
-import com.fullstackduck.boxes.entities.pk.EnderecoEntregaPK;
+import com.fullstackduck.boxes.entities.pk.ItensMovimentacaoPK;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -17,15 +17,15 @@ import lombok.Setter;
 @Table(name="tb_endereco_entrega")
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
-public class EnderecoEntrega implements Serializable {
+public class ItensMovimentacao implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private EnderecoEntregaPK id;
+	private ItensMovimentacaoPK id;
 	
 	@Getter @Setter private String descricao;
 
-	public EnderecoEntrega(Cliente cliente, Orcamento orcamento, String descricao) {
+	public ItensMovimentacao(Cliente cliente, Orcamento orcamento, String descricao) {
 		super();
 		id.setCliente(cliente);
 		id.setOrcamento(orcamento);

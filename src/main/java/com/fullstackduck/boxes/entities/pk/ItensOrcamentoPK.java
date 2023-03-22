@@ -15,7 +15,7 @@ import lombok.Setter;
 @Embeddable
 @Getter @Setter
 @EqualsAndHashCode
-public class ItensPK implements Serializable{
+public class ItensOrcamentoPK implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne
