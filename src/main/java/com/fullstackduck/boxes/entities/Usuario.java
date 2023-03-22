@@ -62,7 +62,7 @@ public class Usuario implements Serializable {
 	//Relacionamento com a entidade de Estoque
 	@JsonIgnore
 	@OneToOne(mappedBy = "usuario")
-	@Getter @Setter private Estoque estoque;
+	@Getter @Setter private Catalogo estoque;
 	
 
 	public Usuario(Long id, String nome, String documento, String email, String telefone, String senha, String endereco,

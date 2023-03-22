@@ -25,20 +25,16 @@ import lombok.Setter;
 @Table(name="tb_estoque")
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
-public class Estoque implements Serializable {
+public class Catalogo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//Atributos da classe
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter private Long id;
-	@Getter @Setter private Integer quantidade;
 	@Getter @Setter private String nome;
-	@Getter @Setter private TipoProduto tipo;
-	@Getter @Setter private Double valor;
 	
 	//Relacionamento com a entidade de Produtos
-	@JsonIgnore
-	@OneToMany(mappedBy = "estoque")
+	@OneToMany(mappedBy = "catalogo")
     @Getter private List<Produto> produtos = new ArrayList<>();
 	
 	//Relacionamento com a entidade de Usuario
@@ -46,13 +42,10 @@ public class Estoque implements Serializable {
 	@JoinColumn(name = "usuario_id")
     @Getter @Setter private Usuario usuario;
 
-	public Estoque(Long id, Integer quantidade, String nome, TipoProduto tipo, Double valor, Usuario usuario) {
+	public Catalogo(Long id, String nome, Usuario usuario) {
 		super();
 		this.id = id;
-		this.quantidade = quantidade;
 		this.nome = nome;
-		this.tipo = tipo;
-		this.valor = valor;
 		this.usuario = usuario;
 	}
 	

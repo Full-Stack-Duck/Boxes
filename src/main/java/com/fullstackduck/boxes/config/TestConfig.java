@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.fullstackduck.boxes.entities.Cliente;
 import com.fullstackduck.boxes.entities.Despesa;
-import com.fullstackduck.boxes.entities.Estoque;
+import com.fullstackduck.boxes.entities.Catalogo;
 import com.fullstackduck.boxes.entities.Licenca;
 import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.entities.Pagamento;
@@ -30,7 +30,7 @@ import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 import com.fullstackduck.boxes.entities.enums.TipoProduto;
 import com.fullstackduck.boxes.repositories.ClienteRepository;
 import com.fullstackduck.boxes.repositories.DespesaRepository;
-import com.fullstackduck.boxes.repositories.EstoqueRepository;
+import com.fullstackduck.boxes.repositories.CatalogoRepository;
 import com.fullstackduck.boxes.repositories.LicencaRepository;
 import com.fullstackduck.boxes.repositories.OrcamentoRepository;
 import com.fullstackduck.boxes.repositories.PagamentoRepository;
@@ -60,7 +60,7 @@ public class TestConfig implements CommandLineRunner{
 	private DespesaRepository despesaRepository;
 	
 	@Autowired
-	private EstoqueRepository estoqueRepository;
+	private CatalogoRepository estoqueRepository;
 	
 	@Autowired
 	private OrcamentoRepository orcamentoRepository;
@@ -123,31 +123,31 @@ public class TestConfig implements CommandLineRunner{
 		
 		
 		//Teste Estoque
-		Estoque e01 = new Estoque(null, 20,"Coxinha", TipoProduto.FRITO, 2.50, u1);
-		Estoque e02 = new Estoque(null, 20,"Coxinha", TipoProduto.FRITO, 2.50, u2);
-		Estoque e03 = new Estoque(null, 20,"Coxinha", TipoProduto.FRITO, 2.50, u3);
-		Estoque e04 = new Estoque(null, 20,"Coxinha", TipoProduto.FRITO, 2.50, u4);
-		Estoque e05 = new Estoque(null, 20,"Coxinha", TipoProduto.FRITO, 2.50, u5);
+		Catalogo e01 = new Catalogo(null, u1.getNome(), u1);
+		Catalogo e02 = new Catalogo(null, u2.getNome(), u2);
+		Catalogo e03 = new Catalogo(null, u3.getNome(), u3);
+		Catalogo e04 = new Catalogo(null, u4.getNome(), u4);
+		Catalogo e05 = new Catalogo(null, u5.getNome(), u5);
 		
 		estoqueRepository.saveAll(Arrays.asList(e01, e02, e03, e04, e05));
 		
 		
 		//Teste Produto
-		Produto p01 = new Produto(null, "Coxinha", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FRITO, Status.ATIVO, "quero congelado", u1, e01);
-		Produto p02 = new Produto(null, "Empada", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FORNO, Status.ATIVO, "quero congelado", u1, e01);
-		Produto p03 = new Produto(null, "Lasanha", 3.0, TipoArmazenamento.NAO_ESTOCAVEL, TipoProduto.PRATO, Status.ATIVO, "Usar massa de pastel", u1, e01);
-		Produto p04 = new Produto(null, "Coxinha", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FRITO, Status.ATIVO, "quero congelado", u2, e02);
-		Produto p05 = new Produto(null, "Empada", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FORNO, Status.ATIVO, "quero congelado", u2, e02);
-		Produto p06 = new Produto(null, "Lasanha", 3.0, TipoArmazenamento.NAO_ESTOCAVEL, TipoProduto.PRATO, Status.ATIVO, "Usar massa de pastel", u2, e02);
-		Produto p07 = new Produto(null, "Coxinha", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FRITO, Status.ATIVO, "quero congelado", u3, e03);
-		Produto p08 = new Produto(null, "Empada", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FORNO, Status.ATIVO, "quero congelado", u3, e03);
-		Produto p09 = new Produto(null, "Lasanha", 3.0, TipoArmazenamento.NAO_ESTOCAVEL, TipoProduto.PRATO, Status.ATIVO, "Usar massa de pastel", u3, e03);
-		Produto p10 = new Produto(null, "Coxinha", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FRITO, Status.ATIVO, "quero congelado", u4, e04);
-		Produto p11 = new Produto(null, "Empada", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FORNO, Status.ATIVO, "quero congelado", u4, e04);
-		Produto p12 = new Produto(null, "Lasanha", 3.0, TipoArmazenamento.NAO_ESTOCAVEL, TipoProduto.PRATO, Status.ATIVO, "Usar massa de pastel", u4, e04);
-		Produto p13 = new Produto(null, "Coxinha", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FRITO, Status.ATIVO, "quero congelado", u5, e05);
-		Produto p14 = new Produto(null, "Empada", 3.0, TipoArmazenamento.ESTOCAVEL, TipoProduto.FORNO, Status.ATIVO, "quero congelado", u5, e05);
-		Produto p15 = new Produto(null, "Lasanha", 3.0, TipoArmazenamento.NAO_ESTOCAVEL, TipoProduto.PRATO, Status.ATIVO, "Usar massa de pastel", u5, e05);
+		Produto p01 = new Produto(null, "Coxinha", 3.0, TipoArmazenamento.ESTOCAVEL, 20, TipoProduto.FRITO, Status.ATIVO, "quero congelado", u1, e01);
+		Produto p02 = new Produto(null, "Empada", 3.0, TipoArmazenamento.ESTOCAVEL, 20, TipoProduto.FORNO, Status.ATIVO, "quero congelado", u1, e01);
+		Produto p03 = new Produto(null, "Lasanha", 3.0, TipoArmazenamento.NAO_ESTOCAVEL, null, TipoProduto.PRATO, Status.ATIVO, "Usar massa de pastel", u1, e01);
+		Produto p04 = new Produto(null, "Coxinha", 3.0, TipoArmazenamento.ESTOCAVEL, 20, TipoProduto.FRITO, Status.ATIVO, "quero congelado", u2, e02);
+		Produto p05 = new Produto(null, "Empada", 3.0, TipoArmazenamento.ESTOCAVEL, 20, TipoProduto.FORNO, Status.ATIVO, "quero congelado", u2, e02);
+		Produto p06 = new Produto(null, "Lasanha", 3.0, TipoArmazenamento.NAO_ESTOCAVEL, null, TipoProduto.PRATO, Status.ATIVO, "Usar massa de pastel", u2, e02);
+		Produto p07 = new Produto(null, "Coxinha", 3.0, TipoArmazenamento.ESTOCAVEL, 20, TipoProduto.FRITO, Status.ATIVO, "quero congelado", u3, e03);
+		Produto p08 = new Produto(null, "Empada", 3.0, TipoArmazenamento.ESTOCAVEL, 20, TipoProduto.FORNO, Status.ATIVO, "quero congelado", u3, e03);
+		Produto p09 = new Produto(null, "Lasanha", 3.0, TipoArmazenamento.NAO_ESTOCAVEL, null, TipoProduto.PRATO, Status.ATIVO, "Usar massa de pastel", u3, e03);
+		Produto p10 = new Produto(null, "Coxinha", 3.0, TipoArmazenamento.ESTOCAVEL, 20, TipoProduto.FRITO, Status.ATIVO, "quero congelado", u4, e04);
+		Produto p11 = new Produto(null, "Empada", 3.0, TipoArmazenamento.ESTOCAVEL, 20, TipoProduto.FORNO, Status.ATIVO, "quero congelado", u4, e04);
+		Produto p12 = new Produto(null, "Lasanha", 3.0, TipoArmazenamento.NAO_ESTOCAVEL, null, TipoProduto.PRATO, Status.ATIVO, "Usar massa de pastel", u4, e04);
+		Produto p13 = new Produto(null, "Coxinha", 3.0, TipoArmazenamento.ESTOCAVEL, 20, TipoProduto.FRITO, Status.ATIVO, "quero congelado", u5, e05);
+		Produto p14 = new Produto(null, "Empada", 3.0, TipoArmazenamento.ESTOCAVEL, 20, TipoProduto.FORNO, Status.ATIVO, "quero congelado", u5, e05);
+		Produto p15 = new Produto(null, "Lasanha", 3.0, TipoArmazenamento.NAO_ESTOCAVEL, null, TipoProduto.PRATO, Status.ATIVO, "Usar massa de pastel", u5, e05);
 		
 		produtoRepository.saveAll(Arrays.asList(p01, p02, p03, p04, p05, p06, p07, p08, p09, p10, p11, p12, p13, p14, p15));
 		

@@ -2,6 +2,7 @@ package com.fullstackduck.boxes.entities;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.TipoArmazenamento;
 import com.fullstackduck.boxes.entities.enums.TipoProduto;
@@ -34,17 +35,20 @@ public class Produto implements Serializable {
 	@Getter @Setter private String nome;
 	@Getter @Setter private Double valor;
 	@Getter @Setter private TipoArmazenamento categoria;
+	@Getter @Setter private Integer estoque;
 	@Getter @Setter private TipoProduto tipo;
 	@Getter @Setter private Status status;
 	@Getter @Setter private String observacao;
 	
 	//Relacionamento com a entidade de Usuario
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
     @Getter @Setter private Usuario usuario;
 	
 	//Relacionamento com a entidade de Estoque
+	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "estoque_id")
-    @Getter @Setter private Estoque estoque;
+	@JoinColumn(name = "catalogo_id")
+    @Getter @Setter private Catalogo catalogo;
 }
