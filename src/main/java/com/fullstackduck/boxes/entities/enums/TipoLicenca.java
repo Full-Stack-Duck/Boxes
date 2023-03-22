@@ -3,7 +3,7 @@ package com.fullstackduck.boxes.entities.enums;
 public enum TipoLicenca {
 
 	//Atribuidos valores numéricos para cada enum
-	GRATUITA(1),
+	GRATUITA_15DIAS(1),
 	MENSAL(2),
 	SEMESTRAL(3),
 	ANUAL(4);

@@ -2,7 +2,6 @@ package com.fullstackduck.boxes.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fullstackduck.boxes.entities.enums.StatusLicenca;
 import com.fullstackduck.boxes.entities.enums.TipoLicenca;
@@ -44,4 +43,11 @@ public class Licenca implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
     @Getter @Setter private Usuario usuario;
-}
+	
+	
+
+	public void setId(long id) {
+	    this.id = id;
+	}
+
+	}

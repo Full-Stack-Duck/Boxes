@@ -23,4 +23,7 @@ public class LicencaService {
 		Optional<Licenca> obj = repository.findById(id);
 		return obj.get();
 	}
+	
+	
+
 }
