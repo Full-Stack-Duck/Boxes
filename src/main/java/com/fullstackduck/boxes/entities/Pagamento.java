@@ -37,19 +37,19 @@ public class Pagamento implements Serializable {
 	//Relacionamento com a entidade de Pedido
 	@ManyToOne
 	@JoinColumn(name = "pedido_id")
-    @Getter @Setter private Pedido pedidos;
+    @Getter @Setter private Pedido pedido;
 
 	//Relacionamento com a entidade de Receita
 	@JsonIgnore
 	@OneToOne(mappedBy = "pagamento")
 	@Getter @Setter private Receita receita;
 
-	public Pagamento(Long id, Double valor, Instant dataPagamento, FormaPagamento formaPagamento, Pedido pedidos) {
+	public Pagamento(Long id, Double valor, Instant dataPagamento, FormaPagamento formaPagamento, Pedido pedido) {
 		super();
 		this.id = id;
 		this.valor = valor;
 		this.dataPagamento = dataPagamento;
 		this.formaPagamento = formaPagamento;
-		this.pedidos = pedidos;
+		this.pedido = pedido;
 	}
 }

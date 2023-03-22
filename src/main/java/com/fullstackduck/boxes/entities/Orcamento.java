@@ -37,6 +37,12 @@ public class Orcamento implements Serializable {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	@Getter @Setter private Instant dataOrcamento;
 	@Getter @Setter Status status;
+
+	//Relacionamento com a entidade de Usuario
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "usuario_id")
+    @Getter @Setter private Usuario usuario;
 	
 	//Relacionamento com a entidade de Cliente
 	@ManyToOne
@@ -48,12 +54,13 @@ public class Orcamento implements Serializable {
 	@OneToOne(mappedBy = "orcamento")
 	@Getter @Setter private Pedido pedido;
 
-	public Orcamento(Long id, TipoEntrega tipoEntrega, Instant dataOrcamento, Status status, Cliente cliente) {
+	public Orcamento(Long id, TipoEntrega tipoEntrega, Instant dataOrcamento, Status status, Usuario usuario, Cliente cliente) {
 		super();
 		this.id = id;
 		this.tipoEntrega = tipoEntrega;
 		this.dataOrcamento = dataOrcamento;
 		this.status = status;
+		this.usuario = usuario;
 		this.cliente = cliente;
 	}
 	

@@ -41,6 +41,12 @@ public class Pedido implements Serializable {
 	@Getter @Setter private Instant dataEntrega;
 	@Getter @Setter private Status status;
 	@Getter @Setter private StatusPedido statusPedido;
+
+	//Relacionamento com a entidade de Usuario
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "usuario_id")
+    @Getter @Setter private Usuario usuario;
 	
 	//Relacionamento com a entidade de Orcamento
 	@OneToOne
@@ -49,11 +55,11 @@ public class Pedido implements Serializable {
 
 	//Relacionamento com a entidade de Pagamento
 	@JsonIgnore
-	@OneToMany(mappedBy = "pedidos")
+	@OneToMany(mappedBy = "pedido")
     @Getter private List<Pagamento> pagamentos = new ArrayList<>();
 
 	public Pedido(Long id, Double total, TipoEntrega tipoEntrega, Instant dataOrcamento, Instant dataEntrega,
-			Status status, StatusPedido statusPedido, Orcamento orcamento) {
+			Status status, StatusPedido statusPedido, Usuario usuario, Orcamento orcamento) {
 		super();
 		this.id = id;
 		this.total = total;
@@ -62,6 +68,7 @@ public class Pedido implements Serializable {
 		this.dataEntrega = dataEntrega;
 		this.status = status;
 		this.statusPedido = statusPedido;
+		this.usuario = usuario;
 		this.orcamento = orcamento;
 	}
 	

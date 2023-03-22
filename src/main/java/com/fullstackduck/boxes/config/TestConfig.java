@@ -173,42 +173,42 @@ public class TestConfig implements CommandLineRunner{
 		
 		
 		//Teste Orçamento
-		Orcamento o01 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c01);
-		Orcamento o02 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c02);
-		Orcamento o03 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c03);
-		Orcamento o04 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c04);
-		Orcamento o05 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c05);
-		Orcamento o06 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c06);
-		Orcamento o07 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c01);
-		Orcamento o08 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c04);
-		Orcamento o09 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c07);
-		Orcamento o10 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c08);
-		Orcamento o11 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c10);
-		Orcamento o12 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c10);
-		Orcamento o13 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c05);
-		Orcamento o14 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c09);
-		Orcamento o15 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c01);
+		Orcamento o01 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c01.getUsuario(), c01);
+		Orcamento o02 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c02.getUsuario(), c02);
+		Orcamento o03 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c03.getUsuario(), c03);
+		Orcamento o04 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c04.getUsuario(), c04);
+		Orcamento o05 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c04.getUsuario(), c05);
+		Orcamento o06 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c06.getUsuario(), c06);
+		Orcamento o07 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c01.getUsuario(), c01);
+		Orcamento o08 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c04.getUsuario(), c04);
+		Orcamento o09 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c07.getUsuario(), c07);
+		Orcamento o10 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c08.getUsuario(), c08);
+		Orcamento o11 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c10.getUsuario(), c10);
+		Orcamento o12 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c10.getUsuario(), c10);
+		Orcamento o13 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c05.getUsuario(), c05);
+		Orcamento o14 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c09.getUsuario(), c09);
+		Orcamento o15 = new Orcamento(null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c01.getUsuario(), c01);
 		
 		orcamentoRepository.saveAll(Arrays.asList(o01, o02, o03, o04, o05, o06, o07, o08, o09, o10, o11, o12, o13, o14, o15));
 		
 		
 		//Teste Pedido
 
-		Pedido pd01 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o01);
-		Pedido pd02 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o02);
-		Pedido pd03 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o03);
-		Pedido pd04 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o04);
-		Pedido pd05 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o05);
-		Pedido pd06 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o06);
-		Pedido pd07 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o07);
-		Pedido pd08 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o08);
-		Pedido pd09 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o09);
-		Pedido pd10 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o10);
-		Pedido pd11 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o11);
-		Pedido pd12 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o12);
-		Pedido pd13 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o13);
-		Pedido pd14 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o14);
-		Pedido pd15 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o15);
+		Pedido pd01 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o01.getUsuario(), o01);
+		Pedido pd02 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o02.getUsuario(), o02);
+		Pedido pd03 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o03.getUsuario(), o03);
+		Pedido pd04 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o04.getUsuario(), o04);
+		Pedido pd05 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o05.getUsuario(), o05);
+		Pedido pd06 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o06.getUsuario(), o06);
+		Pedido pd07 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o07.getUsuario(), o07);
+		Pedido pd08 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o08.getUsuario(), o08);
+		Pedido pd09 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o09.getUsuario(), o09);
+		Pedido pd10 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o10.getUsuario(), o10);
+		Pedido pd11 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o11.getUsuario(), o11);
+		Pedido pd12 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o12.getUsuario(), o12);
+		Pedido pd13 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o13.getUsuario(), o13);
+		Pedido pd14 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o14.getUsuario(), o14);
+		Pedido pd15 = new Pedido(null, 957.90, TipoEntrega.ENTREGA, o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, o15.getUsuario(), o15);
 		
 		pedidoRepository.saveAll(Arrays.asList(pd01, pd02, pd03, pd04, pd05, pd06, pd07, pd08, pd09, pd10, pd11, pd12, pd13, pd14, pd15));
 		
@@ -247,34 +247,33 @@ public class TestConfig implements CommandLineRunner{
 		
 		
 		//Teste Receita
-		Receita r01 = new Receita(null, Instant.now(), pg01);
-		Receita r02 = new Receita(null, Instant.now(), pg02);
-		Receita r03 = new Receita(null, Instant.now(), pg03);
-		Receita r04 = new Receita(null, Instant.now(), pg04);
-		Receita r05 = new Receita(null, Instant.now(), pg05);
-		Receita r06 = new Receita(null, Instant.now(), pg06);
-		Receita r07 = new Receita(null, Instant.now(), pg07);
-		Receita r08 = new Receita(null, Instant.now(), pg08);
-		Receita r09 = new Receita(null, Instant.now(), pg09);
-		Receita r10 = new Receita(null, Instant.now(), pg10);
-		Receita r11 = new Receita(null, Instant.now(), pg11);
-		Receita r12 = new Receita(null, Instant.now(), pg12);
-		Receita r13 = new Receita(null, Instant.now(), pg13);
-		Receita r14 = new Receita(null, Instant.now(), pg14);
-		Receita r15 = new Receita(null, Instant.now(), pg15);
-		Receita r16 = new Receita(null, Instant.now(), pg16);
-		Receita r17 = new Receita(null, Instant.now(), pg17);
-		Receita r18 = new Receita(null, Instant.now(), pg18);
-		Receita r19 = new Receita(null, Instant.now(), pg19);
-		Receita r20 = new Receita(null, Instant.now(), pg20);
-		Receita r21 = new Receita(null, Instant.now(), pg21);
-		Receita r22 = new Receita(null, Instant.now(), pg22);
-		Receita r23 = new Receita(null, Instant.now(), pg23);
-		Receita r24 = new Receita(null, Instant.now(), pg24);
-		Receita r25 = new Receita(null, Instant.now(), pg25);
+		Receita r01 = new Receita(null, Instant.now(), pg01.getPedido().getUsuario(), pg01);
+		Receita r02 = new Receita(null, Instant.now(), pg02.getPedido().getUsuario(), pg02);
+		Receita r03 = new Receita(null, Instant.now(), pg03.getPedido().getUsuario(), pg03);
+		Receita r04 = new Receita(null, Instant.now(), pg04.getPedido().getUsuario(), pg04);
+		Receita r05 = new Receita(null, Instant.now(), pg05.getPedido().getUsuario(), pg05);
+		Receita r06 = new Receita(null, Instant.now(), pg06.getPedido().getUsuario(), pg06);
+		Receita r07 = new Receita(null, Instant.now(), pg07.getPedido().getUsuario(), pg07);
+		Receita r08 = new Receita(null, Instant.now(), pg08.getPedido().getUsuario(), pg08);
+		Receita r09 = new Receita(null, Instant.now(), pg09.getPedido().getUsuario(), pg09);
+		Receita r10 = new Receita(null, Instant.now(), pg10.getPedido().getUsuario(), pg10);
+		Receita r11 = new Receita(null, Instant.now(), pg11.getPedido().getUsuario(), pg11);
+		Receita r12 = new Receita(null, Instant.now(), pg12.getPedido().getUsuario(), pg12);
+		Receita r13 = new Receita(null, Instant.now(), pg13.getPedido().getUsuario(), pg13);
+		Receita r14 = new Receita(null, Instant.now(), pg14.getPedido().getUsuario(), pg14);
+		Receita r15 = new Receita(null, Instant.now(), pg15.getPedido().getUsuario(), pg15);
+		Receita r16 = new Receita(null, Instant.now(), pg16.getPedido().getUsuario(), pg16);
+		Receita r17 = new Receita(null, Instant.now(), pg17.getPedido().getUsuario(), pg17);
+		Receita r18 = new Receita(null, Instant.now(), pg18.getPedido().getUsuario(), pg18);
+		Receita r19 = new Receita(null, Instant.now(), pg19.getPedido().getUsuario(), pg19);
+		Receita r20 = new Receita(null, Instant.now(), pg20.getPedido().getUsuario(), pg20);
+		Receita r21 = new Receita(null, Instant.now(), pg21.getPedido().getUsuario(), pg21);
+		Receita r22 = new Receita(null, Instant.now(), pg22.getPedido().getUsuario(), pg22);
+		Receita r23 = new Receita(null, Instant.now(), pg23.getPedido().getUsuario(), pg23);
+		Receita r24 = new Receita(null, Instant.now(), pg24.getPedido().getUsuario(), pg24);
+		Receita r25 = new Receita(null, Instant.now(), pg25.getPedido().getUsuario(), pg25);
 		
 		receitaRepository.saveAll(Arrays.asList(r01, r02, r03, r04, r05, r06, r07, r08, r09, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19,
 				r20, r21, r22, r23, r24, r25));
-		
 	}
 }

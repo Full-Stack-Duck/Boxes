@@ -64,6 +64,21 @@ public class Usuario implements Serializable {
 	@OneToOne(mappedBy = "usuario")
 	@Getter @Setter private Catalogo estoque;
 	
+	//Relacionamento com a entidade de Receitas
+	@JsonIgnore
+	@OneToMany(mappedBy = "usuario")
+    @Getter private List<Receita> receitas = new ArrayList<>();
+
+	//Relacionamento com a entidade de Orcamentos
+	@JsonIgnore
+	@OneToMany(mappedBy = "usuario")
+    @Getter private List<Orcamento> orcamentos = new ArrayList<>();
+	
+	//Relacionamento com a entidade de Pedidos
+	@JsonIgnore
+	@OneToMany(mappedBy = "usuario")
+    @Getter private List<Pedido> pedidos = new ArrayList<>();
+	
 
 	public Usuario(Long id, String nome, String documento, String email, String telefone, String senha, String endereco,
 			String logo, Status status) {
