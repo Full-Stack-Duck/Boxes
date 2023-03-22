@@ -46,8 +46,5 @@ public class Licenca implements Serializable {
 	
 	
 
-	public void setId(long id) {
-	    this.id = id;
-	}
-
+	
 	}

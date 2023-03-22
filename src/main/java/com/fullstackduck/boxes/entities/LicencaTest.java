@@ -18,14 +18,13 @@ public class LicencaTest {
         Licenca licenca = new Licenca();
 
         // Define valores para os atributos
-        licenca.setId(1L);
         licenca.setStatusLicenca(StatusLicenca.ATIVA);
         licenca.setDataAquisicao(Instant.now());
         licenca.setTipoLicenca(TipoLicenca.ANUAL);
         licenca.setValor(100.00);
 
         // Testa os getters e setters
-        assertEquals(1L, licenca.getId());
+        assertEquals(null,licenca.getId());
         assertEquals(StatusLicenca.ATIVA, licenca.getStatusLicenca());
         assertNotNull(licenca.getDataAquisicao());
         assertEquals(TipoLicenca.ANUAL, licenca.getTipoLicenca());
