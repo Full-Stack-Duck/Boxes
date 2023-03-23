@@ -44,8 +44,4 @@
 - Orientador: *Erik do Carmo Marques*, **Gerente de Sistemas**
 
   <a href="https://www.linkedin.com/in/erik-do-carmo-marques-a11289145/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/erikmarquesfsa"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
-
-- Coorientador: *Aécio P. Santiago Junior*, **Engenheiro de Software**
-
-  <a href="https://www.linkedin.com/in/aeciojunior/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/aeciojunior"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
  
