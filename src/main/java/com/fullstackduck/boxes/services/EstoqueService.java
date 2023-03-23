@@ -6,21 +6,21 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fullstackduck.boxes.entities.Catalogo;
-import com.fullstackduck.boxes.repositories.CatalogoRepository;
+import com.fullstackduck.boxes.entities.Estoque;
+import com.fullstackduck.boxes.repositories.EstoqueRepository;
 
 @Service //Registro de componente
-public class CatalogoService {
+public class EstoqueService {
 
 	@Autowired
-	private CatalogoRepository repository;
+	private EstoqueRepository repository;
 	
-	public List<Catalogo> findAll(){
+	public List<Estoque> findAll(){
 		return repository.findAll();
 	}
 	
-	public Catalogo findById(Long id) {
-		Optional<Catalogo> obj = repository.findById(id);
+	public Estoque findById(Long id) {
+		Optional<Estoque> obj = repository.findById(id);
 		return obj.get();
 	}
 }

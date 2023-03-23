@@ -8,9 +8,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import com.fullstackduck.boxes.entities.Catalogo;
 import com.fullstackduck.boxes.entities.Cliente;
 import com.fullstackduck.boxes.entities.Despesa;
+import com.fullstackduck.boxes.entities.Estoque;
 import com.fullstackduck.boxes.entities.ItensOrcamento;
 import com.fullstackduck.boxes.entities.Licenca;
 import com.fullstackduck.boxes.entities.Orcamento;
@@ -29,9 +29,9 @@ import com.fullstackduck.boxes.entities.enums.TipoArmazenamento;
 import com.fullstackduck.boxes.entities.enums.TipoEntrega;
 import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 import com.fullstackduck.boxes.entities.enums.TipoProduto;
-import com.fullstackduck.boxes.repositories.CatalogoRepository;
 import com.fullstackduck.boxes.repositories.ClienteRepository;
 import com.fullstackduck.boxes.repositories.DespesaRepository;
+import com.fullstackduck.boxes.repositories.EstoqueRepository;
 import com.fullstackduck.boxes.repositories.ItensOrcamentoRepository;
 import com.fullstackduck.boxes.repositories.LicencaRepository;
 import com.fullstackduck.boxes.repositories.OrcamentoRepository;
@@ -62,7 +62,7 @@ public class TestConfig implements CommandLineRunner{
 	private DespesaRepository despesaRepository;
 	
 	@Autowired
-	private CatalogoRepository estoqueRepository;
+	private EstoqueRepository estoqueRepository;
 	
 	@Autowired
 	private OrcamentoRepository orcamentoRepository;
@@ -128,11 +128,11 @@ public class TestConfig implements CommandLineRunner{
 		
 		
 		//Teste Estoque
-		Catalogo ct01 = new Catalogo(null, u1.getNome(), u1);
-		Catalogo ct02 = new Catalogo(null, u2.getNome(), u2);
-		Catalogo ct03 = new Catalogo(null, u3.getNome(), u3);
-		Catalogo ct04 = new Catalogo(null, u4.getNome(), u4);
-		Catalogo ct05 = new Catalogo(null, u5.getNome(), u5);
+		Estoque ct01 = new Estoque(null, u1.getNome(), u1);
+		Estoque ct02 = new Estoque(null, u2.getNome(), u2);
+		Estoque ct03 = new Estoque(null, u3.getNome(), u3);
+		Estoque ct04 = new Estoque(null, u4.getNome(), u4);
+		Estoque ct05 = new Estoque(null, u5.getNome(), u5);
 		
 		estoqueRepository.saveAll(Arrays.asList(ct01, ct02, ct03, ct04, ct05));
 		

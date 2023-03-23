@@ -62,7 +62,7 @@ public class Usuario implements Serializable {
 	//Relacionamento com a entidade de Estoque
 	@JsonIgnore
 	@OneToOne(mappedBy = "usuario")
-	@Getter @Setter private Catalogo estoque;
+	@Getter @Setter private Estoque estoque;
 	
 	//Relacionamento com a entidade de Receitas
 	@JsonIgnore

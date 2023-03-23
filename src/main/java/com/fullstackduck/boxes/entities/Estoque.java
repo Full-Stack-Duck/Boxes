@@ -22,7 +22,7 @@ import lombok.Setter;
 @Table(name="tb_estoque")
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
-public class Catalogo implements Serializable {
+public class Estoque implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//Atributos da classe
@@ -31,15 +31,20 @@ public class Catalogo implements Serializable {
 	@Getter @Setter private String nome;
 	
 	//Relacionamento com a entidade de Produtos
-	@OneToMany(mappedBy = "catalogo")
+	@OneToMany(mappedBy = "estoque")
     @Getter private List<Produto> produtos = new ArrayList<>();
 	
 	//Relacionamento com a entidade de Usuario
 	@OneToOne
 	@JoinColumn(name = "usuario_id")
     @Getter @Setter private Usuario usuario;
+	
 
-	public Catalogo(Long id, String nome, Usuario usuario) {
+	//Relacionamento com a entidade de MovimentacaoEstoque
+	@OneToMany(mappedBy = "estoque")
+	private List<MovimentacaoEstoque> movimentacoes;
+
+	public Estoque(Long id, String nome, Usuario usuario) {
 		super();
 		this.id = id;
 		this.nome = nome;
