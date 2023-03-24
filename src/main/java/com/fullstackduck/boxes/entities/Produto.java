@@ -1,7 +1,9 @@
 package com.fullstackduck.boxes.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.Status;
@@ -55,6 +57,10 @@ public class Produto implements Serializable {
 	//Relacionamento com a entidade de MovimentacaoEstoque
 	@OneToMany(mappedBy = "produto")
 	private List<MovimentacaoEstoque> movimentacoes;
+	
+	//Relacionamento com a entidade de ItensOrcamento
+	@OneToMany(mappedBy = "id.produto")
+	private Set<ItensOrcamento> items = new HashSet<>();
 
 	public Produto(Long id, String nome, Double valor, TipoArmazenamento categoria, Integer quantidade,
 			TipoProduto tipo, Status status, String observacao, Usuario usuario, Estoque estoque) {

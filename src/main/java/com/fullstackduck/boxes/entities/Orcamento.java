@@ -57,6 +57,7 @@ public class Orcamento implements Serializable {
 	@OneToOne(mappedBy = "orcamento")
 	@Getter @Setter private Pedido pedido;
 	
+	//Relacionamento com a entidade de ItensOrcamento
 	@OneToMany(mappedBy = "id.orcamento")
 	@Getter private  Set<ItensOrcamento> itens = new HashSet<>();
 	
