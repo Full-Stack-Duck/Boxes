@@ -34,11 +34,11 @@ public class Cliente implements Serializable {
 	@Getter private Long id;
 	@Getter @Setter private String nome;
 	@Getter @Setter private String email;
-	@Getter @Setter private String telefone;
-	@Getter @Setter private Instant dataNascimento;
-	@Getter @Setter private String documento;
-	@Getter @Setter private Instant dataCadastro;
-	private Integer statusCliente;
+	@Getter @Setter private String telefone = null;
+	@Getter @Setter private Instant dataNascimento = null;
+	@Getter @Setter private String documento = null;
+	@Getter @Setter private Instant dataCadastro = Instant.now();
+	private Integer statusCliente = StatusCliente.INATIVO.getCode();
 	
 	//Relacionamento com a entidade de Usuario
 	@ManyToOne
@@ -72,5 +72,9 @@ public class Cliente implements Serializable {
 		if(statusCliente != null) {
 			this.statusCliente = statusCliente.getCode();
 		}
+	}
+	
+	public void setOrcamentos(List<Orcamento> orcamentos) {
+	    this.orcamentos = orcamentos;
 	}
 }
