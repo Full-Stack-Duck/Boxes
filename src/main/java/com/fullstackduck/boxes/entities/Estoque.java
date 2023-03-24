@@ -39,7 +39,6 @@ public class Estoque implements Serializable {
 	@JoinColumn(name = "usuario_id")
     @Getter @Setter private Usuario usuario;
 	
-
 	//Relacionamento com a entidade de MovimentacaoEstoque
 	@OneToMany(mappedBy = "estoque")
 	private List<MovimentacaoEstoque> movimentacoes;
