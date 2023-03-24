@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.services.UsuarioService;
@@ -31,4 +34,15 @@ public class UsuarioResource {
 		Usuario obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	@PostMapping
+    public ResponseEntity<Usuario> criarUsuario(@RequestBody Usuario usuario) {
+        Usuario novoUsuario = service.criarUsuario(usuario);
+        return ResponseEntity.created(
+            ServletUriComponentsBuilder.fromCurrentRequestUri()
+                                      .path("/{id}")
+                                      .buildAndExpand(novoUsuario.getId())
+                                      .toUri()
+        ).body(novoUsuario);
+    }
 }
