@@ -103,4 +103,8 @@ public class Usuario implements Serializable {
 		this.status = status.getCode();
 		}
 	}
+
+	public Usuario(long l, String string, String string2) {
+		// TODO Auto-generated constructor stub
+	}
 }
