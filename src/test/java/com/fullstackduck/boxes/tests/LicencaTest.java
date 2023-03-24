@@ -1,4 +1,4 @@
-package com.fullstackduck.boxes.entities;
+package com.fullstackduck.boxes.tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -7,6 +7,7 @@ import java.time.Instant;
 
 import org.junit.jupiter.api.Test;
 
+import com.fullstackduck.boxes.entities.Licenca;
 import com.fullstackduck.boxes.entities.enums.StatusLicenca;
 import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 

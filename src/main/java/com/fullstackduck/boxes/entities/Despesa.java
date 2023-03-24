@@ -54,14 +54,23 @@ public class Despesa implements Serializable {
 	}
 	
 	public Categoria getCategoria() {
-		return Categoria.valueOf(categoria);
+	    if (this.categoria != null) {
+	        return Categoria.valueOf(this.categoria);
+	    }
+	    return null;
 	}
-
+	
 	public void setCategoria(Categoria categoria) {
 		if(categoria != null) {
 			this.categoria = categoria.getCode();
-		}
+		}//else {
+	        //throw new IllegalArgumentException("Código do tipo de licença inválido");
+	    
 	}
+
+	
+	
+	
 
 	
 }
