@@ -32,7 +32,7 @@ public class Pagamento implements Serializable {
 	@Getter private Long id;
 	@Getter @Setter private Double valor;
 	@Getter @Setter private Instant dataPagamento;
-	@Getter @Setter private FormaPagamento formaPagamento;
+	private Integer formaPagamento;
 
 	//Relacionamento com a entidade de Pedido
 	@ManyToOne
@@ -49,7 +49,17 @@ public class Pagamento implements Serializable {
 		this.id = id;
 		this.valor = valor;
 		this.dataPagamento = dataPagamento;
-		this.formaPagamento = formaPagamento;
+		setFormaPagamento(formaPagamento);
 		this.pedido = pedido;
+	}
+
+	public FormaPagamento getFormaPagamento() {
+		return FormaPagamento.valueOf(formaPagamento);
+	}
+
+	public void setFormaPagamento(FormaPagamento formaPagamento) {
+		if(formaPagamento != null) {
+		this.formaPagamento = formaPagamento.getCode();
+		}
 	}
 }

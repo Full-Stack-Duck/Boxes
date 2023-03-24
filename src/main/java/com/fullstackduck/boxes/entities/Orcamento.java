@@ -35,11 +35,11 @@ public class Orcamento implements Serializable {
 	//Atributos da classe
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter private Long id;
-	@Getter @Setter private TipoEntrega tipoEntrega;
+	private Integer tipoEntrega;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	@Getter @Setter private Instant dataOrcamento;
-	@Getter @Setter Status status;
+	private Integer status;
 
 	//Relacionamento com a entidade de Usuario
 	@JsonIgnore
@@ -64,11 +64,31 @@ public class Orcamento implements Serializable {
 	public Orcamento(Long id, TipoEntrega tipoEntrega, Instant dataOrcamento, Status status, Usuario usuario, Cliente cliente) {
 		super();
 		this.id = id;
-		this.tipoEntrega = tipoEntrega;
+		setTipoEntrega(tipoEntrega);
 		this.dataOrcamento = dataOrcamento;
-		this.status = status;
+		setStatus(status);
 		this.usuario = usuario;
 		this.cliente = cliente;
+	}
+
+	public TipoEntrega getTipoEntrega() {
+		return TipoEntrega.valueOf(tipoEntrega);
+	}
+
+	public void setTipoEntrega(TipoEntrega tipoEntrega) {
+		if(tipoEntrega != null) {
+		this.tipoEntrega = tipoEntrega.getCode();
+		}
+	}
+
+	public Status getStatus() {
+		return Status.valueOf(status);
+	}
+
+	public void setStatus(Status status) {
+		if(status != null) {
+		this.status = status.getCode();
+		}
 	}
 	
 }

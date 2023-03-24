@@ -37,7 +37,7 @@ public class Usuario implements Serializable {
 	@Getter @Setter private String senha;
 	@Getter @Setter private String endereco;
 	@Getter @Setter private String logo;
-	@Getter @Setter private Status status;
+	private Integer status;
 	
 	//Relacionamento com a entidade de Licencas
 	@JsonIgnore
@@ -91,6 +91,16 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 		this.endereco = endereco;
 		this.logo = logo;
-		this.status = status;
+		setStatus(status);
+	}
+	
+	public Status getStatus() {
+		return Status.valueOf(status);
+	}
+
+	public void setStatus(Status status) {
+		if(status != null) {
+		this.status = status.getCode();
+		}
 	}
 }

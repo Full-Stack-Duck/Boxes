@@ -163,21 +163,21 @@ public class TestConfig implements CommandLineRunner{
 		
 		
 		//Teste Despesa
-		Despesa d01 = new Despesa(null, "Energia",Categoria.FIXA, 250.0, "Coelba", Instant.now(), u1);
-		Despesa d02 = new Despesa(null, "Água e Esgoto",Categoria.FIXA, 250.0, "Embasa", Instant.now(), u1);
-		Despesa d03 = new Despesa(null, "Internet",Categoria.FIXA, 250.0, "Java.Network", Instant.now(), u1);
-		Despesa d04 = new Despesa(null, "Energia",Categoria.FIXA, 250.0, "Coelba", Instant.now(), u2);
-		Despesa d05 = new Despesa(null, "Água e Esgoto",Categoria.FIXA, 250.0, "Embasa", Instant.now(), u2);
-		Despesa d06 = new Despesa(null, "Internet",Categoria.FIXA, 250.0, "Java.Network", Instant.now(), u2);
-		Despesa d07 = new Despesa(null, "Energia",Categoria.FIXA, 250.0, "Coelba", Instant.now(), u3);
-		Despesa d08 = new Despesa(null, "Água e Esgoto",Categoria.FIXA, 250.0, "Embasa", Instant.now(), u3);
-		Despesa d09 = new Despesa(null, "Internet",Categoria.FIXA, 250.0, "Java.Network", Instant.now(), u3);
-		Despesa d10 = new Despesa(null, "Energia",Categoria.FIXA, 250.0, "Coelba", Instant.now(), u4);
-		Despesa d11 = new Despesa(null, "Água e Esgoto",Categoria.FIXA, 250.0, "Embasa", Instant.now(), u4);
-		Despesa d12 = new Despesa(null, "Internet",Categoria.FIXA, 250.0, "Java.Network", Instant.now(), u4);
-		Despesa d13 = new Despesa(null, "Energia",Categoria.FIXA, 250.0, "Coelba", Instant.now(), u5);
-		Despesa d14 = new Despesa(null, "Água e Esgoto",Categoria.FIXA, 250.0, "Embasa", Instant.now(), u5);
-		Despesa d15 = new Despesa(null, "Internet",Categoria.FIXA, 250.0, "Java.Network", Instant.now(), u5);
+		Despesa d01 = new Despesa(null, "Energia", Categoria.FIXA, 250.0, "Coelba", Instant.now(), u1);
+		Despesa d02 = new Despesa(null, "Água e Esgoto", Categoria.FIXA, 250.0, "Embasa", Instant.now(), u1);
+		Despesa d03 = new Despesa(null, "Internet", Categoria.FIXA, 250.0, "Java.Network", Instant.now(), u1);
+		Despesa d04 = new Despesa(null, "Energia", Categoria.FIXA, 250.0, "Coelba", Instant.now(), u2);
+		Despesa d05 = new Despesa(null, "Água e Esgoto", Categoria.FIXA, 250.0, "Embasa", Instant.now(), u2);
+		Despesa d06 = new Despesa(null, "Internet", Categoria.FIXA, 250.0, "Java.Network", Instant.now(), u2);
+		Despesa d07 = new Despesa(null, "Energia", Categoria.FIXA, 250.0, "Coelba", Instant.now(), u3);
+		Despesa d08 = new Despesa(null, "Água e Esgoto", Categoria.FIXA, 250.0, "Embasa", Instant.now(), u3);
+		Despesa d09 = new Despesa(null, "Internet", Categoria.FIXA, 250.0, "Java.Network", Instant.now(), u3);
+		Despesa d10 = new Despesa(null, "Energia", Categoria.FIXA, 250.0, "Coelba", Instant.now(), u4);
+		Despesa d11 = new Despesa(null, "Água e Esgoto", Categoria.FIXA, 250.0, "Embasa", Instant.now(), u4);
+		Despesa d12 = new Despesa(null, "Internet", Categoria.FIXA, 250.0, "Java.Network", Instant.now(), u4);
+		Despesa d13 = new Despesa(null, "Energia", Categoria.FIXA, 250.0, "Coelba", Instant.now(), u5);
+		Despesa d14 = new Despesa(null, "Água e Esgoto", Categoria.FIXA, 250.0, "Embasa", Instant.now(), u5);
+		Despesa d15 = new Despesa(null, "Internet", Categoria.FIXA, 250.0, "Java.Network", Instant.now(), u5);
 		
 		despesaRepository.saveAll(Arrays.asList(d01, d02, d03, d04, d05, d06, d07, d08, d09, d10, d11, d12, d13, d14, d15));
 		

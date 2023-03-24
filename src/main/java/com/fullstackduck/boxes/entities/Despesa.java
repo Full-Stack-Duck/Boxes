@@ -13,7 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +21,6 @@ import lombok.Setter;
 //Mapeamento JPA e Lombok
 @Entity
 @Table(name="tb_despesa")
-@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
 public class Despesa implements Serializable {
@@ -32,7 +30,7 @@ public class Despesa implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter private Long id;
 	@Getter @Setter private String nome;
-	@Getter @Setter private Categoria categoria;
+	private Integer categoria;
 	@Getter @Setter private Double valor;
 	@Getter @Setter private String observacao;
 	
@@ -43,4 +41,27 @@ public class Despesa implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
     @Getter @Setter private Usuario usuario;
+	
+	public Despesa(Long id, String nome, Categoria categoria, Double valor, String observacao, Instant dataDespesa, Usuario usuario) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		setCategoria(categoria);
+		this.valor = valor;
+		this.observacao = observacao;
+		this.dataDespesa = dataDespesa;
+		this.usuario = usuario;
+	}
+	
+	public Categoria getCategoria() {
+		return Categoria.valueOf(categoria);
+	}
+
+	public void setCategoria(Categoria categoria) {
+		if(categoria != null) {
+			this.categoria = categoria.getCode();
+		}
+	}
+
+	
 }

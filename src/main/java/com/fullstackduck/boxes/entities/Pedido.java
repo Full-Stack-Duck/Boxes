@@ -36,11 +36,11 @@ public class Pedido implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter private Long id;
 	@Getter @Setter private Double total;
-	@Getter @Setter private TipoEntrega tipoEntrega;
+	private Integer tipoEntrega;
 	@Getter @Setter private Instant dataOrcamento;
 	@Getter @Setter private Instant dataEntrega;
-	@Getter @Setter private Status status;
-	@Getter @Setter private StatusPedido statusPedido;
+	private Integer status;
+	private Integer statusPedido;
 
 	//Relacionamento com a entidade de Usuario
 	@JsonIgnore
@@ -63,14 +63,43 @@ public class Pedido implements Serializable {
 		super();
 		this.id = id;
 		this.total = total;
-		this.tipoEntrega = tipoEntrega;
+		setTipoEntrega(tipoEntrega);
 		this.dataOrcamento = dataOrcamento;
 		this.dataEntrega = dataEntrega;
-		this.status = status;
-		this.statusPedido = statusPedido;
+		setStatus(status);
+		setStatusPedido(statusPedido);
 		this.usuario = usuario;
 		this.orcamento = orcamento;
 	}
-	
+
+	public TipoEntrega getTipoEntrega() {
+		return TipoEntrega.valueOf(tipoEntrega);
+	}
+
+	public void setTipoEntrega(TipoEntrega tipoEntrega) {
+		if(tipoEntrega != null) {
+		this.tipoEntrega = tipoEntrega.getCode();
+		}
+	}
+
+	public Status getStatus() {
+		return Status.valueOf(status);
+	}
+
+	public void setStatus(Status status) {
+		if(status != null) {
+		this.status = status.getCode();
+		}
+	}
+
+	public StatusPedido getStatusPedido() {
+		return StatusPedido.valueOf(statusPedido);
+	}
+
+	public void setStatusPedido(StatusPedido statusPedido) {
+		if(statusPedido != null) {
+		this.statusPedido = statusPedido.getCode();
+		}
+	}
 	
 }

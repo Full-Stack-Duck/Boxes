@@ -36,10 +36,10 @@ public class Produto implements Serializable {
 	@Getter private Long id;
 	@Getter @Setter private String nome;
 	@Getter @Setter private Double valor;
-	@Getter @Setter private TipoArmazenamento categoria;
+	private Integer categoria;
 	@Getter @Setter private Integer quantidade;
-	@Getter @Setter private TipoProduto tipo;
-	@Getter @Setter private Status status;
+	private Integer tipo;
+	private Integer status;
 	@Getter @Setter private String observacao;
 	
 	//Relacionamento com a entidade de Usuario
@@ -68,13 +68,43 @@ public class Produto implements Serializable {
 		this.id = id;
 		this.nome = nome;
 		this.valor = valor;
-		this.categoria = categoria;
+		setCategoria(categoria);
 		this.quantidade = quantidade;
-		this.tipo = tipo;
-		this.status = status;
+		setTipo(tipo);
+		setStatus(status);
 		this.observacao = observacao;
 		this.usuario = usuario;
 		this.estoque = estoque;
+	}
+
+	public TipoArmazenamento getCategoria() {
+		return TipoArmazenamento.valueOf(categoria);
+		}
+
+	public void setCategoria(TipoArmazenamento categoria) {
+		if(categoria != null) {
+		this.categoria = categoria.getCode();
+		}
+	}
+
+	public TipoProduto getTipo() {
+		return TipoProduto.valueOf(tipo);
+	}
+
+	public void setTipo(TipoProduto tipo) {
+		if(tipo != null) {
+		this.tipo = tipo.getCode();
+		}
+	}
+
+	public Status getStatus() {
+		return Status.valueOf(status);
+	}
+
+	public void setStatus(Status status) {
+		if(status != null) {
+		this.status = status.getCode();
+		}
 	}
 
 }

@@ -38,7 +38,7 @@ public class Cliente implements Serializable {
 	@Getter @Setter private Instant dataNascimento;
 	@Getter @Setter private String documento;
 	@Getter @Setter private Instant dataCadastro;
-	@Getter @Setter private StatusCliente statusCliente;
+	private Integer statusCliente;
 	
 	//Relacionamento com a entidade de Usuario
 	@ManyToOne
@@ -60,7 +60,17 @@ public class Cliente implements Serializable {
 		this.dataNascimento = dataNascimento;
 		this.documento = documento;
 		this.dataCadastro = dataCadastro;
-		this.statusCliente = statusCliente;
+		setStatusCliente(statusCliente);
 		this.usuario = usuario;
+	}
+
+	public StatusCliente getStatusCliente() {
+		return StatusCliente.valueOf(statusCliente);
+	}
+
+	public void setStatusCliente(StatusCliente statusCliente) {
+		if(statusCliente != null) {
+			this.statusCliente = statusCliente.getCode();
+		}
 	}
 }
