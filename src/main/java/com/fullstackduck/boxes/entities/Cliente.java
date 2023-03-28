@@ -38,7 +38,7 @@ public class Cliente implements Serializable {
 	@Getter @Setter private Instant dataNascimento = null;
 	@Getter @Setter private String documento = null;
 	@Getter @Setter private Instant dataCadastro = Instant.now();
-	private Integer statusCliente = StatusCliente.INATIVO.getCode();
+	private Integer statusCliente;
 	
 	//Relacionamento com a entidade de Usuario
 	@ManyToOne

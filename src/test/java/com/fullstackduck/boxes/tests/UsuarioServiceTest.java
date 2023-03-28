@@ -42,8 +42,8 @@ public class UsuarioServiceTest {
         usuario.setNome("Novo Usuário");
         usuario.setEmail("novo@usuario.com");
 
-        // Configura o mock do repository para retornar false quando chamado com o email do novo usuário
-        lenient().when(usuarioRepository.existsByEmail("novo@usuario.com")).thenReturn(false);
+        /*// Configura o mock do repository para retornar false quando chamado com o email do novo usuário
+        lenient().when(usuarioRepository.existsByEmail("novo@usuario.com")).thenReturn(false);*/
 
         // Configura o mock do repository para retornar o usuário existente quando chamado com qualquer id
         lenient().when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usuarioExistente));
@@ -53,7 +53,7 @@ public class UsuarioServiceTest {
 
 
         // Chama o método criarUsuario
-        Usuario novoUsuario = usuarioService.criarUsuario(usuario);
+        Usuario novoUsuario = usuarioService.inserirUsuario(usuario);
 
         // Verifica se o usuário criado é o mesmo que foi retornado pelo mock do repository
         assertEquals(usuario, novoUsuario);

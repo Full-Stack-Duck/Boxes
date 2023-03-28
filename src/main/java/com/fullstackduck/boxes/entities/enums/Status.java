@@ -19,13 +19,14 @@ public enum Status {
 			return code;
 		}
 		
-		//Método para converter o código para o enum correspondente  
+		//Método para converter o código para o enum correspondente 
 		public static Status valueOf(int code) {
 			for(Status value : Status.values()) {
 				if(value.getCode() == code) {
 					return value;
-				}
 			}
-			throw new IllegalArgumentException("Código do tipo de licença inválido");
 		}
+		throw new IllegalArgumentException("Código do tipo de licença inválido");
+	}
 }
+

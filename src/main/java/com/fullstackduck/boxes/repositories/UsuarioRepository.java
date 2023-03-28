@@ -8,9 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.fullstackduck.boxes.entities.Usuario;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long>{                                                   
-
-	 boolean existsByEmail(String email);
-	 @Query("SELECT COUNT(u) > 0 FROM Usuario u WHERE u.email = :email AND u.id != :id")
-	    boolean existsByEmailAndIdNot(@Param("email") String email, @Param("id") Long id);
+public interface UsuarioRepository extends JpaRepository<Usuario, Long>{ 
+	
 }

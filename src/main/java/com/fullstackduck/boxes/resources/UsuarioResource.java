@@ -1,12 +1,15 @@
 package com.fullstackduck.boxes.resources;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,13 +39,22 @@ public class UsuarioResource {
 	}
 	
 	@PostMapping
-    public ResponseEntity<Usuario> criarUsuario(@RequestBody Usuario usuario) {
-        Usuario novoUsuario = service.criarUsuario(usuario);
-        return ResponseEntity.created(
-            ServletUriComponentsBuilder.fromCurrentRequestUri()
-                                      .path("/{id}")
-                                      .buildAndExpand(novoUsuario.getId())
-                                      .toUri()
-        ).body(novoUsuario);
-    }
+	public ResponseEntity<Usuario> inserirUsuario(@RequestBody Usuario obj) {
+		obj = service.inserirUsuario(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).body(obj);
+	}
+	
+	
+	@PutMapping(value = "/{id}/attStatus", name = "atualizarStatusUsuario")
+	public ResponseEntity<Usuario> atualizarStatusUsuario(@PathVariable Long id, @RequestBody Usuario obj){
+		obj = service.atualizarStatusUsuario(id, obj);
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	@PutMapping(value = "/{id}/attUsuario", name = "atualizarUsuario")
+	public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario obj){
+		obj = service.atualizarUsuario(id, obj);
+		return ResponseEntity.ok().body(obj);
+	}
 }

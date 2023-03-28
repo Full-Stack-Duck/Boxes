@@ -81,7 +81,7 @@ public class UsuarioResourceTest {
 
 		String json = objectMapper.writeValueAsString(novoUsuario);
 
-		org.mockito.BDDMockito.given(service.criarUsuario(novoUsuario)).willReturn(novoUsuario);
+		org.mockito.BDDMockito.given(service.inserirUsuario(novoUsuario)).willReturn(novoUsuario);
 
 		mockMvc.perform(post("/usuarios").contentType(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated())
 				.andExpect(header().string("Location", "http://localhost/usuarios/" + novoUsuario.getId()));
