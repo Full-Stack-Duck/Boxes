@@ -4,7 +4,6 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,13 +45,13 @@ public class UsuarioResource {
 	}
 	
 	
-	@PutMapping(value = "/{id}/attStatus", name = "atualizarStatusUsuario")
+	@PutMapping(value = "/{id}/attStatus")
 	public ResponseEntity<Usuario> atualizarStatusUsuario(@PathVariable Long id, @RequestBody Usuario obj){
 		obj = service.atualizarStatusUsuario(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@PutMapping(value = "/{id}/attUsuario", name = "atualizarUsuario")
+	@PutMapping(value = "/{id}/attUsuario")
 	public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario obj){
 		obj = service.atualizarUsuario(id, obj);
 		return ResponseEntity.ok().body(obj);
