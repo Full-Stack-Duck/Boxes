@@ -5,6 +5,7 @@ import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fullstackduck.boxes.entities.enums.Categoria;
+import com.fullstackduck.boxes.entities.enums.Status;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,6 +38,8 @@ public class Despesa implements Serializable {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	@Getter @Setter private Instant dataDespesa;
 	
+	private Integer status;
+	
 	//Relacionamento com a entidade de Usuario
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
@@ -66,9 +69,13 @@ public class Despesa implements Serializable {
 		}
 	}
 
-	
-	
-	
+	public Status getStatus() {
+		return Status.valueOf(status);
+	}
 
-	
+	public void setStatus(Status status) {
+		if(status != null) {
+		this.status = status.getCode();
+		}
+	}
 }

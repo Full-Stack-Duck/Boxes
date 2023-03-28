@@ -1,13 +1,18 @@
 package com.fullstackduck.boxes.resources;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fullstackduck.boxes.entities.Despesa;
 import com.fullstackduck.boxes.services.DespesaService;
@@ -29,6 +34,26 @@ public class DespesaResource {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Despesa> findById(@PathVariable Long id){
 		Despesa obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
+	}
+
+	@PostMapping
+	public ResponseEntity<Despesa> inserirDespesa(@RequestBody Despesa obj) {
+		obj = service.inserirDespesa(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).body(obj);
+	}
+	
+	
+	@PutMapping(value = "/{id}/attStatusDespesa")
+	public ResponseEntity<Despesa> atualizarStatusDespesa(@PathVariable Long id, @RequestBody Despesa obj){
+		obj = service.atualizarStatusDespesa(id, obj);
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	@PutMapping(value = "/{id}/attDespesa")
+	public ResponseEntity<Despesa> atualizarDespesa(@PathVariable Long id, @RequestBody Despesa obj){
+		obj = service.atualizarDespesa(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}
 }
