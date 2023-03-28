@@ -100,11 +100,7 @@ public class Usuario implements Serializable {
 
 	public void setStatus(Status status) {
 		if(status != null) {
-		this.status = status.getCode();
+			this.status = status.getCode();
 		}
-	}
-
-	public Usuario(long l, String string, String string2) {
-		// TODO Auto-generated constructor stub
 	}
 }

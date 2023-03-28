@@ -45,7 +45,7 @@ public class Despesa implements Serializable {
 	@JoinColumn(name = "usuario_id")
     @Getter @Setter private Usuario usuario;
 	
-	public Despesa(Long id, String nome, Categoria categoria, Double valor, String observacao, Instant dataDespesa, Usuario usuario) {
+	public Despesa(Long id, String nome, Categoria categoria, Double valor, String observacao, Instant dataDespesa, Status status, Usuario usuario) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -53,6 +53,7 @@ public class Despesa implements Serializable {
 		this.valor = valor;
 		this.observacao = observacao;
 		this.dataDespesa = dataDespesa;
+		setStatus(status);
 		this.usuario = usuario;
 	}
 	
@@ -75,7 +76,7 @@ public class Despesa implements Serializable {
 
 	public void setStatus(Status status) {
 		if(status != null) {
-		this.status = status.getCode();
+			this.status = status.getCode();
 		}
 	}
 }

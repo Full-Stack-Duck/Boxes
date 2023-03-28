@@ -14,6 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.fullstackduck.boxes.entities.Despesa;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.Categoria;
+import com.fullstackduck.boxes.entities.enums.Status;
 
 @ExtendWith(SpringExtension.class)
 public class DespesaTest {
@@ -22,7 +23,7 @@ public class DespesaTest {
 	public void criarDespesaComCategoria() {
 		Usuario usuario = new Usuario(1L, "Usuário de Teste", "teste@teste.com", "123456", null, null, null, null, null);
 		Despesa despesa = new Despesa(1L, "Despesa de Teste", Categoria.FIXA, 100.0, "Observação de Teste",
-				Instant.now(), usuario);
+				Instant.now(), Status.ATIVO,  usuario);
 
 		assertEquals("Despesa de Teste", despesa.getNome());
 		assertEquals(Categoria.FIXA, despesa.getCategoria());
@@ -35,7 +36,7 @@ public class DespesaTest {
 	@Test
 	public void criarDespesaSemCategoria() {
 		Usuario usuario = new Usuario(1L, "Usuário de Teste", "teste@teste.com", "123456", null, null, null, null, null);
-		Despesa despesa = new Despesa(1L, "Despesa de Teste", null, 100.0, "Observação de Teste", Instant.now(),
+		Despesa despesa = new Despesa(1L, "Despesa de Teste", null, 100.0, "Observação de Teste", Instant.now(), Status.ATIVO, 
 				usuario);
 
 		assertEquals("Despesa de Teste", despesa.getNome());
