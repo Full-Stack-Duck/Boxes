@@ -44,7 +44,6 @@ public class UsuarioResource {
 		return ResponseEntity.created(uri).body(obj);
 	}
 	
-	
 	@PutMapping(value = "/{id}/attStatus")
 	public ResponseEntity<Usuario> atualizarStatusUsuario(@PathVariable Long id, @RequestBody Usuario obj){
 		obj = service.atualizarStatusUsuario(id, obj);
