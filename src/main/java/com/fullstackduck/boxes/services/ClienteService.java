@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fullstackduck.boxes.entities.Cliente;
 import com.fullstackduck.boxes.repositories.ClienteRepository;
@@ -18,21 +19,24 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository repository;
 	
+	@Transactional
 	public List<Cliente> findAll(){
 		return repository.findAll();
 	}
-	
+	@Transactional
 	public Cliente findById(Long id) {
 		Optional<Cliente> obj = repository.findById(id);
 		return obj.get();
 	}
 
 	//insere cliente no banco de dados
+	@Transactional
 	public Cliente inserirCliente(Cliente obj) {
 		return repository.save(obj);
 	}
 	
 	//atualiza status do cliente no banco de dados
+	@Transactional
 	public Cliente atualizarStatusCliente(Long id, Cliente obj) {
 		try {
 			Cliente entity = repository.getReferenceById(id);
@@ -44,6 +48,7 @@ public class ClienteService {
 	}
 	
 	//atualiza dados do cliente no banco de dados
+	@Transactional
 	public Cliente atualizarCliente(Long id, Cliente obj) {
 		try {
 			Cliente entity = repository.getReferenceById(id);
@@ -53,7 +58,7 @@ public class ClienteService {
 			throw new ResourceNotFoundException(id);
 		}
 	}
-	
+	@Transactional
 	private void atualizarDadosCliente(Cliente entity, Cliente obj) {
 		entity.setNome(obj.getNome());
 		entity.setEmail(obj.getEmail());
@@ -62,6 +67,7 @@ public class ClienteService {
 		entity.setDocumento(obj.getDocumento());
 	}
 	
+	@Transactional
 	private void atualizarStatusCliente(Cliente entity, Cliente obj) {
 		entity.setStatusCliente(obj.getStatusCliente());
 	}

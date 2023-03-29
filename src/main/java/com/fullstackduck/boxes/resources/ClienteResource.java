@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,18 +26,21 @@ public class ClienteResource {
 	@Autowired
 	private ClienteService service;
 	
+	@Transactional
 	@GetMapping
 	public ResponseEntity<List<Cliente>> findAll(){
 		List<Cliente> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@Transactional
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Cliente> findById(@PathVariable Long id){
 		Cliente obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
+	@Transactional
 	@PostMapping
 	public ResponseEntity<Cliente> inserirCliente(@RequestBody Cliente obj) {
 		obj = service.inserirCliente(obj);
@@ -44,13 +48,14 @@ public class ClienteResource {
 		return ResponseEntity.created(uri).body(obj);
 	}
 	
-	
+	@Transactional
 	@PutMapping(value = "/{id}/attStatusCliente")
 	public ResponseEntity<Cliente> atualizarStatusCliente(@PathVariable Long id, @RequestBody Cliente obj){
 		obj = service.atualizarStatusCliente(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@Transactional
 	@PutMapping(value = "/{id}/attCliente")
 	public ResponseEntity<Cliente> atualizarCliente(@PathVariable Long id, @RequestBody Cliente obj){
 		obj = service.atualizarCliente(id, obj);
