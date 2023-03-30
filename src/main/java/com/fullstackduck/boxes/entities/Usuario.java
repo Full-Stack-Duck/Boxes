@@ -29,7 +29,7 @@ public class Usuario implements Serializable {
 	
 	//Atributos da classe
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter private Long id;
+	@Getter @Setter private Long id;
 	@Getter @Setter private String nome;
 	@Getter @Setter private String documento;
 	@Getter @Setter private String email;
