@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fullstackduck.boxes.entities.Usuario;
+import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.tests.Factory;
 
 import lombok.Getter;
@@ -146,6 +149,24 @@ public class UsuarioRepositoryTests {
 	        }
 	    
 	}
+	    
+	    @Test
+	    public void deleteShouldSetStatusInactiveAndPersistInDatabase() {
+	        // Arrange
+	        Usuario usuario = Factory.criarUsuario();
+	        usuario = repository.save(usuario);
+
+	        // Act
+	        repository.deleteById(usuario.getId());
+	        Optional<Usuario> result = repository.findById(usuario.getId());
+	        usuario.setStatus(Status.INATIVO);
+
+
+	        // Assert
+	        Assertions.assertFalse(result.isPresent());
+	        Assertions.assertEquals(Status.INATIVO, usuario.getStatus());
+	    }
+
 	    
 	
 	
