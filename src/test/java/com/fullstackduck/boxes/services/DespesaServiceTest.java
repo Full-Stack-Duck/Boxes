@@ -106,7 +106,7 @@ class DespesaServiceTest {
 	    despesas.add(new Despesa(2L, "Despesa 2", Categoria.MATERIA_PRIMA, 200.0, "Observação 2", null,null,null));
 	    despesas.add(new Despesa(3L, "Despesa 3", Categoria.FIXA, 50.0, "Observação 3", null,null,null));
 	    
-	    when(repository.findByCategoria(categoria)).thenReturn(despesas.stream().filter(d -> d.getCategoria() == categoria).collect(Collectors.toList()));
+	    when(repository.findByCategoria(1)).thenReturn(despesas.stream().filter(d -> d.getCategoria() == categoria).collect(Collectors.toList()));
 	    
 	    List<Despesa> resultado = service.listarDespesasCategoria(categoria);
 	    

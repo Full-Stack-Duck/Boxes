@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fullstackduck.boxes.entities.enums.Categoria;
 import com.fullstackduck.boxes.entities.enums.Status;
 
@@ -24,6 +26,7 @@ import lombok.Setter;
 @Table(name="tb_despesa")
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
+@JsonInclude(Include.NON_NULL)
 public class Despesa implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

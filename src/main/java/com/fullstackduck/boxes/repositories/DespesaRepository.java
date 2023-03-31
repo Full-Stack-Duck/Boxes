@@ -9,13 +9,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.fullstackduck.boxes.entities.Despesa;
-import com.fullstackduck.boxes.entities.enums.Categoria;
 
 @Repository
 public interface DespesaRepository extends JpaRepository<Despesa, Long>{
 	
 	@Query("SELECT d FROM Despesa d WHERE d.categoria = :categoria")
-    List<Despesa> findByCategoria(@Param("categoria") Categoria categoria);
+    List<Despesa> findByCategoria(@Param("categoria") int i);
 
 	List<Despesa> findByDataDespesaBetween(Instant dataInicio, Instant dataFim);
 

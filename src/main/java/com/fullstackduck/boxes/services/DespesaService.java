@@ -85,7 +85,7 @@ public class DespesaService {
 	}
 	
 	public List<Despesa> listarDespesasCategoria(Categoria categoria) {
-	    return repository.findByCategoria(categoria);
+	    return repository.findByCategoria(categoria.getCode());
 	}
 	
 	
