@@ -42,7 +42,7 @@ public class DespesaService {
 	public Despesa atualizarStatusDespesa(Long id, Despesa obj) {
 		try {
 			Despesa entity = repository.getReferenceById(id);
-			atualizarStatusDespesa(entity, obj);
+			atualizarDadosDespesa(entity, obj);
 			return repository.save(entity);
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
@@ -71,9 +71,10 @@ public class DespesaService {
 	}
 	
 	
-	private void atualizarStatusDespesa(Despesa entity, Despesa obj) {
-		entity.setStatus(obj.getStatus());
-	}
+	public void excluirDespesa(Long id) {
+        Despesa despesa = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Despesa não encontrada com o id: " + id));
+        repository.delete(despesa);
+    }
 	
 	public Double calcularValorTotalDespesas() {
 	    List<Despesa> despesas = repository.findAll();

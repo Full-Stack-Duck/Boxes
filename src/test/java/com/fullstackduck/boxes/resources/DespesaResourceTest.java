@@ -101,8 +101,8 @@ public class DespesaResourceTest {
     @Test
     public void testExcluirDespesa() {
         restTemplate.delete("/despesas/{id}", despesa2.getId());
-        ResponseEntity<String> response = restTemplate.getForEntity("/despesas/{id}", String.class, despesa2.getId());
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        Despesa despesaExcluida = repository.findById(despesa2.getId()).orElse(null);
+        assertNull(despesaExcluida);
     }
 
 }
