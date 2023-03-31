@@ -1,5 +1,6 @@
 package com.fullstackduck.boxes.services;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fullstackduck.boxes.entities.Despesa;
+import com.fullstackduck.boxes.entities.enums.Categoria;
 import com.fullstackduck.boxes.repositories.DespesaRepository;
 import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
@@ -81,4 +83,22 @@ public class DespesaService {
 	    }
 	    return valorTotal;
 	}
+	
+	public List<Despesa> listarDespesasCategoria(Categoria categoria) {
+	    return repository.findByCategoria(categoria);
+	}
+	
+	
+	public List<Despesa> listarDespesasPorPeriodo(Instant dataInicio, Instant dataFim) {
+	    return repository.findByDataDespesaBetween(dataInicio, dataFim);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
