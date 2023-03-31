@@ -31,7 +31,7 @@ public class Cliente implements Serializable {
 	
 	//Atributos da classe
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter private Long id;
+	@Getter @Setter private Long id;
 	@Getter @Setter private String nome;
 	@Getter @Setter private String email;
 	@Getter @Setter private String telefone = null;
@@ -77,4 +77,6 @@ public class Cliente implements Serializable {
 	public void setOrcamentos(List<Orcamento> orcamentos) {
 	    this.orcamentos = orcamentos;
 	}
+
+	
 }

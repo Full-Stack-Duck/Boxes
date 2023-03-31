@@ -72,4 +72,13 @@ public class DespesaService {
 	private void atualizarStatusDespesa(Despesa entity, Despesa obj) {
 		entity.setStatus(obj.getStatus());
 	}
+	
+	public Double calcularValorTotalDespesas() {
+	    List<Despesa> despesas = repository.findAll();
+	    Double valorTotal = 0.0;
+	    for (Despesa despesa : despesas) {
+	        valorTotal += despesa.getValor();
+	    }
+	    return valorTotal;
+	}
 }

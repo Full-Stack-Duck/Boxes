@@ -25,7 +25,7 @@ import lombok.Setter;
 
 @SpringBootTest
 @Transactional
-public class UsuarioRepositoryTests {
+public class UsuarioRepositoryTest {
 	
 	@Autowired
 	private UsuarioRepository repository;
@@ -130,7 +130,7 @@ public class UsuarioRepositoryTests {
 	        try {
 	            repository.save(usuario);
 	        } catch (DataIntegrityViolationException e) {
-	            assertTrue(e.getMessage().contains("not-null property references a null or transient value : com.fullstackduck.boxes.entities.Usuario.cpf"));
+	            assertTrue(e.getMessage().contains("Uma propriedade que não pode ser nula , foi referenciada como nula : Documento"));
 	        }
 	        
 	    }
@@ -145,7 +145,7 @@ public class UsuarioRepositoryTests {
 	        try {
 	            repository.save(usuario);
 	        } catch (IllegalArgumentException e) {
-	            assertTrue(e.getMessage().contains("Id not found: " + nonExistingId));
+	            assertTrue(e.getMessage().contains("Id não encontrado: " + nonExistingId));
 	        }
 	    
 	}
