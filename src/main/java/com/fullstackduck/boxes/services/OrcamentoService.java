@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.repositories.OrcamentoRepository;
+import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service //Registro de componente
 public class OrcamentoService {
@@ -22,5 +25,40 @@ public class OrcamentoService {
 	public Orcamento findById(Long id) {
 		Optional<Orcamento> obj = repository.findById(id);
 		return obj.get();
+	}
+
+	//insere orcamento no banco de dados
+	public Orcamento inserirOrcamento(Orcamento obj) {
+		return repository.save(obj);
+	}
+	
+	//atualiza status do orcamento no banco de dados
+	public Orcamento atualizarStatusOrcamento(Long id, Orcamento obj) {
+		try {
+			Orcamento entity = repository.getReferenceById(id);
+			atualizarStatus(entity, obj);
+			return repository.save(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+	}
+	
+	//atualiza dados do orcamento no banco de dados
+	public Orcamento atualizarOrcamento(Long id, Orcamento obj) {
+		try {
+			Orcamento entity = repository.getReferenceById(id);
+			atualizarDados(entity, obj);
+			return repository.save(entity);
+		}catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+	}
+	
+	private void atualizarDados(Orcamento entity, Orcamento obj) {
+		entity.setTipoEntrega(obj.getTipoEntrega());
+	}
+	
+	private void atualizarStatus(Orcamento entity, Orcamento obj) {
+		entity.setStatus(obj.getStatus());
 	}
 }
