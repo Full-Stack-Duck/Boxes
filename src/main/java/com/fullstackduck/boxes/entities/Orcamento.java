@@ -90,5 +90,10 @@ public class Orcamento implements Serializable {
 		this.status = status.getCode();
 		}
 	}
+
+	public double getValorTotal() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }

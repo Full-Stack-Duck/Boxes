@@ -14,6 +14,8 @@ import jakarta.persistence.EntityNotFoundException;
 
 @Service //Registro de componente
 public class OrcamentoService {
+	
+	 private static final double DESCONTO_PADRAO = 0.1;
 
 	@Autowired
 	private OrcamentoRepository repository;
@@ -61,4 +63,21 @@ public class OrcamentoService {
 	private void atualizarStatus(Orcamento entity, Orcamento obj) {
 		entity.setStatus(obj.getStatus());
 	}
+	
+	public double calcularDesconto(Orcamento orcamento) {
+        double valorTotal = orcamento.getValorTotal();
+        if (valorTotal >= 500 && valorTotal < 1000) {
+            return valorTotal * 0.05;
+        } else if (valorTotal >= 1000) {
+            return valorTotal * DESCONTO_PADRAO;
+        } else {
+            return 0.0;
+        }
+    }
+
+    public double calcularTotal(Orcamento orcamento) {
+        double valorTotal = orcamento.getValorTotal();
+        double desconto = calcularDesconto(orcamento);
+        return valorTotal - desconto;
+    }
 }

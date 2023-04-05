@@ -51,4 +51,14 @@ public class ItensOrcamento implements Serializable {
 	public void setOrcamento(Orcamento orcamento) {
 		id.setOrcamento(orcamento);
 	}
+
+	public static void setDesconto(double d) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void setValorTotal(double d) {
+		// TODO Auto-generated method stub
+		
+	}
 }

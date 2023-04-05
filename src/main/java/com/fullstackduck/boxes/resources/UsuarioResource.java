@@ -56,4 +56,7 @@ import com.fullstackduck.boxes.services.UsuarioService;
 			obj = service.atualizarUsuario(id, obj);
 			return ResponseEntity.ok().body(obj);
 		}
+		
+		
+
 	}

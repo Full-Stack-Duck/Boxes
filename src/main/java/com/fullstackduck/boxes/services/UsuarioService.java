@@ -67,5 +67,8 @@ public class UsuarioService {
 	private void atualizarStatus(Usuario entity, Usuario obj) {
 		entity.setStatus(obj.getStatus());
 	}
+	
+	
+
 }
 
