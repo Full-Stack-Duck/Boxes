@@ -12,8 +12,6 @@ export function App() {
    <>
     <Header />
     <Navbar />
-    <CadastrarDespesa />
-    <Pesquisar />
     <FooterNav />
     <Footer />
    </>

@@ -1,61 +1,127 @@
-import dash_icon from '../assets/dash_icon.svg'
-import finance_icon from '../assets/finance_icon.svg'
-import order_icon from '../assets/order_icon.svg'
-import client_icon from '../assets/client_icon.svg'
-import product_icon from '../assets/product_icon.svg'
-import config_icon from '../assets/config_icon.svg'
-import styles from '../components/Navbar.module.css'
+import dash_icon from "../assets/dash_icon.svg";
+import finance_icon from "../assets/finance_icon.svg";
+import order_icon from "../assets/order_icon.svg";
+import client_icon from "../assets/client_icon.svg";
+import product_icon from "../assets/product_icon.svg";
+import config_icon from "../assets/config_icon.svg";
+import styles from "../components/Navbar.module.css";
+import dash_dark_icon from "../assets/dark_icons/dash_dark_icon.svg"
+import client_dark_icon from "../assets/dark_icons/client_dark_icon.svg"
+import order_dark_icon from "../assets/dark_icons/order_dark_icon.svg"
+import product_dark_icon from "../assets/dark_icons/product_dark_icon.svg"
+import finance_dark_icon from "../assets/dark_icons/finance_dark_icon.svg"
+import config_dark_icon from "../assets/dark_icons/config_dark_icon.svg"
+
+import { Tab } from "@headlessui/react";
+import { FooterNav } from "./FooterNav";
+import { Footer } from "./Footer";
+import { CadastrarDespesa } from "./CadastrarDespesas";
+import { Pesquisar } from "./Pesquisar";
+import { Financeiro } from "./Financeiro";
 
 
 export function Navbar() {
-    return (
-        <>
-            <div className="h-12 bg-purple-medium">
-                <div id="slider" className='flex items-center w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide'>
-                    <div className="flex pl-7">
-                        <a href="" className="flex pr-10 hover:scale-105 ease-in-out">
-                            <img src={dash_icon} className={styles.iconNavbar}></img>
-                            <p className={styles.fontNavbar}>Dashboard</p>
-                        </a>
+  return (
+    <>
+        <Tab.Group>
+            <div className="max-h-12 min-h-12 bg-purple-medium">
+                <div className='flex items-center w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide'>
+                    <Tab.List className="flex items-center gap-5 pl-3">
+                            <Tab>
+                            {({ selected }) => (
+                                <div className={selected? styles.isSelected : styles.isNotSelected}>
+                                        <img src={ selected? dash_dark_icon : dash_icon } className={styles.iconNavbar}/>
+                                        Dashboard 
+                                </div>
+                            )}
+                            </Tab>
 
-                        <div className="w-0.5 h-5 bg-purple-light"></div>
+                            <div className="w-0.5 h-5 bg-purple-light"></div>
+                            <Tab>
+                            {({ selected }) => (
+                                <div className={selected? styles.isSelected : styles.isNotSelected}>
+                                        <img src={ selected? finance_dark_icon : finance_icon } className={styles.iconNavbar}/>
+                                        Finanças 
+                                </div>
+                            )}
+                            </Tab>
 
-                        <a href="" className="flex pl-4 pr-10 hover:scale-105 ease-in-out">
-                            <img src={finance_icon} className={styles.iconNavbar}></img>
-                            <p className={styles.fontNavbar}>Finanças</p>
-                        </a>
+                            <div className="w-0.5 h-5 bg-purple-light"></div>
+                            <Tab>
+                            {({ selected }) => (
+                                <div className={selected? styles.isSelected : styles.isNotSelected}>
+                                        <img src={ selected? order_dark_icon : order_icon } className={styles.iconNavbar}/>
+                                        Pedidos 
+                                </div>
+                            )}
+                            </Tab>
 
-                        <div className="w-0.5 h-5 bg-purple-light"></div>
+                            <div className="w-0.5 h-5 bg-purple-light"></div>
+                            <Tab>
+                            {({ selected }) => (
+                                <div className={selected? styles.isSelected : styles.isNotSelected}>
+                                        <img src={ selected? client_dark_icon : client_icon } className={styles.iconNavbar}/>
+                                        Clientes 
+                                </div>
+                            )}
+                            </Tab>
 
-                        <a href="" className="flex pl-4 pr-10 hover:scale-105 ease-in-out">
-                            <img src={order_icon} className={styles.iconNavbar}></img>
-                            <p className={styles.fontNavbar}>Pedidos</p>
-                        </a>
+                            <div className="w-0.5 h-5 bg-purple-light"></div>
+                            <Tab>
+                            {({ selected }) => (
+                                <div className={selected? styles.isSelected : styles.isNotSelected}>
+                                        <img src={ selected? product_dark_icon : product_icon } className={styles.iconNavbar}/>
+                                        Produtos 
+                                </div>
+                            )}
+                            </Tab>
 
-                        <div className="w-0.5 h-5 bg-purple-light"></div>
+                            <div className="w-0.5 h-5 bg-purple-light"></div>
+                            <Tab>
+                            {({ selected }) => (
+                                <div className={selected? styles.isSelected : styles.isNotSelected}>
+                                        <img src={ selected? config_dark_icon : config_icon } className={styles.iconNavbar}/>
+                                        Configurações 
+                                </div>
+                            )}
+                            </Tab>
 
-                        <a href="" className="flex pl-4 pr-10 hover:scale-105 ease-in-out">
-                            <img src={client_icon} className={styles.iconNavbar}></img>
-                            <p className={styles.fontNavbar}>Clientes</p>
-                        </a>
-
-                        <div className="w-0.5 h-5 bg-purple-light"></div>
-
-                        <a href="" className="flex pl-4 pr-10 hover:scale-105 ease-in-out">
-                            <img src={product_icon} className={styles.iconNavbar}></img>
-                            <p className={styles.fontNavbar}>Produtos</p>
-                        </a>
-
-                        <div className="w-0.5 h-5 bg-purple-light"></div>
-
-                        <a href="" className="flex pl-4 pr-10 hover:scale-105 ease-in-out">
-                            <img src={config_icon} className={styles.iconNavbar}></img>
-                            <p className={styles.fontNavbar}>Configurações </p>
-                        </a>
-
-                    </div>
+                    </Tab.List>
                 </div>
             </div>
-        </>
-    )
+
+            <Tab.Panels>
+                {/* DASHBOARD */}
+                <Tab.Panel>
+                    <div className="h-60 w-full bg-white text-purple-dark font-quicksand text-5xl flex justify-center items-center">
+                                Dashboard AQUI.
+                    </div>
+                </Tab.Panel>
+                {/* FINANCAS */}
+                <Tab.Panel>
+                    <Financeiro />
+                    <CadastrarDespesa />
+                    <Pesquisar />
+                </Tab.Panel>
+                {/* PEDIDOS */}
+                <Tab.Panel>
+                    <Pesquisar />
+                </Tab.Panel>
+                {/* CLIENTES */}
+                <Tab.Panel>
+                    <FooterNav />
+                </Tab.Panel>
+                {/* PRODUTOS */}
+                <Tab.Panel>
+                    <Footer />
+                </Tab.Panel>
+                {/* CONFIGURACÕES */}
+                <Tab.Panel>
+                    <Footer />
+                </Tab.Panel>
+
+            </Tab.Panels>
+        </Tab.Group>
+    </>
+  );
 }
