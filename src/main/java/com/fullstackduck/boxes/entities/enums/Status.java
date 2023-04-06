@@ -28,5 +28,10 @@ public enum Status {
 		}
 		throw new IllegalArgumentException("Código do tipo de licença inválido");
 	}
+
+		public Object getStatus() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 }
 
