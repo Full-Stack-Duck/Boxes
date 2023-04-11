@@ -23,7 +23,7 @@ export function Pesquisar(){
                     <input className="border rounded w-44 h-8 border-purple-light ml-7 my-1.5" type="text" />
                 </form>
             </article>
-            <div className="flex justify-end">
+            <div className="flex justify-end ">
                 <button className="flex items-center justify-center w-44 h-10 mt-2 mb-4 border-2 rounded  bg-purple-medium border-purple-dark shadow-md shadow-purple-shadow text-white" type="submit">PESQUISAR 
                     <img className="w-5 h-5 mx-1 bg-purple-medium" src={searchIcon} alt="lupa_de_pesquisa" />
                 </button>

@@ -5,7 +5,8 @@ module.exports = {
     fontFamily: {
       'viga': ['"viga"'],
       'quicksand': ['"quicksand"'],
-      'nunito': ['"nunito"']
+      'nunito': ['"nunito"'],
+      'montserrat': ['"montserrat']
     },
     extend: {
       colors: {

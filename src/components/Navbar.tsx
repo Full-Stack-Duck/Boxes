@@ -18,110 +18,118 @@ import { Footer } from "./Footer";
 import { CadastrarDespesa } from "./CadastrarDespesas";
 import { Pesquisar } from "./Pesquisar";
 import { Financeiro } from "./Financeiro";
+import { Dashboard } from "./Dashboard";
+import { PedidosOrcamentos } from "./PedidosOrcamentos";
+import { ClientesCadastrados } from "./ClientesCadastrados";
+import { ProdutosEstoque } from "./ProdutosEstoque";
 
 
 export function Navbar() {
-  return (
-    <>
-        <Tab.Group>
-            <div className="max-h-12 min-h-12 bg-purple-medium">
-                <div className='flex items-center w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide'>
-                    <Tab.List className="flex items-center gap-5 pl-3">
+    return (
+        <>
+            <Tab.Group>
+                <div className="max-h-12 min-h-12 bg-purple-medium">
+                    <div className='flex items-center w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide'>
+                        <Tab.List className="flex items-center gap-5 pl-3">
                             <Tab>
-                            {({ selected }) => (
-                                <div className={selected? styles.isSelected : styles.isNotSelected}>
-                                        <img src={ selected? dash_dark_icon : dash_icon } className={styles.iconNavbar}/>
-                                        Dashboard 
-                                </div>
-                            )}
+                                {({ selected }) => (
+                                    <div className={selected ? styles.isSelected : styles.isNotSelected}>
+                                        <img src={selected ? dash_dark_icon : dash_icon} className={styles.iconNavbar} />
+                                        Dashboard
+                                    </div>
+                                )}
                             </Tab>
 
                             <div className="w-0.5 h-5 bg-purple-light"></div>
                             <Tab>
-                            {({ selected }) => (
-                                <div className={selected? styles.isSelected : styles.isNotSelected}>
-                                        <img src={ selected? finance_dark_icon : finance_icon } className={styles.iconNavbar}/>
-                                        Finanças 
-                                </div>
-                            )}
+                                {({ selected }) => (
+                                    <div className={selected ? styles.isSelected : styles.isNotSelected}>
+                                        <img src={selected ? finance_dark_icon : finance_icon} className={styles.iconNavbar} />
+                                        Finanças
+                                    </div>
+                                )}
                             </Tab>
 
                             <div className="w-0.5 h-5 bg-purple-light"></div>
                             <Tab>
-                            {({ selected }) => (
-                                <div className={selected? styles.isSelected : styles.isNotSelected}>
-                                        <img src={ selected? order_dark_icon : order_icon } className={styles.iconNavbar}/>
-                                        Pedidos 
-                                </div>
-                            )}
+                                {({ selected }) => (
+                                    <div className={selected ? styles.isSelected : styles.isNotSelected}>
+                                        <img src={selected ? order_dark_icon : order_icon} className={styles.iconNavbar} />
+                                        Pedidos
+                                    </div>
+                                )}
                             </Tab>
 
                             <div className="w-0.5 h-5 bg-purple-light"></div>
                             <Tab>
-                            {({ selected }) => (
-                                <div className={selected? styles.isSelected : styles.isNotSelected}>
-                                        <img src={ selected? client_dark_icon : client_icon } className={styles.iconNavbar}/>
-                                        Clientes 
-                                </div>
-                            )}
+                                {({ selected }) => (
+                                    <div className={selected ? styles.isSelected : styles.isNotSelected}>
+                                        <img src={selected ? client_dark_icon : client_icon} className={styles.iconNavbar} />
+                                        Clientes
+                                    </div>
+                                )}
                             </Tab>
 
                             <div className="w-0.5 h-5 bg-purple-light"></div>
                             <Tab>
-                            {({ selected }) => (
-                                <div className={selected? styles.isSelected : styles.isNotSelected}>
-                                        <img src={ selected? product_dark_icon : product_icon } className={styles.iconNavbar}/>
-                                        Produtos 
-                                </div>
-                            )}
+                                {({ selected }) => (
+                                    <div className={selected ? styles.isSelected : styles.isNotSelected}>
+                                        <img src={selected ? product_dark_icon : product_icon} className={styles.iconNavbar} />
+                                        Produtos
+                                    </div>
+                                )}
                             </Tab>
 
                             <div className="w-0.5 h-5 bg-purple-light"></div>
                             <Tab>
-                            {({ selected }) => (
-                                <div className={selected? styles.isSelected : styles.isNotSelected}>
-                                        <img src={ selected? config_dark_icon : config_icon } className={styles.iconNavbar}/>
-                                        Configurações 
-                                </div>
-                            )}
+                                {({ selected }) => (
+                                    <div className={selected ? styles.isSelected : styles.isNotSelected}>
+                                        <img src={selected ? config_dark_icon : config_icon} className={styles.iconNavbar} />
+                                        Configurações
+                                    </div>
+                                )}
                             </Tab>
 
-                    </Tab.List>
-                </div>
-            </div>
-
-            <Tab.Panels>
-                {/* DASHBOARD */}
-                <Tab.Panel>
-                    <div className="h-60 w-full bg-white text-purple-dark font-quicksand text-5xl flex justify-center items-center">
-                                Dashboard AQUI.
+                        </Tab.List>
                     </div>
-                </Tab.Panel>
-                {/* FINANCAS */}
-                <Tab.Panel>
-                    <Financeiro />
-                    <CadastrarDespesa />
-                    <Pesquisar />
-                </Tab.Panel>
-                {/* PEDIDOS */}
-                <Tab.Panel>
-                    <Pesquisar />
-                </Tab.Panel>
-                {/* CLIENTES */}
-                <Tab.Panel>
-                    <FooterNav />
-                </Tab.Panel>
-                {/* PRODUTOS */}
-                <Tab.Panel>
-                    <Footer />
-                </Tab.Panel>
-                {/* CONFIGURACÕES */}
-                <Tab.Panel>
-                    <Footer />
-                </Tab.Panel>
+                </div>
 
-            </Tab.Panels>
-        </Tab.Group>
-    </>
-  );
+                <Tab.Panels>
+                    {/* DASHBOARD */}
+                    <Tab.Panel>
+                        {/*<div className="h-60 w-full bg-white text-purple-dark font-quicksand text-5xl flex justify-center items-center">
+                                Dashboard AQUI.
+                            </div>*/}
+                        <Dashboard />
+                        <PedidosOrcamentos />
+                        <ClientesCadastrados />
+                        <ProdutosEstoque />
+                    </Tab.Panel>
+                    {/* FINANCAS */}
+                    <Tab.Panel>
+                        <Financeiro />
+                        <CadastrarDespesa />
+                        <Pesquisar />
+                    </Tab.Panel>
+                    {/* PEDIDOS */}
+                    <Tab.Panel>
+                        <Pesquisar />
+                    </Tab.Panel>
+                    {/* CLIENTES */}
+                    <Tab.Panel>
+                        <FooterNav />
+                    </Tab.Panel>
+                    {/* PRODUTOS */}
+                    <Tab.Panel>
+                        <Footer />
+                    </Tab.Panel>
+                    {/* CONFIGURACÕES */}
+                    <Tab.Panel>
+                        <Footer />
+                    </Tab.Panel>
+
+                </Tab.Panels>
+            </Tab.Group>
+        </>
+    );
 }
