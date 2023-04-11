@@ -78,4 +78,22 @@ public class Licenca implements Serializable {
 		this.tipoLicenca = tipoLicenca.getCode();
 		}
 	}
+
+
+	public long getDiasLicenca() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	public void setDataValidade(Instant novaDataValidade) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void setDiasLicenca(long days) {
+		// TODO Auto-generated method stub
+		
+	}
 }
