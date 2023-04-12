@@ -17,7 +17,7 @@ public class ClienteTest {
 
 	@Test
 	public void criarClienteComTodosOsDados() {
-		Usuario usuario = new Usuario(1L, "fulano", "senha123", null, null, null, null, null, null);
+		Usuario usuario = new Usuario(1L, "fulano", "senha123", null, null, null, null, null, null, null);
 		Instant dataNascimento = Instant.now();
 		Instant dataCadastro = Instant.now();
 		Cliente cliente = new Cliente(1L, "João da Silva", "joao@gmail.com", "(11) 99999-9999", dataNascimento,
@@ -37,7 +37,7 @@ public class ClienteTest {
 
 	@Test
 	public void adicionarOrcamentoAoCliente() {
-		Usuario usuario = new Usuario(1L, "fulano", "senha123", null, null, null, null, null, null);
+		Usuario usuario = new Usuario(1L, "fulano", "senha123", null, null, null, null, null, null, null);
 		Cliente cliente = new Cliente(1L, "João da Silva", "joao@gmail.com", "(11) 99999-9999", Instant.now(),
 				"12345678901", Instant.now(), StatusCliente.ATIVA, usuario);
 		Orcamento orcamento = new Orcamento();

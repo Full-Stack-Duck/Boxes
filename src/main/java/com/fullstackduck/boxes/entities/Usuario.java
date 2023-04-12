@@ -1,13 +1,17 @@
 package com.fullstackduck.boxes.entities;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.Status;
+import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,7 +41,13 @@ public class Usuario implements Serializable {
 	@Getter @Setter private String senha;
 	@Getter @Setter private String endereco;
 	@Getter @Setter private String logo;
+	@Getter @Setter private Instant datacadastro;
 	private Integer status;
+	
+	@Enumerated(EnumType.STRING)
+    private TipoLicenca tipoLicenca;
+    
+	@Getter @Setter private Instant dataValidadeLicenca;
 	
 	//Relacionamento com a entidade de Licencas
 	@JsonIgnore
@@ -81,7 +91,7 @@ public class Usuario implements Serializable {
 	
 
 	public Usuario(Long id, String nome, String documento, String email, String telefone, String senha, String endereco,
-			String logo, Status status) {
+			String logo,Instant datacadastro, Status status) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -91,6 +101,7 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 		this.endereco = endereco;
 		this.logo = logo;
+		this.datacadastro = datacadastro;
 		setStatus(status);
 	}
 	
@@ -103,4 +114,15 @@ public class Usuario implements Serializable {
 			this.status = status.getCode();
 		}
 	}
+	
+	public TipoLicenca getTipoLicenca() {
+	    return tipoLicenca;
+	}
+
+	public void setTipoLicenca(TipoLicenca tipoLicenca2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 }

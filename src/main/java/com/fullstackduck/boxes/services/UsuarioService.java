@@ -1,5 +1,7 @@
 package com.fullstackduck.boxes.services;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fullstackduck.boxes.entities.Usuario;
+import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
 import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
@@ -29,7 +32,26 @@ public class UsuarioService {
 	
 	//insere usuario no banco de dados
 	public Usuario inserirUsuario(Usuario obj) {
-		return repository.save(obj);
+		obj.setDatacadastro(Instant.now());
+	    
+	    // Definir tipo de licença escolhido pelo usuário
+	    TipoLicenca tipoLicenca = obj.getTipoLicenca();
+	    obj.setTipoLicenca(tipoLicenca);
+	    
+	    // Definir data de validade da licença baseado no tipo escolhido
+	    Instant dataValidadeLicenca = Instant.now();
+	    if (tipoLicenca == TipoLicenca.GRATUITA) {
+	        dataValidadeLicenca = dataValidadeLicenca.plus(Duration.ofDays(15));
+	    } else if (tipoLicenca == TipoLicenca.MENSAL) {
+	        dataValidadeLicenca = dataValidadeLicenca.plus(Duration.ofDays(30));
+	    } else if (tipoLicenca == TipoLicenca.SEMESTRAL) {
+	        dataValidadeLicenca = dataValidadeLicenca.plus(Duration.ofDays(180));
+	    } else if (tipoLicenca == TipoLicenca.ANUAL) {
+	        dataValidadeLicenca = dataValidadeLicenca.plus(Duration.ofDays(365));
+	    }
+	    obj.setDataValidadeLicenca(dataValidadeLicenca);
+	    
+	    return repository.save(obj);
 	}
 	
 	//atualiza status do usuario no banco de dados

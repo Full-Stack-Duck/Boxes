@@ -21,7 +21,7 @@ public class DespesaTest {
 
 	@Test
 	public void criarDespesaComCategoria() {
-		Usuario usuario = new Usuario(1L, "Usuário de Teste", "teste@teste.com", "123456", null, null, null, null, null);
+		Usuario usuario = new Usuario(1L, "Usuário de Teste", "teste@teste.com", "123456", null, null, null, null, null, null);
 		Despesa despesa = new Despesa(1L, "Despesa de Teste", Categoria.FIXA, 100.0, "Observação de Teste",
 				Instant.now(), Status.ATIVO,  usuario);
 
@@ -35,7 +35,7 @@ public class DespesaTest {
 
 	@Test
 	public void criarDespesaSemCategoria() {
-		Usuario usuario = new Usuario(1L, "Usuário de Teste", "teste@teste.com", "123456", null, null, null, null, null);
+		Usuario usuario = new Usuario(1L, "Usuário de Teste", "teste@teste.com", "123456", null, null, null, null, null, null);
 		Despesa despesa = new Despesa(1L, "Despesa de Teste", null, 100.0, "Observação de Teste", Instant.now(), Status.ATIVO, 
 				usuario);
 

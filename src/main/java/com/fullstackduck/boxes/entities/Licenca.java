@@ -1,7 +1,9 @@
 package com.fullstackduck.boxes.entities;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fullstackduck.boxes.entities.enums.StatusLicenca;
@@ -81,19 +83,31 @@ public class Licenca implements Serializable {
 
 
 	public long getDiasLicenca() {
-		// TODO Auto-generated method stub
-		return 0;
+	    // Verifica se a data de validade já passou
+	    Instant dataAtual = Instant.now();
+	    Instant dataValidade = getDataValidade();
+	    if (dataAtual.isAfter(dataValidade)) {
+	        return 0;
+	    }
+	    // Calcula a diferença em dias entre as duas datas
+	    return ChronoUnit.DAYS.between(dataAtual, dataValidade);
 	}
-
 
 	public void setDataValidade(Instant novaDataValidade) {
-		// TODO Auto-generated method stub
-		
 	}
+
+	private Instant getDataValidade() {
+	    // Calcula a data de validade com base na data de aquisição e dias de licença
+	    return dataAquisicao.plus(Duration.ofDays(getDiasLicenca()));
+	}
+
 
 
 	public void setDiasLicenca(long days) {
-		// TODO Auto-generated method stub
-		
+	    this.setDataValidade(this.getDataAquisicao().plus(Duration.ofDays(days)));
 	}
+
+
+
+	
 }

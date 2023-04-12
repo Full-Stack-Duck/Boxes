@@ -88,31 +88,31 @@ public class TestConfig implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		
 		//Teste Usuário
-		Usuario u1 = new Usuario(null, "Bruno", "123456789", "bruno@gmail.com", "7512345678", "aaaaaaaa", "Tomba", null, Status.ATIVO);
-		Usuario u2 = new Usuario(null, "José", "123456789", "jose@gmail.com", "7512345678", "bbbbbbbb", "Tomba", null, Status.ATIVO);
-		Usuario u3 = new Usuario(null, "Kelvin", "123456789", "kelvin@gmail.com", "7512345678", "cccccccc", "Tomba", null, Status.ATIVO);
-		Usuario u4 = new Usuario(null, "Lucas", "123456789", "lucas@gmail.com", "7512345678", "dddddddd", "Tomba", null, Status.ATIVO);
-		Usuario u5 = new Usuario(null, "Vinícius", "123456789", "vinicius@gmail.com", "7512345678", "eeeeeeee", "Tomba", null, Status.ATIVO);
+		Usuario u1 = new Usuario(null, "Bruno", "123456789", "bruno@gmail.com", "7512345678", "aaaaaaaa", "Tomba", null, null, Status.ATIVO);
+		Usuario u2 = new Usuario(null, "José", "123456789", "jose@gmail.com", "7512345678", "bbbbbbbb", "Tomba", null, null, Status.ATIVO);
+		Usuario u3 = new Usuario(null, "Kelvin", "123456789", "kelvin@gmail.com", "7512345678", "cccccccc", "Tomba", null, null, Status.ATIVO);
+		Usuario u4 = new Usuario(null, "Lucas", "123456789", "lucas@gmail.com", "7512345678", "dddddddd", "Tomba", null, null, Status.ATIVO);
+		Usuario u5 = new Usuario(null, "Vinícius", "123456789", "vinicius@gmail.com", "7512345678", "eeeeeeee", "Tomba", null, null, Status.ATIVO);
 		
 		usuarioRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5));
 		
 		
 		//Teste Licença
-		Licenca l01 = new Licenca(null, StatusLicenca.ATIVA, Instant.now(), TipoLicenca.MENSAL, 91.00, u1);
-		Licenca l02 = new Licenca(null, StatusLicenca.ATIVA, Instant.now(), TipoLicenca.SEMESTRAL, 516.00, u2);
+		Licenca l01 = new Licenca(1L, StatusLicenca.ATIVA, Instant.now(), TipoLicenca.MENSAL, 91.00, u1);
+		Licenca l02 = new Licenca(2L, StatusLicenca.ATIVA, Instant.now(), TipoLicenca.SEMESTRAL, 516.00, u2);
 		Licenca l03 = new Licenca(null, StatusLicenca.ATIVA, Instant.now(), TipoLicenca.ANUAL, 984.00, u3);
 		Licenca l04 = new Licenca(null, StatusLicenca.ATIVA, Instant.now(), TipoLicenca.MENSAL, 91.00, u4);
-		Licenca l05 = new Licenca(null, StatusLicenca.ATIVA, Instant.now(), TipoLicenca.GRATUITA_15DIAS, 00.00, u5);
+		Licenca l05 = new Licenca(null, StatusLicenca.ATIVA, Instant.now(), TipoLicenca.GRATUITA, 00.00, u5);
 		Licenca l06 = new Licenca(null, StatusLicenca.EXPIRADA, Instant.now(), TipoLicenca.MENSAL, 91.00, u1);
 		Licenca l07 = new Licenca(null, StatusLicenca.EXPIRADA, Instant.now(), TipoLicenca.SEMESTRAL, 516.00, u2);
 		Licenca l08 = new Licenca(null, StatusLicenca.EXPIRADA, Instant.now(), TipoLicenca.ANUAL, 984.00, u3);
 		Licenca l09 = new Licenca(null, StatusLicenca.EXPIRADA, Instant.now(), TipoLicenca.MENSAL, 91.00, u4);
-		Licenca l10 = new Licenca(null, StatusLicenca.EXPIRADA, Instant.now(), TipoLicenca.GRATUITA_15DIAS, 00.00, u5);
+		Licenca l10 = new Licenca(null, StatusLicenca.EXPIRADA, Instant.now(), TipoLicenca.GRATUITA, 00.00, u5);
 		Licenca l11 = new Licenca(null, StatusLicenca.CANCELADA, Instant.now(), TipoLicenca.MENSAL, 91.00, u1);
 		Licenca l12 = new Licenca(null, StatusLicenca.CANCELADA, Instant.now(), TipoLicenca.SEMESTRAL, 516.00, u2);
 		Licenca l13 = new Licenca(null, StatusLicenca.CANCELADA, Instant.now(), TipoLicenca.ANUAL, 984.00, u3);
 		Licenca l14 = new Licenca(null, StatusLicenca.CANCELADA, Instant.now(), TipoLicenca.MENSAL, 91.00, u4);
-		Licenca l15 = new Licenca(null, StatusLicenca.CANCELADA, Instant.now(), TipoLicenca.GRATUITA_15DIAS, 00.00, u5);
+		Licenca l15 = new Licenca(null, StatusLicenca.CANCELADA, Instant.now(), TipoLicenca.GRATUITA, 00.00, u5);
 		
 		licencaRepository.saveAll(Arrays.asList(l01, l02, l03, l04, l05, l06, l07, l08, l09, l10, l11, l12, l13, l14, l15));
 

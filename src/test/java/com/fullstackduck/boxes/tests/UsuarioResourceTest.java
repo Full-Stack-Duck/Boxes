@@ -41,7 +41,7 @@ public class UsuarioResourceTest {
 	@BeforeEach
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
-		this.usuario = new Usuario(1L, "Fulano", "fulano@teste.com", "123456", "7512345678", "1111111", "Tomba", null, Status.ATIVO);
+		this.usuario = new Usuario(1L, "Fulano", "fulano@teste.com", "123456", "7512345678", "1111111", "Tomba", null, null, Status.ATIVO);
 	}
 
 	@Test
@@ -77,7 +77,7 @@ public class UsuarioResourceTest {
 
 	@Test
 	public void testCreateUsuario() throws Exception {
-		Usuario novoUsuario = new Usuario(1L, "Beltrano", "beltrano@teste.com", "123456", null, null, null, null, null);
+		Usuario novoUsuario = new Usuario(1L, "Beltrano", "beltrano@teste.com", "123456", null, null, null, null, null, null);
 
 		String json = objectMapper.writeValueAsString(novoUsuario);
 

@@ -10,7 +10,7 @@ import com.fullstackduck.boxes.entities.enums.StatusCliente;
 public class Factory {
 
 	public static Usuario criarUsuario() {
-		Usuario usuario = new Usuario(1L,"Lucas", "123456789","lucas@gmail.com","12345678","aaaaa","Tomba",null,Status.ATIVO);
+		Usuario usuario = new Usuario(1L,"Lucas", "123456789","lucas@gmail.com","12345678","aaaaa","Tomba",null,null, Status.ATIVO);
 		return usuario;
 	}
 	

@@ -35,8 +35,8 @@ public class UsuarioServiceTest {
     @Test
     public void testFindAll() {
         List<Usuario> usuarios = new ArrayList<>();
-        usuarios.add(new Usuario(1L, "João", "12345678901", "joao@example.com", "123456", "11999999999", "Rua A, 123", "logo1.png", Status.INATIVO));
-        usuarios.add(new Usuario(2L, "Maria", "98765432101", "maria@example.com", "654321", "11999999998", "Rua B, 321", "logo2.png",Status.ATIVO));
+        usuarios.add(new Usuario(1L, "João", "12345678901", "joao@example.com", "123456", "11999999999", "Rua A, 123", "logo1.png", null, Status.INATIVO));
+        usuarios.add(new Usuario(2L, "Maria", "98765432101", "maria@example.com", "654321", "11999999998", "Rua B, 321", "logo2.png",null, Status.ATIVO));
 
         when(repository.findAll()).thenReturn(usuarios);
 
@@ -50,7 +50,7 @@ public class UsuarioServiceTest {
     @Test
     public void testFindById() {
         Long id = 1L;
-        Usuario usuario = new Usuario(id, "João", "12345678901", "joao@example.com", "123456", "11999999999", "Rua A, 123", "logo1.png", Status.ATIVO);
+        Usuario usuario = new Usuario(id, "João", "12345678901", "joao@example.com", "123456", "11999999999", "Rua A, 123", "logo1.png", null, Status.ATIVO);
 
         when(repository.findById(id)).thenReturn(Optional.of(usuario));
 
@@ -73,7 +73,7 @@ public class UsuarioServiceTest {
 
     @Test
     public void testInserirUsuario() {
-        Usuario usuario = new Usuario(1L, "João", "12345678901", "joao@example.com", "123456", "11999999999", "Rua A, 123", "logo1.png", Status.ATIVO);
+        Usuario usuario = new Usuario(1L, "João", "12345678901", "joao@example.com", "123456", "11999999999", "Rua A, 123", "logo1.png", null, Status.ATIVO);
 
         when(repository.save(any(Usuario.class))).thenReturn(usuario);
 
