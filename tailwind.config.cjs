@@ -6,7 +6,7 @@ module.exports = {
       'viga': ['"viga"'],
       'quicksand': ['"quicksand"'],
       'nunito': ['"nunito"'],
-      'montserrat': ['"montserrat']
+      'montserrat': ['"montserrat"']
     },
     extend: {
       colors: {

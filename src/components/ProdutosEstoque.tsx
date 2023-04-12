@@ -3,22 +3,31 @@ import product_plus_icon from "../assets/product_plus_icon.svg";
 export function ProdutosEstoque() {
     return (
         <>
-            <div className="px-7 border-b-2">
-                <p className="font-quicksand font-semibold text-lg pt-3">Produtos & Estoques</p>
-                <div className="pt-5">
+                <h1 className="ml-7 font-quicksand font-bold text-lg pt-3">Produtos & Estoques</h1>
+            <div className="mx-8 my-3 flex flex-col justify-start items-start gap-2 ">
+                <div>
                     <p className=" font-quicksand text-gray-400 text-sm font-semibold">TOTAL DE PRODUTOS EM ESTOQUE</p>
                     <p className=" text-purple-medium text-3xl font-bold">0.000</p>
                 </div>
-                <div className="pt-4">
-                    <p className=" font-quicksand text-gray-400 text-sm font-semibold">PRODUTO MAIS POPULAR</p>
-                    <p className=" text-purple-medium text-xl font-bold">'Pastel de carne'</p>
-                </div>
-                <div className="py-4">
-                    <p className=" font-quicksand text-gray-400 text-sm font-semibold">PRODUTO MENOS POPULAR</p>
-                    <div className="flex justify-between">
-                        <p className=" text-purple-medium text-xl font-bold">'Brie com Damasco'</p>
-                        <img src={product_plus_icon} className="w-7"></img>
-                    </div> 
+                <div className="flex flex-col w-full gap-3">
+                    <div>
+                        <p className=" font-quicksand text-gray-400 text-sm font-semibold">PRODUTO MENOS POPULAR</p>
+                        <div className="flex items-center justify-between">
+                            <span className="text-purple-medium text-xl font-bold">Brie com Damasco</span>
+                            <img 
+                            src={product_plus_icon} 
+                            alt="Adicionar produto em novo pedido" />
+                        </div>
+                    </div>
+                    <div>
+                        <p className=" font-quicksand text-gray-400 text-sm font-semibold">PRODUTO MAIS POPULAR</p>
+                        <div className="flex items-center justify-between">
+                            <span className="text-purple-medium text-xl font-bold">Pão com ovo</span>
+                            <img 
+                            src={product_plus_icon} 
+                            alt="Adicionar produto em novo pedido" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </>

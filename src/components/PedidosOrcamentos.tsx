@@ -4,35 +4,36 @@ export function PedidosOrcamentos() {
     return (
         <>
             <div className="px-7 border-b-2">
-                <h3 className=" font-quicksand font-semibold text-lg pt-3">Pedidos & Orçamentos</h3>
-                <div className="flex justify-between pt-5">
-                    <div className="text-center">
-                        <h1 className="text-sm text-gray-400 font-quicksand font-semibold">
-                            TOTAL DE PEDIDOS
-                        </h1>
-                        <div className="flex mt-2 mb-5 mx-7 h-16 bg-purple-medium rounded-full items-center justify-center">
-                            <h1 className="text-4xl mx-2">00</h1>
+                <h3 className=" font-quicksand font-bold text-lg pt-3">Pedidos & Orçamentos</h3>
+                <div className="flex justify-between pt-5 gap-1 my-5">
+                        <div className="flex flex-col items-center w-1/2">
+                            <span className="text-sm text-gray-400 font-quicksand font-semibold whitespace-nowrap">
+                                PEDIDOS
+                            </span>
+                            <div className="h-[60px] min-w-[60px] flex bg-purple-medium rounded-full items-center justify-center shadow-lg">
+                                <h1 className="text-4xl font-montserrat mx-1.5">00</h1>
+                            </div>
                         </div>
-                    </div>
-                    <div className="text-center">
-                        <h1 className="text-sm text-gray-400 font-quicksand font-semibold">
-                            TOTAL DE ORÇAMENTOS
-                        </h1>
-                        <div className="flex mt-2 mb-5 mx-12 h-16 bg-purple-medium rounded-full items-center justify-center">
-                            <h1 className="text-4xl mx-2">00</h1>
+                        <div className="flex flex-col items-center w-1/2">
+                            <h1 className="text-sm text-gray-400 font-quicksand font-semibold whitespace-nowrap">
+                                ORÇAMENTOS
+                            </h1>
+                            <div className="h-[60px] min-w-[60px] flex bg-purple-medium rounded-full items-center justify-center shadow-lg">
+                                <h1 className="text-4xl font-montserrat mx-1.5">00</h1>
+                            </div>
                         </div>
-                    </div>
                 </div>
-                <div className="pb-5">
                     <h1 className="font-quicksand text-center text-gray-400 text-sm font-semibold">
                         VALOR MÉDIO DOS PEDIDOS
                     </h1>
-                    <div className="flex pb-5 justify-center">
-                        <h1 className="text-3xl text-purple-medium">
-                            R$ 000,00
-                        </h1>
+                <div className="flex items-center justify-between">
+                    <div>
+
                     </div>
-                    <div className="flex justify-center">
+                    <h1 className="text-3xl font-medium text-purple-medium">
+                        R$000,00
+                    </h1>
+                    <div>
                         <img src={order_plus_icon} className=" w-7"></img>
                     </div>
                 </div>

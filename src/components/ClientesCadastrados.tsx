@@ -4,7 +4,7 @@ export function ClientesCadastrados() {
     return (
         <>
             <div className="px-7 border-b-2">
-                <h1 className=" font-montserrat font-semibold text-lg pt-3">Clientes Cadastrados</h1>
+                <h1 className=" font-quicksand font-bold text-lg pt-3">Clientes Cadastrados</h1>
 
                 <div className="py-5">
                     <p className=" font-quicksand text-gray-400 text-sm font-semibold ">TOTAL DE CLIENTES
