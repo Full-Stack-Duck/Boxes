@@ -3,12 +3,19 @@ package com.fullstackduck.boxes.entities;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -28,7 +35,7 @@ import lombok.Setter;
 @Table(name="tb_usuario")
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
-public class Usuario implements Serializable {
+public class Usuario implements UserDetails, Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//Atributos da classe
@@ -36,13 +43,19 @@ public class Usuario implements Serializable {
 	@Getter @Setter private Long id;
 	@Getter @Setter private String nome;
 	@Getter @Setter private String documento;
-	@Getter @Setter private String email;
+	
+	
+	
 	@Getter @Setter private String telefone;
-	@Getter @Setter private String senha;
+
 	@Getter @Setter private String endereco;
 	@Getter @Setter private String logo;
 	@Getter @Setter private Instant datacadastro;
 	private Integer status;
+	
+	@Column(unique = true)
+	@Getter @Setter private String email;
+	@Getter @Setter private String senha;
 	
 	@Enumerated(EnumType.STRING)
     private TipoLicenca tipoLicenca;
@@ -122,6 +135,48 @@ public class Usuario implements Serializable {
 	public void setTipoLicenca(TipoLicenca tipoLicenca2) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return licencas.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority()))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return senha;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 	

@@ -5,7 +5,12 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.fullstackduck.boxes.entities.Usuario;
@@ -16,7 +21,9 @@ import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service //Registro de componente
-public class UsuarioService {
+public class UsuarioService implements UserDetailsService {
+	
+	private static Logger logger = LoggerFactory.getLogger(UsuarioService.class);
 
 	@Autowired
 	private UsuarioRepository repository;
@@ -88,6 +95,20 @@ public class UsuarioService {
 	
 	private void atualizarStatus(Usuario entity, Usuario obj) {
 		entity.setStatus(obj.getStatus());
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		
+		Usuario usuario = repository.findByEmail(username);
+		if (usuario == null) {
+			logger.error("Usuario não encontrado: " + username);
+			throw new UsernameNotFoundException("Email not found");
+		}
+		logger.info("Usuario encontrado: " + username);
+		return usuario;
+		
 	}
 	
 	

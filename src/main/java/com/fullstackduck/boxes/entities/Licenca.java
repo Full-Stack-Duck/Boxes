@@ -33,11 +33,13 @@ public class Licenca implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter private Long id;
 	private Integer statusLicenca;
+	private String authority;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	@Getter @Setter private Instant dataAquisicao;
 	private Integer tipoLicenca;
 	@Getter @Setter private Double valor;
+	
 	
 	
 	//Relacionamento com a entidade de Usuario
@@ -105,6 +107,12 @@ public class Licenca implements Serializable {
 
 	public void setDiasLicenca(long days) {
 	    this.setDataValidade(this.getDataAquisicao().plus(Duration.ofDays(days)));
+	}
+
+
+	public String getAuthority() {
+		// TODO Auto-generated method stub
+		return authority;
 	}
 
 
