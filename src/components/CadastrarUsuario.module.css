@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .inputStyles{ 
+        @apply px-4 py-2 border border-purple-medium m-auto border-spacing-1 rounded
+    }
+
+    .inputRadio{
+        @apply bg-transparent appearance-none w-4 h-4 rounded-full ring-2 ring-purple-medium cursor-pointer border border-white
+    }
+
+    .inputRadio:checked{
+        @apply transition-colors duration-300 bg-purple-darker
+    }
+}

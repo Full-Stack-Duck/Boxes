@@ -11,7 +11,7 @@ export function PedidosOrcamentos() {
                                 PEDIDOS
                             </span>
                             <div className="h-[60px] min-w-[60px] flex bg-purple-medium rounded-full items-center justify-center shadow-lg">
-                                <h1 className="text-4xl font-montserrat mx-1.5">00</h1>
+                                <h1 className="text-4xl font-montserrat mx-1.5">12</h1>
                             </div>
                         </div>
                         <div className="flex flex-col items-center w-1/2">
@@ -19,7 +19,7 @@ export function PedidosOrcamentos() {
                                 ORÇAMENTOS
                             </h1>
                             <div className="h-[60px] min-w-[60px] flex bg-purple-medium rounded-full items-center justify-center shadow-lg">
-                                <h1 className="text-4xl font-montserrat mx-1.5">00</h1>
+                                <h1 className="text-4xl font-montserrat mx-1.5">17</h1>
                             </div>
                         </div>
                 </div>
@@ -28,10 +28,9 @@ export function PedidosOrcamentos() {
                     </h1>
                 <div className="flex items-center justify-between">
                     <div>
-
                     </div>
-                    <h1 className="text-3xl font-medium text-purple-medium">
-                        R$000,00
+                    <h1 className="text-3xl font-bold text-purple-medium">
+                        R$678,20
                     </h1>
                     <div>
                         <img src={order_plus_icon} className=" w-7"></img>

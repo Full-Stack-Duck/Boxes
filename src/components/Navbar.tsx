@@ -22,6 +22,7 @@ import { Dashboard } from "./Dashboard";
 import { PedidosOrcamentos } from "./PedidosOrcamentos";
 import { ClientesCadastrados } from "./ClientesCadastrados";
 import { ProdutosEstoque } from "./ProdutosEstoque";
+import { CadastrarUsuario } from "./CadastrarUsuario";
 
 
 export function Navbar() {
@@ -121,7 +122,7 @@ export function Navbar() {
                     </Tab.Panel>
                     {/* PRODUTOS */}
                     <Tab.Panel>
-                        <Footer />
+                        <CadastrarUsuario />
                     </Tab.Panel>
                     {/* CONFIGURACÕES */}
                     <Tab.Panel>

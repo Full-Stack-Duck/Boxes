@@ -9,15 +9,15 @@ export function ClientesCadastrados() {
                 <div className="py-5">
                     <p className=" font-quicksand text-gray-400 text-sm font-semibold ">TOTAL DE CLIENTES
                     </p>
-                    <p className="text-purple-medium text-3xl font-semibold">
-                        000
+                    <p className="text-purple-medium text-3xl font-bold">
+                        239
                     </p>
                 </div>
-                <div className="">
+                <div className="py-5">
                     <p className=" font-quicksand text-gray-400 text-sm font-semibold">NOVOS CLIENTES
                     </p>
-                    <p className="text-purple-medium text-3xl font-semibold">
-                        000
+                    <p className="text-purple-medium text-3xl font-bold">
+                        5
                     </p>
                 </div>
                 <div className="flex justify-between items-center  pb-5">
