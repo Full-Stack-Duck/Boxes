@@ -5,7 +5,7 @@ export function CadastrarDespesa(){
         <section className="flex-col px-7 my-1 bg-white font-quicksand font-semibold border-y"> 
             <div>
                 <h3 className="text-lg py-2">Cadastrar Despesas</h3>
-                <div className=" flextext-sm text-purple-medium">
+                <div className=" flex text-sm text-purple-medium">
                     <article className="mb-4 text-sm">
                         <label htmlFor="">NOME DA DESPESA</label>
                         <input type="text" className="w-full h-8 border rounded border-purple-light" />
