@@ -43,7 +43,7 @@ export function CadastroPlano(){
                     <div className="flex p-4 items-center py-1.5 my-2 font-medium bg-purple-plano text-white rounded-xl">
                         <input type="checkbox" className="w-5 h-5"/>
                         <div className="ml-3.5 w-[33%]">
-                            <h4 className="font-semibold tracking-widest">Delux</h4>
+                            <h4 className="font-semibold tracking-widest">Deluxe</h4>
                             <h5>1 mês</h5>
                         </div>
                         <h2 className="flex align-middle font-montserrat font-bold tracking-widest text-2xl ml-10">R$ 82</h2>
