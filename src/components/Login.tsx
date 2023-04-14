@@ -25,7 +25,7 @@ export function Login(){
                             <input type="checkbox" className="mr-2 border rounded border-purple-stroke"/>
                             <label htmlFor="">Salvar senha</label>
                         </div>
-                        <div className="w-[50%] justify-end">
+                        <div className="w-[50%] flex justify-end">
                             <a href="#" className="text-sm text-purple-medium">
                                 Esqueci minha senha
                             </a>
