@@ -16,6 +16,7 @@ module.exports = {
         purple: {
           'darker': '#151126',
           'dark': '#251D43',
+          'stroke': '#A693DE',
           'medium': '#6851AC',
           'light': '#B9B2C6',
           'shadow': '#B9B2C6'
