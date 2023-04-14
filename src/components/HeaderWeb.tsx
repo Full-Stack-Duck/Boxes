@@ -13,7 +13,7 @@ export function HeaderWeb(){
         </div>
         <div className="w-[50%] flex items-center justify-end">
           <div className="mr-2.5">
-            <a href="" className="text-white font-quicksand text-sm tracking-wider px-2 py-1 bg-purple-medium border rounded-md border-white">CADASTRAR</a>
+            <a href="" className="text-white font-quicksand text-sm tracking-wider px-2 py-1 bg-purple-medium border rounded-md border-white">Cadastrar</a>
           </div>
           <a href="#" className="hover:bg-purple-400 hover:bg-opacity-10 rounded-full">
             <DotsThreeVertical size={32} weight="duotone" className="text-[#fff]"/>
