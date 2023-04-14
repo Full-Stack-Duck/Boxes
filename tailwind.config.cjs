@@ -19,7 +19,12 @@ module.exports = {
           'stroke': '#A693DE',
           'medium': '#6851AC',
           'light': '#B9B2C6',
-          'shadow': '#B9B2C6'
+          'shadow': '#B9B2C6',
+          'plano': '#AA84DA'
+        },
+        green:{
+          'hard': '#007849',
+          'soft': '#84DAB8'
         }
       }
     },
