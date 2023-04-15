@@ -1,4 +1,4 @@
-import product_plus from '../assets/product_icon.svg'
+import productIcon from '../assets/product-icon-active.svg'
 
 export function CadastrarProdutos(){
     return(
@@ -45,7 +45,7 @@ export function CadastrarProdutos(){
                 </div>
                 <div>
                     <button className="flex items-center justify-center w-full h-10 mt-2 mb-4 border-2 rounded  bg-purple-medium border-purple-dark shadow-md shadow-purple-shadow text-white"> CADASTRAR PRODUTO
-                        <img className="mx-1" src={product_plus} alt="" />
+                        <img className="mx-1" src={productIcon} alt="" />
                     </button>
                 </div>
             </div>
