@@ -13,7 +13,7 @@ export function CadastrarDespesa(){
                     <article className="flex mb-4 text-sm justify-between gap-x-6 max-w-full">
                         <div className="flex flex-col w-1/2">
                             <label className="" htmlFor="">VALOR</label>
-                            <input className="border rounded h-8" type="number" placeholder="Ex: 3.25" />
+                            <input className="border rounded h-8 placeholder:text-xs placeholder:p-2 placeholder:italic placeholder:text-gray-lightgray" type="number" placeholder="Ex: 3.25" />
                         </div>
                         <div className="flex flex-col w-1/2">
                             <label htmlFor="">TIPO</label>
@@ -33,7 +33,7 @@ export function CadastrarDespesa(){
                     <article className="flex flex-wrap items-center text-sm mb-5">
                         <label htmlFor="">DESCRIÇÃO</label>
                         <p className="italic pl-5 text-xs text-purple-light"> (opcional) </p>
-                        <textarea className="w-full h-20 resize-none over-flow-y-auto border rounded" id="" name="" placeholder="Escreva uma breve descrição da despesa..." />
+                        <textarea className="w-full h-20 resize-none over-flow-y-auto border rounded placeholder:text-xs placeholder:p-2 placeholder:italic placeholder:text-gray-lightgray" id="" name="" placeholder="Escreva uma breve descrição da despesa..." />
                     </article>
                 </div>
                 <div>
