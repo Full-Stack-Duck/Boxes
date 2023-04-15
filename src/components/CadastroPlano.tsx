@@ -59,7 +59,7 @@ export function CadastroPlano(){
                         Cadastrar
                     </button>
                 </div>
-                <div className="flex justify-center gap-2 py-4">
+                <div className="flex items-center justify-center gap-2 py-4">
                     <p className="text-xs text-gray-lightgray">Já tem uma conta?</p>
                     <a href="#" className="text-sm text-purple-medium">FAÇA O LOGIN</a>
                 </div>
