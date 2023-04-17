@@ -4,7 +4,7 @@
 
 @layer components {
     .inputStyles{ 
-        @apply px-4 py-2 border border-purple-medium m-auto border-spacing-1 rounded
+        @apply px-4 py-2 border border-purple-medium m-auto border-spacing-1 rounded w-full focus:ring-1 focus:ring-purple-500 focus:ring-offset-1
     }
 
     .inputRadio{

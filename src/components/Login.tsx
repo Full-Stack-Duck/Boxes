@@ -37,7 +37,7 @@ export function Login(){
                         Entrar
                     </button>
                 </div>
-                <div className="flex items-center justify-center gap-2 py-4">
+                <div className="flex justify-center gap-2 py-4 items-center">
                     <p className="text-xs text-gray-lightgray">Não tem uma conta?</p>
                     <a href="#" className="text-sm text-purple-medium">CADASTRE-SE</a>
                 </div>
