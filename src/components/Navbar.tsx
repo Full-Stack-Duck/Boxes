@@ -25,6 +25,10 @@ import { ProdutosEstoque } from "./ProdutosEstoque";
 import { CadastrarUsuario } from "./CadastrarUsuario";
 
 
+const setinha = <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 0L17.6603 15H0.339746L9 0Z" fill="white"/>
+</svg>
+
 export function Navbar() {
     return (
         <>
@@ -36,7 +40,14 @@ export function Navbar() {
                                 {({ selected }) => (
                                     <div className={selected ? styles.isSelected : styles.isNotSelected}>
                                         <img src={selected ? dash_dark_icon : dash_icon} className={styles.iconNavbar} />
-                                        Dashboard
+                                        <div className="flex flex-col items-center">
+                                            Dashboard
+                                            <span className="relative">
+                                            <span className="absolute -bottom-4 left-0">
+                                            {selected && setinha}
+                                        </span>
+                                        </span>
+                                        </div>
                                     </div>
                                 )}
                             </Tab>

@@ -15,7 +15,7 @@
         w-5
     }
     .isSelected{
-        @apply h-12 w-40 justify-center bg-white text-purple-dark flex items-center rounded-t gap-2 font-quicksand 
+        @apply h-12 w-40 justify-center  text-white flex items-center rounded-t gap-2 font-quicksand 
     }
     .isNotSelected{
         @apply w-40 justify-center flex items-center hover:scale-105 h-12 font-quicksand text-white text-sm gap-2
