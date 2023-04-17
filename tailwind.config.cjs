@@ -26,6 +26,9 @@ module.exports = {
           'hard': '#007849',
           'soft': '#84DAB8'
         }
+      },
+      backgroundImage: {
+        'logo': 'url("../assets/logoIcon.svg")'
       }
     },
   },
