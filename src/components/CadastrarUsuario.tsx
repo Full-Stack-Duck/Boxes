@@ -39,10 +39,8 @@ const userSchema = z.object({
 
 }).refine((field) => field.senha === field.senhaConfirmada , {
     path: ['senhaConfirmada'],
-    message: 'Senha incorreta'
+    message: 'Senha incorreta, confirme sua senha'
 })
-
-
 
 type UserData = z.infer<typeof userSchema>
 
@@ -63,10 +61,9 @@ export function CadastrarUsuario(){
             resolver: zodResolver(userSchema)
         })
 
-    function criarUsuario(data: any){
+    function criarUsuario(data: UserData){
         setOutput(JSON.stringify(data, null, 2))
     }
-
 
     return (
         <div className="flex flex-col mx-5 w-full h-[800px] justify-center items-center">
@@ -118,23 +115,32 @@ export function CadastrarUsuario(){
                             </label>
                     </div>
                 </div>
-                    {errors.tipoDePessoa && <span className='text-xs text-red-600'>Selecione a opção correspondente.</span>}
-                <input 
-                type="text" 
-                placeholder='Nome' 
-                className={styles.inputStyles} 
-                {...register('nome')}
-                />
-                    {errors.nome && <span className='text-xs text-red-600'>{errors.nome.message}</span>}
 
-                <input 
-                type="text" 
-                placeholder='Sobrenome' 
-                className={styles.inputStyles} 
-                {...register('sobrenome')}
-                />
+                <div>
+                    <label htmlFor="nome">Nome:</label>
+                    <input 
+                    type="text" 
+                    placeholder='Nome' 
+                    className={styles.inputStyles} 
+                    {...register('nome')}
+                    />
+                        {errors.nome && <span className='text-xs text-red-600'>{errors.nome.message}</span>}
+                </div>
+
+                <div>
+                    <label htmlFor="sobrenome">Sobrenome:</label>
+                    <input 
+                    type="text" 
+                    placeholder='Sobrenome' 
+                    className={styles.inputStyles} 
+                    {...register('sobrenome')}
+                    />
                     {errors.sobrenome && <span className='text-xs text-red-600'>{errors.sobrenome.message}</span>}
-
+                </div>
+                <div>
+                    {
+                        radioOption?  <label htmlFor="cpf">CPF:</label> : <label htmlFor="cnpj">CNPJ:</label>
+                    }
                     {radioOption && 
                     <input 
                     type="text" 
@@ -164,25 +170,36 @@ export function CadastrarUsuario(){
                     >
                         {errors.cnpj.message}
                     </span>}
-                
-
+                </div>
                     
-
+                <div>
+                <label htmlFor="email">E-mail:</label>
                 <input type="text" placeholder='E-mail' className={styles.inputStyles} {...register('email')}/>
                     {errors.email && <span className='text-xs text-red-600'>{errors.email.message}</span>}
+                </div>
+
+                <div>
+                <label htmlFor="senha">Senha:</label>
                 <input type="password" placeholder='Senha' className={styles.inputStyles} {...register('senha')}/>
                     {errors.senha && <span className='text-xs text-red-600'>{errors.senha.message}</span>}
+                </div>
+
+                <div>
+                <label htmlFor="senhaConfirmada">Confirme sua senha:</label>
                 <input type="password" placeholder='Confirmar Senha' className={styles.inputStyles} {...register('senhaConfirmada')}/>
                     {errors.senhaConfirmada && <span className='text-xs text-red-600'>{errors.senhaConfirmada.message}</span>}
+                </div>
+
                 <div className='flex gap-1 items-center'>
                 <input type="checkbox" id="aceitar-termos" {...register('termoDeUso')}/>
                 <label htmlFor="aceitar-termos">Eu li e concordo com os <a href='https://www.youtube.com/' className='text-purple-medium underline underline-offset-1'>termos de uso</a></label>
                 </div>
                     {errors.termoDeUso && <span className='text-xs text-red-600'>{errors.termoDeUso.message}</span>}
+
             <button type="submit" className='bg-purple-medium border border-purple-dark py-2 w-full rounded hover:bg-purple-dark text-white font-bold'>Cadastrar</button>
             </form>
 
-            <pre className='bg-purple-dark text-white font-bold text-sm'>{output}</pre>
+            <pre className='bg-purple-dark text-white font-bold text-sm mt-8'>{output}</pre>
 
         </div>
     )
