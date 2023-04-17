@@ -234,31 +234,31 @@ public class TestConfig implements CommandLineRunner{
 		
 		//Teste Pagamento
 		
-		Pagamento pg01 = new Pagamento(null, 957.90, Instant.now(), FormaPagamento.DINHEIRO, pd01);
-		Pagamento pg02 = new Pagamento(null, 478.95, Instant.now(), FormaPagamento.DINHEIRO, pd02);
-		Pagamento pg03 = new Pagamento(null, 478.95, Instant.now(), FormaPagamento.DINHEIRO, pd02);
-		Pagamento pg04 = new Pagamento(null, 319.30, Instant.now(), FormaPagamento.DINHEIRO, pd03);
-		Pagamento pg05 = new Pagamento(null, 319.30, Instant.now(), FormaPagamento.DINHEIRO, pd03);
-		Pagamento pg06 = new Pagamento(null, 319.30, Instant.now(), FormaPagamento.DINHEIRO, pd03);
-		Pagamento pg07 = new Pagamento(null, 957.90, Instant.now(), FormaPagamento.DINHEIRO, pd04);
-		Pagamento pg08 = new Pagamento(null, 957.90, Instant.now(), FormaPagamento.DINHEIRO, pd05);
-		Pagamento pg09 = new Pagamento(null, 191.58, Instant.now(), FormaPagamento.DINHEIRO, pd06);
-		Pagamento pg10 = new Pagamento(null, 191.58, Instant.now(), FormaPagamento.DINHEIRO, pd06);
-		Pagamento pg11 = new Pagamento(null, 191.58, Instant.now(), FormaPagamento.DINHEIRO, pd06);
-		Pagamento pg12 = new Pagamento(null, 191.58, Instant.now(), FormaPagamento.DINHEIRO, pd06);
-		Pagamento pg13 = new Pagamento(null, 191.58, Instant.now(), FormaPagamento.DINHEIRO, pd06);
-		Pagamento pg14 = new Pagamento(null, 478.95, Instant.now(), FormaPagamento.DINHEIRO, pd07);
-		Pagamento pg15 = new Pagamento(null, 478.95, Instant.now(), FormaPagamento.DINHEIRO, pd07);
-		Pagamento pg16 = new Pagamento(null, 957.90, Instant.now(), FormaPagamento.DINHEIRO, pd08);
-		Pagamento pg17 = new Pagamento(null, 957.90, Instant.now(), FormaPagamento.DINHEIRO, pd09);
-		Pagamento pg18 = new Pagamento(null, 957.90, Instant.now(), FormaPagamento.DINHEIRO, pd10);
-		Pagamento pg19 = new Pagamento(null, 957.90, Instant.now(), FormaPagamento.DINHEIRO, pd11);
-		Pagamento pg20 = new Pagamento(null, 957.90, Instant.now(), FormaPagamento.DINHEIRO, pd12);
-		Pagamento pg21 = new Pagamento(null, 957.90, Instant.now(), FormaPagamento.DINHEIRO, pd13);
-		Pagamento pg22 = new Pagamento(null, 478.95, Instant.now(), FormaPagamento.DINHEIRO, pd14);
-		Pagamento pg23 = new Pagamento(null, 478.95, Instant.now(), FormaPagamento.DINHEIRO, pd14);
-		Pagamento pg24 = new Pagamento(null, 478.95, Instant.now(), FormaPagamento.DINHEIRO, pd15);
-		Pagamento pg25 = new Pagamento(null, 478.95, Instant.now(), FormaPagamento.DINHEIRO, pd15);
+		Pagamento pg01 = new Pagamento(null, 957.90, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd01);
+		Pagamento pg02 = new Pagamento(null, 478.95, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd02);
+		Pagamento pg03 = new Pagamento(null, 478.95, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd02);
+		Pagamento pg04 = new Pagamento(null, 319.30, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd03);
+		Pagamento pg05 = new Pagamento(null, 319.30, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd03);
+		Pagamento pg06 = new Pagamento(null, 319.30, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd03);
+		Pagamento pg07 = new Pagamento(null, 957.90, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd04);
+		Pagamento pg08 = new Pagamento(null, 957.90, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd05);
+		Pagamento pg09 = new Pagamento(null, 191.58, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd06);
+		Pagamento pg10 = new Pagamento(null, 191.58, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd06);
+		Pagamento pg11 = new Pagamento(null, 191.58, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd06);
+		Pagamento pg12 = new Pagamento(null, 191.58, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd06);
+		Pagamento pg13 = new Pagamento(null, 191.58, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd06);
+		Pagamento pg14 = new Pagamento(null, 478.95, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd07);
+		Pagamento pg15 = new Pagamento(null, 478.95, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd07);
+		Pagamento pg16 = new Pagamento(null, 957.90, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd08);
+		Pagamento pg17 = new Pagamento(null, 957.90, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd09);
+		Pagamento pg18 = new Pagamento(null, 957.90, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd10);
+		Pagamento pg19 = new Pagamento(null, 957.90, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd11);
+		Pagamento pg20 = new Pagamento(null, 957.90, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd12);
+		Pagamento pg21 = new Pagamento(null, 957.90, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd13);
+		Pagamento pg22 = new Pagamento(null, 478.95, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd14);
+		Pagamento pg23 = new Pagamento(null, 478.95, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd14);
+		Pagamento pg24 = new Pagamento(null, 478.95, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd15);
+		Pagamento pg25 = new Pagamento(null, 478.95, Instant.now(), FormaPagamento.DINHEIRO, Status.ATIVO, pd15);
 		
 		
 		pagamentoRepository.saveAll(Arrays.asList(pg01, pg02, pg03, pg04, pg05, pg06, pg07, pg08, pg09, pg10, pg11, pg12, pg13, pg14,

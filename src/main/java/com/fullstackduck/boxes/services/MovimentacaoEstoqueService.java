@@ -23,4 +23,10 @@ public class MovimentacaoEstoqueService {
 		Optional<MovimentacaoEstoque> obj = repository.findById(id);
 		return obj.get();
 	}
+	
+	//insere movimentação de estoque no banco de dados
+	
+	public MovimentacaoEstoque inserirMovimentacaoEstoque(MovimentacaoEstoque obj) {
+		return repository.save(obj);
+	}
 }

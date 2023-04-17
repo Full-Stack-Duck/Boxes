@@ -68,7 +68,7 @@ public class LicencaService {
         return licenca.getDiasLicenca();
     }
 
-    public Usuario renovarLicenca(Long id) {
+    /*public Usuario renovarLicenca(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
         TipoLicenca tipoLicenca = usuario.getTipoLicenca();
@@ -84,7 +84,7 @@ public class LicencaService {
         }
         usuario.setDataValidadeLicenca(novaDataValidadeLicenca);
         return usuarioRepository.save(usuario);
-    }
+    }*/
 
     public Licenca alterarLicenca(Long id, TipoLicenca tipoLicenca, Double valor) {
         Licenca licenca = findById(id);

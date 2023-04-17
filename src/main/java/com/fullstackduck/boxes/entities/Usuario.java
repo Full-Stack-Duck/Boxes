@@ -53,6 +53,7 @@ public class Usuario implements UserDetails, Serializable {
 	@Getter @Setter private Instant datacadastro;
 	private Integer status;
 	
+<<<<<<< Updated upstream
 	@Column(unique = true)
 	@Getter @Setter private String email;
 	@Getter @Setter private String senha;
@@ -62,6 +63,8 @@ public class Usuario implements UserDetails, Serializable {
     
 	@Getter @Setter private Instant dataValidadeLicenca;
 	
+=======
+>>>>>>> Stashed changes
 	//Relacionamento com a entidade de Licencas
 	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
@@ -126,10 +129,6 @@ public class Usuario implements UserDetails, Serializable {
 		if(status != null) {
 			this.status = status.getCode();
 		}
-	}
-	
-	public TipoLicenca getTipoLicenca() {
-	    return tipoLicenca;
 	}
 
 	public void setTipoLicenca(TipoLicenca tipoLicenca2) {

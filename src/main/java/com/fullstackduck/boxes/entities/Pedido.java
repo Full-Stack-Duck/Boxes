@@ -50,6 +50,7 @@ public class Pedido implements Serializable {
 	
 	//Relacionamento com a entidade de Orcamento
 	@OneToOne
+	@JsonIgnore
 	@JoinColumn(name = "orcamento_id")
     @Getter @Setter private Orcamento orcamento;
 

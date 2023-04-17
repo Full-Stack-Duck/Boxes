@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +39,7 @@ public class OrcamentoResource {
 	}
 
 	@PostMapping
+	@Transactional
 	public ResponseEntity<Orcamento> inserirOrcamento(@RequestBody Orcamento obj) {
 		obj = service.inserirOrcamento(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -45,6 +47,7 @@ public class OrcamentoResource {
 	}
 	
 	@PutMapping(value = "/{id}/attStatus")
+	@Transactional
 	public ResponseEntity<Orcamento> atualizarStatusOrcamento(@PathVariable Long id, @RequestBody Orcamento obj){
 		obj = service.atualizarStatusOrcamento(id, obj);
 		return ResponseEntity.ok().body(obj);
@@ -52,6 +55,7 @@ public class OrcamentoResource {
 
 	
 	@PutMapping(value = "/{id}/attOrcamento")
+	@Transactional
 	public ResponseEntity<Orcamento> atualizarOrcamento(@PathVariable Long id, @RequestBody Orcamento obj){
 		obj = service.atualizarOrcamento(id, obj);
 		return ResponseEntity.ok().body(obj);

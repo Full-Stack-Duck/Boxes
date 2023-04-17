@@ -40,7 +40,7 @@ public class UsuarioService implements UserDetailsService {
 	//insere usuario no banco de dados
 	public Usuario inserirUsuario(Usuario obj) {
 		obj.setDatacadastro(Instant.now());
-	    
+	    /*
 	    // Definir tipo de licença escolhido pelo usuário
 	    TipoLicenca tipoLicenca = obj.getTipoLicenca();
 	    obj.setTipoLicenca(tipoLicenca);
@@ -57,7 +57,7 @@ public class UsuarioService implements UserDetailsService {
 	        dataValidadeLicenca = dataValidadeLicenca.plus(Duration.ofDays(365));
 	    }
 	    obj.setDataValidadeLicenca(dataValidadeLicenca);
-	    
+	    */
 	    return repository.save(obj);
 	}
 	

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +39,7 @@ import com.fullstackduck.boxes.services.UsuarioService;
 		}
 		
 		@PostMapping
+		@Transactional
 		public ResponseEntity<Usuario> inserirUsuario(@RequestBody Usuario obj) {
 			obj = service.inserirUsuario(obj);
 			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -45,6 +47,7 @@ import com.fullstackduck.boxes.services.UsuarioService;
 		}
 		
 		@PutMapping(value = "/{id}/attStatus")
+		@Transactional
 		public ResponseEntity<Usuario> atualizarStatusUsuario(@PathVariable Long id, @RequestBody Usuario obj){
 			obj = service.atualizarStatusUsuario(id, obj);
 			return ResponseEntity.ok().body(obj);
@@ -52,6 +55,7 @@ import com.fullstackduck.boxes.services.UsuarioService;
 		
 		
 		@PutMapping(value = "/{id}/attUsuario")
+		@Transactional
 		public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario obj){
 			obj = service.atualizarUsuario(id, obj);
 			return ResponseEntity.ok().body(obj);

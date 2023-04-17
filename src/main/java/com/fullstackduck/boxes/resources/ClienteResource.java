@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +42,7 @@ public class ClienteResource {
 
 	
 	@PostMapping
+	@Transactional
 	public ResponseEntity<Cliente> inserirCliente(@RequestBody Cliente obj) {
 		obj = service.inserirCliente(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -49,6 +51,7 @@ public class ClienteResource {
 	
 
 	@PutMapping(value = "/{id}/attStatusCliente")
+	@Transactional
 	public ResponseEntity<Cliente> atualizarStatusCliente(@PathVariable Long id, @RequestBody Cliente obj){
 		obj = service.atualizarStatusCliente(id, obj);
 		return ResponseEntity.ok().body(obj);
@@ -56,6 +59,7 @@ public class ClienteResource {
 	
 	
 	@PutMapping(value = "/{id}/attCliente")
+	@Transactional
 	public ResponseEntity<Cliente> atualizarCliente(@PathVariable Long id, @RequestBody Cliente obj){
 		obj = service.atualizarCliente(id, obj);
 		return ResponseEntity.ok().body(obj);

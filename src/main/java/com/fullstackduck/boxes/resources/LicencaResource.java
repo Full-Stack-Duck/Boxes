@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,17 +38,10 @@ public class LicencaResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Licenca> create(@RequestBody Licenca licenca) {
+	@Transactional
+	public ResponseEntity<Licenca> inserirLicenca(@RequestBody Licenca licenca) {
 	    Licenca createdLicenca = service.save(licenca);
-	    URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-	            .path("/{id}")
-	            .buildAndExpand(createdLicenca.getId())
-	            .toUri();
+	    URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdLicenca.getId()).toUri();
 	    return ResponseEntity.created(uri).body(createdLicenca);
 	}
-	
-	
-
-	
-	
 }
