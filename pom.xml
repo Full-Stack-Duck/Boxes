@@ -17,7 +17,7 @@
 		<java.version>17</java.version>
 		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
 		<spring.jpa.open-in-view>false</spring.jpa.open-in-view>
-		<spring-security-oauth2.version>2.3.8.RELEASE</spring-security-oauth2.version>
+		
 	</properties>
 	<dependencies>
 		<dependency>
@@ -84,24 +84,8 @@
 		</dependency>
 		
 			
-		
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.security.oauth.boot</groupId>
-			<artifactId>spring-security-oauth2-autoconfigure</artifactId>
 			
-		</dependency>
 		
-		<dependency>
-		  <groupId>org.springframework.security</groupId>
-		  <artifactId>spring-security-config</artifactId>
-		  <version>5.5.0</version>
-		</dependency>
 
 	</dependencies>
 

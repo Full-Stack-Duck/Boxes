@@ -1,29 +1,22 @@
 package com.fullstackduck.boxes.services;
 
-import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.fullstackduck.boxes.entities.Usuario;
-import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
 import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
 
 @Service //Registro de componente
-public class UsuarioService implements UserDetailsService {
+public class UsuarioService {
 	
-	private static Logger logger = LoggerFactory.getLogger(UsuarioService.class);
+
 
 	@Autowired
 	private UsuarioRepository repository;
@@ -97,7 +90,7 @@ public class UsuarioService implements UserDetailsService {
 		entity.setStatus(obj.getStatus());
 	}
 
-	@Override
+	/*@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
 		
@@ -109,7 +102,23 @@ public class UsuarioService implements UserDetailsService {
 		logger.info("Usuario encontrado: " + username);
 		return usuario;
 		
-	}
+	}*/
+	
+	public String recuperarSenha(String email) {
+        Usuario usuario = repository.findByEmail(email);
+        if (usuario == null) {
+            throw new ResourceNotFoundException("Usuário não encontrado para o email: " + email);
+        }
+        return usuario.getSenha();
+    }
+
+    public boolean validarSenha(String email, String senha) {
+        Usuario usuario = repository.findByEmail(email);
+        if (usuario == null) {
+            return false;
+        }
+        return usuario.getSenha().equals(senha);
+    }
 	
 	
 

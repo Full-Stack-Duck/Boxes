@@ -1,8 +1,13 @@
 package com.fullstackduck.boxes.services;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.fullstackduck.boxes.entities.Usuario;
@@ -82,6 +88,31 @@ public class UsuarioServiceTest {
         Assertions.assertEquals(1L, result.getId());
         Assertions.assertEquals("João", result.getNome());
     }
+    
+    @Test
+    public void testValidarSenha() {
+        String email = "fulano@teste.com";
+        String senha = "senha123";
+        Usuario usuario = new Usuario(null, "Fulano", "11122233344", email, "12345678",senha, "Rua A", "logo.jpg", Instant.now(), Status.ATIVO);
+        Mockito.when(repository.findByEmail(email)).thenReturn(usuario);
+        assertTrue(service.validarSenha(email, senha));
+        assertFalse(service.validarSenha(email, "senha456"));
+    }
+    
+   
+
+    @Test
+    public void testRecuperarSenha() {
+        String email = "fulano@teste.com";
+        String senha = "senha123";
+        Usuario usuario = new Usuario(null, "Fulano", "11122233344", email, "12345678",senha, "Rua A", "logo.jpg", Instant.now(), Status.ATIVO);
+        Mockito.when(repository.findByEmail(email)).thenReturn(usuario);
+        assertEquals(senha, service.recuperarSenha(email));
+        assertThrows(ResourceNotFoundException.class, () -> {
+            service.recuperarSenha("email_invalido@teste.com");
+        });
+    }
+
     
     
     

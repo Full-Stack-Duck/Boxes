@@ -61,6 +61,19 @@ import com.fullstackduck.boxes.services.UsuarioService;
 			return ResponseEntity.ok().body(obj);
 		}
 		
+		@PostMapping(value = "/{id}/validar-senha")
+		public ResponseEntity<Boolean> validarSenha(@PathVariable String email, @RequestBody String senha) {
+		    Boolean senhaValida = service.validarSenha(email, senha);
+		    return ResponseEntity.ok().body(senhaValida);
+		}
+		
+		@PostMapping(value = "/recuperar-senha")
+		public ResponseEntity<Void> recuperarSenha(@RequestBody String email) {
+		    service.recuperarSenha(email);
+		    return ResponseEntity.noContent().build();
+		}
+
+
 		
 
 	}

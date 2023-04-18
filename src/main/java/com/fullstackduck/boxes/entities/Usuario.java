@@ -3,19 +3,12 @@ package com.fullstackduck.boxes.entities;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -35,7 +28,7 @@ import lombok.Setter;
 @Table(name="tb_usuario")
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
-public class Usuario implements UserDetails, Serializable {
+public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//Atributos da classe
@@ -48,8 +41,6 @@ public class Usuario implements UserDetails, Serializable {
 	@Getter @Setter private String logo;
 	@Getter @Setter private Instant datacadastro;
 	private Integer status;
-	
-	@Column(unique = true)
 	@Getter @Setter private String email;
 	@Getter @Setter private String senha;
 	
@@ -128,7 +119,7 @@ public class Usuario implements UserDetails, Serializable {
 		// TODO Auto-generated method stub
 		
 	}
-
+	/*
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return licencas.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority()))
@@ -169,7 +160,7 @@ public class Usuario implements UserDetails, Serializable {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
-	}
+	}*/
 
 	
 }
