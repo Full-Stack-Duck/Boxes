@@ -23,4 +23,10 @@ public class PedidoService {
 		Optional<Pedido> obj = repository.findById(id);
 		return obj.get();
 	}
+	
+	//insere cliente no banco de dados
+	
+	public Pedido inserirPedido(Pedido obj) {
+		return repository.save(obj);
+	}
 }

@@ -35,6 +35,7 @@ public class Orcamento implements Serializable {
 	//Atributos da classe
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter private Long id;
+	@Getter @Setter private Double total;
 	private Integer tipoEntrega;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
@@ -61,9 +62,10 @@ public class Orcamento implements Serializable {
 	@OneToMany(mappedBy = "id.orcamento")
 	@Getter private  Set<ItensOrcamento> itens = new HashSet<>();
 	
-	public Orcamento(Long id, TipoEntrega tipoEntrega, Instant dataOrcamento, Status status, Usuario usuario, Cliente cliente) {
+	public Orcamento(Long id, Double total, TipoEntrega tipoEntrega, Instant dataOrcamento, Status status, Usuario usuario, Cliente cliente) {
 		super();
 		this.id = id;
+		this.total = total;
 		setTipoEntrega(tipoEntrega);
 		this.dataOrcamento = dataOrcamento;
 		setStatus(status);

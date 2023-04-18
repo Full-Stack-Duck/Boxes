@@ -43,17 +43,12 @@ public class Usuario implements UserDetails, Serializable {
 	@Getter @Setter private Long id;
 	@Getter @Setter private String nome;
 	@Getter @Setter private String documento;
-	
-	
-	
 	@Getter @Setter private String telefone;
-
 	@Getter @Setter private String endereco;
 	@Getter @Setter private String logo;
 	@Getter @Setter private Instant datacadastro;
 	private Integer status;
 	
-<<<<<<< Updated upstream
 	@Column(unique = true)
 	@Getter @Setter private String email;
 	@Getter @Setter private String senha;
@@ -63,8 +58,6 @@ public class Usuario implements UserDetails, Serializable {
     
 	@Getter @Setter private Instant dataValidadeLicenca;
 	
-=======
->>>>>>> Stashed changes
 	//Relacionamento com a entidade de Licencas
 	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
