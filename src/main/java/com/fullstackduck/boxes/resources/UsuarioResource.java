@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.fullstackduck.boxes.entities.Cliente;
+import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.services.UsuarioService;
 	
@@ -72,8 +74,18 @@ import com.fullstackduck.boxes.services.UsuarioService;
 		    service.recuperarSenha(email);
 		    return ResponseEntity.noContent().build();
 		}
-
-
 		
+		@GetMapping(value = "/{id}/clientes")
+		public ResponseEntity<List<Cliente>> listarClientes(@PathVariable Long id) {
+		    List<Cliente> clientes = service.listarClientes(id);
+		    return ResponseEntity.ok().body(clientes);
+		}
+		
+		@GetMapping(value = "/{id}/produtos")
+		public ResponseEntity<List<Produto>> listarProdutos(@PathVariable Long id) {
+		    List<Produto> produtos = service.listarProdutos(id);
+		    return ResponseEntity.ok().body(produtos);
+		}
+
 
 	}

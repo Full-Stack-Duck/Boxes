@@ -7,7 +7,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fullstackduck.boxes.entities.Cliente;
+import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.entities.Usuario;
+import com.fullstackduck.boxes.repositories.PagamentoRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
 import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
@@ -20,6 +23,9 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository repository;
+	
+	@Autowired
+	private PagamentoRepository repository1;
 	
 	public List<Usuario> findAll(){
 		return repository.findAll();
@@ -119,8 +125,18 @@ public class UsuarioService {
         }
         return usuario.getSenha().equals(senha);
     }
-	
-	
-
+    
+    public List<Cliente> listarClientes(Long idUsuario) {
+        Usuario usuario = findById(idUsuario);
+        return usuario.getClientes();
+    }
+    
+    public List<Produto> listarProdutos(Long idUsuario) {
+        Usuario usuario = findById(idUsuario);
+        return usuario.getProdutos();
+    }
+    
+    
+ 
 }
 

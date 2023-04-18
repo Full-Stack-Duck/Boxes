@@ -119,6 +119,11 @@ public class Usuario implements Serializable {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void setProdutos(List<Produto> produtos2) {
+		// TODO Auto-generated method stub
+		
+	}
 	/*
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

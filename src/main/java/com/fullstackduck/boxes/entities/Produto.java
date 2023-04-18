@@ -107,4 +107,8 @@ public class Produto implements Serializable {
 		}
 	}
 
+	public Produto(long l, String string, String string2, double d) {
+		// TODO Auto-generated constructor stub
+	}
+
 }

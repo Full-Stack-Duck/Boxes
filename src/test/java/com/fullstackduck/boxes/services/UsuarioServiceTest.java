@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import com.fullstackduck.boxes.entities.Cliente;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
@@ -112,13 +114,28 @@ public class UsuarioServiceTest {
             service.recuperarSenha("email_invalido@teste.com");
         });
     }
+    
+    @Test
+    public void testListarClientes() {
+        // Cria um usuário com clientes vinculados
+        Cliente c1 = new Cliente(null, "Cliente 1", null, null, null, null, null, null, null);
+        Cliente c2 = new Cliente(null, "Cliente 2", null, null, null, null, null, null, null);
+        Usuario usuario = new Usuario(null, "Usuário de Teste", null, null, null, null, null, null, null, null);
+        usuario.getClientes().addAll(Arrays.asList(c1, c2));
+
+        // Mock da resposta do repositório
+        when(repository.findById(1L)).thenReturn(Optional.of(usuario));
+
+        // Chama o método de listagem de clientes do service
+        List<Cliente> clientes = service.listarClientes(1L);
+
+        // Verifica se a lista retornada contém os clientes vinculados ao usuário
+        assertEquals(2, clientes.size());
+        assertEquals("Cliente 1", clientes.get(0).getNome());
+        assertEquals("Cliente 2", clientes.get(1).getNome());
+    }
 
     
-    
-    
-   
-   
-
-
+  
 
 }
