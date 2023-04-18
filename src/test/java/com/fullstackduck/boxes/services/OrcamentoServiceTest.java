@@ -73,7 +73,7 @@ public class OrcamentoServiceTest {
 
     @Test
     public void testAtualizarStatusOrcamento() {
-        Orcamento orcamentoComStatus = new Orcamento(orcamento.getId(), TipoEntrega.ENTREGA,Instant.now(),Status.ATIVO,null,null);
+        Orcamento orcamentoComStatus = new Orcamento(orcamento.getId(), orcamento.getTotal(), TipoEntrega.ENTREGA,Instant.now(),Status.ATIVO,null,null);
         Mockito.when(repository.getReferenceById(orcamento.getId())).thenReturn(orcamento);
         Mockito.when(repository.save(Mockito.any(Orcamento.class))).thenReturn(orcamento);
 
@@ -111,7 +111,7 @@ public class OrcamentoServiceTest {
 
     @Test
     public void testCalcularDescontoValorAlto() {
-        Orcamento orcamentoValorAlto = new Orcamento(1L, TipoEntrega.ENTREGA,Instant.now(),Status.ATIVO,null,null);
+        Orcamento orcamentoValorAlto = new Orcamento(1L, 957.90, TipoEntrega.ENTREGA,Instant.now(),Status.ATIVO,null,null);
         double descontoEsperado = 1000.0;
 
         double descontoCalculado = service.calcularDesconto(orcamentoValorAlto);
@@ -121,7 +121,7 @@ public class OrcamentoServiceTest {
 
     @Test
     public void testCalcularDescontoTipoExpressa() {
-        Orcamento orcamentoExpressa = new Orcamento(1L, TipoEntrega.ENTREGA,Instant.now(),Status.ATIVO,null,null);
+        Orcamento orcamentoExpressa = new Orcamento(1L, 957.90, TipoEntrega.ENTREGA,Instant.now(),Status.ATIVO,null,null);
         double descontoEsperado = 50.0;
 
         double descontoCalculado = service.calcularDesconto(orcamentoExpressa);
@@ -131,7 +131,7 @@ public class OrcamentoServiceTest {
 
     @Test
     public void testCalcularDescontoTipoNormal() {
-        Orcamento orcamentoNormal = new Orcamento(1L, TipoEntrega.ENTREGA,Instant.now(),Status.ATIVO,null,null);
+        Orcamento orcamentoNormal = new Orcamento(1L, 957.90, TipoEntrega.ENTREGA,Instant.now(),Status.ATIVO,null,null);
         double descontoEsperado = 25.0;
 
         double descontoCalculado = service.calcularDesconto(orcamentoNormal);
