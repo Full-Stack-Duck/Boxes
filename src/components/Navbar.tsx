@@ -31,6 +31,8 @@ import { ResultadoCliente } from "./ResultadoCliente";
 import { ResultadoPadrao } from "./ResultadoPadrao";
 import { ResultadoPedido } from "./ResultadoPedido";
 import { ValoresPedido } from "./ValoresPedido";
+import { CadastrarClientes } from "./CadastrarClientes";
+import { LegendaPedido } from "./LegendaPedido";
 
 
 const setinha = <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -139,9 +141,13 @@ export function Navbar() {
                         <ValoresPedido />
                         <Pesquisar />
                         <ResultadoPedido />
+                        <LegendaPedido />
                     </Tab.Panel>
                     {/* CLIENTES */}
                     <Tab.Panel>
+                        <CadastrarClientes />
+                        <Pesquisar />
+                        <ResultadoCliente />
                         <FooterNav />
                     </Tab.Panel>
                     {/* PRODUTOS */}
