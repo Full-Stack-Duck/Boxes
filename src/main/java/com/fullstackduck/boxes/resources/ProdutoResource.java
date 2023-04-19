@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fullstackduck.boxes.entities.Produto;
-import com.fullstackduck.boxes.entities.enums.Categoria;
+import com.fullstackduck.boxes.entities.enums.TipoArmazenamento;
 import com.fullstackduck.boxes.entities.enums.TipoProduto;
 import com.fullstackduck.boxes.services.ProdutoService;
 
@@ -65,7 +65,7 @@ public class ProdutoResource {
 	}
 	
 	@GetMapping(value = "/categoria")
-	public ResponseEntity<List<Produto>> listarProdutosCategoria(@RequestParam(value = "categoria") Categoria categoria) {
+	public ResponseEntity<List<Produto>> listarProdutosCategoria(@RequestParam(value = "categoria") TipoArmazenamento categoria) {
 		List<Produto> produtos = service.listarProdutosCategoria(categoria);
 		return ResponseEntity.ok().body(produtos);
 	}

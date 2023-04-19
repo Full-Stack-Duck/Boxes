@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.entities.enums.Categoria;
+import com.fullstackduck.boxes.entities.enums.TipoArmazenamento;
 import com.fullstackduck.boxes.entities.enums.TipoProduto;
 
 @Repository
@@ -14,5 +15,6 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>{
 	
 	List<Produto> findByCategoria(Categoria categoria);
     List<Produto> findByTipo(TipoProduto tipo);
+	List<Produto> findByCategoria(TipoArmazenamento categoria);
 
 }
