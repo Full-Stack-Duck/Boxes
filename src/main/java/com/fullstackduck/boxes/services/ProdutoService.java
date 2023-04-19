@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fullstackduck.boxes.entities.Produto;
+import com.fullstackduck.boxes.entities.enums.Categoria;
+import com.fullstackduck.boxes.entities.enums.TipoProduto;
 import com.fullstackduck.boxes.repositories.ProdutoRepository;
 import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
@@ -69,5 +71,13 @@ public class ProdutoService {
 	
 	private void atualizarStatus(Produto entity, Produto obj) {
 		entity.setStatus(obj.getStatus());
+	}
+	
+	public List<Produto> listarProdutosCategoria(Categoria categoria) {
+	    return repository.findByCategoria(categoria);
+	}
+
+	public List<Produto> listarProdutosTipo(TipoProduto tipo) {
+	    return repository.findByTipo(tipo);
 	}
 }

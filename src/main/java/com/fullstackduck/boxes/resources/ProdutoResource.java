@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fullstackduck.boxes.entities.Produto;
+import com.fullstackduck.boxes.entities.enums.Categoria;
+import com.fullstackduck.boxes.entities.enums.TipoProduto;
 import com.fullstackduck.boxes.services.ProdutoService;
 
 //Controlador Rest
@@ -59,5 +62,17 @@ public class ProdutoResource {
 	public ResponseEntity<Produto> atualizarProduto(@PathVariable Long id, @RequestBody Produto obj){
 		obj = service.atualizarProduto(id, obj);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping(value = "/categoria")
+	public ResponseEntity<List<Produto>> listarProdutosCategoria(@RequestParam(value = "categoria") Categoria categoria) {
+		List<Produto> produtos = service.listarProdutosCategoria(categoria);
+		return ResponseEntity.ok().body(produtos);
+	}
+	
+	@GetMapping(value = "/tipo")
+	public ResponseEntity<List<Produto>> listarProdutosTipo(@RequestParam(value = "tipo") TipoProduto tipo) {
+		List<Produto> produtos = service.listarProdutosTipo(tipo);
+		return ResponseEntity.ok().body(produtos);
 	}
 }
