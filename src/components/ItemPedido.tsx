@@ -1,10 +1,10 @@
-import deletarIcon from '../assets/lixeira-icon-on.svg'
+import adicionarIcon from '../assets/botao-adicionar-item.svg'
 
 export function ItemPedido(){
     return(
         <section className="flex-col px-7 my-1 bg-white font-quicksand font-semibold"> 
             <div>
-                <h3 className="text-lg py-2"># ITEM 01</h3>
+                <h3 className="text-lg py-2">INSIRA O PRODUTO</h3>
                 <form className="text-sm text-purple-medium">
 
                     <div className="flex mb-4 text-sm justify-between gap-x-6 max-w-full">
@@ -52,7 +52,7 @@ export function ItemPedido(){
                         </div>
 
                         <div className="flex justify-end self-end w-[50%]">
-                            <a href="#" className="flex items-center justify-center h-[32px] min-w-[32px] rounded-full bg-purple-medium"><img src={deletarIcon} alt="deletar-resultado" className="w-5 h-5" /></a>
+                            <a href="#" className="flex items-center justify-center h-[32px] min-w-[32px] rounded-full "><img src={adicionarIcon} alt="deletar-resultado" className="w-8 h-8" /></a>
                         </div>
                     </div>
 
