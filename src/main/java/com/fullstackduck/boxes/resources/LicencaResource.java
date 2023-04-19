@@ -9,11 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.fullstackduck.boxes.entities.Cliente;
 import com.fullstackduck.boxes.entities.Licenca;
 import com.fullstackduck.boxes.services.LicencaService;
 
@@ -39,9 +41,16 @@ public class LicencaResource {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<Licenca> inserirLicenca(@RequestBody Licenca licenca) {
-	    Licenca createdLicenca = service.save(licenca);
-	    URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdLicenca.getId()).toUri();
-	    return ResponseEntity.created(uri).body(createdLicenca);
+	public ResponseEntity<Licenca> inserirLicenca(@RequestBody Licenca obj) {
+	    obj = service.inserirLicenca(obj);
+	    URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+	    return ResponseEntity.created(uri).body(obj);
+	}
+	
+	@PutMapping(value = "/{id}/renovarLicenca")
+	@Transactional
+	public ResponseEntity<Licenca> renovarLicenca(@PathVariable Long id, @RequestBody Licenca obj){
+		obj = service.renovarLicenca(id, obj);
+		return ResponseEntity.ok().body(obj);
 	}
 }

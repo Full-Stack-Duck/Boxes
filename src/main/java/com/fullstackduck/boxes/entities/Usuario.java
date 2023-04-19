@@ -7,11 +7,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.Status;
-import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -43,11 +40,6 @@ public class Usuario implements Serializable {
 	private Integer status;
 	@Getter @Setter private String email;
 	@Getter @Setter private String senha;
-	
-	@Enumerated(EnumType.STRING)
-    private TipoLicenca tipoLicenca;
-    
-	@Getter @Setter private Instant dataValidadeLicenca;
 	
 	//Relacionamento com a entidade de Licencas
 	@JsonIgnore
@@ -115,15 +107,6 @@ public class Usuario implements Serializable {
 		}
 	}
 
-	public void setTipoLicenca(TipoLicenca tipoLicenca2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setProdutos(List<Produto> produtos2) {
-		// TODO Auto-generated method stub
-		
-	}
 	/*
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

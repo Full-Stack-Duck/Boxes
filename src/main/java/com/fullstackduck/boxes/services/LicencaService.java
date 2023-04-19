@@ -2,20 +2,24 @@ package com.fullstackduck.boxes.services;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.fullstackduck.boxes.entities.Cliente;
 import com.fullstackduck.boxes.entities.Licenca;
 import com.fullstackduck.boxes.entities.Usuario;
-import com.fullstackduck.boxes.entities.enums.StatusLicenca;
 import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 import com.fullstackduck.boxes.repositories.LicencaRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
 import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service // Component registration
 public class LicencaService {
@@ -25,12 +29,6 @@ public class LicencaService {
 	
 	@Autowired
     private UsuarioRepository usuarioRepository;
-	
-	@Autowired
-    public LicencaService(LicencaRepository licencaRepository) {
-        this.licencaRepository = licencaRepository;
-    }
-
     
     public List<Licenca> findAll() {
         return licencaRepository.findAll();
@@ -45,67 +43,85 @@ public class LicencaService {
             throw new ResourceNotFoundException("Licença não encontrada com o id: " + id);
         }
     }
+    
+    public Licenca inserirLicenca(Licenca licenca) {
+		return licencaRepository.save(licenca);
+	}
+    
+    public Licenca atualizarStatusLicenca(Long id, Licenca obj) {
+    	try {
+			Licenca entity = licencaRepository.getReferenceById(id);
+			atualizarStatusLicenca(entity, obj);
+			return licencaRepository.save(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+	}
 
-
-
-
-
+    @Transactional
     public Instant dataValidade(Long id) {
-        Licenca licenca = findById(id);
-        if (licenca != null) {
-            Instant dataValidade = licenca.getDataAquisicao().plus(Duration.ofDays(licenca.getDiasLicenca()));
-            if (dataValidade.isAfter(Instant.now())) {
-                return dataValidade;
-            }
-        }
-        return null;
+    	try {
+    		Licenca entity = licencaRepository.getReferenceById(id);
+	        TipoLicenca tipoLicenca = entity.getTipoLicenca();
+	        Instant dataValidade = Instant.now();
+	        if (entity != null) {
+	        	if (tipoLicenca == TipoLicenca.GRATUITA) {
+	        		dataValidade = dataValidade.plus(Duration.ofDays(30));
+	        	} else if (tipoLicenca == TipoLicenca.MENSAL) {
+	                dataValidade = dataValidade.plus(Duration.ofDays(30));
+	            } else if (tipoLicenca == TipoLicenca.SEMESTRAL) {
+	                dataValidade = dataValidade.plus(Duration.ofDays(180));
+	            } else if (tipoLicenca == TipoLicenca.ANUAL) {
+	                dataValidade = dataValidade.plus(Duration.ofDays(365));
+	            }
+	        	entity.setDataValidade(dataValidade);
+	        }
+	        return entity.getDataValidade();
+        } catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
     }
 
-
-
-    public long diasLicenca(Long id) {
-        Licenca licenca = findById(id);
-        return licenca.getDiasLicenca();
+    @Transactional
+    public Integer diasLicenca(Long id) {
+    	Integer diasLicenca;
+    	try {
+    		Licenca entity = licencaRepository.getReferenceById(id);
+    		long dias = ChronoUnit.DAYS.between(entity.getDataAquisicao(), entity.getDataValidade());
+    		diasLicenca = (int) dias;
+    		entity.setDiasLicenca(diasLicenca);
+    	} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+    	return diasLicenca;
+    }
+    
+    public Licenca renovarLicenca(Long id, Licenca obj) {
+    	try {
+			Licenca entity = licencaRepository.getReferenceById(id);
+			renovarLicenca(entity, obj);
+			return licencaRepository.save(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
     }
 
-    /*public Usuario renovarLicenca(Long id) {
-        Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
-        TipoLicenca tipoLicenca = usuario.getTipoLicenca();
+	
+	//métodos auxiliares
+    private void atualizarStatusLicenca(Licenca entity, Licenca obj) {
+		entity.setStatusLicenca(obj.getStatusLicenca());
+	}
+    
+	private void renovarLicenca(Licenca entity, Licenca obj) {
+        TipoLicenca tipoLicenca = obj.getTipoLicenca();
         Instant novaDataValidadeLicenca = Instant.now();
-        if (tipoLicenca == TipoLicenca.GRATUITA) {
-            novaDataValidadeLicenca = novaDataValidadeLicenca.plus(Duration.ofDays(15));
-        } else if (tipoLicenca == TipoLicenca.MENSAL) {
+        if (tipoLicenca == TipoLicenca.MENSAL) {
             novaDataValidadeLicenca = novaDataValidadeLicenca.plus(Duration.ofDays(30));
         } else if (tipoLicenca == TipoLicenca.SEMESTRAL) {
             novaDataValidadeLicenca = novaDataValidadeLicenca.plus(Duration.ofDays(180));
         } else if (tipoLicenca == TipoLicenca.ANUAL) {
             novaDataValidadeLicenca = novaDataValidadeLicenca.plus(Duration.ofDays(365));
         }
-        usuario.setDataValidadeLicenca(novaDataValidadeLicenca);
-        return usuarioRepository.save(usuario);
-    }*/
-
-    public Licenca alterarLicenca(Long id, TipoLicenca tipoLicenca, Double valor) {
-        Licenca licenca = findById(id);
-        licenca.setTipoLicenca(tipoLicenca);
-        licenca.setValor(valor);
-        return licencaRepository.save(licenca);
+        entity.setDataValidade(novaDataValidadeLicenca);
     }
-
-    public Licenca atualizarStatus(Long id, StatusLicenca statusLicenca) {
-        Licenca licenca = findById(id);
-        licenca.setStatusLicenca(statusLicenca);
-        return licencaRepository.save(licenca);
-	}
-
-	public Licenca save(Licenca licenca) {
-		return licencaRepository.save(licenca);
-	}
-
-	
-	
-		
-	
-
 }

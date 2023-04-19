@@ -1,9 +1,7 @@
 package com.fullstackduck.boxes.entities;
 
 import java.io.Serializable;
-import java.time.Duration;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fullstackduck.boxes.entities.enums.StatusLicenca;
@@ -33,14 +31,14 @@ public class Licenca implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter private Long id;
 	private Integer statusLicenca;
-	private String authority;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	@Getter @Setter private Instant dataAquisicao;
+	@Getter @Setter private Instant dataValidade;
+	
+	@Getter @Setter private Integer diasLicenca;
 	private Integer tipoLicenca;
 	@Getter @Setter private Double valor;
-	
-	
 	
 	//Relacionamento com a entidade de Usuario
 	@ManyToOne
@@ -48,29 +46,28 @@ public class Licenca implements Serializable {
     @Getter @Setter private Usuario usuario;
 
 
-	public Licenca(Long id, StatusLicenca statusLicenca, Instant dataAquisicao, TipoLicenca tipoLicenca, Double valor,
+	public Licenca(Long id, StatusLicenca statusLicenca, Instant dataAquisicao, Instant dataValidade, Integer diasLicenca, TipoLicenca tipoLicenca, Double valor,
 			Usuario usuario) {
 		super();
 		this.id = id;
 		setStatusLicenca(statusLicenca);
 		this.dataAquisicao = dataAquisicao;
+		setDataValidade(dataValidade);
+		setDiasLicenca(diasLicenca);
 		setTipoLicenca(tipoLicenca);
 		this.valor = valor;
 		this.usuario = usuario;
 	}
 
-
 	public StatusLicenca getStatusLicenca() {
 		return StatusLicenca.valueOf(statusLicenca);
 	}
-
 
 	public void setStatusLicenca(StatusLicenca statusLicenca) {
 		if(statusLicenca != null) {
 		this.statusLicenca = statusLicenca.getCode();
 		}
 	}
-
 
 	public TipoLicenca getTipoLicenca() {
 		return TipoLicenca.valueOf(tipoLicenca);
@@ -83,37 +80,32 @@ public class Licenca implements Serializable {
 		}
 	}
 
+	/*public void setDataValidade(Instant dataValidade) {
+		// Calcula a data de validade com base na data de aquisição e dias de licença
+	    dataValidade = dataAquisicao.plus(Duration.ofDays(getDiasLicenca()));
+	    this.dataValidade = dataValidade;
+	}
 
-	public long getDiasLicenca() {
+	private Instant getDataValidade() {
+	    return this.dataValidade;
+	}
+
+	public void setDiasLicenca(Integer diasLicenca) {
 	    // Verifica se a data de validade já passou
 	    Instant dataAtual = Instant.now();
 	    Instant dataValidade = getDataValidade();
 	    if (dataAtual.isAfter(dataValidade)) {
-	        return 0;
+	        this.diasLicenca = 0;
 	    }
 	    // Calcula a diferença em dias entre as duas datas
-	    return ChronoUnit.DAYS.between(dataAtual, dataValidade);
+	    long dias = ChronoUnit.DAYS.between(dataAtual, dataValidade);
+	    diasLicenca = (int) dias;
+	    this.diasLicenca = diasLicenca;
 	}
-
-	public void setDataValidade(Instant novaDataValidade) {
-	}
-
-	private Instant getDataValidade() {
-	    // Calcula a data de validade com base na data de aquisição e dias de licença
-	    return dataAquisicao.plus(Duration.ofDays(getDiasLicenca()));
-	}
-
-
-
-	public void setDiasLicenca(long days) {
-	    this.setDataValidade(this.getDataAquisicao().plus(Duration.ofDays(days)));
-	}
-
-
-	public String getAuthority() {
-		// TODO Auto-generated method stub
-		return authority;
-	}
+	
+	public Integer getDiasLicenca() {
+	    return this.diasLicenca;
+	}*/
 
 
 
