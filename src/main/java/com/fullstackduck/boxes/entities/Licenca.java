@@ -1,7 +1,9 @@
 package com.fullstackduck.boxes.entities;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fullstackduck.boxes.entities.enums.StatusLicenca;
@@ -34,9 +36,11 @@ public class Licenca implements Serializable {
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	@Getter @Setter private Instant dataAquisicao;
-	@Getter @Setter private Instant dataValidade;
 	
-	@Getter @Setter private Integer diasLicenca;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+	private Instant dataValidade = Instant.now();
+	
+	private Integer diasLicenca;
 	private Integer tipoLicenca;
 	@Getter @Setter private Double valor;
 	
@@ -52,9 +56,9 @@ public class Licenca implements Serializable {
 		this.id = id;
 		setStatusLicenca(statusLicenca);
 		this.dataAquisicao = dataAquisicao;
+		setTipoLicenca(tipoLicenca);
 		setDataValidade(dataValidade);
 		setDiasLicenca(diasLicenca);
-		setTipoLicenca(tipoLicenca);
 		this.valor = valor;
 		this.usuario = usuario;
 	}
@@ -80,13 +84,22 @@ public class Licenca implements Serializable {
 		}
 	}
 
-	/*public void setDataValidade(Instant dataValidade) {
-		// Calcula a data de validade com base na data de aquisição e dias de licença
-	    dataValidade = dataAquisicao.plus(Duration.ofDays(getDiasLicenca()));
+	public void setDataValidade(Instant dataValidade) {
+		dataValidade = getDataValidade();
+		TipoLicenca tipoLicenca = getTipoLicenca();
+		if (tipoLicenca == TipoLicenca.GRATUITA) {
+    		dataValidade = dataValidade.plus(Duration.ofDays(30));
+    	} else if (tipoLicenca == TipoLicenca.MENSAL) {
+            dataValidade = dataValidade.plus(Duration.ofDays(30));
+        } else if (tipoLicenca == TipoLicenca.SEMESTRAL) {
+            dataValidade = dataValidade.plus(Duration.ofDays(180));
+        } else if (tipoLicenca == TipoLicenca.ANUAL) {
+            dataValidade = dataValidade.plus(Duration.ofDays(365));
+        }
 	    this.dataValidade = dataValidade;
 	}
 
-	private Instant getDataValidade() {
+	public Instant getDataValidade() {
 	    return this.dataValidade;
 	}
 
@@ -105,7 +118,7 @@ public class Licenca implements Serializable {
 	
 	public Integer getDiasLicenca() {
 	    return this.diasLicenca;
-	}*/
+	}
 
 
 
