@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fullstackduck.boxes.entities.Pagamento;
 import com.fullstackduck.boxes.entities.Receita;
+import com.fullstackduck.boxes.repositories.PagamentoRepository;
 import com.fullstackduck.boxes.services.ReceitaService;
 
 //Controlador Rest
@@ -19,6 +21,12 @@ public class ReceitaResource {
 
 	@Autowired
 	private ReceitaService service;
+	
+	private final PagamentoRepository pagamentoRepository;
+
+    public ReceitaResource(PagamentoRepository pagamentoRepository) {
+        this.pagamentoRepository = pagamentoRepository;
+    }
 	
 	@GetMapping
 	public ResponseEntity<List<Receita>> findAll(){
@@ -31,4 +39,13 @@ public class ReceitaResource {
 		Receita obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	@GetMapping("/total")
+    public ResponseEntity<Double> getTotalReceita() {
+        Double totalReceita = pagamentoRepository.findAll().stream()
+                .mapToDouble(Pagamento::getValor)
+                .sum();
+
+        return ResponseEntity.ok(totalReceita);
+    }
 }
