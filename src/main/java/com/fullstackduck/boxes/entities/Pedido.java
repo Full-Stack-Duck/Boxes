@@ -11,6 +11,7 @@ import com.fullstackduck.boxes.entities.enums.StatusPedido;
 import com.fullstackduck.boxes.entities.enums.TipoEntrega;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -56,7 +57,7 @@ public class Pedido implements Serializable {
 
 	//Relacionamento com a entidade de Pagamento
 	@JsonIgnore
-	@OneToMany(mappedBy = "pedido")
+	@OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER)
     @Getter private List<Pagamento> pagamentos = new ArrayList<>();
 
 	public Pedido(Long id, Double total, TipoEntrega tipoEntrega, Instant dataOrcamento, Instant dataEntrega,

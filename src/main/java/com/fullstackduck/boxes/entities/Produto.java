@@ -11,6 +11,7 @@ import com.fullstackduck.boxes.entities.enums.TipoArmazenamento;
 import com.fullstackduck.boxes.entities.enums.TipoProduto;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -55,11 +56,11 @@ public class Produto implements Serializable {
     @Getter @Setter private Estoque estoque;
 	
 	//Relacionamento com a entidade de MovimentacaoEstoque
-	@OneToMany(mappedBy = "produto")
+	@OneToMany(mappedBy = "produto", fetch = FetchType.EAGER)
 	private List<MovimentacaoEstoque> movimentacoes;
 	
 	//Relacionamento com a entidade de ItensOrcamento
-	@OneToMany(mappedBy = "id.produto")
+	@OneToMany(mappedBy = "id.produto", fetch = FetchType.EAGER)
 	private Set<ItensOrcamento> items = new HashSet<>();
 
 	public Produto(Long id, String nome, Double valor, TipoArmazenamento categoria, Integer quantidade,

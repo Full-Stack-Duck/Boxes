@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.Status;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -43,42 +44,42 @@ public class Usuario implements Serializable {
 	
 	//Relacionamento com a entidade de Licencas
 	@JsonIgnore
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
     @Getter private List<Licenca> licencas = new ArrayList<>();
 
 	//Relacionamento com a entidade de Clientes
 	@JsonIgnore
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
     @Getter private List<Cliente> clientes = new ArrayList<>();
 	
 	//Relacionamento com a entidade de Produtos
 	@JsonIgnore
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
     @Getter private List<Produto> produtos = new ArrayList<>();
 
 	//Relacionamento com a entidade de Despesas
 	@JsonIgnore
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
     @Getter private List<Despesa> despesas = new ArrayList<>();
 	
 	//Relacionamento com a entidade de Estoque
 	@JsonIgnore
-	@OneToOne(mappedBy = "usuario")
+	@OneToOne(mappedBy = "usuario", fetch = FetchType.EAGER)
 	@Getter @Setter private Estoque estoque;
 	
 	//Relacionamento com a entidade de Receitas
 	@JsonIgnore
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
     @Getter private List<Receita> receitas = new ArrayList<>();
 
 	//Relacionamento com a entidade de Orcamentos
 	@JsonIgnore
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
     @Getter private List<Orcamento> orcamentos = new ArrayList<>();
 	
 	//Relacionamento com a entidade de Pedidos
 	@JsonIgnore
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
     @Getter private List<Pedido> pedidos = new ArrayList<>();
 	
 

@@ -101,22 +101,22 @@ public class TestConfig implements CommandLineRunner{
 		
 		//Teste Licença
 		Licenca l01 = new Licenca(null, StatusLicenca.ATIVA, Instant.now(), null,  null, TipoLicenca.MENSAL, 91.00, u1);
-		/*Licenca l02 = new Licenca(2L, StatusLicenca.ATIVA, Instant.now(), null, null, TipoLicenca.SEMESTRAL, 516.00, u2);
-		Licenca l03 = new Licenca(3L, StatusLicenca.ATIVA, Instant.now(), null, null, TipoLicenca.ANUAL, 984.00, u3);
-		Licenca l04 = new Licenca(4L, StatusLicenca.ATIVA, Instant.now(), null, null, TipoLicenca.MENSAL, 91.00, u4);
-		Licenca l05 = new Licenca(5L, StatusLicenca.ATIVA, Instant.now(), null, null, TipoLicenca.GRATUITA, 00.00, u5);
-		Licenca l06 = new Licenca(6L, StatusLicenca.EXPIRADA, Instant.now(), null, null, TipoLicenca.MENSAL, 91.00, u1);
-		Licenca l07 = new Licenca(7L, StatusLicenca.EXPIRADA, Instant.now(), null, null, TipoLicenca.SEMESTRAL, 516.00, u2);
-		Licenca l08 = new Licenca(8L, StatusLicenca.EXPIRADA, Instant.now(), null, null, TipoLicenca.ANUAL, 984.00, u3);
-		Licenca l09 = new Licenca(9L, StatusLicenca.EXPIRADA, Instant.now(), null, null, TipoLicenca.MENSAL, 91.00, u4);
-		Licenca l10 = new Licenca(10L, StatusLicenca.EXPIRADA, Instant.now(), null, null, TipoLicenca.GRATUITA, 00.00, u5);
-		Licenca l11 = new Licenca(11L, StatusLicenca.CANCELADA, Instant.now(), null, null, TipoLicenca.MENSAL, 91.00, u1);
-		Licenca l12 = new Licenca(12L, StatusLicenca.CANCELADA, Instant.now(), null, null, TipoLicenca.SEMESTRAL, 516.00, u2);
-		Licenca l13 = new Licenca(13L, StatusLicenca.CANCELADA, Instant.now(), null, null, TipoLicenca.ANUAL, 984.00, u3);
-		Licenca l14 = new Licenca(14L, StatusLicenca.CANCELADA, Instant.now(), null, null, TipoLicenca.MENSAL, 91.00, u4);
-		Licenca l15 = new Licenca(15L, StatusLicenca.CANCELADA, Instant.now(), null, null, TipoLicenca.GRATUITA, 00.00, u5);*/
+		Licenca l02 = new Licenca(null, StatusLicenca.ATIVA, Instant.now(), null, null, TipoLicenca.SEMESTRAL, 516.00, u2);
+		Licenca l03 = new Licenca(null, StatusLicenca.ATIVA, Instant.now(), null, null, TipoLicenca.ANUAL, 984.00, u3);
+		Licenca l04 = new Licenca(null, StatusLicenca.ATIVA, Instant.now(), null, null, TipoLicenca.MENSAL, 91.00, u4);
+		Licenca l05 = new Licenca(null, StatusLicenca.ATIVA, Instant.now(), null, null, TipoLicenca.GRATUITA, 00.00, u5);
+		Licenca l06 = new Licenca(null, StatusLicenca.EXPIRADA, Instant.now(), null, null, TipoLicenca.MENSAL, 91.00, u1);
+		Licenca l07 = new Licenca(null, StatusLicenca.EXPIRADA, Instant.now(), null, null, TipoLicenca.SEMESTRAL, 516.00, u2);
+		Licenca l08 = new Licenca(null, StatusLicenca.EXPIRADA, Instant.now(), null, null, TipoLicenca.ANUAL, 984.00, u3);
+		Licenca l09 = new Licenca(null, StatusLicenca.EXPIRADA, Instant.now(), null, null, TipoLicenca.MENSAL, 91.00, u4);
+		Licenca l10 = new Licenca(null, StatusLicenca.EXPIRADA, Instant.now(), null, null, TipoLicenca.GRATUITA, 00.00, u5);
+		Licenca l11 = new Licenca(null, StatusLicenca.CANCELADA, Instant.now(), null, null, TipoLicenca.MENSAL, 91.00, u1);
+		Licenca l12 = new Licenca(null, StatusLicenca.CANCELADA, Instant.now(), null, null, TipoLicenca.SEMESTRAL, 516.00, u2);
+		Licenca l13 = new Licenca(null, StatusLicenca.CANCELADA, Instant.now(), null, null, TipoLicenca.ANUAL, 984.00, u3);
+		Licenca l14 = new Licenca(null, StatusLicenca.CANCELADA, Instant.now(), null, null, TipoLicenca.MENSAL, 91.00, u4);
+		Licenca l15 = new Licenca(null, StatusLicenca.CANCELADA, Instant.now(), null, null, TipoLicenca.GRATUITA, 00.00, u5);
 		
-		licencaRepository.saveAll(Arrays.asList(l01/*, l02, l03, l04, l05, l06, l07, l08, l09, l10, l11, l12, l13, l14, l15*/));
+		licencaRepository.saveAll(Arrays.asList(l01, l02, l03, l04, l05, l06, l07, l08, l09, l10, l11, l12, l13, l14, l15));
 
 		
 		//Teste Cliente

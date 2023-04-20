@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.StatusCliente;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -42,12 +43,13 @@ public class Cliente implements Serializable {
 	
 	//Relacionamento com a entidade de Usuario
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "usuario_id")
     @Getter @Setter private Usuario usuario;
 
 	//Relacionamento com a entidade de Orcamentos
 	@JsonIgnore
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER)
     @Getter private List<Orcamento> orcamentos = new ArrayList<>();
 
 	public Cliente(Long id, String nome, String email, String telefone, Instant dataNascimento, String documento,

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,7 +32,7 @@ public class Estoque implements Serializable {
 	@Getter @Setter private String nome;
 	
 	//Relacionamento com a entidade de Produtos
-	@OneToMany(mappedBy = "estoque")
+	@OneToMany(mappedBy = "estoque", fetch = FetchType.EAGER)
     @Getter private List<Produto> produtos = new ArrayList<>();
 	
 	//Relacionamento com a entidade de Usuario
@@ -40,7 +41,7 @@ public class Estoque implements Serializable {
     @Getter @Setter private Usuario usuario;
 	
 	//Relacionamento com a entidade de MovimentacaoEstoque
-	@OneToMany(mappedBy = "estoque")
+	@OneToMany(mappedBy = "estoque", fetch = FetchType.EAGER)
 	private List<MovimentacaoEstoque> movimentacoes;
 
 	public Estoque(Long id, String nome, Usuario usuario) {

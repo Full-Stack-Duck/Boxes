@@ -11,6 +11,7 @@ import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.TipoEntrega;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -59,7 +60,7 @@ public class Orcamento implements Serializable {
 	@Getter @Setter private Pedido pedido;
 	
 	//Relacionamento com a entidade de ItensOrcamento
-	@OneToMany(mappedBy = "id.orcamento")
+	@OneToMany(mappedBy = "id.orcamento", fetch = FetchType.EAGER)
 	@Getter private  Set<ItensOrcamento> itens = new HashSet<>();
 	
 	public Orcamento(Long id, Double total, TipoEntrega tipoEntrega, Instant dataOrcamento, Status status, Usuario usuario, Cliente cliente) {
