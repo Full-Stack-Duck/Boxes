@@ -126,5 +126,8 @@ class ProdutoServiceTest {
   assertThat(produtoAtualizadoInfo.getObservacao()).isEqualTo("Observação atualizada");
 
   }
+  
+  
+  
 }
 
