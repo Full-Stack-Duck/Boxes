@@ -36,7 +36,7 @@ public class Orcamento implements Serializable {
 	//Atributos da classe
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter private Long id;
-	@Getter @Setter private Double total;
+	@Getter private Double total;
 	private Integer tipoEntrega;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
@@ -61,12 +61,12 @@ public class Orcamento implements Serializable {
 	
 	//Relacionamento com a entidade de ItensOrcamento
 	@OneToMany(mappedBy = "id.orcamento", fetch = FetchType.EAGER)
-	@Getter private  Set<ItensOrcamento> itens = new HashSet<>();
+	@Getter private  Set<ItensOrcamento> itens = new HashSet<ItensOrcamento>();
 	
 	public Orcamento(Long id, Double total, TipoEntrega tipoEntrega, Instant dataOrcamento, Status status, Usuario usuario, Cliente cliente) {
 		super();
 		this.id = id;
-		this.total = total;
+		setTotal(total);
 		setTipoEntrega(tipoEntrega);
 		this.dataOrcamento = dataOrcamento;
 		setStatus(status);
@@ -93,10 +93,20 @@ public class Orcamento implements Serializable {
 		this.status = status.getCode();
 		}
 	}
-
-	public double getValorTotal() {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	public void adicionarItem(Produto produto, Integer quantidade) {
+		ItensOrcamento item = new ItensOrcamento();
+		item.setProduto(produto);
+		item.setQuantidade(quantidade);
+		item.setOrcamento(this);
+		itens.add(item);
 	}
 	
+	public void setTotal(Double total) {
+		total = 0.0;
+		for(ItensOrcamento i: itens) {
+			total += (Double) i.getPrecoTotal();
+		}
+		this.total = total;
+	}
 }

@@ -65,7 +65,7 @@ public class OrcamentoService {
 	}
 	
 	public double calcularDesconto(Orcamento orcamento) {
-        double valorTotal = orcamento.getValorTotal();
+        double valorTotal = orcamento.getTotal();
         if (valorTotal >= 500 && valorTotal < 1000) {
             return valorTotal * 0.05;
         } else if (valorTotal >= 1000) {
@@ -76,8 +76,9 @@ public class OrcamentoService {
     }
 
     public double calcularTotal(Orcamento orcamento) {
-        double valorTotal = orcamento.getValorTotal();
+        double valorTotal = orcamento.getTotal();
         double desconto = calcularDesconto(orcamento);
         return valorTotal - desconto;
     }
+    
 }

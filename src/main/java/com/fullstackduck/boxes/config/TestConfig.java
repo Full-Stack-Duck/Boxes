@@ -185,27 +185,27 @@ public class TestConfig implements CommandLineRunner{
 		
 		
 		//Teste Orçamento
-		Orcamento o01 = new Orcamento(null, 957.90, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c01.getUsuario(), c01);
-		Orcamento o02 = new Orcamento(null, 957.90, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c02.getUsuario(), c02);
-		Orcamento o03 = new Orcamento(null, 957.90, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c03.getUsuario(), c03);
-		Orcamento o04 = new Orcamento(null, 957.90, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c04.getUsuario(), c04);
-		Orcamento o05 = new Orcamento(null, 957.90, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c04.getUsuario(), c05);
-		Orcamento o06 = new Orcamento(null, 957.90, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c06.getUsuario(), c06);
-		Orcamento o07 = new Orcamento(null, 957.90, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c01.getUsuario(), c01);
-		Orcamento o08 = new Orcamento(null, 957.90, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c04.getUsuario(), c04);
-		Orcamento o09 = new Orcamento(null, 957.90, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c07.getUsuario(), c07);
-		Orcamento o10 = new Orcamento(null, 957.90, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c08.getUsuario(), c08);
-		Orcamento o11 = new Orcamento(null, 957.90, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c10.getUsuario(), c10);
-		Orcamento o12 = new Orcamento(null, 957.90, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c10.getUsuario(), c10);
-		Orcamento o13 = new Orcamento(null, 957.90, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c05.getUsuario(), c05);
-		Orcamento o14 = new Orcamento(null, 957.90, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c09.getUsuario(), c09);
-		Orcamento o15 = new Orcamento(null, 957.90, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c01.getUsuario(), c01);
+		Orcamento o01 = new Orcamento(null, null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c01.getUsuario(), c01);
+		Orcamento o02 = new Orcamento(null, null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c02.getUsuario(), c02);
+		Orcamento o03 = new Orcamento(null, null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c03.getUsuario(), c03);
+		Orcamento o04 = new Orcamento(null, null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c04.getUsuario(), c04);
+		Orcamento o05 = new Orcamento(null, null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c04.getUsuario(), c05);
+		Orcamento o06 = new Orcamento(null, null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c06.getUsuario(), c06);
+		Orcamento o07 = new Orcamento(null, null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c01.getUsuario(), c01);
+		Orcamento o08 = new Orcamento(null, null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c04.getUsuario(), c04);
+		Orcamento o09 = new Orcamento(null, null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c07.getUsuario(), c07);
+		Orcamento o10 = new Orcamento(null, null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c08.getUsuario(), c08);
+		Orcamento o11 = new Orcamento(null, null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c10.getUsuario(), c10);
+		Orcamento o12 = new Orcamento(null, null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c10.getUsuario(), c10);
+		Orcamento o13 = new Orcamento(null, null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c05.getUsuario(), c05);
+		Orcamento o14 = new Orcamento(null, null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c09.getUsuario(), c09);
+		Orcamento o15 = new Orcamento(null, null, TipoEntrega.RETIRADA, Instant.now(), Status.ATIVO, c01.getUsuario(), c01);
 		
 		orcamentoRepository.saveAll(Arrays.asList(o01, o02, o03, o04, o05, o06, o07, o08, o09, o10, o11, o12, o13, o14, o15));
 		
-		ItensOrcamento io01 = new ItensOrcamento(o01, p01, 2, p01.getValor());
-		ItensOrcamento io02 = new ItensOrcamento(o01, p02, 5, p02.getValor());
-		ItensOrcamento io03 = new ItensOrcamento(o01, p03, 10, p03.getValor());
+		ItensOrcamento io01 = new ItensOrcamento(o01, p01, 2, p01.getValor(), null);
+		ItensOrcamento io02 = new ItensOrcamento(o01, p02, 5, p02.getValor(), null);
+		ItensOrcamento io03 = new ItensOrcamento(o01, p03, 10, p03.getValor(), null);
 		
 		itensOrcamentoRepository.saveAll(Arrays.asList(io01, io02, io03));	
 		
