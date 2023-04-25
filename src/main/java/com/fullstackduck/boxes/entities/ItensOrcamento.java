@@ -65,13 +65,4 @@ public class ItensOrcamento implements Serializable {
 		Double precoTotal =  precoUnit * quantidade;
 		this.precoTotal = precoTotal;
 	}
-
-	public static void setDesconto(double d) {
-		// TODO Auto-generated method stub
-	}
-
-	public static void setValorTotal(double d) {
-		// TODO Auto-generated method stub
-		
-	}
 }

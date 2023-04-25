@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.TipoEntrega;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class Orcamento implements Serializable {
 	//Atributos da classe
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter private Long id;
-	@Getter private Double total;
+	@Getter private Double total = 0.0;
 	private Integer tipoEntrega;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
@@ -60,13 +61,13 @@ public class Orcamento implements Serializable {
 	@Getter @Setter private Pedido pedido;
 	
 	//Relacionamento com a entidade de ItensOrcamento
-	@OneToMany(mappedBy = "id.orcamento", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "id.orcamento", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@Getter private  Set<ItensOrcamento> itens = new HashSet<ItensOrcamento>();
 	
-	public Orcamento(Long id, Double total, TipoEntrega tipoEntrega, Instant dataOrcamento, Status status, Usuario usuario, Cliente cliente) {
+	public Orcamento(Long id, TipoEntrega tipoEntrega, Instant dataOrcamento, Status status, Usuario usuario, Cliente cliente) {
 		super();
 		this.id = id;
-		setTotal(total);
+		setTotal();
 		setTipoEntrega(tipoEntrega);
 		this.dataOrcamento = dataOrcamento;
 		setStatus(status);
@@ -94,19 +95,14 @@ public class Orcamento implements Serializable {
 		}
 	}
 	
-	public void adicionarItem(Produto produto, Integer quantidade) {
-		ItensOrcamento item = new ItensOrcamento();
-		item.setProduto(produto);
-		item.setQuantidade(quantidade);
-		item.setOrcamento(this);
+	public void adicionarItem(ItensOrcamento item) {
 		itens.add(item);
+		setTotal();
 	}
 	
-	public void setTotal(Double total) {
-		total = 0.0;
+	public void setTotal() {
 		for(ItensOrcamento i: itens) {
-			total += (Double) i.getPrecoTotal();
+			this.total += i.getPrecoTotal();
 		}
-		this.total = total;
 	}
 }

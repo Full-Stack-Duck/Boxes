@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.fullstackduck.boxes.entities.ItensOrcamento;
 import com.fullstackduck.boxes.entities.Orcamento;
+import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.services.OrcamentoService;
 
 //Controlador Rest
@@ -60,4 +62,11 @@ public class OrcamentoResource {
 		obj = service.atualizarOrcamento(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	@PutMapping(value = "{id}/adicionarItem")
+	@Transactional
+	public ResponseEntity<Orcamento> adicionarItem(@PathVariable Long id, @RequestBody Integer produtoId, @RequestBody Integer quantidade) {
+		Orcamento orcamento = service.adicionarItem(id, produtoId, quantidade);
+        return ResponseEntity.ok().body(orcamento);
+	  }
 }
