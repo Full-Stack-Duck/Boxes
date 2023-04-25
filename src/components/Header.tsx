@@ -6,10 +6,10 @@ export function Header(){
         <header className="flex px-7 justify-between items-center bg-purple-dark w-full h-16 ">
         <div className="w-[50%] flex items-center justify-around ">
           <a href="" className="">
-            <img src={logoIcon} alt="Logomarca da Manager Box" />
+            <img src={logoIcon} alt="Logomarca Boxes" />
           </a>
           <div className="w-0.5 h-9 bg-purple-light"></div>
-          <h1 className="font-viga text-2xl tracking-widest text-white">Boxes</h1>
+          <h1 className="font-viga ml-4 text-2xl tracking-widest text-white">Boxes</h1>
         </div>
         <div className="w-[50%] flex items-center justify-end">
           <a href="#" className="hover:bg-purple-400 hover:bg-opacity-10 rounded-full">
