@@ -4,14 +4,26 @@
 
 @layer components {
     .inputStyles{ 
-        @apply px-4 py-2 border border-purple-medium m-auto border-spacing-1 rounded w-full focus:ring-1 focus:ring-purple-500 focus:ring-offset-1
+        @apply px-4 py-2 border border-purple-stroke m-auto border-spacing-1 rounded w-full focus:ring-1 focus:ring-purple-500 focus:ring-offset-1
     }
 
     .inputRadio{
-        @apply bg-transparent appearance-none w-4 h-4 rounded-full ring-2 ring-purple-medium cursor-pointer border-4 border-white
+        @apply bg-transparent appearance-none w-4 h-4 rounded-full ring-1 ring-purple-stroke cursor-pointer border-4 border-white
     }
 
     .inputRadio:checked{
-        @apply transition-colors duration-300 bg-purple-darker
+        @apply transition-colors duration-300 bg-purple-dark
+    }
+
+    .labelsStyles{
+        @apply font-quicksand text-base
+    }
+
+    .checkboxStyle {
+        @apply bg-transparent appearance-none w-4 h-4 p-1 rounded ring-1 ring-purple-stroke cursor-pointer ring-offset-2
+    }
+
+    .checkboxStyle:checked {
+        @apply transition-colors duration-500 border-2 border-purple-dark
     }
 }

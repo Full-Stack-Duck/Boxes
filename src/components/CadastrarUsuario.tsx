@@ -45,7 +45,7 @@ export function CadastrarUsuario(){
     const [ radioOption, setRadioOption ] = useState(true)
 
     function handlePersonTypeChange( isCPF : boolean ){
-        setRadioOption(isCPF)
+        setRadioOption(!isCPF)
     }
 
     const { register,
@@ -60,8 +60,8 @@ export function CadastrarUsuario(){
     }
 
     return (
-        <div className="px-5 w-full max-w-[375px]">
-            <div className="flex flex-col w-full h-[800px] justify-center items-center">
+        <div className="flex justify-center px-5 w-full">
+            <div className="flex flex-col w-full max-w-[375px] h-fit justify-center items-center">
             
             <div>
                 <article className="flex flex-col justify-center items-center mb-3">
@@ -84,12 +84,12 @@ export function CadastrarUsuario(){
                         className={styles.inputRadio} 
                         {...register('tipoDePessoa')} 
                         value='Pessoa Fisica'
-                        onClick={() => handlePersonTypeChange(true)}
+                        onChange={() => handlePersonTypeChange(radioOption)}
                         checked={radioOption}
                         />
                         <label 
                         htmlFor="person1" 
-                        className='cursor-pointer text-purple-medium uppercase'
+                        className='cursor-pointer text-purple-medium uppercase font-semibold'
                         >
                             Pessoa Física
                             </label>
@@ -101,11 +101,11 @@ export function CadastrarUsuario(){
                         className={styles.inputRadio} 
                         {...register('tipoDePessoa')} 
                         value='Pessoa Juridica'
-                        onClick={() => handlePersonTypeChange(false)}
+                        onChange={() => handlePersonTypeChange(radioOption)}
                         />
                         <label 
                         htmlFor="person2" 
-                        className='cursor-pointer text-purple-medium uppercase'
+                        className='cursor-pointer text-purple-medium uppercase font-semibold'
                         >
                             Pessoa Jurídica
                             </label>
@@ -113,65 +113,64 @@ export function CadastrarUsuario(){
                 </div>
 
                 <div>
-                <label htmlFor="email">E-mail:</label>
-                <input type="text" placeholder='E-mail' className={styles.inputStyles} {...register('email')}/>
-                    {errors.email && <span className='text-xs text-red-600'>{errors.email.message}</span>}
+                    <label htmlFor="email" className={styles.labelsStyles}>E-mail:</label>
+                    <input type="text" placeholder='E-mail' className={styles.inputStyles} {...register('email')}/>
                 </div>
+                <span className='text-xs text-red-600 h-3'>{errors.email && errors.email.message}</span>
 
                 <div>
-                    <label htmlFor="nome">Nome de usuário:</label>
+                    <label htmlFor="nome" className={styles.labelsStyles}>Nome de usuário:</label>
                     <input 
                     type="text" 
                     placeholder='Nome' 
                     className={styles.inputStyles} 
                     {...register('nome')}
                     />
-                        {errors.nome && <span className='text-xs text-red-600'>{errors.nome.message}</span>}
                 </div>
+                <span className='text-xs text-red-600 h-3'>{errors.nome && errors.nome.message}</span>
 
                 <div>
-                    {radioOption?
-                      <label htmlFor="cpf">CPF:</label> 
-                      : 
-                      <label htmlFor="cnpj">CNPJ:</label>}
-                    
+                    <label 
+                    htmlFor="documentNumber" 
+                    className={styles.labelsStyles}>{radioOption? "CPF" : "CNPJ"}
+                        <span className='text-xs'>
+                        (apenas números)
+                        :
+                        </span>
+                    </label> 
                     <input 
                     type="text" 
                     placeholder={radioOption? 'Ex.: 000.000.000-00' : 'Ex.: 00.000.000/0001-00'} 
                     className={styles.inputStyles} 
                     {...register('documentNumber')}
-                    />
-                    {errors.documentNumber && 
-                    <span 
-                    className='text-xs text-red-600'
-                    >
-                        {errors.documentNumber.message}
-                    </span>}
+                    />    
                 </div>
+                <span className='text-xs text-red-600 h-3'>{errors.documentNumber && errors.documentNumber.message}</span>
                     
                 <div>
-                <label htmlFor="senha">Senha:</label>
-                <input type="password" placeholder='Senha' className={styles.inputStyles} {...register('senha')}/>
-                    {errors.senha && <span className='text-xs text-red-600'>{errors.senha.message}</span>}
+                    <label htmlFor="senha" className={styles.labelsStyles}>Senha:</label>
+                    <input type="password" placeholder='Senha' className={styles.inputStyles} {...register('senha')}/>
                 </div>
+                <span className='text-xs text-red-600 h-3'>{errors.senha && errors.senha.message}</span>
 
                 <div>
-                <label htmlFor="senhaConfirmada">Confirme sua senha:</label>
-                <input type="password" placeholder='Confirmar Senha' className={styles.inputStyles} {...register('senhaConfirmada')}/>
-                    {errors.senhaConfirmada && <span className='text-xs text-red-600'>{errors.senhaConfirmada.message}</span>}
+                    <label htmlFor="senhaConfirmada" className={styles.labelsStyles}>Confirme sua senha:</label>
+                    <input type="password" placeholder='Confirmar Senha' className={styles.inputStyles} {...register('senhaConfirmada')}/>
                 </div>
+                <span className='text-xs text-red-600 h-3'>{errors.senhaConfirmada && errors.senhaConfirmada.message}</span>
 
-                <div className='flex gap-1 items-center'>
-                <input type="checkbox" id="aceitar-termos" {...register('termoDeUso')}/>
-                <label htmlFor="aceitar-termos">Eu li e concordo com os <a href='https://www.youtube.com/' className='text-purple-medium underline underline-offset-1'>termos de uso</a></label>
+                <div className='flex gap-1 items-center justify-start'>
+                    <input type="checkbox" id="aceitar-termos" {...register('termoDeUso')} className={styles.checkboxStyle}/>
+                    <label htmlFor="aceitar-termos" className={styles.labelsStyles && "pl-3 font-nunito text-sm"}>Eu li e concordo com os <a href='https://www.youtube.com/' className='text-purple-medium underline underline-offset-1'>termos de uso</a></label>
                 </div>
-                    {errors.termoDeUso && <span className='text-xs text-red-600'>{errors.termoDeUso.message}</span>}
+                <span className='text-xs text-red-600 whitespace-nowrap h-4'>{errors.termoDeUso && errors.termoDeUso.message}</span>
 
-            <button type="submit" className='bg-purple-medium border border-purple-dark py-2 w-full rounded hover:bg-purple-dark text-white font-bold'>Cadastrar</button>
+            <button type="submit" className='bg-purple-medium border py-2 w-full rounded-xl hover:bg-purple-dark text-white font-bold mt-1'>Avançar</button>
             </form>
 
-            <span className='text-purple-stroke text-sm mt-9'>Já tem uma conta? <span className='font-semibold text-purple-medium text-base'>FAÇA O LOGIN</span></span>
+            <span className='text-purple-stroke text-sm mt-9'>Já tem uma conta? <a href="_blank" className='font-semibold text-purple-medium text-base' >FAÇA O LOGIN</a></span>
 
+            <a ></a>
             <pre className='bg-purple-dark text-white font-bold text-sm mt-8'>{output}</pre>
             </div>
             
