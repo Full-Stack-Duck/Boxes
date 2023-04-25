@@ -5,12 +5,6 @@ import client_icon from "../assets/client_icon.svg";
 import product_icon from "../assets/product_icon.svg";
 import config_icon from "../assets/config_icon.svg";
 import styles from "../components/Navbar.module.css";
-import dash_dark_icon from "../assets/dark_icons/dash_dark_icon.svg"
-import client_dark_icon from "../assets/dark_icons/client_dark_icon.svg"
-import order_dark_icon from "../assets/dark_icons/order_dark_icon.svg"
-import product_dark_icon from "../assets/dark_icons/product_dark_icon.svg"
-import finance_dark_icon from "../assets/dark_icons/finance_dark_icon.svg"
-import config_dark_icon from "../assets/dark_icons/config_dark_icon.svg"
 
 import { Tab } from "@headlessui/react";
 import { FooterNav } from "./FooterNav";
@@ -24,15 +18,14 @@ import { ClientesCadastrados } from "./ClientesCadastrados";
 import { ProdutosEstoque } from "./ProdutosEstoque";
 import { CadastrarUsuario } from "./CadastrarUsuario";
 import { CadastrarPedidos } from "./CadastrarPedidos";
-import { CadastrarProdutos } from "./CadastrarProdutos";
 import { ItemPedido } from "./ItemPedido";
 import { ItemLinha } from "./ItemLinha";
-import { ResultadoCliente } from "./ResultadoCliente";
-import { ResultadoPadrao } from "./ResultadoPadrao";
-import { ResultadoPedido } from "./ResultadoPedido";
 import { ValoresPedido } from "./ValoresPedido";
-import { CadastrarClientes } from "./CadastrarClientes";
+import { ResultadoPedido } from "./ResultadoPedido";
 import { LegendaPedido } from "./LegendaPedido";
+import { CadastrarClientes } from "./CadastrarClientes";
+import { ResultadoCliente } from "./ResultadoCliente";
+import { CadastrarProdutos } from "./CadastrarProdutos";
 
 
 const setinha = <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -45,16 +38,33 @@ export function Navbar() {
             <Tab.Group>
                 <div className="max-h-12 min-h-12 bg-purple-medium">
                     <div className='flex items-center w-full h-full max-w-[100%] overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide'>
-                        <Tab.List className="flex items-center gap-5 pl-3">
+                        <Tab.List className="flex items-center gap-5 px-3">
                             <Tab>
                                 {({ selected }) => (
                                     <div className={selected ? styles.isSelected : styles.isNotSelected}>
-                                        <img src={selected ? dash_dark_icon : dash_icon} className={styles.iconNavbar} />
+                                        <img src={dash_icon} className={styles.iconNavbar} />
                                         <div className="flex flex-col items-center">
                                             Dashboard
                                             <span className="relative">
-                                            <span className="absolute -bottom-4 left-0">
+                                            <span className="absolute -bottom-3 left-0">
                                             {selected && setinha}
+                                            </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                )}
+                            </Tab>
+
+                            <div className="w-0.5 h-5 bg-purple-light"></div>
+                            <Tab>
+                                {({ selected }) => (
+                                    <div className={selected ? styles.isSelected : styles.isNotSelected}>
+                                        <img src={finance_icon} className={styles.iconNavbar} />
+                                        <div className="flex flex-col items-center">
+                                        Finanças
+                                        <span className="relative">
+                                        <span className="absolute -bottom-3 left-0">
+                                        {selected && setinha}
                                         </span>
                                         </span>
                                         </div>
@@ -66,18 +76,15 @@ export function Navbar() {
                             <Tab>
                                 {({ selected }) => (
                                     <div className={selected ? styles.isSelected : styles.isNotSelected}>
-                                        <img src={selected ? finance_dark_icon : finance_icon} className={styles.iconNavbar} />
-                                        Finanças
-                                    </div>
-                                )}
-                            </Tab>
-
-                            <div className="w-0.5 h-5 bg-purple-light"></div>
-                            <Tab>
-                                {({ selected }) => (
-                                    <div className={selected ? styles.isSelected : styles.isNotSelected}>
-                                        <img src={selected ? order_dark_icon : order_icon} className={styles.iconNavbar} />
+                                        <img src={order_icon} className={styles.iconNavbar} />
+                                        <div className="flex flex-col items-center">
                                         Pedidos
+                                        <span className="relative">
+                                        <span className="absolute -bottom-3 left-0">
+                                        {selected && setinha}
+                                        </span>
+                                        </span>
+                                        </div>
                                     </div>
                                 )}
                             </Tab>
@@ -86,8 +93,15 @@ export function Navbar() {
                             <Tab>
                                 {({ selected }) => (
                                     <div className={selected ? styles.isSelected : styles.isNotSelected}>
-                                        <img src={selected ? client_dark_icon : client_icon} className={styles.iconNavbar} />
+                                        <img src={client_icon} className={styles.iconNavbar} />
+                                        <div className="flex flex-col items-center">
                                         Clientes
+                                        <span className="relative">
+                                        <span className="absolute -bottom-3 left-0">
+                                        {selected && setinha}
+                                        </span>
+                                        </span>
+                                        </div>
                                     </div>
                                 )}
                             </Tab>
@@ -96,8 +110,15 @@ export function Navbar() {
                             <Tab>
                                 {({ selected }) => (
                                     <div className={selected ? styles.isSelected : styles.isNotSelected}>
-                                        <img src={selected ? product_dark_icon : product_icon} className={styles.iconNavbar} />
+                                        <img src={product_icon} className={styles.iconNavbar} />
+                                        <div className="flex flex-col items-center">
                                         Produtos
+                                        <span className="relative">
+                                        <span className="absolute -bottom-3 left-0">
+                                        {selected && setinha}
+                                        </span>
+                                        </span>
+                                        </div>
                                     </div>
                                 )}
                             </Tab>
@@ -106,8 +127,15 @@ export function Navbar() {
                             <Tab>
                                 {({ selected }) => (
                                     <div className={selected ? styles.isSelected : styles.isNotSelected}>
-                                        <img src={selected ? config_dark_icon : config_icon} className={styles.iconNavbar} />
+                                        <img src={config_icon} className={styles.iconNavbar} />
+                                        <div className="flex flex-col items-center">
                                         Configurações
+                                        <span className="relative">
+                                        <span className="absolute -bottom-3 left-0">
+                                        {selected && setinha}
+                                        </span>
+                                        </span>
+                                        </div>
                                     </div>
                                 )}
                             </Tab>
@@ -157,7 +185,7 @@ export function Navbar() {
                     </Tab.Panel>
                     {/* CONFIGURACÕES */}
                     <Tab.Panel>
-                        <Footer />
+                        <CadastrarUsuario />
                     </Tab.Panel>
 
                 </Tab.Panels>
@@ -165,3 +193,4 @@ export function Navbar() {
         </>
     );
 }
+
