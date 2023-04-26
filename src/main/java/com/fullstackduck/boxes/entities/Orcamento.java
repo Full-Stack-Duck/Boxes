@@ -37,7 +37,7 @@ public class Orcamento implements Serializable {
 	//Atributos da classe
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter private Long id;
-	@Getter private Double total = 0.0;
+	@Getter @Setter private Double total = 0.0;
 	private Integer tipoEntrega;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
@@ -67,7 +67,6 @@ public class Orcamento implements Serializable {
 	public Orcamento(Long id, TipoEntrega tipoEntrega, Instant dataOrcamento, Status status, Usuario usuario, Cliente cliente) {
 		super();
 		this.id = id;
-		setTotal();
 		setTipoEntrega(tipoEntrega);
 		this.dataOrcamento = dataOrcamento;
 		setStatus(status);
@@ -97,12 +96,5 @@ public class Orcamento implements Serializable {
 	
 	public void adicionarItem(ItensOrcamento item) {
 		itens.add(item);
-		setTotal();
-	}
-	
-	public void setTotal() {
-		for(ItensOrcamento i: itens) {
-			this.total += i.getPrecoTotal();
-		}
 	}
 }

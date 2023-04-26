@@ -30,7 +30,7 @@ public class ItensOrcamento implements Serializable {
 	@Getter @Setter private Double precoUnit;
 	private Double precoTotal;
 
-	public ItensOrcamento(Orcamento orcamento, Produto produto, Integer quantidade, Double precoUnit, Double precoTotal) {
+	public ItensOrcamento(Orcamento orcamento, Produto produto, Integer quantidade, Double precoUnit) {
 		super();
 		id.setOrcamento(orcamento);
 		id.setProduto(produto);
@@ -65,4 +65,6 @@ public class ItensOrcamento implements Serializable {
 		Double precoTotal =  precoUnit * quantidade;
 		this.precoTotal = precoTotal;
 	}
+	
+	
 }
