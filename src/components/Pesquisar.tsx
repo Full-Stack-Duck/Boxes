@@ -3,8 +3,12 @@ import searchIcon from '../assets/searchIcon.svg'
 
 export function Pesquisar(){
     return(
+<<<<<<< HEAD
         <section className='w-full flex flex-col items-center justify-center'>
             <div className="flex-col px-7 my-1 border-y bg-white font-quicksand font-semibold w-[23rem] sm:w-[50rem]">
+=======
+        <section className="flex-col px-7 my-4 border-y bg-white font-quicksand font-semibold">
+>>>>>>> f3b82190a15ccd9c0456d280f58668939e85fba1
             <div className="flex pt-3">
                 <h3 className="text-lg pr-2">Pesquisar</h3>
                 <p>"INSERIR VARIAVEL"</p>

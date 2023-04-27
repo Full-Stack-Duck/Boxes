@@ -26,10 +26,13 @@ import { LegendaPedido } from "./LegendaPedido";
 import { CadastrarClientes } from "./CadastrarClientes";
 import { ResultadoCliente } from "./ResultadoCliente";
 import { CadastrarProdutos } from "./CadastrarProdutos";
+import { ResultadoPadrao } from "./ResultadoPadrao";
+import { Estoque } from "./Estoque";
+import { PesquisarEstoque } from "./PesquisarEstoque";
 
 
 const setinha = <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9 0L17.6603 15H0.339746L9 0Z" fill="white"/>
+    <path d="M9 0L17.6603 15H0.339746L9 0Z" fill="white" />
 </svg>
 
 export function Navbar() {
@@ -46,9 +49,9 @@ export function Navbar() {
                                         <div className="flex flex-col items-center">
                                             Dashboard
                                             <span className="relative">
-                                            <span className="absolute -bottom-3 left-0">
-                                            {selected && setinha}
-                                            </span>
+                                                <span className="absolute -bottom-3 left-0">
+                                                    {selected && setinha}
+                                                </span>
                                             </span>
                                         </div>
                                     </div>
@@ -61,12 +64,12 @@ export function Navbar() {
                                     <div className={selected ? styles.isSelected : styles.isNotSelected}>
                                         <img src={finance_icon} className={styles.iconNavbar} />
                                         <div className="flex flex-col items-center">
-                                        Finanças
-                                        <span className="relative">
-                                        <span className="absolute -bottom-3 left-0">
-                                        {selected && setinha}
-                                        </span>
-                                        </span>
+                                            Finanças
+                                            <span className="relative">
+                                                <span className="absolute -bottom-3 left-0">
+                                                    {selected && setinha}
+                                                </span>
+                                            </span>
                                         </div>
                                     </div>
                                 )}
@@ -78,12 +81,12 @@ export function Navbar() {
                                     <div className={selected ? styles.isSelected : styles.isNotSelected}>
                                         <img src={order_icon} className={styles.iconNavbar} />
                                         <div className="flex flex-col items-center">
-                                        Pedidos
-                                        <span className="relative">
-                                        <span className="absolute -bottom-3 left-0">
-                                        {selected && setinha}
-                                        </span>
-                                        </span>
+                                            Pedidos
+                                            <span className="relative">
+                                                <span className="absolute -bottom-3 left-0">
+                                                    {selected && setinha}
+                                                </span>
+                                            </span>
                                         </div>
                                     </div>
                                 )}
@@ -95,12 +98,12 @@ export function Navbar() {
                                     <div className={selected ? styles.isSelected : styles.isNotSelected}>
                                         <img src={client_icon} className={styles.iconNavbar} />
                                         <div className="flex flex-col items-center">
-                                        Clientes
-                                        <span className="relative">
-                                        <span className="absolute -bottom-3 left-0">
-                                        {selected && setinha}
-                                        </span>
-                                        </span>
+                                            Clientes
+                                            <span className="relative">
+                                                <span className="absolute -bottom-3 left-0">
+                                                    {selected && setinha}
+                                                </span>
+                                            </span>
                                         </div>
                                     </div>
                                 )}
@@ -112,12 +115,12 @@ export function Navbar() {
                                     <div className={selected ? styles.isSelected : styles.isNotSelected}>
                                         <img src={product_icon} className={styles.iconNavbar} />
                                         <div className="flex flex-col items-center">
-                                        Produtos
-                                        <span className="relative">
-                                        <span className="absolute -bottom-3 left-0">
-                                        {selected && setinha}
-                                        </span>
-                                        </span>
+                                            Produtos
+                                            <span className="relative">
+                                                <span className="absolute -bottom-3 left-0">
+                                                    {selected && setinha}
+                                                </span>
+                                            </span>
                                         </div>
                                     </div>
                                 )}
@@ -129,12 +132,12 @@ export function Navbar() {
                                     <div className={selected ? styles.isSelected : styles.isNotSelected}>
                                         <img src={config_icon} className={styles.iconNavbar} />
                                         <div className="flex flex-col items-center">
-                                        Configurações
-                                        <span className="relative">
-                                        <span className="absolute -bottom-3 left-0">
-                                        {selected && setinha}
-                                        </span>
-                                        </span>
+                                            Configurações
+                                            <span className="relative">
+                                                <span className="absolute -bottom-3 left-0">
+                                                    {selected && setinha}
+                                                </span>
+                                            </span>
                                         </div>
                                     </div>
                                 )}
@@ -160,7 +163,7 @@ export function Navbar() {
                         <Financeiro />
                         <CadastrarDespesa />
                         <Pesquisar />
-                    </Tab.Panel> 
+                    </Tab.Panel>
                     {/* PEDIDOS */}
                     <Tab.Panel>
                         <CadastrarPedidos />
@@ -180,7 +183,11 @@ export function Navbar() {
                     {/* PRODUTOS */}
                     <Tab.Panel>
                         <CadastrarProdutos />
-                        <CadastrarUsuario />
+                        <Pesquisar />
+                        <ResultadoPadrao />
+                        {/*<CadastrarUsuario />*/} 
+                        <Estoque />
+                        <PesquisarEstoque />
                     </Tab.Panel>
                     {/* CONFIGURACÕES */}
                     <Tab.Panel>
