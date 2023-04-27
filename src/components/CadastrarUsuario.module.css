@@ -24,6 +24,6 @@
     }
 
     .checkboxStyle:checked {
-        @apply transition-colors duration-500 border-2 border-purple-dark
+        @apply transition-colors duration-300 bg-purple-medium
     }
 }

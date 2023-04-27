@@ -176,7 +176,6 @@ export function Navbar() {
                         <CadastrarClientes />
                         <Pesquisar />
                         <ResultadoCliente />
-                        <FooterNav />
                     </Tab.Panel>
                     {/* PRODUTOS */}
                     <Tab.Panel>
