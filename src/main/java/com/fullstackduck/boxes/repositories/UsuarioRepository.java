@@ -11,5 +11,7 @@ import com.fullstackduck.boxes.entities.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{ 
 	
 	Usuario findByEmail(String email);
+
+	Usuario getReferenceById(Integer id);
 	
 }

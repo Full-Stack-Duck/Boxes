@@ -95,20 +95,6 @@ public class UsuarioService {
 	private void atualizarStatus(Usuario entity, Usuario obj) {
 		entity.setStatus(obj.getStatus());
 	}
-
-	/*@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		
-		Usuario usuario = repository.findByEmail(username);
-		if (usuario == null) {
-			logger.error("Usuario não encontrado: " + username);
-			throw new UsernameNotFoundException("Email not found");
-		}
-		logger.info("Usuario encontrado: " + username);
-		return usuario;
-		
-	}*/
 	
 	public String recuperarSenha(String email) {
         Usuario usuario = repository.findByEmail(email);

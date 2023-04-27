@@ -6,6 +6,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.StatusLicenca;
 import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 
@@ -57,8 +58,8 @@ public class Licenca implements Serializable {
 		setStatusLicenca(statusLicenca);
 		this.dataAquisicao = dataAquisicao;
 		setTipoLicenca(tipoLicenca);
-		setDataValidade(dataValidade);
-		setDiasLicenca(diasLicenca);
+		setDataValidade(dataAquisicao);
+		setDiasLicenca();
 		this.valor = valor;
 		this.usuario = usuario;
 	}
@@ -84,8 +85,8 @@ public class Licenca implements Serializable {
 		}
 	}
 
-	public void setDataValidade(Instant dataValidade) {
-		dataValidade = getDataValidade();
+	public void setDataValidade(Instant dataAquisicao) {
+		Instant dataValidade = getDataAquisicao();
 		TipoLicenca tipoLicenca = getTipoLicenca();
 		if (tipoLicenca == TipoLicenca.GRATUITA) {
     		dataValidade = dataValidade.plus(Duration.ofDays(30));
@@ -103,7 +104,8 @@ public class Licenca implements Serializable {
 	    return this.dataValidade;
 	}
 
-	public void setDiasLicenca(Integer diasLicenca) {
+	public void setDiasLicenca() {
+		Integer diasLicenca;
 	    // Verifica se a data de validade já passou
 	    Instant dataAtual = Instant.now();
 	    Instant dataValidade = getDataValidade();

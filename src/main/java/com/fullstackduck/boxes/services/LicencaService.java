@@ -2,16 +2,15 @@ package com.fullstackduck.boxes.services;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.fullstackduck.boxes.entities.Licenca;
+import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 import com.fullstackduck.boxes.repositories.LicencaRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
@@ -24,6 +23,9 @@ public class LicencaService {
 
 	@Autowired
     private LicencaRepository licencaRepository;
+	
+	@Autowired
+    private UsuarioRepository usuarioRepository;
     
     public List<Licenca> findAll() {
         return licencaRepository.findAll();
@@ -39,7 +41,12 @@ public class LicencaService {
         }
     }
     
-    public Licenca inserirLicenca(Licenca licenca) {
+    public Licenca inserirLicenca(Licenca licenca, Integer id) {
+    	Usuario usuario = usuarioRepository.getReferenceById(id);
+    	licenca.setDataAquisicao(Instant.now());
+    	licenca.setDataValidade(licenca.getDataAquisicao());
+    	licenca.setDiasLicenca();
+    	licenca.setUsuario(usuario);
 		return licencaRepository.save(licenca);
 	}
     
@@ -52,44 +59,6 @@ public class LicencaService {
 			throw new ResourceNotFoundException(id);
 		}
 	}
-
-    /*@Transactional
-    public Instant dataValidade(Long id) {
-    	try {
-    		Licenca entity = licencaRepository.getReferenceById(id);
-	        TipoLicenca tipoLicenca = entity.getTipoLicenca();
-	        Instant dataValidade = Instant.now();
-	        if (entity != null) {
-	        	if (tipoLicenca == TipoLicenca.GRATUITA) {
-	        		dataValidade = dataValidade.plus(Duration.ofDays(30));
-	        	} else if (tipoLicenca == TipoLicenca.MENSAL) {
-	                dataValidade = dataValidade.plus(Duration.ofDays(30));
-	            } else if (tipoLicenca == TipoLicenca.SEMESTRAL) {
-	                dataValidade = dataValidade.plus(Duration.ofDays(180));
-	            } else if (tipoLicenca == TipoLicenca.ANUAL) {
-	                dataValidade = dataValidade.plus(Duration.ofDays(365));
-	            }
-	        	entity.setDataValidade(dataValidade);
-	        }
-	        return entity.getDataValidade();
-        } catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id);
-		}
-    }
-
-    @Transactional
-    public Integer diasLicenca(Long id) {
-    	Integer diasLicenca;
-    	try {
-    		Licenca entity = licencaRepository.getReferenceById(id);
-    		long dias = ChronoUnit.DAYS.between(entity.getDataAquisicao(), entity.getDataValidade());
-    		diasLicenca = (int) dias;
-    		entity.setDiasLicenca(diasLicenca);
-    	} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id);
-		}
-    	return diasLicenca;
-    }*/
     
     public Licenca renovarLicenca(Long id, Licenca obj) {
     	try {
@@ -122,6 +91,6 @@ public class LicencaService {
             novoDiasLicenca += 365;
         }
         entity.setDataValidade(novaDataValidadeLicenca);
-        entity.setDiasLicenca(novoDiasLicenca);
+        entity.setDiasLicenca();
     }
 }

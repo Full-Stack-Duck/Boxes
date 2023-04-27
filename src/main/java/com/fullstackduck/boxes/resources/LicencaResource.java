@@ -39,10 +39,10 @@ public class LicencaResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@PostMapping
+	@PostMapping(value = "/inserirLicenca/{usuarioId}")
 	@Transactional
-	public ResponseEntity<Licenca> inserirLicenca(@RequestBody Licenca obj) {
-	    obj = service.inserirLicenca(obj);
+	public ResponseEntity<Licenca> inserirLicenca(@RequestBody Licenca obj, @PathVariable Integer usuarioId) {
+	    obj = service.inserirLicenca(obj, usuarioId);
 	    URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 	    return ResponseEntity.created(uri).body(obj);
 	}
