@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -76,6 +77,14 @@ public class OrcamentoResource {
 	@Transactional
 	public ResponseEntity<Orcamento> adicionarItem(@PathVariable Long id, @PathVariable Integer produtoId, @PathVariable Integer quantidade) {
 		Orcamento orcamento = service.adicionarItem(id, produtoId, quantidade);
+		service.calcularTotal(id);
+        return ResponseEntity.ok().body(orcamento);
+	  }
+	
+	@DeleteMapping(value = "/{id}/removerItem/{produtoId}")
+	@Transactional
+	public ResponseEntity<Orcamento> adicionarItem(@PathVariable Long id, @PathVariable Long produtoId) {
+		Orcamento orcamento = service.removerItem(id, produtoId);
 		service.calcularTotal(id);
         return ResponseEntity.ok().body(orcamento);
 	  }
