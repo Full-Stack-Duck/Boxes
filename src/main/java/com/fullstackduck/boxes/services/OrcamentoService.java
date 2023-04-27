@@ -79,6 +79,7 @@ public class OrcamentoService {
 	    item.setPrecoUnit(produto.getValor());
 	    item.setQuantidade(quantidade);
 	    item.setOrcamento(orcamento);
+	    item.setPrecoTotal(produto.getValor());
 	    orcamento.adicionarItem(item);
 	    itensRepository.save(item);
 	    return orcamentoRepository.save(orcamento);
@@ -111,8 +112,10 @@ public class OrcamentoService {
     
     public void calcularTotal(Long id) {
     	Orcamento orcamento = orcamentoRepository.getReferenceById(id);
+    	Double total = 0.0;
 		for(ItensOrcamento i: orcamento.getItens()) {
-			orcamento.setTotal(orcamento.getTotal() + i.getPrecoTotal());
+			total = total + i.getPrecoTotal();
+			orcamento.setTotal(total);
 		}
 	}
     

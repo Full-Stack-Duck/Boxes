@@ -35,11 +35,8 @@ public class OrcamentoResource {
 	public ResponseEntity<List<Orcamento>> findAll(){
 		List<Orcamento> list = service.findAll();
 		for (Orcamento orc: list) {
-			Double total = orc.getTotal();
-			if (total == 0.0) {
-				service.calcularTotal(orc.getId());
+			service.calcularTotal(orc.getId());
 			}
-		}
 		return ResponseEntity.ok().body(list);
 	}
 	
@@ -47,10 +44,7 @@ public class OrcamentoResource {
 	@Transactional
 	public ResponseEntity<Orcamento> findById(@PathVariable Long id){
 		Orcamento obj = service.findById(id);
-		Double total = obj.getTotal();
-		if (total == 0.0) {
-			service.calcularTotal(id);
-		}
+		service.calcularTotal(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
@@ -78,10 +72,11 @@ public class OrcamentoResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@PutMapping(value = "{id}/adicionarItem")
+	@PutMapping(value = "/{id}/adicionarItem/{produtoId}/quant/{quantidade}")
 	@Transactional
-	public ResponseEntity<Orcamento> adicionarItem(@PathVariable Long id, @RequestBody Integer produtoId, @RequestBody Integer quantidade) {
+	public ResponseEntity<Orcamento> adicionarItem(@PathVariable Long id, @PathVariable Integer produtoId, @PathVariable Integer quantidade) {
 		Orcamento orcamento = service.adicionarItem(id, produtoId, quantidade);
+		service.calcularTotal(id);
         return ResponseEntity.ok().body(orcamento);
 	  }
 }
