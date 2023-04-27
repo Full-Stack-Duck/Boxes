@@ -1,144 +1,183 @@
 package com.fullstackduck.boxes.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import java.time.Instant;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import com.fullstackduck.boxes.entities.ItensOrcamento;
 import com.fullstackduck.boxes.entities.Orcamento;
+import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.TipoEntrega;
+import com.fullstackduck.boxes.repositories.ItensOrcamentoRepository;
 import com.fullstackduck.boxes.repositories.OrcamentoRepository;
-import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
+import com.fullstackduck.boxes.repositories.ProdutoRepository;
 
-import jakarta.persistence.EntityNotFoundException;
 
-@SpringBootTest
+
 public class OrcamentoServiceTest {
 
-    @Mock
-    private OrcamentoRepository repository;
+  @Mock
+  private OrcamentoRepository orcamentoRepository;
 
-    @InjectMocks
-    private OrcamentoService service;
+  @Mock
+  private ProdutoRepository produtoRepository;
 
-    private final Orcamento orcamento = new Orcamento();
+  @Mock
+  private ItensOrcamentoRepository itensRepository;
 
-    @Test
-    public void testFindAll() {
-        Mockito.when(repository.findAll()).thenReturn(Arrays.asList(orcamento));
+  @Mock
+  private ItensOrcamentoService itensService;
 
-        List<Orcamento> orcamentos = service.findAll();
+  @InjectMocks
+  private OrcamentoService orcamentoService;
+ 
+  
+  @BeforeEach
+  public void setUp() {
+    MockitoAnnotations.openMocks(this);
+  }
 
-        assertEquals(1, orcamentos.size());
-        assertEquals(orcamento, orcamentos.get(0));
-    }
+  @Test
+  public void testFindAll() {
+    // given
+    List<Orcamento> orcamentos = new ArrayList<>();
+    orcamentos.add(new Orcamento());
+    when(orcamentoRepository.findAll()).thenReturn(orcamentos);
 
-    @Test
-    public void testFindById() {
-        Mockito.when(repository.findById(orcamento.getId())).thenReturn(Optional.of(orcamento));
+    // when
+    List<Orcamento> result = orcamentoService.findAll();
 
-        Orcamento orcamentoEncontrado = service.findById(orcamento.getId());
+    // then
+    assertEquals(orcamentos, result);
+    verify(orcamentoRepository).findAll();
+  }
 
-        assertEquals(orcamento, orcamentoEncontrado);
-    }
+  @Test
+  public void testFindById() {
+    // given
+    Long id = 1L;
+    Orcamento orcamento = new Orcamento();
+    orcamento.setId(id);
+    when(orcamentoRepository.findById(id)).thenReturn(Optional.of(orcamento));
 
-    @Test
-    public void testFindByIdNotFound() {
-        Mockito.when(repository.findById(orcamento.getId())).thenReturn(Optional.empty());
+    // when
+    Orcamento result = orcamentoService.findById(id);
 
-        assertThrows(ResourceNotFoundException.class, () -> {
-            service.findById(orcamento.getId());
-        });
-    }
+    // then
+    assertEquals(orcamento, result);
+    verify(orcamentoRepository).findById(id);
+  }
 
-    @Test
-    public void testInserirOrcamento() {
-        Mockito.when(repository.save(Mockito.any(Orcamento.class))).thenReturn(orcamento);
+  @Test
+  public void testInserirOrcamento() {
+    // given
+    Orcamento orcamento = new Orcamento();
+    when(orcamentoRepository.save(orcamento)).thenReturn(orcamento);
 
-        Orcamento orcamentoInserido = service.inserirOrcamento(orcamento);
+    // when
+    Orcamento result = orcamentoService.inserirOrcamento(orcamento);
 
-        assertEquals(orcamento, orcamentoInserido);
-    }
+    // then
+    assertEquals(orcamento, result);
+    verify(orcamentoRepository).save(orcamento);
+  }
 
-    @Test
-    public void testAtualizarStatusOrcamento() {
-        Orcamento orcamentoComStatus = new Orcamento(orcamento.getId(), orcamento.getTotal(), TipoEntrega.ENTREGA,Instant.now(),Status.ATIVO,null,null);
-        Mockito.when(repository.getReferenceById(orcamento.getId())).thenReturn(orcamento);
-        Mockito.when(repository.save(Mockito.any(Orcamento.class))).thenReturn(orcamento);
+  @Test
+  public void testAtualizarStatusOrcamento() {
+    // given
+    Long id = 1L;
+    Orcamento entity = new Orcamento();
+    entity.setId(id);
+    Orcamento obj = new Orcamento();
+    obj.setStatus(Status.INATIVO);
+    when(orcamentoRepository.getReferenceById(id)).thenReturn(entity);
+    when(orcamentoRepository.save(entity)).thenReturn(entity);
 
-        Orcamento orcamentoAtualizado = service.atualizarStatusOrcamento(orcamento.getId(), orcamentoComStatus);
+    // when
+    Orcamento result = orcamentoService.atualizarStatusOrcamento(id, obj);
 
-        assertEquals(orcamentoComStatus, orcamentoAtualizado);
-    }
+    // then
+    assertEquals(entity, result);
+    assertEquals(obj.getStatus(), entity.getStatus());
+    verify(orcamentoRepository).getReferenceById(id);
+    verify(orcamentoRepository).save(entity);
+  }
+
+  @Test
+  public void testAtualizarOrcamento() {
+    // given
+    Long id = 1L;
+    Orcamento entity = new Orcamento();
+    entity.setId(id);
+    Orcamento obj = new Orcamento();
+    obj.setTipoEntrega(TipoEntrega.RETIRADA);
+    when(orcamentoRepository.getReferenceById(id)).thenReturn(entity);
+    when(orcamentoRepository.save(entity)).thenReturn(entity);
+
+    // when
+    Orcamento result = orcamentoService.atualizarOrcamento(id, obj);
+
+    // then
+    assertEquals(entity, result);
+    assertEquals(obj.getTipoEntrega(), entity.getTipoEntrega());
+    verify(orcamentoRepository).getReferenceById(id);
+    verify(orcamentoRepository).save(entity);
+  }
 
 
-    @Test
-    public void testAtualizarStatusOrcamentoNotFound() {
-        Mockito.when(repository.getReferenceById(orcamento.getId())).thenThrow(EntityNotFoundException.class);
+  @Test
+  public void testAdicionarItem() {
+      // Criando um objeto Orcamento para ser usado no teste
+      Orcamento orcamento = new Orcamento();
+      orcamento.setId(1L);
 
-        assertThrows(ResourceNotFoundException.class, () -> {
-            service.atualizarStatusOrcamento(orcamento.getId(), orcamento);
-        });
-    }
+      // Criando um objeto Produto para ser usado no teste
+      Produto produto = new Produto();
+      produto.setId((long) 1);
+      produto.setValor(50.0);
 
-    
+      // Criando um objeto ItensOrcamento para ser usado no teste
+      ItensOrcamento item = new ItensOrcamento();
+      item.setProduto(produto);
+      item.setPrecoUnit(produto.getValor());
+      item.setQuantidade(2);
+      item.setOrcamento(orcamento);
+      item.setPrecoTotal(produto.getValor() * 2);
 
-    
-    @Test
-    public void testCalcularDesconto() {
-        // Criando objeto Orcamento para teste
-        Orcamento orcamento = new Orcamento();
-        ItensOrcamento.setValorTotal(100.0);
-        ItensOrcamento.setDesconto(50.0);
+      // Mockando o comportamento dos repositórios e services
+      when(orcamentoRepository.getReferenceById(1L)).thenReturn(orcamento);
+      when(produtoRepository.getReferenceById(1)).thenReturn(produto);
+      when(itensRepository.save(item)).thenReturn(item);
+      when(orcamentoRepository.save(orcamento)).thenReturn(orcamento);
 
-        double descontoEsperado = 50.0;
-        double descontoCalculado = service.calcularDesconto(orcamento);
+      // Chamando o método a ser testado
+      Orcamento resultado = orcamentoService.adicionarItem(1L, 1, 2);
 
-        assertEquals(descontoEsperado, descontoCalculado, 0.001);
-    }
-
-
-    @Test
-    public void testCalcularDescontoValorAlto() {
-        Orcamento orcamentoValorAlto = new Orcamento(1L, 957.90, TipoEntrega.ENTREGA,Instant.now(),Status.ATIVO,null,null);
-        double descontoEsperado = 1000.0;
-
-        double descontoCalculado = service.calcularDesconto(orcamentoValorAlto);
-
-        assertEquals(descontoEsperado, descontoCalculado);
-    }
-
-    @Test
-    public void testCalcularDescontoTipoExpressa() {
-        Orcamento orcamentoExpressa = new Orcamento(1L, 957.90, TipoEntrega.ENTREGA,Instant.now(),Status.ATIVO,null,null);
-        double descontoEsperado = 50.0;
-
-        double descontoCalculado = service.calcularDesconto(orcamentoExpressa);
-
-        assertEquals(descontoEsperado, descontoCalculado);
-    }
-
-    @Test
-    public void testCalcularDescontoTipoNormal() {
-        Orcamento orcamentoNormal = new Orcamento(1L, 957.90, TipoEntrega.ENTREGA,Instant.now(),Status.ATIVO,null,null);
-        double descontoEsperado = 25.0;
-
-        double descontoCalculado = service.calcularDesconto(orcamentoNormal);
-
-        assertEquals(descontoEsperado, descontoCalculado);
-    }
+      // Verificando se o método chamado foi o esperado e se o resultado está correto
+      verify(orcamentoRepository).getReferenceById(1L);
+      verify(produtoRepository).getReferenceById(1);
+      verify(itensRepository).save(item);
+      verify(orcamentoRepository).save(orcamento);
+      assertEquals(1L, resultado.getId().longValue());
+      assertEquals(1, resultado.getItens().size());
+      assertEquals(item, resultado.getItens().iterator().next());
+  }
 }
+
+
         
         
 

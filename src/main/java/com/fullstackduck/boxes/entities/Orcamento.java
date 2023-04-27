@@ -36,7 +36,7 @@ public class Orcamento implements Serializable {
 	
 	//Atributos da classe
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter private Long id;
+	@Getter @Setter private Long id;
 	@Getter @Setter private Double total = 0.0;
 	private Integer tipoEntrega;
 	

@@ -203,15 +203,15 @@ public class TestConfig implements CommandLineRunner{
 		
 		orcamentoRepository.saveAll(Arrays.asList(o01, o02, o03, o04, o05, o06, o07, o08, o09, o10, o11, o12, o13, o14, o15));
 		
-		ItensOrcamento io01 = new ItensOrcamento(o01, p01, 2, p01.getValor());
-		ItensOrcamento io02 = new ItensOrcamento(o01, p02, 5, p02.getValor());
-		ItensOrcamento io03 = new ItensOrcamento(o01, p03, 10, p03.getValor());
-		ItensOrcamento io04 = new ItensOrcamento(o02, p01, 4, p01.getValor());
-		ItensOrcamento io05 = new ItensOrcamento(o02, p02, 10, p02.getValor());
-		ItensOrcamento io06 = new ItensOrcamento(o02, p03, 20, p03.getValor());
-		ItensOrcamento io07 = new ItensOrcamento(o03, p01, 6, p01.getValor());
-		ItensOrcamento io08 = new ItensOrcamento(o03, p02, 15, p02.getValor());
-		ItensOrcamento io09 = new ItensOrcamento(o03, p03, 30, p03.getValor());
+		ItensOrcamento io01 = new ItensOrcamento(o01, p01, 2, p01.getValor(), null);
+		ItensOrcamento io02 = new ItensOrcamento(o01, p02, 5, p02.getValor(), null);
+		ItensOrcamento io03 = new ItensOrcamento(o01, p03, 10, p03.getValor(), null);
+		ItensOrcamento io04 = new ItensOrcamento(o02, p01, 4, p01.getValor(), null);
+		ItensOrcamento io05 = new ItensOrcamento(o02, p02, 10, p02.getValor(), null);
+		ItensOrcamento io06 = new ItensOrcamento(o02, p03, 20, p03.getValor(), null);
+		ItensOrcamento io07 = new ItensOrcamento(o03, p01, 6, p01.getValor(), null);
+		ItensOrcamento io08 = new ItensOrcamento(o03, p02, 15, p02.getValor(), null);
+		ItensOrcamento io09 = new ItensOrcamento(o03, p03, 30, p03.getValor(), null);
 		
 		itensOrcamentoRepository.saveAll(Arrays.asList(io01, io02, io03, io04, io05, io06, io07, io08, io09));
 		/*orcamentoRepository.saveAll(Arrays.asList(o01, o02, o03, o04, o05, o06, o07, o08, o09, o10, o11, o12, o13, o14, o15));*/

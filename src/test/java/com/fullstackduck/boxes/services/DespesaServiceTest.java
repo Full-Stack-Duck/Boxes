@@ -51,7 +51,7 @@ class DespesaServiceTest {
 	
 	
 	@Test
-	void testFindById() {
+	public void testFindById() {
 		Despesa despesa = new Despesa(1L, "Despesa 1", Categoria.FIXA, 100.0, "Observação 1",null,null,null);
 		when(repository.findById(1L)).thenReturn(Optional.of(despesa));
 		
@@ -61,7 +61,7 @@ class DespesaServiceTest {
 	}
 	
 	@Test
-	void testInserirDespesa() {
+	public void testInserirDespesa() {
 		Despesa despesa = new Despesa(1L, "Despesa 1", Categoria.FIXA, 100.0, "Observação 1",null,null,null);
 		when(repository.save(despesa)).thenReturn(despesa);
 		

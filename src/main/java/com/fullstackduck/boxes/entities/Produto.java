@@ -34,7 +34,7 @@ public class Produto implements Serializable {
 	
 	//Atributos da classe
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter private Long id;
+	@Getter @Setter private Long id;
 	@Getter @Setter private String nome;
 	@Getter @Setter private Double valor;
 	private Integer categoria;
