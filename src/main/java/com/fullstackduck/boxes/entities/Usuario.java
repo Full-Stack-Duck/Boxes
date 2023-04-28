@@ -111,7 +111,7 @@ public class Usuario implements Serializable {
 		}
 	}
 	
-	public Licenca getLicenca() {
+	public Licenca findLicenca() {
 		Licenca licenca = null;
 		for (Licenca i: licencas) {
 			if (i.getStatusLicenca() == StatusLicenca.ATIVA) {

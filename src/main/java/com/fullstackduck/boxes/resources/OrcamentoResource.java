@@ -81,7 +81,7 @@ public class OrcamentoResource {
         return ResponseEntity.ok().body(orcamento);
 	  }
 	
-	@DeleteMapping(value = "/{id}/removerItem/{produtoId}")
+	@DeleteMapping(value = "/{id}")
 	@Transactional
 	public ResponseEntity<Orcamento> adicionarItem(@PathVariable Long id, @PathVariable Long produtoId) {
 		Orcamento orcamento = service.removerItem(id, produtoId);

@@ -48,7 +48,6 @@ public class Licenca implements Serializable {
 	
 	//Relacionamento com a entidade de Usuario
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "usuario_id")
     @Getter @Setter private Usuario usuario;
 

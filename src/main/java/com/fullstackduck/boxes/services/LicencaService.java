@@ -72,7 +72,7 @@ public class LicencaService {
     
     public Licenca alterarLicenca(Licenca licenca, Integer usuarioId) {
     	Usuario usuario = usuarioRepository.getReferenceById(usuarioId);
-    	Licenca antigaLicenca = usuario.getLicenca();
+    	Licenca antigaLicenca = usuario.findLicenca();
     	Instant novaDataValidadeLicenca = antigaLicenca.getDataValidade();
         Integer novoDiasLicenca = antigaLicenca.getDiasLicenca();
         licenca.setDataAquisicao(Instant.now());
