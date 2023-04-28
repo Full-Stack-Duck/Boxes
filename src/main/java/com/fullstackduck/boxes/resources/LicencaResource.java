@@ -53,4 +53,12 @@ public class LicencaResource {
 		obj = service.renovarLicenca(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	@PostMapping(value = "/alterarLicenca/{usuarioId}")
+	@Transactional
+	public ResponseEntity<Licenca> alterarLicenca(@RequestBody Licenca obj, @PathVariable Integer usuarioId){
+		obj = service.alterarLicenca(obj, usuarioId);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).body(obj);
+	}
 }

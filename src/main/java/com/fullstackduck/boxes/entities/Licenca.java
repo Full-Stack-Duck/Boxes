@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.StatusLicenca;
@@ -47,6 +48,7 @@ public class Licenca implements Serializable {
 	
 	//Relacionamento com a entidade de Usuario
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "usuario_id")
     @Getter @Setter private Usuario usuario;
 
@@ -81,7 +83,7 @@ public class Licenca implements Serializable {
 
 	public void setTipoLicenca(TipoLicenca tipoLicenca) {
 		if(tipoLicenca != null) {
-		this.tipoLicenca = tipoLicenca.getCode();
+			this.tipoLicenca = tipoLicenca.getCode();
 		}
 	}
 

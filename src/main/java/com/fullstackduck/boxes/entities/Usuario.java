@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fullstackduck.boxes.entities.enums.Status;
+import com.fullstackduck.boxes.entities.enums.StatusLicenca;
+import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -106,6 +109,16 @@ public class Usuario implements Serializable {
 		if(status != null) {
 			this.status = status.getCode();
 		}
+	}
+	
+	public Licenca getLicenca() {
+		Licenca licenca = null;
+		for (Licenca i: licencas) {
+			if (i.getStatusLicenca() == StatusLicenca.ATIVA) {
+				licenca = i;
+			}
+		}
+		return licenca;
 	}
 
 	/*

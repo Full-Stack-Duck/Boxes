@@ -69,6 +69,30 @@ public class LicencaService {
 			throw new ResourceNotFoundException(id);
 		}
     }
+    
+    public Licenca alterarLicenca(Licenca licenca, Integer usuarioId) {
+    	Usuario usuario = usuarioRepository.getReferenceById(usuarioId);
+    	Licenca antigaLicenca = usuario.getLicenca();
+    	Instant novaDataValidadeLicenca = antigaLicenca.getDataValidade();
+        Integer novoDiasLicenca = antigaLicenca.getDiasLicenca();
+        licenca.setDataAquisicao(Instant.now());
+        TipoLicenca tipoLicenca = licenca.getTipoLicenca();
+        licenca.setTipoLicenca(tipoLicenca);
+        if (tipoLicenca == TipoLicenca.MENSAL) {
+            novaDataValidadeLicenca = novaDataValidadeLicenca.plus(Duration.ofDays(30));
+            novoDiasLicenca += 30; 
+        } else if (tipoLicenca == TipoLicenca.SEMESTRAL) {
+            novaDataValidadeLicenca = novaDataValidadeLicenca.plus(Duration.ofDays(180));
+            novoDiasLicenca += 180;
+        } else if (tipoLicenca == TipoLicenca.ANUAL) {
+            novaDataValidadeLicenca = novaDataValidadeLicenca.plus(Duration.ofDays(365));
+            novoDiasLicenca += 365;
+        }
+        licenca.setDataValidade(novaDataValidadeLicenca);
+        licenca.setDiasLicenca();
+    	licenca.setUsuario(usuario);
+		return licencaRepository.save(licenca);
+    }
 
 	
 	//métodos auxiliares
