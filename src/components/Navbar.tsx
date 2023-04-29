@@ -27,7 +27,6 @@ import { CadastrarClientes } from "./CadastrarClientes";
 import { ResultadoCliente } from "./ResultadoCliente";
 import { CadastrarProdutos } from "./CadastrarProdutos";
 import { ResultadoPadrao } from "./ResultadoPadrao";
-import { Estoque } from "./Estoque";
 import { PesquisarEstoque } from "./PesquisarEstoque";
 
 
@@ -150,9 +149,6 @@ export function Navbar() {
                 <Tab.Panels>
                     {/* DASHBOARD */}
                     <Tab.Panel>
-                        {/*<div className="h-60 w-full bg-white text-purple-dark font-quicksand text-5xl flex justify-center items-center">
-                                Dashboard AQUI.
-                            </div>*/}
                         <Dashboard />
                         <PedidosOrcamentos />
                         <ClientesCadastrados />
@@ -185,8 +181,6 @@ export function Navbar() {
                         <CadastrarProdutos />
                         <Pesquisar />
                         <ResultadoPadrao />
-                        {/*<CadastrarUsuario />*/} 
-                        <Estoque />
                         <PesquisarEstoque />
                     </Tab.Panel>
                     {/* CONFIGURACÕES */}

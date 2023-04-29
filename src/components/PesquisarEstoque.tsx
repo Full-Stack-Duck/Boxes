@@ -5,9 +5,11 @@ import retirarIcon from '../assets/botao-retirar-item.svg'
 
 export function PesquisarEstoque() {
     return (
-        <section className="flex-col px-7 my-1 border-y bg-white font-quicksand font-semibold">
-
-            <div className="flex pt-3 pb-4">
+        <section className="flex flex-col items-center justify-center">
+    <h1 className="font-quicksand font-bold text-2xl py-3 border-y w-full px-7 sm:w-[50rem]">Estoque</h1>
+<div className='flex flex-col w-[23rem] sm:w-[50rem] bg-white px-7 my-1 font-quicksand font-semibold border-b'>
+    
+<div className="flex pt-3 pb-4">
                 <p className="text-lg pr-2">Selecionar Produto em Estoque</p>
             </div>
 
@@ -61,9 +63,9 @@ export function PesquisarEstoque() {
             </div>
 
             <div className='pt-10'>
-                <div className='flex items-center'>
-                    <p className='text-purple-light font-quicksand text-sm'>ESTOQUE ATUAL DE</p>
-                    <p className='text-purple-medium font-quicksand text-base pl-2'>"RESULTADO PESQUISA"</p>
+                <div className='flex items-center flex-wrap'>
+                    <p className='text-purple-light font-quicksand text-sm'>ESTOQUE DE: <span className='text-purple-medium font-quicksand text-base'> "RESULTADO PESQUISA"</span></p>
+                    
                 </div>
 
                 <div className='flex items-end my-2'>
@@ -100,6 +102,7 @@ export function PesquisarEstoque() {
 
                 </div>
             </div>
+</div>
 
         </section>
     )
