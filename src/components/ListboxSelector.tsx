@@ -6,19 +6,17 @@ import { CheckFat } from '@phosphor-icons/react';
 
 
 const people = [
-  { name: 'Últimos 30 dias' },
-  { name: 'Últimos 45 dias' },
-  { name: 'Últimos 60 dias' },
-  { name: 'Últimos 90 dias' },
-  { name: 'Últimos 120 dias' },
-
+  { name: 'Últimos 30 dias', periodo: 30 },
+  { name: 'Últimos trimestre' , periodo: 90},
+  { name: 'Últimos semestre', periodo: 180},
+  { name: 'Últimos ano', periodo: 360 },
 ]
 
 export default function ListboxSelector() {
   const [selected, setSelected] = useState(people[0])
 
   return (
-    <div className="relative w-fit p-2 whitespace-nowrap">
+    <div className="relative w-52 p-2 whitespace-nowrap">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative mt-1">
           <Listbox.Button className="relative font-bold font-quicksand w-full py-2 pl-3 pr-7 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
@@ -42,7 +40,7 @@ export default function ListboxSelector() {
                       active ? 'bg-purple-200 text-purple-dark' : 'text-purple-950'
                     }`
                   }
-                  value={person}
+                  value={person.periodo}
                 >
                   {({ selected }) => (
                     <>

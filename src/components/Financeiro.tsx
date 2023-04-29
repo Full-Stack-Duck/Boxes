@@ -3,11 +3,12 @@ import polygon_despesaR_icon from '../assets/polygon_despesa_R.svg'
 
 export function Financeiro() {
     return (
-        <>
-            <div className="flex justify-between py-4 border-b-2">
+        <section className='flex justify-center w-full '>
+            <div className='flex flex-col w-[23rem] sm:w-[50rem] border-b-2'>
+            <div className="flex justify-between py-4 ">
                 <p className="font-quicksand font-bold pl-7 text-2xl">Financeiro</p>
                 <div className="flex mr-7 items-center">
-                <select className="border rounded font-nunito h-8" name="" id="" >
+                <select className="border rounded font-nunito h-8" name="" id="">
                                 <option className="text-purple-light text-xs" value="">Escolha o tipo</option>
                                 <option value="">Fixa</option>
                                 <option value="">Variável</option>
@@ -19,7 +20,7 @@ export function Financeiro() {
                 </div>
             </div>
 
-            <div className=' border-b-2 px-7'>
+            <div className=' px-7'>
                 <p className='font-quicksand font-semibold text-lg pt-3'>Vendas & Gastos</p>
                 <div className=' pt-5 pb-9'>
                     <p className='font-quicksand text-lg font-normal'>Vendas</p>
@@ -45,6 +46,7 @@ export function Financeiro() {
                     <p className=' font-quicksand text-xs'>Comparado com o período anterior</p>
                 </div>
             </div>
-        </>
+            </div>
+        </section>
     )
 }

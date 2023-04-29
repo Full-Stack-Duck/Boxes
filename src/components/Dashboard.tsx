@@ -7,9 +7,9 @@ import ListboxSelector from "./ListboxSelector";
 const resources = {
     vendas: {   
       total: {
-        dias30: 3675.30,
-        dias45: 5892.33,
-        dias60: 9422.10
+        dias30: 3675.50,
+        trimestre: 5892.33,
+        semestre: 9422.10
       },
       estatistica: {
         dias30: 5.30,
@@ -33,7 +33,7 @@ const resources = {
 
 export function Dashboard() {
     
-    const totalGastos = Dinero({amount: (resources.gastos.total.dias30 * 100), currency: "BRL"}).toFormat("$0,0.00")
+    const totalGastos = Dinero({amount: (resources.gastos.total.dias30 * 100), currency: "BRL"}).toFormat("$0.0")
     const totalVendas = Dinero({amount: (resources.vendas.total.dias30 * 100), currency: "BRL"}).toFormat("$0,0.00")
     
     const [gastoTotal, setGastoTotal] = useState(totalGastos)
