@@ -67,13 +67,11 @@ public class OrcamentoService {
 		}
 	}
 	
-	public Orcamento adicionarItem(Long orcamentoId, Integer produtoId, Integer quantidade) {
+	public Orcamento adicionarItem(Long orcamentoId, Integer produtoId, ItensOrcamento item) {
 	    Orcamento orcamento = orcamentoRepository.getReferenceById(orcamentoId);
 	    Produto produto = produtoRepository.getReferenceById(produtoId);
-	    ItensOrcamento item = new ItensOrcamento();
 	    item.setProduto(produto);
 	    item.setPrecoUnit(produto.getValor());
-	    item.setQuantidade(quantidade);
 	    item.setOrcamento(orcamento);
 	    item.setPrecoTotal(produto.getValor());
 	    orcamento.adicionarItem(item);
@@ -103,8 +101,9 @@ public class OrcamentoService {
     	Double total = 0.0;
 		for(ItensOrcamento i: obj.getItens()) {
 			total = total + i.getPrecoTotal();
-			obj.setTotal(total);
 		}
+		total -= obj.getDesconto();
+		obj.setTotal(total);
 		orcamentoRepository.save(obj);
 	}
 }

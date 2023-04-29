@@ -43,6 +43,8 @@ public class Orcamento implements Serializable {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	@Getter @Setter private Instant dataOrcamento;
 	private Integer status;
+	
+	@Getter @Setter private Double desconto = 0.0;
 
 	//Relacionamento com a entidade de Usuario
 	@JsonIgnore

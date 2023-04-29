@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fullstackduck.boxes.entities.ItensOrcamento;
 import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.services.ItensOrcamentoService;
 import com.fullstackduck.boxes.services.OrcamentoService;
@@ -65,10 +66,10 @@ public class OrcamentoResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@PutMapping(value = "/{id}/adicionarItem/{produtoId}/quant/{quantidade}")
+	@PutMapping(value = "/{id}/adicionarItem/{produtoId}")
 	@Transactional
-	public ResponseEntity<Orcamento> adicionarItem(@PathVariable Long id, @PathVariable Integer produtoId, @PathVariable Integer quantidade) {
-		Orcamento orcamento = service.adicionarItem(id, produtoId, quantidade);
+	public ResponseEntity<Orcamento> adicionarItem(@PathVariable Long id, @PathVariable Integer produtoId, @RequestBody ItensOrcamento item) {
+		Orcamento orcamento = service.adicionarItem(id, produtoId, item);
 		service.calcularTotal(orcamento);
         return ResponseEntity.ok().body(orcamento);
 	  }

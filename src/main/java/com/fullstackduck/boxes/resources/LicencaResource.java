@@ -17,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fullstackduck.boxes.entities.Licenca;
 import com.fullstackduck.boxes.services.LicencaService;
+import com.fullstackduck.boxes.services.UsuarioService;
 
 //Controlador Rest
 @RestController
@@ -25,6 +26,7 @@ public class LicencaResource {
 
 	@Autowired
 	private LicencaService service;
+	
 	
 	@GetMapping
 	public ResponseEntity<List<Licenca>> findAll(){

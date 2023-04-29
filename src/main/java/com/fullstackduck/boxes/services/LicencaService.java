@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.fullstackduck.boxes.entities.Licenca;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.Status;
+import com.fullstackduck.boxes.entities.enums.StatusLicenca;
 import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 import com.fullstackduck.boxes.repositories.LicencaRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
@@ -46,7 +47,7 @@ public class LicencaService {
     	Usuario usuario = usuarioRepository.getReferenceById(id);
     	licenca.setDataAquisicao(Instant.now());
     	licenca.setDataValidade(licenca.getDataAquisicao());
-    	licenca.setDiasLicenca();
+    	licenca.calcularDiasLicenca();
     	licenca.setValor();
     	licenca.setUsuario(usuario);
 		return licencaRepository.save(licenca);
@@ -76,12 +77,13 @@ public class LicencaService {
     	inserirLicenca(licenca, usuarioId);
     	Usuario usuario = usuarioRepository.getReferenceById(usuarioId);
     	Licenca antigaLicenca = usuario.findLicenca();
+    	licenca.setDataAquisicao(antigaLicenca.getDataValidade());
     	Instant novaDataValidadeLicenca = antigaLicenca.getDataValidade();
         Integer novoDiasLicenca = antigaLicenca.getDiasLicenca();
         TipoLicenca tipoLicenca = licenca.getTipoLicenca();
         if (tipoLicenca == TipoLicenca.MENSAL) {
             novaDataValidadeLicenca = novaDataValidadeLicenca.plus(Duration.ofDays(30));
-            novoDiasLicenca += 30; 
+            novoDiasLicenca += 30;
         } else if (tipoLicenca == TipoLicenca.SEMESTRAL) {
             novaDataValidadeLicenca = novaDataValidadeLicenca.plus(Duration.ofDays(180));
             novoDiasLicenca += 180;
@@ -90,9 +92,12 @@ public class LicencaService {
             novoDiasLicenca += 365;
         }
         licenca.setDataValidade(novaDataValidadeLicenca);
-        licenca.setDiasLicenca();
+        licenca.calcularDiasLicenca();
         licenca.setValor();
     	licenca.setUsuario(usuario);
+    	licenca.setDataAquisicao(Instant.now());
+    	antigaLicenca.setStatusLicenca(StatusLicenca.CANCELADA);
+    	licencaRepository.save(antigaLicenca);
 		return licencaRepository.save(licenca);
     }
 
@@ -118,6 +123,6 @@ public class LicencaService {
             novoDiasLicenca += 365;
         }
         entity.setDataValidade(novaDataValidadeLicenca);
-        entity.setDiasLicenca();
+        entity.calcularDiasLicenca();
     }
 }

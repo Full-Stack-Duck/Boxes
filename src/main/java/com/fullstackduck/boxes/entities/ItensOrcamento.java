@@ -25,15 +25,17 @@ public class ItensOrcamento implements Serializable {
 	private ItensOrcamentoPK id = new ItensOrcamentoPK();
 	
 	@Getter @Setter private Integer quantidade;
-	@Getter @Setter private Double precoUnit;
+	@Getter private Double precoUnit;
 	private Double precoTotal;
+	@Getter @Setter private Double desconto = 0.0;
 
-	public ItensOrcamento(Orcamento orcamento, Produto produto, Integer quantidade, Double precoUnit, Double setPrecoTotal) {
+	public ItensOrcamento(Orcamento orcamento, Produto produto, Integer quantidade, Double precoUnit, Double desconto, Double setPrecoTotal) {
 		super();
 		id.setOrcamento(orcamento);
 		id.setProduto(produto);
 		this.quantidade = quantidade;
-		this.precoUnit = precoUnit;
+		setPrecoUnit(precoUnit);
+		this.desconto = desconto;
 		setPrecoTotal(precoUnit);
 	}
 	
@@ -54,15 +56,21 @@ public class ItensOrcamento implements Serializable {
 		id.setOrcamento(orcamento);
 	}
 	
+	public void setPrecoUnit(Double precoUnit) {
+		this.precoUnit = getProduto().getValor() - this.desconto;
+	}
+	
 	public Double getPrecoTotal() {
 		return this.precoTotal;
 	}
 	
 	public void setPrecoTotal(Double precoUnit) {
-		Integer quantidade = getQuantidade();
-		Double precoTotal =  precoUnit * quantidade;
-		this.precoTotal = precoTotal;
+		if (desconto >= 0 && desconto <= precoUnit) {
+			Integer quantidade = getQuantidade();
+			Double precoTotal =  (precoUnit - this.desconto) * quantidade;
+			this.precoTotal = precoTotal;
+		} else {
+			//lançar exceção de desconto inválido
+		}
 	}
-	
-	
 }

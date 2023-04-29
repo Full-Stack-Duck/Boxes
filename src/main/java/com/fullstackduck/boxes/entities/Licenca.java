@@ -58,7 +58,7 @@ public class Licenca implements Serializable {
 		this.dataAquisicao = dataAquisicao;
 		setTipoLicenca(tipoLicenca);
 		setDataValidade(dataAquisicao);
-		setDiasLicenca();
+		calcularDiasLicenca();
 		this.valor = valor;
 		this.usuario = usuario;
 	}
@@ -103,8 +103,7 @@ public class Licenca implements Serializable {
 	    return this.dataValidade;
 	}
 
-	public void setDiasLicenca() {
-		Integer diasLicenca;
+	public void calcularDiasLicenca() {
 	    // Verifica se a data de validade já passou
 	    Instant dataAtual = Instant.now();
 	    Instant dataValidade = getDataValidade();
@@ -113,11 +112,11 @@ public class Licenca implements Serializable {
 	    }
 	    // Calcula a diferença em dias entre as duas datas
 	    long dias = ChronoUnit.DAYS.between(dataAtual, dataValidade);
-	    diasLicenca = (int) dias;
-	    this.diasLicenca = diasLicenca;
+	    this.diasLicenca = (int) dias;
 	}
 	
 	public Integer getDiasLicenca() {
+		calcularDiasLicenca();
 	    return this.diasLicenca;
 	}
 	
