@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.fullstackduck.boxes.entities.Cliente;
 import com.fullstackduck.boxes.entities.Licenca;
 import com.fullstackduck.boxes.services.LicencaService;
 

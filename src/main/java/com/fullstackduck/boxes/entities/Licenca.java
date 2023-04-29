@@ -5,9 +5,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.StatusLicenca;
 import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 
@@ -44,7 +42,7 @@ public class Licenca implements Serializable {
 	
 	private Integer diasLicenca;
 	private Integer tipoLicenca;
-	@Getter @Setter private Double valor;
+	@Getter private Double valor;
 	
 	//Relacionamento com a entidade de Usuario
 	@ManyToOne
@@ -122,8 +120,19 @@ public class Licenca implements Serializable {
 	public Integer getDiasLicenca() {
 	    return this.diasLicenca;
 	}
-
-
-
 	
+	public void setValor() {
+		Double valor = 0.0;
+		TipoLicenca tipoLicenca = getTipoLicenca();
+		if (tipoLicenca == TipoLicenca.GRATUITA) {
+    		valor = 0.0;
+    	} else if (tipoLicenca == TipoLicenca.MENSAL) {
+    		valor = 91.0;
+        } else if (tipoLicenca == TipoLicenca.SEMESTRAL) {
+        	valor = 516.0;
+        } else if (tipoLicenca == TipoLicenca.ANUAL) {
+        	valor = 984.0;
+        }
+		this.valor = valor;
+	}
 }

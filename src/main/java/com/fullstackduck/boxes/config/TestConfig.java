@@ -1,7 +1,6 @@
 package com.fullstackduck.boxes.config;
 
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,6 @@ import com.fullstackduck.boxes.repositories.PedidoRepository;
 import com.fullstackduck.boxes.repositories.ProdutoRepository;
 import com.fullstackduck.boxes.repositories.ReceitaRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
-import com.fullstackduck.boxes.services.LicencaService;
 
 // Classe auxiliar de configuração para o perfil de testes
 @Configuration

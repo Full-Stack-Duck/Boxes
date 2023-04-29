@@ -99,13 +99,12 @@ public class OrcamentoService {
 		entity.setStatus(obj.getStatus());
 	}
     
-    public void calcularTotal(Long id) {
-    	Orcamento orcamento = orcamentoRepository.getReferenceById(id);
+    public void calcularTotal(Orcamento obj) {
     	Double total = 0.0;
-		for(ItensOrcamento i: orcamento.getItens()) {
+		for(ItensOrcamento i: obj.getItens()) {
 			total = total + i.getPrecoTotal();
-			orcamento.setTotal(total);
+			obj.setTotal(total);
 		}
+		orcamentoRepository.save(obj);
 	}
-    
 }

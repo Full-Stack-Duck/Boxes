@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.fullstackduck.boxes.entities.Licenca;
 import com.fullstackduck.boxes.entities.Usuario;
+import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 import com.fullstackduck.boxes.repositories.LicencaRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
@@ -46,6 +47,7 @@ public class LicencaService {
     	licenca.setDataAquisicao(Instant.now());
     	licenca.setDataValidade(licenca.getDataAquisicao());
     	licenca.setDiasLicenca();
+    	licenca.setValor();
     	licenca.setUsuario(usuario);
 		return licencaRepository.save(licenca);
 	}
@@ -71,13 +73,12 @@ public class LicencaService {
     }
     
     public Licenca alterarLicenca(Licenca licenca, Integer usuarioId) {
+    	inserirLicenca(licenca, usuarioId);
     	Usuario usuario = usuarioRepository.getReferenceById(usuarioId);
     	Licenca antigaLicenca = usuario.findLicenca();
     	Instant novaDataValidadeLicenca = antigaLicenca.getDataValidade();
         Integer novoDiasLicenca = antigaLicenca.getDiasLicenca();
-        licenca.setDataAquisicao(Instant.now());
         TipoLicenca tipoLicenca = licenca.getTipoLicenca();
-        licenca.setTipoLicenca(tipoLicenca);
         if (tipoLicenca == TipoLicenca.MENSAL) {
             novaDataValidadeLicenca = novaDataValidadeLicenca.plus(Duration.ofDays(30));
             novoDiasLicenca += 30; 
@@ -90,9 +91,11 @@ public class LicencaService {
         }
         licenca.setDataValidade(novaDataValidadeLicenca);
         licenca.setDiasLicenca();
+        licenca.setValor();
     	licenca.setUsuario(usuario);
 		return licencaRepository.save(licenca);
     }
+
 
 	
 	//métodos auxiliares

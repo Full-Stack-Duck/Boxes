@@ -1,9 +1,9 @@
 package com.fullstackduck.boxes.resources;
 
-import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.services.ItensOrcamentoService;
@@ -32,30 +32,22 @@ public class OrcamentoResource {
 	private ItensOrcamentoService itensService;
 	
 	@GetMapping
-	@Transactional
-	public ResponseEntity<List<Orcamento>> findAll(){
-		List<Orcamento> list = service.findAll();
-		for (Orcamento orc: list) {
-			service.calcularTotal(orc.getId());
-			}
-		return ResponseEntity.ok().body(list);
+	public List<Orcamento> findAll(){
+		return service.findAll();
 	}
 	
 	@GetMapping(value = "/{id}")
-	@Transactional
 	public ResponseEntity<Orcamento> findById(@PathVariable Long id){
 		Orcamento obj = service.findById(id);
-		service.calcularTotal(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
 	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
 	@Transactional
-	public ResponseEntity<Orcamento> inserirOrcamento(@RequestBody Orcamento obj) {
-		obj = service.inserirOrcamento(obj);
-		service.calcularTotal(obj.getId());
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).body(obj);
+	public Orcamento inserirOrcamento(@RequestBody Orcamento obj) {
+		service.calcularTotal(obj);
+		return obj;
 	}
 	
 	@PutMapping(value = "/{id}/attStatus")
@@ -77,15 +69,15 @@ public class OrcamentoResource {
 	@Transactional
 	public ResponseEntity<Orcamento> adicionarItem(@PathVariable Long id, @PathVariable Integer produtoId, @PathVariable Integer quantidade) {
 		Orcamento orcamento = service.adicionarItem(id, produtoId, quantidade);
-		service.calcularTotal(id);
+		service.calcularTotal(orcamento);
         return ResponseEntity.ok().body(orcamento);
 	  }
 	
 	@DeleteMapping(value = "/{id}")
 	@Transactional
-	public ResponseEntity<Orcamento> adicionarItem(@PathVariable Long id, @PathVariable Long produtoId) {
+	public ResponseEntity<Orcamento> removerItem(@PathVariable Long id, @PathVariable Long produtoId) {
 		Orcamento orcamento = service.removerItem(id, produtoId);
-		service.calcularTotal(id);
+		service.calcularTotal(orcamento);
         return ResponseEntity.ok().body(orcamento);
 	  }
 }
