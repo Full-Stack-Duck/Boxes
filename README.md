@@ -5,11 +5,11 @@ Essa parte do TCC é destinada ao front-end (React + TypeScript + NodeJS + Tailw
 
 
 ## Bibliotecas:
-https://dinerojs.com/
-https://react-hook-form.com/
-    - Zod Resolvers
-https://zod.dev
-https://phosphoricons.com
-https://tailwindcss.com
-https://headlessui.com
-https://vitejs.dev
+- https://dinerojs.com/
+- https://react-hook-form.com/  <br/> <br/>
+Zod Resolvers
+- https://zod.dev 
+- https://phosphoricons.com
+- https://tailwindcss.com
+- https://headlessui.com
+- https://vitejs.dev
