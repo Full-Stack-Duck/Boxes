@@ -1,40 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import polygon_despesaG_icon from "../assets/polygon_despesa_G.svg";
 import polygon_despesaR_icon from "../assets/polygon_despesa_R.svg";
 import Dinero from "dinero.js";
 import ListboxSelector from "./ListboxSelector";
 
+
+
 const resources = {
     vendas: {   
       total: {
-        dias30: 3675.50,
-        trimestre: 5892.33,
-        semestre: 9422.10
+        espacoTempo: 3675.50,
       },
       estatistica: {
-        dias30: 5.30,
+        espacoTempo: 5.30,
         dias45: 16.1,
         dias60: 21.0
       }
     },
     gastos: {
         total: {
-          dias30: 2218.25,
-          dias45: 4100.39,
-          dias60: 6312.99
+          espacoTempo: 2218.25,
         },
         estatistica: {
-          dias30: -5.30,
-          dias45: -16.1,
-          dias60: -21.0
+          espacoTempo: -5.30,
         }
     },
+    receita: ''
 }
 
 export function Dashboard() {
+
+    useEffect( () => {
+      fetch(resources.receita)
+      .then(response => response.json())
+      .then(data => setGastoTotal(data))
+      .catch(error => console.log(error))
+    }, [])
     
-    const totalGastos = Dinero({amount: (resources.gastos.total.dias30 * 100), currency: "BRL"}).toFormat("$0.0")
-    const totalVendas = Dinero({amount: (resources.vendas.total.dias30 * 100), currency: "BRL"}).toFormat("$0,0.00")
+    const totalGastos = Dinero({amount: (resources.gastos.total.espacoTempo * 100), currency: "BRL"}).toFormat("$0.0")
+    const totalVendas = Dinero({amount: (resources.vendas.total.espacoTempo * 100), currency: "BRL"}).toFormat("$0,0.00")
     
     const [gastoTotal, setGastoTotal] = useState(totalGastos)
     const [vendasTotal, setVendasTotal] = useState(totalVendas)
@@ -59,8 +63,10 @@ export function Dashboard() {
                 {vendasTotal.replace('.', ',').replace(',', '.')}
               </p>
               <div className="flex items-center bg-green-300 rounded-xl h-5 w-14 ml-3 justify-center gap-0.5">
-                <img src={polygon_despesaG_icon} className="rotate-180"></img>
-                <span className="font-bold text-xs text-green-800">{resources.vendas.estatistica.dias30}%</span>
+                <div className="rotate-180 -mt-2">
+                <img src={polygon_despesaG_icon} className="animate-bounce transition-all"/>
+                </div>
+                <span className="font-bold text-xs text-green-800">{resources.vendas.estatistica.espacoTempo}%</span>
               </div>
             </div>
             <p className=" font-quicksand text-xs">
@@ -75,8 +81,8 @@ export function Dashboard() {
                 {gastoTotal.replace('.', ',').replace(',', '.')}
               </p>
               <div className="flex items-center bg-red-400 rounded-xl h-5 w-14 ml-3 justify-center">
-                <img src={polygon_despesaR_icon} className=""></img>
-                <span className="font-bold text-xs text-red-900">{resources.gastos.estatistica.dias30}%</span>
+                <img src={polygon_despesaR_icon} className="animate-bounce transition-opacity mt-2"></img>
+                <span className="font-bold text-xs text-red-900">{resources.gastos.estatistica.espacoTempo}%</span>
               </div>
             </div>
             <p className=" font-quicksand text-xs">
