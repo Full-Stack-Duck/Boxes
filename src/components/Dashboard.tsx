@@ -5,6 +5,16 @@ import Dinero from "dinero.js";
 import ListboxSelector from "./ListboxSelector";
 
 
+interface TB_RECEITA {
+  id: number,
+  data_receita: Date,
+  pagamento_id: {
+    valor: number
+  },
+  usuario_id: {
+    nome: string
+  }
+}
 
 const resources = {
     vendas: {   
@@ -37,10 +47,9 @@ export function Dashboard() {
       .catch(error => console.log(error))
     }, [])
     
-    const totalGastos = Dinero({amount: (resources.gastos.total.espacoTempo * 100), currency: "BRL"}).toFormat("$0.0")
     const totalVendas = Dinero({amount: (resources.vendas.total.espacoTempo * 100), currency: "BRL"}).toFormat("$0,0.00")
     
-    const [gastoTotal, setGastoTotal] = useState(totalGastos)
+    const [gastoTotal, setGastoTotal] = useState<TB_RECEITA[]>([])
     const [vendasTotal, setVendasTotal] = useState(totalVendas)
 
   return (
@@ -77,9 +86,11 @@ export function Dashboard() {
           <div className="">
             <p className="font-quicksand text-lg font-normal">Gastos</p>
             <div className="flex items-center">
-              <p className="font-bold text-3xl text-purple-medium">
-                {gastoTotal.replace('.', ',').replace(',', '.')}
-              </p>
+              {gastoTotal.map(gasto => (
+                <p className="font-bold text-3xl text-purple-medium">
+                  {Dinero({amount: gasto.pagamento_id.valor, currency: "BRL"}).toFormat("$0,0.00").replace('.', ',').replace(',', '.')}
+                </p>
+              ))}
               <div className="flex items-center bg-red-400 rounded-xl h-5 w-14 ml-3 justify-center">
                 <img src={polygon_despesaR_icon} className="animate-bounce transition-opacity mt-2"></img>
                 <span className="font-bold text-xs text-red-900">{resources.gastos.estatistica.espacoTempo}%</span>
