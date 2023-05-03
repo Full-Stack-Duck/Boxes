@@ -15,9 +15,9 @@ export function HeaderWeb(){
           <div className="mr-3">
             <a href="" className="text-white font-quicksand text-sm tracking-wider px-3 py-1 bg-purple-medium border rounded-md border-white">Cadastrar</a>
           </div>
-          <a href="#" className="hover:bg-purple-400 hover:bg-opacity-10 rounded-full">
+          <button className="hover:bg-purple-400 hover:bg-opacity-10 rounded-full">
             <DotsThreeVertical size={32} weight="duotone" className="text-[#fff]"/>
-          </a>
+          </button>
     
         </div>
         </header>
