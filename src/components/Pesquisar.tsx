@@ -13,7 +13,7 @@ export function Pesquisar() {
           <form action="">
             <label htmlFor="">PESQUISAR POR:</label>
             <select
-              className="border rounded w-44 h-8 border-purple-light font-nunito ml-7 my-1.5"
+              className="border rounded w-44 h-8 border-purple-light font-nunito ml-6 my-1.5"
               name=""
               id=""
             >
@@ -28,12 +28,12 @@ export function Pesquisar() {
           <form action="">
             <label htmlFor="">PALAVRA-CHAVE:</label>
             <input
-              className="border rounded w-44 h-8 border-purple-light ml-7 my-1.5"
+              className="border rounded w-44 h-8 border-purple-light ml-5 my-1.5"
               type="text"
             />
           </form>
         </article>
-        <div className="flex justify-end ">
+        <div className="flex justify-end">
           <button
             className="flex items-center justify-center w-full h-10 mt-2 mb-4 border-2 rounded  bg-purple-medium border-purple-dark shadow-md shadow-purple-shadow text-white"
             type="submit"
