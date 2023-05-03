@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fullstackduck.boxes.entities.Licenca;
 import com.fullstackduck.boxes.entities.Usuario;
@@ -53,6 +54,7 @@ public class LicencaService {
 		return licencaRepository.save(licenca);
 	}
     
+    @Transactional
     public Licenca atualizarStatusLicenca(Long id, Licenca obj) {
     	try {
 			Licenca entity = licencaRepository.getReferenceById(id);
@@ -63,6 +65,7 @@ public class LicencaService {
 		}
 	}
     
+    @Transactional
     public Licenca renovarLicenca(Long id, Licenca obj) {
     	try {
 			Licenca entity = licencaRepository.getReferenceById(id);
@@ -73,6 +76,7 @@ public class LicencaService {
 		}
     }
     
+    @Transactional
     public Licenca alterarLicenca(Licenca licenca, Integer usuarioId) {
     	inserirLicenca(licenca, usuarioId);
     	Usuario usuario = usuarioRepository.getReferenceById(usuarioId);
@@ -91,14 +95,16 @@ public class LicencaService {
             novaDataValidadeLicenca = novaDataValidadeLicenca.plus(Duration.ofDays(365));
             novoDiasLicenca += 365;
         }
+        licenca.setStatusLicenca(StatusLicenca.ATIVA);
         licenca.setDataValidade(novaDataValidadeLicenca);
         licenca.calcularDiasLicenca();
         licenca.setValor();
     	licenca.setUsuario(usuario);
     	licenca.setDataAquisicao(Instant.now());
     	antigaLicenca.setStatusLicenca(StatusLicenca.CANCELADA);
+    	licencaRepository.save(licenca);
     	licencaRepository.save(antigaLicenca);
-		return licencaRepository.save(licenca);
+		return licenca;
     }
 
 

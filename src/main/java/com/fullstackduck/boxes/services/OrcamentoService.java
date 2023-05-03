@@ -32,12 +32,18 @@ public class OrcamentoService {
 	private ItensOrcamentoRepository itensRepository;
 	
 	public List<Orcamento> findAll(){
-		return orcamentoRepository.findAll();
+		List<Orcamento> orcamentos = orcamentoRepository.findAll();
+		for (Orcamento i: orcamentos) {
+		    calcularTotal(i);
+		}
+		return orcamentos;
 	}
 	
 	public Orcamento findById(Long id) {
 		Optional<Orcamento> obj = orcamentoRepository.findById(id);
-		return obj.get();
+		Orcamento orcamento = obj.get();
+	    calcularTotal(orcamento);
+	    return orcamento;
 	}
 
 	//insere orcamento no banco de dados

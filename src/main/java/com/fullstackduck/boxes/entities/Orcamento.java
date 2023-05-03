@@ -5,10 +5,13 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.TipoEntrega;
+import com.fullstackduck.boxes.services.OrcamentoService;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -20,6 +23,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PostPersist;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -72,6 +76,7 @@ public class Orcamento implements Serializable {
 		setTipoEntrega(tipoEntrega);
 		this.dataOrcamento = dataOrcamento;
 		setStatus(status);
+		setTotal(total);
 		this.usuario = usuario;
 		this.cliente = cliente;
 	}
@@ -84,6 +89,10 @@ public class Orcamento implements Serializable {
 		if(tipoEntrega != null) {
 		this.tipoEntrega = tipoEntrega.getCode();
 		}
+	}
+	
+	public void setTotal(Double total) {
+		this.total = total;
 	}
 
 	public Status getStatus() {
