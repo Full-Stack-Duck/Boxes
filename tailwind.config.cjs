@@ -6,12 +6,14 @@ module.exports = {
       'viga': ['"viga"'],
       'quicksand': ['"quicksand"'],
       'nunito': ['"nunito"'],
-      'montserrat': ['"montserrat"']
+      'montserrat': ['"montserrat"'],
+      'playfair': ['"playfair"']
     },
     extend: {
       colors: {
         gray: {
-          'lightgray': '#B9B2C6'
+          'lightgray': '#B9B2C6',
+          'solidgray': '#585858'
         },
         purple: {
           'darker': '#151126',
