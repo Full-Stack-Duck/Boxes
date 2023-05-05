@@ -7,7 +7,8 @@ module.exports = {
       'quicksand': ['"quicksand"'],
       'nunito': ['"nunito"'],
       'montserrat': ['"montserrat"'],
-      'playfair': ['"playfair"']
+      'playfair': ['"playfair"'],
+      'open': ['Open Sans', 'ui-sans-serif', 'system-ui']
     },
     extend: {
       colors: {
@@ -23,12 +24,15 @@ module.exports = {
           'medium': '#6851AC',
           'light': '#B9B2C6',
           'shadow': '#B9B2C6',
-          'plano': '#AA84DA',
-          'pinkish': '#F0ECFE'
+          'plano': '#AA84DA'
         },
         green:{
           'hard': '#007849',
           'soft': '#84DAB8'
+        },
+        pink: {
+          'light': '#F0ECFE',
+          'soft': '#EAE3FF'
         }
       },
       backgroundImage: {
