@@ -11,7 +11,7 @@ export function VideoWeb(){
                 <p className="flex-col text-sm my-3">Nosso objetivo é trazer as melhores <strong>práticas de gestão</strong>, especializada ao setor de Eventos e Buffet, através de uma plataforma <strong>intuitiva e eficiente.</strong></p>
             </article>
             <div className="flex items-center justify-center w-full mb-4">
-                <iframe className="w-full h-60 rounded-3xl" src="https://www.youtube.com/embed/-DXU_8_9s3A" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                <iframe className="w-full h-60 rounded-3xl" src="https://www.youtube.com/embed/-DXU_8_9s3A" title="Video Youtube tutorial" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
             </div>
         </section>
     )
