@@ -13,7 +13,8 @@ module.exports = {
       colors: {
         gray: {
           'lightgray': '#B9B2C6',
-          'solidgray': '#585858'
+          'solidgray': '#585858',
+          'purplegray': '#473C4F'
         },
         purple: {
           'darker': '#151126',
@@ -22,7 +23,8 @@ module.exports = {
           'medium': '#6851AC',
           'light': '#B9B2C6',
           'shadow': '#B9B2C6',
-          'plano': '#AA84DA'
+          'plano': '#AA84DA',
+          'pinkish': '#F0ECFE'
         },
         green:{
           'hard': '#007849',
