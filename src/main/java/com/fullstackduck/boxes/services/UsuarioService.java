@@ -4,6 +4,8 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
+import javax.security.auth.login.LoginException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -120,6 +122,19 @@ public class UsuarioService {
     public List<Produto> listarProdutos(Long idUsuario) {
         Usuario usuario = findById(idUsuario);
         return usuario.getProdutos();
+    }
+    
+    public Usuario login(String email, String senha) throws Exception {
+        Usuario usuario = repository.findByEmail(email);
+        if (usuario == null) {
+            throw new LoginException("Usuário não encontrado");
+        }
+
+        if (!usuario.getSenha().equals(senha)) {
+            throw new LoginException("Senha incorreta");
+        }
+
+        return usuario;
     }
     
     

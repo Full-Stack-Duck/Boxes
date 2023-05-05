@@ -2,6 +2,9 @@
 	
 	import java.net.URI;
 import java.util.List;
+import java.util.Map;
+
+import javax.security.auth.login.LoginException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -86,6 +89,18 @@ import com.fullstackduck.boxes.services.UsuarioService;
 		    List<Produto> produtos = service.listarProdutos(id);
 		    return ResponseEntity.ok().body(produtos);
 		}
+		
+		 @PostMapping("/login")
+		    public ResponseEntity<Usuario> login(@RequestBody Map<String, String> requestMap) throws Exception {
+		        try {
+		            String email = requestMap.get("email");
+		            String senha = requestMap.get("senha");
+		            Usuario usuario = service.login(email, senha);
+		            return ResponseEntity.ok().body(usuario);
+		        } catch (LoginException e) {
+		            return ResponseEntity.badRequest().build();
+		        }
+		    }
 
 
 	}

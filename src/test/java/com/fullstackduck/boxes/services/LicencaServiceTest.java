@@ -1,7 +1,8 @@
 package com.fullstackduck.boxes.services;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -9,14 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.fullstackduck.boxes.entities.Licenca;
 import com.fullstackduck.boxes.entities.Usuario;
@@ -39,111 +38,130 @@ public class LicencaServiceTest {
     private LicencaService licencaService;
 
     @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        
+    public void setUp() {
+       MockitoAnnotations.openMocks(this);
+       licencaRepositoryMock = mock(LicencaRepository.class);
     }
-
-    @Test
-    public void findAll_ShouldReturnListOfLicencas() {
-        // given
-        Licenca licenca1 = new Licenca(1L,StatusLicenca.ATIVA ,Instant.now(),null, null, TipoLicenca.ANUAL, 300.0,null);
-        Licenca licenca2 = new Licenca(2L,StatusLicenca.ATIVA ,Instant.now(),null, null, TipoLicenca.SEMESTRAL, 200.0,null);
-        List<Licenca> licencas = new ArrayList<>();
-        licencas.add(licenca1);
-        licencas.add(licenca2);
-        Mockito.when(licencaRepositoryMock.findAll()).thenReturn(licencas);
-
-        // when
-        List<Licenca> resultado = licencaService.findAll();
-
-        // then
-        assertThat(resultado).containsExactlyInAnyOrder(licenca1, licenca2);
-        
-    }
-
-    @Test
-    public void findById_ShouldReturnLicenca_WhenExists() {
-        // given
-        Licenca licenca = new Licenca(null,StatusLicenca.ATIVA ,Instant.now(),null, null, TipoLicenca.ANUAL, 300.0,null);
-        Mockito.when(licencaRepositoryMock.findById(1L)).thenReturn(Optional.of(licenca));
-
-        // when
-        Licenca resultado = licencaService.findById(1L);
-
-        // then
-        assertThat(resultado).isEqualTo(licenca);
-    }
-
-    @Test
-    public void findById_ShouldThrowResourceNotFoundException_WhenDoesNotExist() {
-        // given
-        Mockito.when(licencaRepositoryMock.findById(1L)).thenReturn(Optional.empty());
-
-        // when
-        assertThatThrownBy(() -> {
-            licencaService.findById(1L);
-        }).isInstanceOf(ResourceNotFoundException.class)
-          .hasMessage("Licença não encontrada com o id: 1")
-          .satisfies(e -> System.out.println(e.getMessage())); // adicionado para imprimir a mensagem de exceção real
-    }
-
-
-
-
     
     @Test
-    @Transactional
-    public void save_ShouldReturnSavedLicenca() throws ResourceNotFoundException {
-        // given
-        Usuario usuario = new Usuario(null, "John Doe", null, null, null, null, null, null, null, null);
-        Mockito.when(usuarioRepositoryMock.findById(1L)).thenReturn(Optional.of(usuario));
-        Licenca licenca = new Licenca(null, StatusLicenca.ATIVA, Instant.now(), null, null, TipoLicenca.ANUAL, 300.0, usuario);
-        Licenca savedLicenca = new Licenca(1L, StatusLicenca.ATIVA, Instant.now(), null, null, TipoLicenca.ANUAL, 300.0, usuario);
-        Mockito.when(licencaRepositoryMock.save(licenca)).thenReturn(savedLicenca);
+    public void testFindAll() {
+        List<Licenca> licencas = new ArrayList<>();
+        Licenca licenca = new Licenca();
+        licenca.setId(1L);
+        licenca.setTipoLicenca(TipoLicenca.MENSAL);
+        licencas.add(licenca);
+        when(licencaRepositoryMock.findAll()).thenReturn(licencas);
 
-        // when
-        Licenca resultado = licencaService.inserirLicenca(licenca);
+        List<Licenca> result = licencaService.findAll();
 
-        // then
-        assertThat(resultado).isEqualTo(savedLicenca);
+        assertEquals(1, result.size());
+        assertEquals(TipoLicenca.MENSAL, result.get(0).getTipoLicenca());
     }
 
-
-    /*
     @Test
-    @Transactional
-    public void testDataValidade() {
-        // Cria uma nova licença
-        Licenca licenca = new Licenca(null, StatusLicenca.ATIVA, Instant.now(), null, null, TipoLicenca.ANUAL, 300.0, null);
-        licenca.setDataAquisicao(Instant.now());
-        licenca.setDiasLicenca(30);
-        
-        // Salva a licença no repositório
-        Mockito.when(licencaRepositoryMock.save(licenca)).thenReturn(licenca);
-        licencaRepositoryMock.flush();
+    public void testFindById() {
+        Long id = 1L;
+        Licenca licenca = new Licenca();
+        licenca.setId(id);
+        licenca.setTipoLicenca(TipoLicenca.MENSAL);
+        when(licencaRepositoryMock.findById(id)).thenReturn(Optional.of(licenca));
 
-        // Cria uma instância de LicencaRepository
-        LicencaRepository licencaRepository = licencaRepositoryMock;
+        Licenca result = licencaService.findById(id);
 
-        // Cria uma instância do LicencaService, passando a instância de LicencaRepository como parâmetro
-        LicencaService licencaService = new LicencaService(licencaRepository);
-
-        // Verifica se a licença foi salva corretamente
-        Optional<Licenca> licencaSalva = licencaRepository.findById(licenca.getId());
-        assertThat(licencaSalva).isPresent();
-
-        // Chama o método dataValidade() passando o ID da licença criada
-        Instant dataValidade = licencaService.dataValidade(licenca.getId());
-
-        // Verifica se a data de validade retornada é igual a data de aquisição + dias de licença
-        assertThat(dataValidade).isEqualTo(licenca.getDataAquisicao().plus(Duration.ofDays(licenca.getDiasLicenca())));
+        assertEquals(TipoLicenca.MENSAL, result.getTipoLicenca());
     }
-*/
 
+    @Test(expected = ResourceNotFoundException.class)
+    public void testFindByIdNotFound() {
+        Long id = 1L;
+        when(licencaRepositoryMock.findById(id)).thenReturn(Optional.empty());
 
+        licencaService.findById(id);
+    }
 
+    @Test
+    public void testInserirLicenca() {
+        Licenca licenca = new Licenca();
+        licenca.setId(1L);
+        licenca.setTipoLicenca(TipoLicenca.MENSAL);
+        Usuario usuario = new Usuario();
+        usuario.setId((long) 1);
+        when(usuarioRepositoryMock.getReferenceById(usuario.getId())).thenReturn(usuario);
+        when(licencaRepositoryMock.save(licenca)).thenReturn(licenca);
 
+        Licenca result = licencaService.inserirLicenca(licenca, usuario.getId());
+
+        assertEquals(TipoLicenca.MENSAL, result.getTipoLicenca());
+        assertEquals(usuario, result.getUsuario());
+    }
+
+    @Test
+    public void testAtualizarStatusLicenca() {
+        Long id = 1L;
+        Licenca licenca = new Licenca();
+        licenca.setId(id);
+        licenca.setTipoLicenca(TipoLicenca.MENSAL);
+        when(licencaRepositoryMock.getReferenceById(id)).thenReturn(licenca);
+        when(licencaRepositoryMock.save(licenca)).thenReturn(licenca);
+        Licenca obj = new Licenca();
+        obj.setStatusLicenca(StatusLicenca.EXPIRADA);
+
+        Licenca result = licencaService.atualizarStatusLicenca(id, obj);
+
+        assertEquals(StatusLicenca.EXPIRADA, result.getStatusLicenca());
+    }
+    
+    @Test
+    public void testRenovarLicenca() {
+        // Criação de objeto de teste
+        Licenca licenca = new Licenca();
+        licenca.setId(1L);
+        licenca.setDataValidade(Instant.now().plus(Duration.ofDays(30)));
+        licenca.setDiasLicenca();
+        licenca.setTipoLicenca(TipoLicenca.MENSAL);
+        
+        // Mock dos objetos de repositório
+        when(licencaRepositoryMock.getReferenceById(licenca.getId())).thenReturn(licenca);
+        
+        // Execução do método
+        Licenca licencaRenovada = licencaService.renovarLicenca(licenca.getId(), licenca);
+        
+        // Verificação dos resultados
+        assertEquals(licenca.getDataValidade().plus(Duration.ofDays(30)), licencaRenovada.getDataValidade());
+        assertEquals(licenca.getDiasLicenca() + 30, licencaRenovada.getDiasLicenca());
+    }
+
+    @Test
+    public void testAlterarLicenca() {
+        // Criação de objeto de teste
+        Licenca licenca = new Licenca();
+        licenca.setId(1L);
+        licenca.setDataValidade(Instant.now().plus(Duration.ofDays(30)));
+        licenca.setDiasLicenca();
+        licenca.setTipoLicenca(TipoLicenca.MENSAL);
+        
+        Usuario usuario = new Usuario();
+        usuario.setId((long)1);
+        usuario.setTipoLicenca(TipoLicenca.ANUAL);
+        
+        // Mock dos objetos de repositório
+        when(usuarioRepositoryMock.getReferenceById(usuario.getId())).thenReturn(usuario);
+        when(licencaRepositoryMock.save(licenca)).thenReturn(licenca);
+        
+        // Execução do método
+        Licenca licencaAlterada = licencaService.alterarLicenca(licenca, usuario.getId());
+        
+        // Verificação dos resultados
+        assertEquals(TipoLicenca.MENSAL, licencaAlterada.getTipoLicenca());
+        assertEquals(Instant.now(), licencaAlterada.getDataAquisicao());
+        assertEquals(usuario, licencaAlterada.getUsuario());
+        
+        Instant novaDataValidadeLicenca = licenca.getDataValidade().plus(Duration.ofDays(30));
+        assertEquals(novaDataValidadeLicenca, licencaAlterada.getDataValidade());
+        
+        Integer novoDiasLicenca = licenca.getDiasLicenca() + 30;
+        assertEquals(novoDiasLicenca, licencaAlterada.getDiasLicenca());
+    }
 
 	
 	
