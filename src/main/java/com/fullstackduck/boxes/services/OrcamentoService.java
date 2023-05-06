@@ -1,18 +1,23 @@
    package com.fullstackduck.boxes.services;
 
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fullstackduck.boxes.entities.ItensOrcamento;
 import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.entities.Produto;
+import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.pk.ItensOrcamentoPK;
 import com.fullstackduck.boxes.repositories.ItensOrcamentoRepository;
 import com.fullstackduck.boxes.repositories.OrcamentoRepository;
 import com.fullstackduck.boxes.repositories.ProdutoRepository;
+import com.fullstackduck.boxes.repositories.UsuarioRepository;
 import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -30,6 +35,9 @@ public class OrcamentoService {
 	
 	@Autowired
 	private ItensOrcamentoRepository itensRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	public List<Orcamento> findAll(){
 		List<Orcamento> orcamentos = orcamentoRepository.findAll();
@@ -92,6 +100,20 @@ public class OrcamentoService {
 	    ItensOrcamento item = itensRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("ItensOrcamento não encontrado para o orcamento com id: " + orcamentoId + " e produto com id: " + produtoId));
 	    orcamento.getItens().remove(item);
 	    return orcamentoRepository.save(orcamento);
+	}
+	
+	@Transactional
+	public List<Orcamento> listarOrcamentos(Long idUsuario) {
+        Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
+        return usuario.getOrcamentos();
+    }
+	
+	@Transactional
+	public List<Orcamento> listarOrcamentoPeriodo(String dataInicio, String dataFim) {
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
+		Instant data1 = Instant.from(formatter.parse(dataInicio));
+		Instant data2 = Instant.from(formatter.parse(dataFim));
+	    return orcamentoRepository.findByDataOrcamentoBetween(data1, data2);
 	}
 
 	

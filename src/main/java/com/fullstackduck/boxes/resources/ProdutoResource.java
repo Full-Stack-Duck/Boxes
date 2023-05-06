@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.entities.enums.TipoArmazenamento;
 import com.fullstackduck.boxes.entities.enums.TipoProduto;
@@ -62,6 +63,18 @@ public class ProdutoResource {
 	public ResponseEntity<Produto> atualizarProduto(@PathVariable Long id, @RequestBody Produto obj){
 		obj = service.atualizarProduto(id, obj);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping(value = "/{id}/produtos")
+	public ResponseEntity<List<Produto>> listarProdutos(@PathVariable Long id) {
+	    List<Produto> produtos = service.listarProdutos(id);
+	    return ResponseEntity.ok().body(produtos);
+	}
+	
+	@GetMapping(value = "/{id}/produtospd")
+	public List<Produto> listarProdutosPeriodo(@PathVariable Long id,@RequestParam String dataInicio, @RequestParam String dataFim){
+		List<Produto> produtos = service.listarProdutoPeriodo(dataInicio, dataFim);
+		return produtos;
 	}
 	
 	@GetMapping(value = "/categoria")

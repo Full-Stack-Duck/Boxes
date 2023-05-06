@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.entities.Pagamento;
 import com.fullstackduck.boxes.entities.Receita;
 import com.fullstackduck.boxes.repositories.PagamentoRepository;
@@ -50,4 +52,16 @@ public class ReceitaResource {
 
         return ResponseEntity.ok(totalReceita);
     }
+	
+	@GetMapping(value = "/{id}/Receita")
+	public ResponseEntity<List<Orcamento>> listarReceita(@PathVariable Long id) {
+	    List<Orcamento> receita = service.listarReceitas(id);
+	    return ResponseEntity.ok().body(receita);
+	}
+	
+	@GetMapping(value = "/{id}/Receitapd")
+	public List<Orcamento> listarReceitaPeriodo(@PathVariable Long id,@RequestParam String dataInicio, @RequestParam String dataFim){
+		List<Orcamento> receita = service.listarOrcamentoPeriodo(dataInicio, dataFim);
+		return receita;
+	}
 }

@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fullstackduck.boxes.entities.Cliente;
+import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.services.ClienteService;
 
 //Controlador Rest
@@ -63,5 +65,17 @@ public class ClienteResource {
 	public ResponseEntity<Cliente> atualizarCliente(@PathVariable Long id, @RequestBody Cliente obj){
 		obj = service.atualizarCliente(id, obj);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping(value = "/{id}/orcamentos")
+	public ResponseEntity<List<Cliente>> listarClientes(@PathVariable Long id) {
+	    List<Cliente> clientes = service.listarClientes(id);
+	    return ResponseEntity.ok().body(clientes);
+	}
+	
+	@GetMapping(value = "/{id}/orcamentospd")
+	public List<Cliente> listarClientesPeriodo(@PathVariable Long id,@RequestParam String dataInicio, @RequestParam String dataFim){
+		List<Cliente> clientes = service.listarClientePeriodo(dataInicio, dataFim);
+		return clientes;
 	}
 }

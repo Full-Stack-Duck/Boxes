@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fullstackduck.boxes.entities.Despesa;
+import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.services.DespesaService;
 
 //Controlador Rest
@@ -60,5 +62,17 @@ public class DespesaResource {
 	public ResponseEntity<Despesa> atualizarDespesa(@PathVariable Long id, @RequestBody Despesa obj){
 		obj = service.atualizarDespesa(id, obj);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping(value = "/{id}/despesas")
+	public ResponseEntity<List<Despesa>> listarDespesas(@PathVariable Long id) {
+	    List<Despesa> orcamentos = service.listarDespesas(id);
+	    return ResponseEntity.ok().body(orcamentos);
+	}
+	
+	@GetMapping(value = "/{id}/despesaspd")
+	public List<Despesa> listarDespesasPeriodo(@PathVariable Long id,@RequestParam String dataInicio, @RequestParam String dataFim){
+		List<Despesa> orcamentos = service.listarDespesaPeriodo(dataInicio, dataFim);
+		return orcamentos;
 	}
 }

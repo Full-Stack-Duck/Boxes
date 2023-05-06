@@ -1,15 +1,20 @@
 package com.fullstackduck.boxes.services;
 
 import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fullstackduck.boxes.entities.Despesa;
+import com.fullstackduck.boxes.entities.Orcamento;
+import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.Categoria;
 import com.fullstackduck.boxes.repositories.DespesaRepository;
+import com.fullstackduck.boxes.repositories.UsuarioRepository;
 import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -18,32 +23,35 @@ import jakarta.persistence.EntityNotFoundException;
 public class DespesaService {
 
 	@Autowired
-	private DespesaRepository repository;
+	private DespesaRepository despesaRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	
 	public List<Despesa> findAll(){
-		return repository.findAll();
+		return despesaRepository.findAll();
 	}
 	
 	
 	public Despesa findById(Long id) {
-		Optional<Despesa> obj = repository.findById(id);
+		Optional<Despesa> obj = despesaRepository.findById(id);
 		return obj.get();
 	}
 
 	//insere despesa no banco de dados
 	
 	public Despesa inserirDespesa(Despesa obj) {
-		return repository.save(obj);
+		return despesaRepository.save(obj);
 	}
 	
 	//atualiza status da despesa no banco de dados
 	
 	public Despesa atualizarStatusDespesa(Long id, Despesa obj) {
 		try {
-			Despesa entity = repository.getReferenceById(id);
+			Despesa entity = despesaRepository.getReferenceById(id);
 			atualizarDadosDespesa(entity, obj);
-			return repository.save(entity);
+			return despesaRepository.save(entity);
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
@@ -53,9 +61,9 @@ public class DespesaService {
 	
 	public Despesa atualizarDespesa(Long id, Despesa obj) {
 		try {
-			Despesa entity = repository.getReferenceById(id);
+			Despesa entity = despesaRepository.getReferenceById(id);
 			atualizarDadosDespesa(entity, obj);
-			return repository.save(entity);
+			return despesaRepository.save(entity);
 		}catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
@@ -72,12 +80,12 @@ public class DespesaService {
 	
 	
 	public void excluirDespesa(Long id) {
-        Despesa despesa = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Despesa não encontrada com o id: " + id));
-        repository.delete(despesa);
+        Despesa despesa = despesaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Despesa não encontrada com o id: " + id));
+        despesaRepository.delete(despesa);
     }
 	
 	public Double calcularValorTotalDespesas() {
-	    List<Despesa> despesas = repository.findAll();
+	    List<Despesa> despesas = despesaRepository.findAll();
 	    Double valorTotal = 0.0;
 	    for (Despesa despesa : despesas) {
 	        valorTotal += despesa.getValor();
@@ -85,21 +93,21 @@ public class DespesaService {
 	    return valorTotal;
 	}
 	
+	@Transactional
+	public List<Despesa> listarDespesas(Long idUsuario) {
+        Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
+        return usuario.getDespesas();
+    }
+	
+	@Transactional
+	public List<Despesa> listarDespesaPeriodo(String dataInicio, String dataFim) {
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
+		Instant data1 = Instant.from(formatter.parse(dataInicio));
+		Instant data2 = Instant.from(formatter.parse(dataFim));
+	    return despesaRepository.findByDataDespesaBetween(data1, data2);
+	}
+	
 	public List<Despesa> listarDespesasCategoria(Categoria categoria) {
-	    return repository.findByCategoria(categoria.getCode());
+	    return despesaRepository.findByCategoria(categoria.getCode());
 	}
-	
-	
-	public List<Despesa> listarDespesasPorPeriodo(Instant dataInicio, Instant dataFim) {
-	    return repository.findByDataDespesaBetween(dataInicio, dataFim);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

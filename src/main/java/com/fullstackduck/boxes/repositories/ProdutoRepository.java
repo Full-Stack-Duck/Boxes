@@ -1,5 +1,6 @@
 package com.fullstackduck.boxes.repositories;
 
+import java.time.Instant;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,5 +18,6 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>{
     List<Produto> findByTipo(TipoProduto tipo);
 	List<Produto> findByCategoria(TipoArmazenamento categoria);
 	Produto getReferenceById(Integer produtoId);
+	List<Produto> findByDataProdutoBetween(Instant data1, Instant data2);
 
 }

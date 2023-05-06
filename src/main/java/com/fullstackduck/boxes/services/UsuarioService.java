@@ -10,9 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fullstackduck.boxes.entities.Cliente;
+import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.entities.Produto;
+import com.fullstackduck.boxes.entities.Receita;
 import com.fullstackduck.boxes.entities.Usuario;
-import com.fullstackduck.boxes.repositories.PagamentoRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
 import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
@@ -26,9 +27,6 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository repository;
 	
-	@Autowired
-	private PagamentoRepository repository1;
-	
 	public List<Usuario> findAll(){
 		return repository.findAll();
 	}
@@ -41,24 +39,6 @@ public class UsuarioService {
 	//insere usuario no banco de dados
 	public Usuario inserirUsuario(Usuario obj) {
 		obj.setDatacadastro(Instant.now());
-	    /*
-	    // Definir tipo de licença escolhido pelo usuário
-	    TipoLicenca tipoLicenca = obj.getTipoLicenca();
-	    obj.setTipoLicenca(tipoLicenca);
-	    
-	    // Definir data de validade da licença baseado no tipo escolhido
-	    Instant dataValidadeLicenca = Instant.now();
-	    if (tipoLicenca == TipoLicenca.GRATUITA) {
-	        dataValidadeLicenca = dataValidadeLicenca.plus(Duration.ofDays(15));
-	    } else if (tipoLicenca == TipoLicenca.MENSAL) {
-	        dataValidadeLicenca = dataValidadeLicenca.plus(Duration.ofDays(30));
-	    } else if (tipoLicenca == TipoLicenca.SEMESTRAL) {
-	        dataValidadeLicenca = dataValidadeLicenca.plus(Duration.ofDays(180));
-	    } else if (tipoLicenca == TipoLicenca.ANUAL) {
-	        dataValidadeLicenca = dataValidadeLicenca.plus(Duration.ofDays(365));
-	    }
-	    obj.setDataValidadeLicenca(dataValidadeLicenca);
-	    */
 	    return repository.save(obj);
 	}
 	
@@ -119,9 +99,19 @@ public class UsuarioService {
         return usuario.getClientes();
     }
     
+    public List<Orcamento> listarOrcamentos(Long idUsuario) {
+        Usuario usuario = repository.getReferenceById(idUsuario);
+        return usuario.getOrcamentos();
+    }
+    
     public List<Produto> listarProdutos(Long idUsuario) {
         Usuario usuario = findById(idUsuario);
         return usuario.getProdutos();
+    }
+    
+    public List<Receita> listarReceitas(Long idUsuario){
+    	Usuario usuario = repository.getReferenceById(idUsuario);
+    	return usuario.getReceitas();
     }
     
     public Usuario login(String email, String senha) throws Exception {

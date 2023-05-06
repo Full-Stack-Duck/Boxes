@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fullstackduck.boxes.entities.Cliente;
+import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.services.UsuarioService;
@@ -90,17 +91,15 @@ import com.fullstackduck.boxes.services.UsuarioService;
 		    return ResponseEntity.ok().body(produtos);
 		}
 		
-		 @PostMapping("/login")
-		    public ResponseEntity<Usuario> login(@RequestBody Map<String, String> requestMap) throws Exception {
-		        try {
-		            String email = requestMap.get("email");
-		            String senha = requestMap.get("senha");
-		            Usuario usuario = service.login(email, senha);
-		            return ResponseEntity.ok().body(usuario);
-		        } catch (LoginException e) {
-		            return ResponseEntity.badRequest().build();
-		        }
-		    }
-
-
+		@PostMapping(value = "/login")
+	    public ResponseEntity<Usuario> login(@RequestBody Map<String, String> requestMap) throws Exception {
+	        try {
+	            String email = requestMap.get("email");
+	            String senha = requestMap.get("senha");
+	            Usuario usuario = service.login(email, senha);
+	            return ResponseEntity.ok().body(usuario);
+	        } catch (LoginException e) {
+	            return ResponseEntity.badRequest().build();
+	        }
+	    }
 	}
