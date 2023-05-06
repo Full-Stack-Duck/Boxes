@@ -27,7 +27,9 @@ module.exports = {
           'plano': '#AA84DA'
         },
         green:{
+          'dark': '#0D5715',
           'hard': '#007849',
+          'medium': '#20A92E',
           'soft': '#84DAB8'
         },
         pink: {
