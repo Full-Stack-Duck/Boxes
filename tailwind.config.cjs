@@ -31,6 +31,7 @@ module.exports = {
           'soft': '#84DAB8'
         },
         pink: {
+          'medium': '#BC78FF',
           'light': '#F0ECFE',
           'soft': '#EAE3FF'
         }
