@@ -2,8 +2,8 @@ import despesaIcon from '../assets/despesaIcon.svg'
 
 export function CadastrarDespesa(){
     return(
-        <section className="flex-col px-7 my-1 bg-white font-quicksand font-semibold border-y"> 
-            <div>
+        <section className='flex justify-center w-full '> 
+            <div className="flex-col px-7 my-1 bg-white font-quicksand font-semibold border-y w-[23rem] sm:w-[50rem]">
                 <h3 className="text-lg py-2">Cadastrar Despesas</h3>
                 <div className="text-sm text-purple-medium">
                     <article className="mb-4 text-sm">

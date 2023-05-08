@@ -60,9 +60,8 @@ export function CadastrarUsuario(){
     }
 
     return (
-        <div className="flex justify-center px-5 w-full">
-            <div className="flex flex-col w-full max-w-[375px] h-fit justify-center items-center">
-            
+        <div className="flex justify-center px-7 w-full">
+            <div className="flex flex-col w-[23rem] sm:w-[50rem] h-fit justify-center items-center">
             <div>
                 <article className="flex flex-col justify-center items-center mb-3">
                     <div>
@@ -73,10 +72,10 @@ export function CadastrarUsuario(){
                 </article>
             </div>
             <form 
-            className='flex flex-col gap-2'
+            className='flex flex-col gap-2 w-full'
             onSubmit={handleSubmit(criarUsuario)}
             >
-                <div className='flex gap-4 items-center justify-between'>
+                <div className='flex gap-4 items-center justify-between w-[23rem]'>
                     <div className='flex gap-2 items-center'>
                         <input 
                         type="radio" 

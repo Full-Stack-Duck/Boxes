@@ -5,9 +5,10 @@ import pagoIcon from '../assets/paid_icon.svg'
 
 export function LegendaPedido (){
     return(
-        <div className='py-3 mx-7'>
+        <section className='w-full flex justify-center'>
+        <div className='flex flex-col py-3 px-7 w-[23rem] sm:w-[50rem]'>
                 <p className='text-purple-light text-sm font-bold text-center'>LEGENDA</p>
-                <div>
+                <div className='flex flex-col gap-3 items-start sm:flex-row sm:flex-wrap'>
                     <div className='flex pt-2'>
                         <img src={aprovarIcon}></img>
                         <p className='text-purple-medium pl-2'>Aprovar Orçamento</p>
@@ -26,5 +27,6 @@ export function LegendaPedido (){
                     </div>
                 </div>
             </div>
+        </section>
     )
 }

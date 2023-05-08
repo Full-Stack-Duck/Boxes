@@ -2,7 +2,9 @@ import pedidoIcon from '../assets/order-icon-active.svg'
 
 export function ValoresPedido(){
     return(
-        <section className="flex-col px-7 my-1 pt-6 bg-white font-quicksand font-semibold border-b border-purple-light"> 
+        <section className="flex justify-center w-full">
+            <div className='flex-col px-7 my-1 pt-6 bg-white font-quicksand font-semibold border-b border-purple-light w-[23rem] sm:w-[50rem]'>
+
             <form className="text-sm text-purple-medium">
 
                 <div className="flex mb-4 justify-between gap-2 max-w-full">
@@ -36,6 +38,7 @@ export function ValoresPedido(){
                 <button type="submit" className="flex items-center justify-center w-full h-10 mt-2 mb-4 border-2 rounded  bg-purple-medium border-purple-dark shadow-md shadow-purple-shadow text-white text-base"> CADASTRAR<img className="mx-3" src={pedidoIcon} alt="" />
                 </button>
             </form>
+            </div>
         </section>
     )
 }

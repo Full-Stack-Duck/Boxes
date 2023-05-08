@@ -8,16 +8,13 @@ import ListboxSelector from "./ListboxSelector";
 interface TB_RECEITA {
   id: number,
   data_receita: Date,
-  pagamento_id: {
-    valor: number
-  },
-  usuario_id: {
-    nome: string
-  }
+  valor_pagamento: number,
+  usuario_id: number
 }
 
 const resources = {
-    vendas: {   
+    usuario: 5,
+    vendas: {
       total: {
         espacoTempo: 3675.50,
       },
@@ -35,13 +32,12 @@ const resources = {
           espacoTempo: -5.30,
         }
     },
-    receita: ''
 }
 
 export function Dashboard() {
 
     useEffect( () => {
-      fetch(resources.receita)
+      fetch("http://localhost:3333/resources")
       .then(response => response.json())
       .then(data => setGastoTotal(data))
       .catch(error => console.log(error))
@@ -51,6 +47,16 @@ export function Dashboard() {
     
     const [gastoTotal, setGastoTotal] = useState<TB_RECEITA[]>([])
     const [vendasTotal, setVendasTotal] = useState(totalVendas)
+
+
+
+    function verifyUser(id : number, idDesejado : number){
+      if (id == idDesejado) {
+        return true
+      } else{
+        return false
+      }
+    }
 
   return (
     <section className="flex w-full justify-center py-3.5">
@@ -86,9 +92,9 @@ export function Dashboard() {
           <div className="">
             <p className="font-quicksand text-lg font-normal">Gastos</p>
             <div className="flex items-center">
-              {gastoTotal.map(gasto => (
-                <p className="font-bold text-3xl text-purple-medium">
-                  {Dinero({amount: gasto.pagamento_id.valor, currency: "BRL"}).toFormat("$0,0.00").replace('.', ',').replace(',', '.')}
+              {gastoTotal.map(( gasto, index ) => (
+                  <p className="font-bold text-3xl text-purple-medium" key={index}>
+                  {verifyUser(gasto.usuario_id, resources.usuario) && Dinero({amount: gasto.valor_pagamento, currency: "BRL"}).setLocale('pt-BR').toFormat("$0,0.00")}
                 </p>
               ))}
               <div className="flex items-center bg-red-400 rounded-xl h-5 w-14 ml-3 justify-center">

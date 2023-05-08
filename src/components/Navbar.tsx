@@ -7,8 +7,6 @@ import config_icon from "../assets/config_icon.svg";
 import styles from "../components/Navbar.module.css";
 
 import { Tab } from "@headlessui/react";
-import { FooterNav } from "./FooterNav";
-import { Footer } from "./Footer";
 import { CadastrarDespesa } from "./CadastrarDespesas";
 import { Pesquisar } from "./Pesquisar";
 import { Financeiro } from "./Financeiro";
@@ -164,10 +162,8 @@ export function Navbar() {
                     <Tab.Panel>
                         <CadastrarPedidos />
                         <ItemPedido />
-                        <ItemLinha />
                         <ValoresPedido />
                         <Pesquisar />
-                        <ResultadoPedido />
                         <LegendaPedido />
                     </Tab.Panel>
                     {/* CLIENTES */}
@@ -180,7 +176,6 @@ export function Navbar() {
                     <Tab.Panel>
                         <CadastrarProdutos />
                         <Pesquisar />
-                        <ResultadoPadrao />
                         <PesquisarEstoque />
                     </Tab.Panel>
                     {/* CONFIGURACÕES */}
