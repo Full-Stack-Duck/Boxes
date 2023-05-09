@@ -32,17 +32,6 @@ public class PagamentoService {
 	public Pagamento inserirPagamento(Pagamento obj) {
 		return repository.save(obj);
 	}
-	//atualiza status do cliente no banco de dados
-
-	public Pagamento atualizarStatusPagamento(Long id, Pagamento obj) {
-		try {
-			Pagamento entity = repository.getReferenceById(id);
-			atualizarStatusPagamento(entity, obj);
-			return repository.save(entity);
-		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id);
-		}
-	}
 	
 	//atualiza dados do cliente no banco de dados
 	
@@ -61,10 +50,5 @@ public class PagamentoService {
 		entity.setDataPagamento(obj.getDataPagamento());
 		entity.setFormaPagamento(obj.getFormaPagamento());
 		entity.setPedido(obj.getPedido());
-	}
-	
-	
-	private void atualizarStatusPagamento(Pagamento entity, Pagamento obj) {
-		entity.setStatus(obj.getStatus());
 	}
 }

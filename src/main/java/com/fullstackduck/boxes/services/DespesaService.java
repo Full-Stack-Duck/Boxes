@@ -45,18 +45,6 @@ public class DespesaService {
 		return despesaRepository.save(obj);
 	}
 	
-	//atualiza status da despesa no banco de dados
-	
-	public Despesa atualizarStatusDespesa(Long id, Despesa obj) {
-		try {
-			Despesa entity = despesaRepository.getReferenceById(id);
-			atualizarDadosDespesa(entity, obj);
-			return despesaRepository.save(entity);
-		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id);
-		}
-	}
-	
 	//atualiza dados da despesa no banco de dados
 	
 	public Despesa atualizarDespesa(Long id, Despesa obj) {
@@ -68,7 +56,6 @@ public class DespesaService {
 			throw new ResourceNotFoundException(id);
 		}
 	}
-	
 	
 	private void atualizarDadosDespesa(Despesa entity, Despesa obj) {
 		entity.setNome(obj.getNome());

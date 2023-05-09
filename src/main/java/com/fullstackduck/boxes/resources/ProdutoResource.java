@@ -71,12 +71,6 @@ public class ProdutoResource {
 	    return ResponseEntity.ok().body(produtos);
 	}
 	
-	@GetMapping(value = "/{id}/produtospd")
-	public List<Produto> listarProdutosPeriodo(@PathVariable Long id,@RequestParam String dataInicio, @RequestParam String dataFim){
-		List<Produto> produtos = service.listarProdutoPeriodo(dataInicio, dataFim);
-		return produtos;
-	}
-	
 	@GetMapping(value = "/categoria")
 	public ResponseEntity<List<Produto>> listarProdutosCategoria(@RequestParam(value = "categoria") TipoArmazenamento categoria) {
 		List<Produto> produtos = service.listarProdutosCategoria(categoria);

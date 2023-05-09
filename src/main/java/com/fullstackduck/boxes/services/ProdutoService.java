@@ -88,14 +88,6 @@ public class ProdutoService {
         return usuario.getProdutos();
     }
 	
-	@Transactional
-	public List<Produto> listarProdutoPeriodo(String dataInicio, String dataFim) {
-		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
-		Instant data1 = Instant.from(formatter.parse(dataInicio));
-		Instant data2 = Instant.from(formatter.parse(dataFim));
-	    return produtoRepository.findByDataProdutoBetween(data1, data2);
-	}
-	
 	private void atualizarStatus(Produto entity, Produto obj) {
 		entity.setStatus(obj.getStatus());
 	}
