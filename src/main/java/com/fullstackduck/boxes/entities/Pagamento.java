@@ -6,6 +6,7 @@ import java.time.Instant;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.FormaPagamento;
 import com.fullstackduck.boxes.entities.enums.Status;
+import com.fullstackduck.boxes.entities.enums.StatusPagamento;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,7 +35,7 @@ public class Pagamento implements Serializable {
 	@Getter @Setter private Double valor;
 	@Getter @Setter private Instant dataPagamento;
 	private Integer formaPagamento;
-	private Integer status;
+	private Integer statusPagamento;
 
 	//Relacionamento com a entidade de Pedido
 	@ManyToOne
@@ -46,13 +47,13 @@ public class Pagamento implements Serializable {
 	@OneToOne(mappedBy = "pagamento")
 	@Getter @Setter private Receita receita;
 
-	public Pagamento(Long id, Double valor, Instant dataPagamento, FormaPagamento formaPagamento, Status status, Pedido pedido) {
+	public Pagamento(Long id, Double valor, Instant dataPagamento, FormaPagamento formaPagamento, StatusPagamento statusPagamento, Pedido pedido) {
 		super();
 		this.id = id;
 		this.valor = valor;
 		this.dataPagamento = dataPagamento;
 		setFormaPagamento(formaPagamento);
-		setStatus(status);
+		setStatusPagamento(statusPagamento);
 		this.pedido = pedido;
 	}
 
@@ -65,13 +66,13 @@ public class Pagamento implements Serializable {
 		this.formaPagamento = formaPagamento.getCode();
 		}
 	}
-	public Status getStatus() {
-		return Status.valueOf(status);
+	public StatusPagamento getStatusPagamento() {
+		return StatusPagamento.valueOf(statusPagamento);
 	}
 
-	public void setStatus(Status status) {
-		if(status != null) {
-			this.status = status.getCode();
+	public void setStatusPagamento(StatusPagamento statusPagamento) {
+		if(statusPagamento != null) {
+			this.statusPagamento = statusPagamento.getCode();
 		}
 	}
 }
