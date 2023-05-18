@@ -48,6 +48,9 @@ public class Orcamento implements Serializable {
 	@Getter @Setter private Instant dataOrcamento;
 	private Integer status;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+	@Getter @Setter private Instant dataEntrega;
+	
 	@Getter @Setter private Double desconto = 0.0;
 
 	//Relacionamento com a entidade de Usuario
@@ -70,11 +73,12 @@ public class Orcamento implements Serializable {
 	@OneToMany(mappedBy = "id.orcamento", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@Getter private  Set<ItensOrcamento> itens = new HashSet<ItensOrcamento>();
 	
-	public Orcamento(Long id, TipoEntrega tipoEntrega, Instant dataOrcamento, Status status, Usuario usuario, Cliente cliente) {
+	public Orcamento(Long id, TipoEntrega tipoEntrega, Instant dataOrcamento, Instant dataEntrega, Status status, Usuario usuario, Cliente cliente) {
 		super();
 		this.id = id;
 		setTipoEntrega(tipoEntrega);
 		this.dataOrcamento = dataOrcamento;
+		this.dataEntrega = dataEntrega;
 		setStatus(status);
 		setTotal(total);
 		this.usuario = usuario;

@@ -11,13 +11,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fullstackduck.boxes.entities.ItensOrcamento;
 import com.fullstackduck.boxes.entities.Orcamento;
+import com.fullstackduck.boxes.entities.Pedido;
 import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.entities.Usuario;
+import com.fullstackduck.boxes.entities.enums.Status;
+import com.fullstackduck.boxes.entities.enums.StatusPagamentoPedido;
+import com.fullstackduck.boxes.entities.enums.StatusPedido;
 import com.fullstackduck.boxes.entities.pk.ItensOrcamentoPK;
 import com.fullstackduck.boxes.repositories.ItensOrcamentoRepository;
 import com.fullstackduck.boxes.repositories.OrcamentoRepository;
+import com.fullstackduck.boxes.repositories.PedidoRepository;
 import com.fullstackduck.boxes.repositories.ProdutoRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
+import com.fullstackduck.boxes.services.exceptions.EstoqueInsuficienteException;
 import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -29,6 +35,9 @@ public class OrcamentoService {
 
 	@Autowired
 	private OrcamentoRepository orcamentoRepository;
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
@@ -134,4 +143,32 @@ public class OrcamentoService {
 		obj.setTotal(total);
 		orcamentoRepository.save(obj);
 	}
+    
+    private void validarItemEstoque(Orcamento orcamento) throws EstoqueInsuficienteException{
+        for (ItensOrcamento item : orcamento.getItens()) {
+            Produto produto = item.getProduto();
+            int quantidadeSolicitada = item.getQuantidade();
+            int quantidadeDisponivel = produto.getQuantidade();
+            if (quantidadeSolicitada > quantidadeDisponivel) {
+                throw new EstoqueInsuficienteException("Estoque insuficiente para o produto " + produto.getNome());
+            }
+        }
+    }
+    
+    public void gerarPedido(Long id) throws EstoqueInsuficienteException {
+    	Orcamento orcamento = orcamentoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Orcamento não encontrado com o id: " + id));
+    	validarItemEstoque(orcamento);
+    	Pedido pedido = new Pedido();
+    	pedido.setId(orcamento.getId());
+    	pedido.setTotal(orcamento.getTotal());
+    	pedido.setTipoEntrega(orcamento.getTipoEntrega());
+    	pedido.setDataPedido(Instant.now());
+    	pedido.setStatus(Status.ATIVO);
+    	pedido.setStatusPedido(StatusPedido.EM_FILA_PREPARACAO);
+    	pedido.setStatusPagamentoPedido(StatusPagamentoPedido.AGUARDANDO_PAGAMENTO);
+    	pedido.setUsuario(orcamento.getUsuario());
+    	pedido.setCliente(orcamento.getCliente());
+    	pedido.setOrcamento(orcamento);
+    	pedidoRepository.save(pedido);
+    }
 }

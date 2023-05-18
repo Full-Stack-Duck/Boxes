@@ -49,12 +49,6 @@ public class Produto implements Serializable {
 	@JoinColumn(name = "usuario_id")
     @Getter @Setter private Usuario usuario;
 	
-	//Relacionamento com a entidade de Estoque
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "estoque_id")
-    @Getter @Setter private Estoque estoque;
-	
 	//Relacionamento com a entidade de MovimentacaoEstoque
 	@OneToMany(mappedBy = "produto", fetch = FetchType.EAGER)
 	private List<MovimentacaoEstoque> movimentacoes;
@@ -64,7 +58,7 @@ public class Produto implements Serializable {
 	private Set<ItensOrcamento> items = new HashSet<>();
 
 	public Produto(Long id, String nome, Double valor, TipoArmazenamento categoria, Integer quantidade,
-			TipoProduto tipo, Status status, String observacao, Usuario usuario, Estoque estoque) {
+			TipoProduto tipo, Status status, String observacao, Usuario usuario) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -75,7 +69,6 @@ public class Produto implements Serializable {
 		setStatus(status);
 		this.observacao = observacao;
 		this.usuario = usuario;
-		this.estoque = estoque;
 	}
 
 	public TipoArmazenamento getCategoria() {

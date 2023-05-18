@@ -51,6 +51,11 @@ public class Cliente implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER)
     @Getter private List<Orcamento> orcamentos = new ArrayList<>();
+	
+	//Relacionamento com a entidade de Orcamentos
+	@JsonIgnore
+	@OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER)
+    @Getter private List<Pedido> pedidos = new ArrayList<>();
 
 	public Cliente(Long id, String nome, String email, String telefone, Instant dataNascimento, String documento,
 			Instant dataCadastro, StatusCliente statusCliente, Usuario usuario) {

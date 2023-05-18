@@ -3,9 +3,6 @@ package com.fullstackduck.boxes.entities.enums;
 public enum StatusPedido {
 
 	//Atribuidos valores numéricos para cada enum
-		AGUARDANDO_PAGAMENTO(1),
-		PARCIALMENTE_PAGO(2),
-		INTEGRALMENTE_PAGO(3),
 		EM_FILA_PREPARACAO(4),
 		EM_PREPARACAO(5),
 		EM_FILA_ENTREGA(6),
