@@ -38,7 +38,7 @@ public class Cliente implements Serializable {
 	@Getter @Setter private String telefone = null;
 	@Getter @Setter private Instant dataNascimento = null;
 	@Getter @Setter private String documento = null;
-	@Getter @Setter private Instant dataCadastro = Instant.now();
+	@Getter @Setter private Instant dataCliente = Instant.now();
 	private Integer statusCliente;
 	
 	//Relacionamento com a entidade de Usuario
@@ -66,7 +66,7 @@ public class Cliente implements Serializable {
 		this.telefone = telefone;
 		this.dataNascimento = dataNascimento;
 		this.documento = documento;
-		this.dataCadastro = dataCadastro;
+		this.dataCliente = dataCadastro;
 		setStatusCliente(statusCliente);
 		this.usuario = usuario;
 	}

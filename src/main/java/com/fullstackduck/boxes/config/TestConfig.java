@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Profile;
 
 import com.fullstackduck.boxes.entities.Cliente;
 import com.fullstackduck.boxes.entities.Despesa;
-import com.fullstackduck.boxes.entities.Estoque;
 import com.fullstackduck.boxes.entities.ItensOrcamento;
 import com.fullstackduck.boxes.entities.Licenca;
 import com.fullstackduck.boxes.entities.MovimentacaoEstoque;
@@ -34,7 +33,6 @@ import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 import com.fullstackduck.boxes.entities.enums.TipoProduto;
 import com.fullstackduck.boxes.repositories.ClienteRepository;
 import com.fullstackduck.boxes.repositories.DespesaRepository;
-import com.fullstackduck.boxes.repositories.EstoqueRepository;
 import com.fullstackduck.boxes.repositories.ItensOrcamentoRepository;
 import com.fullstackduck.boxes.repositories.LicencaRepository;
 import com.fullstackduck.boxes.repositories.MovimentacaoEstoqueRepository;
@@ -64,9 +62,6 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private DespesaRepository despesaRepository;
-	
-	@Autowired
-	private EstoqueRepository estoqueRepository;
 	
 	@Autowired
 	private OrcamentoRepository orcamentoRepository;
@@ -134,14 +129,14 @@ public class TestConfig implements CommandLineRunner{
 		clienteRepository.saveAll(Arrays.asList(c01, c02, c03, c04, c05, c06, c07, c08, c09, c10));
 		
 		
-		//Teste Estoque
+		/*//Teste Estoque
 		Estoque e01 = new Estoque(null, u1.getNome(), u1);
 		Estoque e02 = new Estoque(null, u2.getNome(), u2);
 		Estoque e03 = new Estoque(null, u3.getNome(), u3);
 		Estoque e04 = new Estoque(null, u4.getNome(), u4);
 		Estoque e05 = new Estoque(null, u5.getNome(), u5);
 		
-		estoqueRepository.saveAll(Arrays.asList(e01, e02, e03, e04, e05));
+		estoqueRepository.saveAll(Arrays.asList(e01, e02, e03, e04, e05));*/
 		
 		
 		//Teste Produto
@@ -203,7 +198,7 @@ public class TestConfig implements CommandLineRunner{
 		
 		orcamentoRepository.saveAll(Arrays.asList(o01, o02, o03, o04, o05, o06, o07, o08, o09, o10, o11, o12, o13, o14, o15));
 		
-		ItensOrcamento io01 = new ItensOrcamento(o01, p01, 2, p01.getValor(), 0.0, null);
+		ItensOrcamento io01 = new ItensOrcamento(o01, p01, 35, p01.getValor(), 0.0, null);
 		ItensOrcamento io02 = new ItensOrcamento(o01, p02, 5, p02.getValor(), 0.0, null);
 		ItensOrcamento io03 = new ItensOrcamento(o01, p03, 10, p03.getValor(), 0.0, null);
 		ItensOrcamento io04 = new ItensOrcamento(o02, p01, 4, p01.getValor(), 0.0, null);
@@ -219,25 +214,25 @@ public class TestConfig implements CommandLineRunner{
 		
 		//Teste Pedido
 
-		Pedido pd01 = new Pedido(null, o01.getTotal(), o01.getTipoEntrega(), o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o01.getUsuario(), o01);
-		Pedido pd02 = new Pedido(null, o02.getTotal(), o02.getTipoEntrega(), o02.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o02.getUsuario(), o02);
-		Pedido pd03 = new Pedido(null, o03.getTotal(), o03.getTipoEntrega(), o03.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o03.getUsuario(), o03);
-		Pedido pd04 = new Pedido(null, o04.getTotal(), o04.getTipoEntrega(), o04.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o04.getUsuario(), o04);
-		Pedido pd05 = new Pedido(null, o05.getTotal(), o05.getTipoEntrega(), o05.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o05.getUsuario(), o05);
-		Pedido pd06 = new Pedido(null, o06.getTotal(), o06.getTipoEntrega(), o06.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o06.getUsuario(), o06);
-		Pedido pd07 = new Pedido(null, o07.getTotal(), o07.getTipoEntrega(), o07.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o07.getUsuario(), o07);
-		Pedido pd08 = new Pedido(null, o08.getTotal(), o08.getTipoEntrega(), o08.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o08.getUsuario(), o08);
-		Pedido pd09 = new Pedido(null, o09.getTotal(), o09.getTipoEntrega(), o09.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o09.getUsuario(), o09);
-		Pedido pd10 = new Pedido(null, o10.getTotal(), o10.getTipoEntrega(), o10.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o10.getUsuario(), o10);
-		Pedido pd11 = new Pedido(null, o11.getTotal(), o11.getTipoEntrega(), o11.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o11.getUsuario(), o11);
-		Pedido pd12 = new Pedido(null, o12.getTotal(), o12.getTipoEntrega(), o12.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o12.getUsuario(), o12);
-		Pedido pd13 = new Pedido(null, o13.getTotal(), o13.getTipoEntrega(), o13.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o13.getUsuario(), o13);
-		Pedido pd14 = new Pedido(null, o14.getTotal(), o14.getTipoEntrega(), o14.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o14.getUsuario(), o14);
-		Pedido pd15 = new Pedido(null, o15.getTotal(), o15.getTipoEntrega(), o15.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o15.getUsuario(), o15);
+		/*Pedido pd01 = new Pedido(null, o01.getTotal(), o01.getTipoEntrega(), o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o01.getUsuario(), o01.getCliente(), o01);
+		Pedido pd02 = new Pedido(null, o02.getTotal(), o02.getTipoEntrega(), o02.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o02.getUsuario(), o02.getCliente(), o02);
+		Pedido pd03 = new Pedido(null, o03.getTotal(), o03.getTipoEntrega(), o03.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o03.getUsuario(), o03.getCliente(), o03);
+		Pedido pd04 = new Pedido(null, o04.getTotal(), o04.getTipoEntrega(), o04.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o04.getUsuario(), o04.getCliente(), o04);
+		Pedido pd05 = new Pedido(null, o05.getTotal(), o05.getTipoEntrega(), o05.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o05.getUsuario(), o05.getCliente(), o05);
+		Pedido pd06 = new Pedido(null, o06.getTotal(), o06.getTipoEntrega(), o06.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o06.getUsuario(), o06.getCliente(), o06);
+		Pedido pd07 = new Pedido(null, o07.getTotal(), o07.getTipoEntrega(), o07.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o07.getUsuario(), o07.getCliente(), o07);
+		Pedido pd08 = new Pedido(null, o08.getTotal(), o08.getTipoEntrega(), o08.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o08.getUsuario(), o08.getCliente(), o08);
+		Pedido pd09 = new Pedido(null, o09.getTotal(), o09.getTipoEntrega(), o09.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o09.getUsuario(), o09.getCliente(), o09);
+		Pedido pd10 = new Pedido(null, o10.getTotal(), o10.getTipoEntrega(), o10.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o10.getUsuario(), o10.getCliente(), o10);
+		Pedido pd11 = new Pedido(null, o11.getTotal(), o11.getTipoEntrega(), o11.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o11.getUsuario(), o11.getCliente(), o11);
+		Pedido pd12 = new Pedido(null, o12.getTotal(), o12.getTipoEntrega(), o12.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o12.getUsuario(), o12.getCliente(), o12);
+		Pedido pd13 = new Pedido(null, o13.getTotal(), o13.getTipoEntrega(), o13.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o13.getUsuario(), o13.getCliente(), o13);
+		Pedido pd14 = new Pedido(null, o14.getTotal(), o14.getTipoEntrega(), o14.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o14.getUsuario(), o14.getCliente(), o14);
+		Pedido pd15 = new Pedido(null, o15.getTotal(), o15.getTipoEntrega(), o15.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o15.getUsuario(), o15.getCliente(), o15);
 		
 		pedidoRepository.saveAll(Arrays.asList(pd01, pd02, pd03, pd04, pd05, pd06, pd07, pd08, pd09, pd10, pd11, pd12, pd13, pd14, pd15));
 		
-		MovimentacaoEstoque mv01 = new MovimentacaoEstoque(null, 20, Instant.now(), p15, e05);
+		MovimentacaoEstoque mv01 = new MovimentacaoEstoque(null, 20, Instant.now(), p15);
 		
 		movimentacaoEstoqueRepository.saveAll(Arrays.asList(mv01));
 		
@@ -302,6 +297,6 @@ public class TestConfig implements CommandLineRunner{
 		Receita r25 = new Receita(null, Instant.now(), pg25.getPedido().getUsuario(), pg25);
 		
 		receitaRepository.saveAll(Arrays.asList(r01, r02, r03, r04, r05, r06, r07, r08, r09, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19,
-				r20, r21, r22, r23, r24, r25));
+				r20, r21, r22, r23, r24, r25));*/
 	}
 }

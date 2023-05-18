@@ -63,11 +63,6 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
     @Getter private List<Despesa> despesas = new ArrayList<>();
 	
-	//Relacionamento com a entidade de Estoque
-	@JsonIgnore
-	@OneToOne(mappedBy = "usuario", fetch = FetchType.EAGER)
-	@Getter @Setter private Estoque estoque;
-	
 	//Relacionamento com a entidade de Receitas
 	@JsonIgnore
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)

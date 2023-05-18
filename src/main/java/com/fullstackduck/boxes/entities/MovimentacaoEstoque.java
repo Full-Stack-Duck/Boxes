@@ -35,9 +35,4 @@ public class MovimentacaoEstoque implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "produto_id")
 	@Getter @Setter private Produto produto;
-
-	//Relacionamento com a entidade de Produtos 
-	@ManyToOne
-	@JoinColumn(name = "estoque_id")
-	@Getter @Setter private Estoque estoque;
 }

@@ -17,6 +17,7 @@ import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.StatusPagamentoPedido;
 import com.fullstackduck.boxes.entities.enums.StatusPedido;
+import com.fullstackduck.boxes.entities.enums.TipoArmazenamento;
 import com.fullstackduck.boxes.entities.pk.ItensOrcamentoPK;
 import com.fullstackduck.boxes.repositories.ItensOrcamentoRepository;
 import com.fullstackduck.boxes.repositories.OrcamentoRepository;
@@ -146,29 +147,31 @@ public class OrcamentoService {
     
     private void validarItemEstoque(Orcamento orcamento) throws EstoqueInsuficienteException{
         for (ItensOrcamento item : orcamento.getItens()) {
-            Produto produto = item.getProduto();
-            int quantidadeSolicitada = item.getQuantidade();
-            int quantidadeDisponivel = produto.getQuantidade();
-            if (quantidadeSolicitada > quantidadeDisponivel) {
-                throw new EstoqueInsuficienteException("Estoque insuficiente para o produto " + produto.getNome());
-            }
+        	Produto produto = item.getProduto();
+        	if(produto.getCategoria() == TipoArmazenamento.ESTOCAVEL){
+	            int quantidadeSolicitada = item.getQuantidade();
+	            int quantidadeDisponivel = produto.getQuantidade();
+	            if (quantidadeSolicitada > quantidadeDisponivel) {
+	                throw new EstoqueInsuficienteException("Estoque insuficiente para o produto " + produto.getNome());
+	            }
+        	}
         }
     }
     
-    public void gerarPedido(Long id) throws EstoqueInsuficienteException {
-    	Orcamento orcamento = orcamentoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Orcamento não encontrado com o id: " + id));
-    	validarItemEstoque(orcamento);
+    public Pedido gerarPedido(Orcamento obj) throws EstoqueInsuficienteException {
+    	/*Orcamento orcamento = orcamentoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Orcamento não encontrado com o id: " + id));*/
+    	validarItemEstoque(obj);
     	Pedido pedido = new Pedido();
-    	pedido.setId(orcamento.getId());
-    	pedido.setTotal(orcamento.getTotal());
-    	pedido.setTipoEntrega(orcamento.getTipoEntrega());
+    	pedido.setId(obj.getId());
+    	pedido.setTotal(obj.getTotal());
+    	pedido.setTipoEntrega(obj.getTipoEntrega());
     	pedido.setDataPedido(Instant.now());
     	pedido.setStatus(Status.ATIVO);
     	pedido.setStatusPedido(StatusPedido.EM_FILA_PREPARACAO);
     	pedido.setStatusPagamentoPedido(StatusPagamentoPedido.AGUARDANDO_PAGAMENTO);
-    	pedido.setUsuario(orcamento.getUsuario());
-    	pedido.setCliente(orcamento.getCliente());
-    	pedido.setOrcamento(orcamento);
-    	pedidoRepository.save(pedido);
+    	pedido.setUsuario(obj.getUsuario());
+    	pedido.setCliente(obj.getCliente());
+    	pedido.setOrcamento(obj);
+    	return pedidoRepository.save(pedido);
     }
 }
