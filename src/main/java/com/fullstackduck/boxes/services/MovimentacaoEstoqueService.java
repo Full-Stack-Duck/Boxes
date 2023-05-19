@@ -7,13 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fullstackduck.boxes.entities.MovimentacaoEstoque;
+import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.repositories.MovimentacaoEstoqueRepository;
+import com.fullstackduck.boxes.repositories.ProdutoRepository;
 
 @Service //Registro de componente
 public class MovimentacaoEstoqueService {
 
 	@Autowired
 	private MovimentacaoEstoqueRepository repository;
+	
+	@Autowired
+    private ProdutoRepository produtoRepository;
 	
 	
 	
@@ -32,26 +37,33 @@ public class MovimentacaoEstoqueService {
 		return repository.save(obj);
 	}
 	
-	/*
-	public void adicionarItemEstoque(Long idProduto, Integer quantidade, Long idEstoque) {
-	    Produto produto = findById(idProduto);
-	    Estoque estoque = EstoqueService.findById(idEstoque);
+	public void adicionarItem(Long produto_id, Integer quantidade) {
+	    // Recupera o produto pelo ID
+	    Optional<Produto> optionalProduto = produtoRepository.findById(produto_id);
 
-	    // Cria uma nova movimentação no estoque
-	    MovimentacaoEstoque movimentacao = new MovimentacaoEstoque();
-	    movimentacao.setProduto(produto);
-	    movimentacao.setEstoque(estoque);
-	    movimentacao.setQuantidade(quantidade);
-	    movimentacao.setDataMovimentacao(Instant.now());
+	    if (optionalProduto.isPresent()) {
+	        Produto produto = optionalProduto.get();
 
-	    // Atualiza a quantidade de produtos no estoque
-	    estoque.setQuantidade(estoque.getQuantidade() + quantidade);
-	    EstoqueService.atualizarEstoque(idEstoque, estoque);
+	        // Atualiza a quantidade do produto
+	        int quantidadeExistente = produto.getQuantidade();
+	        int novaQuantidade = quantidadeExistente + quantidade;
+	        produto.setQuantidade(novaQuantidade);
 
-	    // Salva a movimentação no estoque
-	    repository.save(movimentacao);
+	        // Cria uma nova movimentação de estoque
+	        MovimentacaoEstoque movimentacaoEstoque = new MovimentacaoEstoque();
+	        movimentacaoEstoque.setProduto(produto);
+	        movimentacaoEstoque.setQuantidade(quantidade);
+	        // Defina outras propriedades da movimentação de estoque, se necessário
+
+	        // Salva as alterações no produto e cria a nova movimentação de estoque
+	        produtoRepository.save(produto);
+	        repository.save(movimentacaoEstoque);
+	    } else {
+	        // Lidar com o caso em que o produto não foi encontrado
+	        throw new IllegalArgumentException("Produto não encontrado com ID: " + produto_id);
+	    }
 	}
-	
+	/*
 	public void removerItemEstoque(Long idProduto, Integer quantidade, Long idEstoque) {
 	    Produto produto = findById(idProduto);
 	    Estoque estoque = EstoqueService.findById(idEstoque);

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -44,4 +45,18 @@ public class MovimentacaoEstoqueResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);
 	}
-}
+	
+	@Transactional
+	@PostMapping("/{produto_id}/adicionarItem")
+    public ResponseEntity<String> adicionarItem(@PathVariable Long produto_id,@RequestParam Integer quantidade) {
+		 try {
+		        if (quantidade != null) {
+		            service.adicionarItem(produto_id, quantidade.intValue());
+		            return ResponseEntity.ok("Item adicionado com sucesso");
+		        } else {
+		            return ResponseEntity.badRequest().body("A quantidade não pode ser nula");
+		        }
+		    } catch (IllegalArgumentException e) {
+		        return ResponseEntity.badRequest().body(e.getMessage());
+		    }
+	}}
