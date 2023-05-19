@@ -91,6 +91,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+                <jvmArguments>
+                    -Dspring.jpa.open-in-view=false
+                </jvmArguments>
+            </configuration>
 			</plugin>
 		</plugins>
 	</build>

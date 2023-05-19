@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.entities.Pedido;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.repositories.PedidoRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
+import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service //Registro de componente
 public class PedidoService {
@@ -52,4 +54,37 @@ public class PedidoService {
 		Instant data2 = Instant.from(formatter.parse(dataFim));
 	    return pedidoRepository.findByDataPedidoBetween(data1, data2);
 	}
+	 @Transactional
+	 public Pedido atualizarStatusPagamentoPedido(Long id, Pedido obj) {
+			try {
+				Pedido entity = pedidoRepository.getReferenceById(id);
+				atualizarDadosPagamentoPedido(entity, obj);
+				return pedidoRepository.save(entity);
+			} catch (EntityNotFoundException e) {
+				throw new ResourceNotFoundException(id);
+			}
+		}
+	 @Transactional
+	 private void atualizarDadosPagamentoPedido(Pedido entity, Pedido obj) {
+			entity.setStatusPagamentoPedido(obj.getStatusPagamentoPedido());
+						
+		}
+		
+		//atualiza dados do cliente no banco de dados
+	 @Transactional
+		public Pedido atualizarStatusPedido(Long id, Pedido obj) {
+			try {
+				Pedido entity = pedidoRepository.getReferenceById(id);
+				atualizarDadosPedido(entity, obj);
+				return pedidoRepository.save(entity);
+			}catch (EntityNotFoundException e) {
+				throw new ResourceNotFoundException(id);
+			}
+		}
+		
+		private void atualizarDadosPedido(Pedido entity, Pedido obj) {
+			entity.setStatusPedido(obj.getStatusPedido());
+						
+		}
+	
 }
