@@ -63,54 +63,34 @@ public class MovimentacaoEstoqueService {
 	        throw new IllegalArgumentException("Produto não encontrado com ID: " + produto_id);
 	    }
 	}
-	/*
-	public void removerItemEstoque(Long idProduto, Integer quantidade, Long idEstoque) {
-	    Produto produto = findById(idProduto);
-	    Estoque estoque = EstoqueService.findById(idEstoque);
-
-	    // Verifica se a quantidade a ser removida é maior do que a quantidade em estoque
-	    if (quantidade > estoque.getQuantidade()) {
-	        throw new RuntimeException("Quantidade a ser removida é maior do que a quantidade em estoque");
-	    }
-
-	    // Cria uma nova movimentação no estoque
-	    MovimentacaoEstoque movimentacao = new MovimentacaoEstoque();
-	    movimentacao.setProduto(produto);
-	    movimentacao.setEstoque(estoque);
-	    movimentacao.setQuantidade(-quantidade); // quantidade negativa indica remoção
-	    movimentacao.setDataMovimentacao(Instant.now());
-
-	    // Atualiza a quantidade de produtos no estoque
-	    estoque.setQuantidade(estoque.getQuantidade() - quantidade);
-	    EstoqueService.atualizarEstoque(idEstoque, estoque);
-
-	    // Salva a movimentação no estoque
-	    movimentacaoRepository.save(movimentacao);
-	}
 	
-	public void atualizarEstoque(Produto produto, Integer quantidadeMovimentada) {
-        Estoque estoque = EstoqueRepository.findByProduto(produto);
+	public void removerItem(Long produto_id,Integer quantidade) {
+		
+		 // Recupera o produto pelo ID
+	    Optional<Produto> optionalProduto = produtoRepository.findById(produto_id);
 
-        if (estoque == null) {
-            // cria um novo estoque se não existir para esse produto
-            estoque = new Estoque();
-            estoque.setProduto(produto);
-            estoque.setQuantidade(0);
-        }
+	    if (optionalProduto.isPresent()) {
+	        Produto produto = optionalProduto.get();
 
-        // atualiza a quantidade de acordo com a movimentação (entrada ou saída)
-        if (quantidadeMovimentada > 0) {
-            estoque.setQuantidade(estoque.getQuantidade() + quantidadeMovimentada);
-        } else {
-            int novaQuantidade = estoque.getQuantidade() + quantidadeMovimentada;
-            if (novaQuantidade < 0) {
-                throw new IllegalArgumentException("Não é possível remover mais itens do estoque do que o estoque atualmente possui.");
-            }
-            estoque.setQuantidade(novaQuantidade);
-        }
+	        // Atualiza a quantidade do produto
+	        int quantidadeExistente = produto.getQuantidade();
+	        int novaQuantidade = quantidadeExistente - quantidade;
+	        produto.setQuantidade(novaQuantidade);
 
-        estoqueRepository.save(estoque);
-    } */
+	        // Cria uma nova movimentação de estoque
+	        MovimentacaoEstoque movimentacaoEstoque = new MovimentacaoEstoque();
+	        movimentacaoEstoque.setProduto(produto);
+	        movimentacaoEstoque.setQuantidade(quantidade);
+	        // Defina outras propriedades da movimentação de estoque, se necessário
+
+	        // Salva as alterações no produto e cria a nova movimentação de estoque
+	        produtoRepository.save(produto);
+	        repository.save(movimentacaoEstoque);
+	    } else {
+	        // Lidar com o caso em que o produto não foi encontrado
+	        throw new IllegalArgumentException("Produto não encontrado com ID: " + produto_id);
+	    }
+  	}
 
 
 }

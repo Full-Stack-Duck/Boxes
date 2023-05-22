@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,4 +60,19 @@ public class MovimentacaoEstoqueResource {
 		    } catch (IllegalArgumentException e) {
 		        return ResponseEntity.badRequest().body(e.getMessage());
 		    }
-	}}
+	}
+	
+
+	@DeleteMapping("/{produto_id}/removerItem")
+	public ResponseEntity<String> removerItem(@PathVariable Long produto_id, @RequestParam Integer quantidade) {
+	    try {
+	        service.removerItem(produto_id, quantidade);
+	        return ResponseEntity.ok("Item removido com sucesso");
+	    } catch (IllegalArgumentException e) {
+	        return ResponseEntity.badRequest().body(e.getMessage());
+	    }
+	}
+
+
+
+}
