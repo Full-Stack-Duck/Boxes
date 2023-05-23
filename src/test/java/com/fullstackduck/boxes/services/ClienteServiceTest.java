@@ -93,7 +93,7 @@ class ClienteServiceTest {
 	assertEquals(clienteAtualizada.getTelefone(), cliente.getTelefone());
 	assertEquals(clienteAtualizada.getDataNascimento(), cliente.getDataNascimento());
 	assertEquals(clienteAtualizada.getDocumento(), cliente.getDocumento());
-	assertEquals(clienteAtualizada.getDataCadastro(), cliente.getDataCadastro());
+	assertEquals(clienteAtualizada.getDataCliente(), cliente.getDataCliente());
 	assertEquals(clienteAtualizada.getStatusCliente(), cliente.getStatusCliente());
 	
 

@@ -1,6 +1,7 @@
 package com.fullstackduck.boxes.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -10,11 +11,9 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.fullstackduck.boxes.entities.ItensOrcamento;
 import com.fullstackduck.boxes.entities.Orcamento;
@@ -26,7 +25,7 @@ import com.fullstackduck.boxes.repositories.OrcamentoRepository;
 import com.fullstackduck.boxes.repositories.ProdutoRepository;
 
 
-
+	
 public class OrcamentoServiceTest {
 
   @Mock
@@ -164,7 +163,7 @@ public class OrcamentoServiceTest {
       when(orcamentoRepository.save(orcamento)).thenReturn(orcamento);
 
       // Chamando o método a ser testado
-      Orcamento resultado = orcamentoService.adicionarItem(1L, 1, 2);
+      Orcamento resultado = orcamentoService.adicionarItem(1L, 1, item);
 
       // Verificando se o método chamado foi o esperado e se o resultado está correto
       verify(orcamentoRepository).getReferenceById(1L);
@@ -175,6 +174,7 @@ public class OrcamentoServiceTest {
       assertEquals(1, resultado.getItens().size());
       assertEquals(item, resultado.getItens().iterator().next());
   }
+
 }
 
 

@@ -18,6 +18,7 @@ import com.fullstackduck.boxes.entities.Pagamento;
 import com.fullstackduck.boxes.entities.Pedido;
 import com.fullstackduck.boxes.entities.enums.FormaPagamento;
 import com.fullstackduck.boxes.entities.enums.Status;
+import com.fullstackduck.boxes.entities.enums.StatusPagamento;
 import com.fullstackduck.boxes.repositories.PagamentoRepository;
 import com.fullstackduck.boxes.repositories.ReceitaRepository;
 
@@ -38,10 +39,11 @@ public class ReceitaServiceTest {
 	    public void testGetTotalReceita() {
 	        // Cria uma lista de pagamentos
 	        List<Pagamento> pagamentos = Arrays.asList(
-	            new Pagamento(1L, 100.0, Instant.now(), FormaPagamento.DEBITO, Status.ATIVO, null),
-	            new Pagamento(2L, 200.0, Instant.now(), FormaPagamento.DEBITO, Status.ATIVO, null)
+	            new Pagamento(1L, 100.0, Instant.now(), FormaPagamento.DEBITO, StatusPagamento.PAGO,null),
+	            new Pagamento(2L, 200.0, Instant.now(), FormaPagamento.DEBITO, StatusPagamento.PAGO, null)
 	        );
 	        
+	 	        
 	        // Define o comportamento do pagamentoRepository.findAll() para retornar a lista de pagamentos criada acima
 	        when(pagamentoRepository.findAll()).thenReturn(pagamentos);
 

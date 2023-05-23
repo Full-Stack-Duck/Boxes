@@ -1,12 +1,9 @@
 package com.fullstackduck.boxes.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,8 +37,8 @@ class ProdutoServiceTest {
   @Test
   @DisplayName("Find All Produtos")
   void testFindAll() {
-    Produto produto1 = new Produto(1L,"Produto 1", 50.0, TipoArmazenamento.ESTOCAVEL,10, TipoProduto.BEBIDA, Status.ATIVO, "Sem observações",null, null);
-    Produto produto2 = new Produto(2L,"Produto 2", 100.0, TipoArmazenamento.ESTOCAVEL,5, TipoProduto.DOCE,Status.INATIVO, "Com observações",null, null);
+    Produto produto1 = new Produto(1L,"Produto 1", 50.0, TipoArmazenamento.ESTOCAVEL,10, TipoProduto.BEBIDA, Status.ATIVO, "Sem observações",null);
+    Produto produto2 = new Produto(2L,"Produto 2", 100.0, TipoArmazenamento.ESTOCAVEL,5, TipoProduto.DOCE,Status.INATIVO, "Com observações",null);
 
     when(repository.findAll()).thenReturn(Arrays.asList(produto1, produto2));
 
@@ -58,7 +55,7 @@ class ProdutoServiceTest {
   @Test
   @DisplayName("Find Produto by Id")
   void testFindById() {
-    Produto produto = new Produto(1L,"Produto 1", 50.0, TipoArmazenamento.ESTOCAVEL,10, TipoProduto.BEBIDA, Status.ATIVO, "Sem observações",null, null);
+    Produto produto = new Produto(1L,"Produto 1", 50.0, TipoArmazenamento.ESTOCAVEL,10, TipoProduto.BEBIDA, Status.ATIVO, "Sem observações",null);
 
     when(repository.findById(1L)).thenReturn(Optional.of(produto));
 
@@ -74,7 +71,7 @@ class ProdutoServiceTest {
   @Test
   @DisplayName("Inserir Produto")
   void testInserirProduto() {
-    Produto produto = new Produto(1L,"Produto 1", 50.0, TipoArmazenamento.ESTOCAVEL,10, TipoProduto.BEBIDA, Status.ATIVO, "Sem observações",null, null);
+    Produto produto = new Produto(1L,"Produto 1", 50.0, TipoArmazenamento.ESTOCAVEL,10, TipoProduto.BEBIDA, Status.ATIVO, "Sem observações",null);
 
     when(repository.save(produto)).thenReturn(produto);
 
@@ -93,8 +90,8 @@ class ProdutoServiceTest {
   @DisplayName("Update Produto Status")
   void testAtualizarStatusProduto() {
       Long produtoId = 1L;
-      Produto produto = new Produto(1L, "Produto 1", 50.0, TipoArmazenamento.ESTOCAVEL, 10, TipoProduto.BEBIDA, Status.ATIVO, "Sem observações", null, null);
-      Produto produtoAtualizado = new Produto(1L, "Produto 1", 50.0, TipoArmazenamento.ESTOCAVEL, 10, TipoProduto.BEBIDA, Status.INATIVO, "Sem observações", null, null);
+      Produto produto = new Produto(1L, "Produto 1", 50.0, TipoArmazenamento.ESTOCAVEL, 10, TipoProduto.BEBIDA, Status.ATIVO, "Sem observações", null);
+      Produto produtoAtualizado = new Produto(1L, "Produto 1", 50.0, TipoArmazenamento.ESTOCAVEL, 10, TipoProduto.BEBIDA, Status.INATIVO, "Sem observações", null);
 
       when(repository.getReferenceById(produtoId)).thenReturn(produto);
       when(repository.save(produto)).thenReturn(produtoAtualizado);
@@ -110,8 +107,8 @@ class ProdutoServiceTest {
   @DisplayName("Update Produto")
   void testAtualizarProduto() {
   Long produtoId = 1L;
-  Produto produto = new Produto(1L,"Produto 1", 50.0, TipoArmazenamento.ESTOCAVEL,10, TipoProduto.BEBIDA, Status.ATIVO, "Sem observações",null, null);
-  Produto produtoAtualizado = new Produto(1L,"Produto 1 atualizado", 60.0, TipoArmazenamento.ESTOCAVEL,20, TipoProduto.BEBIDA, Status.ATIVO, "Observação atualizada",null, null); // Corrigido, estava criando um objeto Produto com um nome diferente do que foi atualizado
+  Produto produto = new Produto(1L,"Produto 1", 50.0, TipoArmazenamento.ESTOCAVEL,10, TipoProduto.BEBIDA, Status.ATIVO, "Sem observações",null);
+  Produto produtoAtualizado = new Produto(1L,"Produto 1 atualizado", 60.0, TipoArmazenamento.ESTOCAVEL,20, TipoProduto.BEBIDA, Status.ATIVO, "Observação atualizada",null); // Corrigido, estava criando um objeto Produto com um nome diferente do que foi atualizado
 
   when(repository.getReferenceById(produtoId)).thenReturn(produto);
   when(repository.save(produto)).thenReturn(produtoAtualizado);

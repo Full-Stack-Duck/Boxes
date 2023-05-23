@@ -7,8 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.Instant;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,7 +36,7 @@ public class ClienteResourceTest {
     private Cliente cliente1;
     private Cliente cliente2;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         cliente1 = new Cliente(1L,"Cliente 1", "email1", "1111111111", Instant.now(), "123456789", Instant.now(), StatusCliente.ATIVA, null);
         cliente2 = new Cliente(2L,"Cliente 2", "email2", "11221111", Instant.now(), "123745889", Instant.now(), StatusCliente.ATIVA, null);

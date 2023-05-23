@@ -28,7 +28,7 @@ public class ClienteTest {
 		assertEquals("(11) 99999-9999", cliente.getTelefone());
 		assertEquals(dataNascimento, cliente.getDataNascimento());
 		assertEquals("12345678901", cliente.getDocumento());
-		assertEquals(dataCadastro, cliente.getDataCadastro());
+		assertEquals(dataCadastro, cliente.getDataCliente());
 		assertEquals(StatusCliente.ATIVA, cliente.getStatusCliente());
 		assertEquals(usuario, cliente.getUsuario());
 	}

@@ -1,6 +1,7 @@
 package com.fullstackduck.boxes.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
@@ -78,7 +79,7 @@ class DespesaServiceTest {
 		when(repository.getReferenceById(id)).thenReturn(despesa);
 		when(repository.save(despesa)).thenReturn(despesaAtualizada);
 		
-		Despesa result = service.atualizarStatusDespesa(id, despesaAtualizada);
+		Despesa result = service.atualizarDespesa(id, despesaAtualizada);
 		
 		assertEquals(despesaAtualizada, result);
 	}
@@ -118,24 +119,26 @@ class DespesaServiceTest {
 	
 	@Test
 	void testListarDespesasPorPeriodo() {
-	    Instant dataInicio = Instant.parse("2023-03-01T00:00:00Z");
-	    Instant dataFim = Instant.parse("2023-03-31T23:59:59Z");
+	    String dataInicio = "2023-03-01T00:00:00Z";
+	    String dataFim = "2023-03-31T23:59:59Z";
+	    
+	    Instant instantDataInicio = Instant.parse(dataInicio);
+	    Instant instantDataFim = Instant.parse(dataFim);
+	    
 	    List<Despesa> despesas = new ArrayList<>();
-	    despesas.add(new Despesa(1L, "Despesa 1", Categoria.FIXA, 100.0, "Observação 1", dataInicio, null, null));
-	    despesas.add(new Despesa(2L, "Despesa 2", Categoria.MATERIA_PRIMA, 200.0, "Observação 2", dataFim, null, null));
+	    despesas.add(new Despesa(1L, "Despesa 1", Categoria.FIXA, 100.0, "Observação 1", instantDataInicio, null, null));
+	    despesas.add(new Despesa(2L, "Despesa 2", Categoria.MATERIA_PRIMA, 200.0, "Observação 2", instantDataFim, null, null));
 	    despesas.add(new Despesa(3L, "Despesa 3", Categoria.VARIAVEL, 50.0, "Observação 3", Instant.parse("2023-04-01T00:00:00Z"), null, null));
 
-	    when(repository.findByDataDespesaBetween(dataInicio, dataFim)).thenReturn(
-	            despesas.stream().filter(d -> d.getDataDespesa().isAfter(dataInicio) || d.getDataDespesa().equals(dataInicio))
-	                    .filter(d -> d.getDataDespesa().isBefore(dataFim) || d.getDataDespesa().equals(dataFim))
-	                    .collect(Collectors.toList()));
+	    when(repository.findByDataDespesaBetween(instantDataInicio, instantDataFim)).thenReturn(despesas);
 
-	    List<Despesa> resultado = service.listarDespesasPorPeriodo(dataInicio, dataFim);
+	    List<Despesa> resultado = service.listarDespesaPeriodo(dataInicio, dataFim);
 
 	    assertNotNull(resultado);
 	    assertEquals(2, resultado.size());
 	    assertTrue(resultado.contains(despesas.get(0)));
 	    assertTrue(resultado.contains(despesas.get(1)));
+	    assertFalse(resultado.contains(despesas.get(2)));
 	}
 
 

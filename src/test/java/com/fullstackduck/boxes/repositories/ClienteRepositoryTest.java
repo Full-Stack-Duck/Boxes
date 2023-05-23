@@ -62,7 +62,7 @@ public class ClienteRepositoryTest {
         assertEquals(cliente.getTelefone(), clienteSalvo.getTelefone());
         assertEquals(cliente.getDataNascimento(), clienteSalvo.getDataNascimento());
         assertEquals(cliente.getDocumento(), clienteSalvo.getDocumento());
-        assertEquals(cliente.getDataCadastro(), clienteSalvo.getDataCadastro());
+        assertEquals(cliente.getDataCliente(), clienteSalvo.getDataCliente());
         assertEquals(cliente.getStatusCliente(), clienteSalvo.getStatusCliente());
     }
 
@@ -88,7 +88,7 @@ public class ClienteRepositoryTest {
 	        assertEquals(cliente.getTelefone(), clienteSalvo.getTelefone());
 	        assertEquals(cliente.getDataNascimento(), clienteSalvo.getDataNascimento());
 	        assertEquals(cliente.getDocumento(), clienteSalvo.getDocumento());
-	        assertEquals(cliente.getDataCadastro(), clienteSalvo.getDataCadastro());
+	        assertEquals(cliente.getDataCliente(), clienteSalvo.getDataCliente());
 	        assertEquals(cliente.getStatusCliente(), clienteSalvo.getStatusCliente());
 	    }
 
