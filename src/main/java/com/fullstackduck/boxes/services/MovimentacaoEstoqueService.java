@@ -1,5 +1,6 @@
 package com.fullstackduck.boxes.services;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,6 +54,7 @@ public class MovimentacaoEstoqueService {
 	        MovimentacaoEstoque movimentacaoEstoque = new MovimentacaoEstoque();
 	        movimentacaoEstoque.setProduto(produto);
 	        movimentacaoEstoque.setQuantidade(quantidade);
+	        movimentacaoEstoque.setDataMovimentacao(Instant.now());
 	        // Defina outras propriedades da movimentação de estoque, se necessário
 
 	        // Salva as alterações no produto e cria a nova movimentação de estoque
@@ -81,6 +83,7 @@ public class MovimentacaoEstoqueService {
 	        MovimentacaoEstoque movimentacaoEstoque = new MovimentacaoEstoque();
 	        movimentacaoEstoque.setProduto(produto);
 	        movimentacaoEstoque.setQuantidade(quantidade);
+	        movimentacaoEstoque.setDataMovimentacao(Instant.now());
 	        // Defina outras propriedades da movimentação de estoque, se necessário
 
 	        // Salva as alterações no produto e cria a nova movimentação de estoque
