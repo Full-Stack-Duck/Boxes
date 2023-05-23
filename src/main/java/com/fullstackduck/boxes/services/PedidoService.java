@@ -98,8 +98,8 @@ public class PedidoService {
 		entity.setStatusPedido(obj.getStatusPedido());
 	}
 
-	public void cancelarPedido(Long id, Pedido obj) {
-		obj = pedidoRepository.getReferenceById(id);
+	public void cancelarPedido(Long id) {
+		Pedido obj = pedidoRepository.getReferenceById(id);
 		Orcamento orc = obj.getOrcamento();
 		for (ItensOrcamento item : orc.getItens()) {
         	Produto produto = item.getProduto();

@@ -1,8 +1,11 @@
 package com.fullstackduck.boxes.resources;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fullstackduck.boxes.entities.Pedido;
 import com.fullstackduck.boxes.services.PedidoService;
+import com.fullstackduck.boxes.services.exceptions.EstoqueInsuficienteException;
 
 //Controlador Rest
 @RestController
@@ -58,4 +64,15 @@ public class PedidoResource {
 	     Pedido pedido = service.atualizarStatusPagamentoPedido(id, obj);
 	     return ResponseEntity.ok().body(pedido);
 	 }
+	 
+	 @PutMapping(value = "/{id}/cancelarPedido")
+	 public ResponseEntity<String> cancelarPedido(@PathVariable Long id) throws JsonProcessingException{
+        service.cancelarPedido(id);
+        String sucessMessage = "Pedido cancelado";
+        Map<String, String> doneMap = new HashMap<>();
+        doneMap.put("Cancelado", sucessMessage);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(doneMap);
+        return ResponseEntity.status(HttpStatus.CREATED).body(json);
+	 }    
 }
