@@ -31,8 +31,6 @@ import jakarta.persistence.EntityNotFoundException;
 
 @Service //Registro de componente
 public class OrcamentoService {
-	
-	 private static final double DESCONTO_PADRAO = 0.1;
 
 	@Autowired
 	private OrcamentoRepository orcamentoRepository;
