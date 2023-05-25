@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -28,7 +29,10 @@ public class MovimentacaoEstoque implements Serializable {
 	//Atributos da classe
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter private Long id;
+	
+	@NotBlank
 	@Getter @Setter private Integer quantidade;
+	
 	@Getter @Setter private Instant dataMovimentacao;
 	
 	//Relacionamento com a entidade de Produtos 

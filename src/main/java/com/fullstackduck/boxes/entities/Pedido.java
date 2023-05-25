@@ -21,6 +21,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,7 +38,10 @@ public class Pedido implements Serializable {
 	//Atributos da classe
 	@Id /*@GeneratedValue(strategy = GenerationType.IDENTITY)*/
 	@Getter @Setter private Long id;
+	
+	@NotBlank
 	@Getter @Setter private Double total;
+	
 	private Integer tipoEntrega;
 	@Getter @Setter private Instant dataPedido;
 	@Getter @Setter private Instant dataEntrega;

@@ -21,6 +21,8 @@ import com.fullstackduck.boxes.entities.Despesa;
 import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.services.DespesaService;
 
+import jakarta.validation.Valid;
+
 //Controlador Rest
 @RestController
 @RequestMapping(value = "/despesas")
@@ -44,7 +46,7 @@ public class DespesaResource {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<Despesa> inserirDespesa(@RequestBody Despesa obj) {
+	public ResponseEntity<Despesa> inserirDespesa(@Valid @RequestBody Despesa obj) {
 		obj = service.inserirDespesa(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);

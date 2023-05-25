@@ -97,4 +97,5 @@ public class DespesaService {
 	public List<Despesa> listarDespesasCategoria(Categoria categoria) {
 	    return despesaRepository.findByCategoria(categoria.getCode());
 	}
-}
+	
+	}

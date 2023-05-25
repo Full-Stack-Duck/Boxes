@@ -23,6 +23,8 @@ import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.services.UsuarioService;
+
+import jakarta.validation.Valid;
 	
 	//Controlador Rest
 	@RestController
@@ -46,7 +48,7 @@ import com.fullstackduck.boxes.services.UsuarioService;
 		
 		@PostMapping
 		@Transactional
-		public ResponseEntity<Usuario> inserirUsuario(@RequestBody Usuario obj) {
+		public ResponseEntity<Usuario> inserirUsuario(@Valid @RequestBody Usuario obj) {
 			obj = service.inserirUsuario(obj);
 			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 			return ResponseEntity.created(uri).body(obj);

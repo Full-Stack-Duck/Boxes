@@ -17,6 +17,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,8 +35,15 @@ public class Cliente implements Serializable {
 	//Atributos da classe
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter @Setter private Long id;
+	
+	@NotBlank
 	@Getter @Setter private String nome;
+	
+	@NotBlank
+	@Email
 	@Getter @Setter private String email;
+	
+	
 	@Getter @Setter private String telefone = null;
 	@Getter @Setter private Instant dataNascimento = null;
 	@Getter @Setter private String documento = null;

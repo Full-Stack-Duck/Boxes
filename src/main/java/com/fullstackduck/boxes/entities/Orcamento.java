@@ -5,13 +5,10 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.TipoEntrega;
-import com.fullstackduck.boxes.services.OrcamentoService;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -23,8 +20,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.PostPersist;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,7 +38,10 @@ public class Orcamento implements Serializable {
 	//Atributos da classe
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter @Setter private Long id;
-	@Getter @Setter private Double total = 0.0;
+	
+	@NotNull
+	@Getter @Setter private Double total ;
+	
 	private Integer tipoEntrega;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")

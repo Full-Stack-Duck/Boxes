@@ -4,21 +4,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fullstackduck.boxes.entities.Cliente;
 import com.fullstackduck.boxes.entities.enums.StatusCliente;
 import com.fullstackduck.boxes.repositories.ClienteRepository;
 
+@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class ClienteServiceTest {
 
 	@InjectMocks
@@ -99,8 +105,25 @@ class ClienteServiceTest {
 
 	}
 	
-	
-	
+	@Test
+    public void testListarClientePeriodo() {
+        // Dados de teste
+        String dataInicio = "2023-05-01T00:00:00Z";
+        String dataFim = "2023-05-31T23:59:59Z";
+
+        // Mock do repositório
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
+        Instant data1 = Instant.from(formatter.parse(dataInicio));
+        Instant data2 = Instant.from(formatter.parse(dataFim));
+        List<Cliente> clientesMock = new ArrayList<>(); // Crie uma lista de clientes de exemplo
+        when(repository.findByDataClienteBetween(data1, data2)).thenReturn(clientesMock);
+
+        // Chamar o método do serviço
+        List<Cliente> resultado = service.listarClientePeriodo(dataInicio, dataFim);
+
+        // Verificar o resultado
+        assertEquals(clientesMock, resultado);
+    }
 
 
 	

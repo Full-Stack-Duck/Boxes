@@ -22,6 +22,8 @@ import com.fullstackduck.boxes.entities.enums.TipoArmazenamento;
 import com.fullstackduck.boxes.entities.enums.TipoProduto;
 import com.fullstackduck.boxes.services.ProdutoService;
 
+import jakarta.validation.Valid;
+
 //Controlador Rest
 @RestController
 @RequestMapping(value = "/produtos")
@@ -45,7 +47,7 @@ public class ProdutoResource {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<Produto> inserirProduto(@RequestBody Produto obj) {
+	public ResponseEntity<Produto> inserirProduto(@Valid @RequestBody Produto obj) {
 		obj = service.inserirProduto(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);

@@ -15,8 +15,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,14 +36,31 @@ public class Usuario implements Serializable {
 	//Atributos da classe
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter @Setter private Long id;
+	
+	@NotBlank
+	@Size(max = 60)
 	@Getter @Setter private String nome;
+	
+	@NotBlank
+	@Size(max=18)
 	@Getter @Setter private String documento;
+	
+	@Size(max=11)
 	@Getter @Setter private String telefone;
+	
 	@Getter @Setter private String endereco;
 	@Getter @Setter private String logo;
 	@Getter @Setter private Instant datacadastro;
 	private Integer status;
+	
+	@NotBlank
+	@Email
+	@Size(max = 80)
 	@Getter @Setter private String email;
+	
+	@NotBlank
+	@Size(min=8 , max = 20)
+	@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", message = "A senha deve ter pelo menos 8 caracteres, uma letra e um número")
 	@Getter @Setter private String senha;
 	
 	//Relacionamento com a entidade de Licencas

@@ -18,6 +18,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.fullstackduck.boxes.entities.Pagamento;
 import com.fullstackduck.boxes.services.PagamentoService;
 
+import jakarta.validation.Valid;
+
 //Controlador Rest
 @RestController
 @RequestMapping(value = "/pagamentos")
@@ -40,7 +42,7 @@ public class PagamentoResource {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<Pagamento> inserirPagamento(@RequestBody Pagamento obj) {
+	public ResponseEntity<Pagamento> inserirPagamento(@Valid @RequestBody Pagamento obj) {
 		obj = service.inserirPagamento(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);

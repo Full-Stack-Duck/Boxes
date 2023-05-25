@@ -19,6 +19,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.fullstackduck.boxes.entities.MovimentacaoEstoque;
 import com.fullstackduck.boxes.services.MovimentacaoEstoqueService;
 
+import jakarta.validation.Valid;
+
 //Controlador Rest
 @RestController
 @RequestMapping(value = "/movimentacoes")
@@ -41,7 +43,7 @@ public class MovimentacaoEstoqueResource {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<MovimentacaoEstoque> inserirMovimentacaoEstoque(@RequestBody MovimentacaoEstoque obj) {
+	public ResponseEntity<MovimentacaoEstoque> inserirMovimentacaoEstoque(@Valid @RequestBody MovimentacaoEstoque obj) {
 		obj = service.inserirMovimentacaoEstoque(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);

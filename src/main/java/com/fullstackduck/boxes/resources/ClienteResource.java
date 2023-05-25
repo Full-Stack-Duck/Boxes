@@ -17,8 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fullstackduck.boxes.entities.Cliente;
-import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.services.ClienteService;
+
+import jakarta.validation.Valid;
 
 //Controlador Rest
 @RestController
@@ -45,7 +46,7 @@ public class ClienteResource {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<Cliente> inserirCliente(@RequestBody Cliente obj) {
+	public ResponseEntity<Cliente> inserirCliente(@Valid @RequestBody Cliente obj) {
 		obj = service.inserirCliente(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);

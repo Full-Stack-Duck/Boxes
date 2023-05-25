@@ -19,6 +19,8 @@ import com.fullstackduck.boxes.entities.Licenca;
 import com.fullstackduck.boxes.services.LicencaService;
 import com.fullstackduck.boxes.services.UsuarioService;
 
+import jakarta.validation.Valid;
+
 //Controlador Rest
 @RestController
 @RequestMapping(value = "/licencas")
@@ -41,7 +43,7 @@ public class LicencaResource {
 	}
 	
 	@PostMapping(value = "/inserirLicenca/{usuarioId}")
-	public ResponseEntity<Licenca> inserirLicenca(@RequestBody Licenca obj, @PathVariable Integer usuarioId) {
+	public ResponseEntity<Licenca> inserirLicenca(@Valid @RequestBody Licenca obj, @PathVariable Integer usuarioId) {
 	    obj = service.inserirLicenca(obj, usuarioId);
 	    URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 	    return ResponseEntity.created(uri).body(obj);
@@ -54,7 +56,7 @@ public class LicencaResource {
 	}
 	
 	@PostMapping(value = "/alterarLicenca/{usuarioId}")
-	public ResponseEntity<Licenca> alterarLicenca(@RequestBody Licenca obj, @PathVariable Integer usuarioId){
+	public ResponseEntity<Licenca> alterarLicenca(@Valid @RequestBody Licenca obj, @PathVariable Integer usuarioId){
 		obj = service.alterarLicenca(obj, usuarioId);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);

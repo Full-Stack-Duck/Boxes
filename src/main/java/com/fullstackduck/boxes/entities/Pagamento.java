@@ -5,7 +5,6 @@ import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.FormaPagamento;
-import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.StatusPagamento;
 
 import jakarta.persistence.Entity;
@@ -16,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,7 +32,10 @@ public class Pagamento implements Serializable {
 	//Atributos da classe
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter private Long id;
+	
+	@NotBlank
 	@Getter @Setter private Double valor;
+	
 	@Getter @Setter private Instant dataPagamento;
 	private Integer formaPagamento;
 	private Integer statusPagamento;

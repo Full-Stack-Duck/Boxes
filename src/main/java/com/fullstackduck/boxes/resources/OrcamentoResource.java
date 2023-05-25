@@ -28,6 +28,8 @@ import com.fullstackduck.boxes.services.ItensOrcamentoService;
 import com.fullstackduck.boxes.services.OrcamentoService;
 import com.fullstackduck.boxes.services.exceptions.EstoqueInsuficienteException;
 
+import jakarta.validation.Valid;
+
 //Controlador Rest
 @RestController
 @RequestMapping(value = "/orcamentos")
@@ -53,7 +55,7 @@ public class OrcamentoResource {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	@Transactional
-	public Orcamento inserirOrcamento(@RequestBody Orcamento obj) {
+	public Orcamento inserirOrcamento(@Valid @RequestBody Orcamento obj) {
 		service.calcularTotal(obj);
 		return obj;
 	}

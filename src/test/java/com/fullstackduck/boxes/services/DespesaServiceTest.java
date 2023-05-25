@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.Instant;
@@ -18,16 +20,22 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fullstackduck.boxes.entities.Despesa;
+import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.Categoria;
-import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.repositories.DespesaRepository;
+import com.fullstackduck.boxes.repositories.UsuarioRepository;
 
+@SpringBootTest
 class DespesaServiceTest {
 
 	@InjectMocks
 	private DespesaService service;
+	
+	 @Mock
+	 private UsuarioRepository usuarioRepository;
 	
 	@Mock
 	private DespesaRepository repository;
@@ -71,18 +79,6 @@ class DespesaServiceTest {
 		assertEquals(despesa, result);
 	}
 	
-	@Test
-	void testAtualizarStatusDespesa() {
-		Long id = 1L;
-		Despesa despesa = new Despesa(1L, "Despesa 1", Categoria.FIXA, 100.0, "Observação 1",null,Status.ATIVO,null);
-		Despesa despesaAtualizada = new Despesa(1L, "Despesa 1", Categoria.FIXA, 100.0, "Observação 1",null,Status.INATIVO,null);
-		when(repository.getReferenceById(id)).thenReturn(despesa);
-		when(repository.save(despesa)).thenReturn(despesaAtualizada);
-		
-		Despesa result = service.atualizarDespesa(id, despesaAtualizada);
-		
-		assertEquals(despesaAtualizada, result);
-	}
 	
 	@Test
 	void testAtualizarDespesa() {
@@ -142,6 +138,36 @@ class DespesaServiceTest {
 	}
 
 
+	 @Test
+	    public void testListarDespesas() {
+	        // Dados de teste
+	        Long idUsuario = 1L;
+	        Usuario usuarioMock = new Usuario(); // Crie um usuário de exemplo
+	        List<Despesa> despesasMock = new ArrayList<>(); // Crie uma lista de despesas de exemplo
+	        when(usuarioRepository.getReferenceById(idUsuario)).thenReturn(usuarioMock);
+	        when(usuarioMock.getDespesas()).thenReturn(despesasMock);
+
+	        // Chamar o método do serviço
+	        List<Despesa> resultado = service.listarDespesas(idUsuario);
+
+	        // Verificar o resultado
+	        assertEquals(despesasMock, resultado);
+	    }
+
+
+    @Test
+    public void testExcluirDespesa() {
+        // Dados de teste
+        Long idDespesa = 1L;
+        Despesa despesaMock = new Despesa(); // Crie uma despesa de exemplo
+        when(repository.findById(idDespesa)).thenReturn(Optional.of(despesaMock));
+
+        // Chamar o método do serviço
+        service.excluirDespesa(idDespesa);
+
+        // Verificar se o método delete foi chamado com a despesa correta
+        verify(repository, times(1)).delete(despesaMock);
+    }
 
 	
 	
