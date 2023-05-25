@@ -39,7 +39,7 @@ public class Despesa implements Serializable {
 	@NotBlank
 	@Getter @Setter private String nome;
 	
-	@NotBlank
+	@NotNull
 	private Integer categoria;
 	
 	@NotNull

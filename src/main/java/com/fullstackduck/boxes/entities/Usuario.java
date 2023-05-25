@@ -60,7 +60,7 @@ public class Usuario implements Serializable {
 	
 	@NotBlank
 	@Size(min=8 , max = 20)
-	@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", message = "A senha deve ter pelo menos 8 caracteres, uma letra e um número")
+	/*@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", message = "A senha deve ter pelo menos 8 caracteres, uma letra e um número")*/
 	@Getter @Setter private String senha;
 	
 	//Relacionamento com a entidade de Licencas

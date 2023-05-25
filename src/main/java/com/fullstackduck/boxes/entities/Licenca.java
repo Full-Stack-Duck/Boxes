@@ -42,6 +42,7 @@ public class Licenca implements Serializable {
 	
 	private Integer diasLicenca;
 	private Integer tipoLicenca;
+	
 	@Getter private Double valor;
 	
 	//Relacionamento com a entidade de Usuario

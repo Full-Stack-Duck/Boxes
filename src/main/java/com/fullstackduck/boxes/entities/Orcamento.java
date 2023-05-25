@@ -39,7 +39,7 @@ public class Orcamento implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter @Setter private Long id;
 	
-	@NotNull
+	
 	@Getter @Setter private Double total ;
 	
 	private Integer tipoEntrega;

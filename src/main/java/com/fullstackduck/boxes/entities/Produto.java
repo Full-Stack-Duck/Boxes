@@ -20,6 +20,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,8 +41,9 @@ public class Produto implements Serializable {
 	@NotBlank
 	@Getter @Setter private String nome;
 	
-	@NotBlank
+	@NotNull
 	@Getter @Setter private Double valor;
+	
 	
 	private Integer categoria;
 	@Getter @Setter private Integer quantidade;
