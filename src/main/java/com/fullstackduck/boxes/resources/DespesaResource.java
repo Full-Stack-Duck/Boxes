@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,13 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fullstackduck.boxes.entities.Despesa;
-import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.services.DespesaService;
 
 import jakarta.validation.Valid;
 
 //Controlador Rest
 @RestController
+@EnableAsync
 @RequestMapping(value = "/despesas")
 public class DespesaResource {
 

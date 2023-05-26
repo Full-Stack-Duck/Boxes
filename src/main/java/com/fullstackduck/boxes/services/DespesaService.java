@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fullstackduck.boxes.entities.Despesa;
-import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.Categoria;
 import com.fullstackduck.boxes.repositories.DespesaRepository;
@@ -28,25 +28,25 @@ public class DespesaService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-	
+	@Async
 	public List<Despesa> findAll(){
 		return despesaRepository.findAll();
 	}
 	
-	
+	@Async
 	public Despesa findById(Long id) {
 		Optional<Despesa> obj = despesaRepository.findById(id);
 		return obj.get();
 	}
 
 	//insere despesa no banco de dados
-	
+	@Async
 	public Despesa inserirDespesa(Despesa obj) {
 		return despesaRepository.save(obj);
 	}
 	
 	//atualiza dados da despesa no banco de dados
-	
+	@Async
 	public Despesa atualizarDespesa(Long id, Despesa obj) {
 		try {
 			Despesa entity = despesaRepository.getReferenceById(id);
@@ -57,6 +57,7 @@ public class DespesaService {
 		}
 	}
 	
+	@Async
 	private void atualizarDadosDespesa(Despesa entity, Despesa obj) {
 		entity.setNome(obj.getNome());
 		entity.setCategoria(obj.getCategoria());
@@ -65,12 +66,13 @@ public class DespesaService {
 		entity.setDataDespesa(obj.getDataDespesa());
 	}
 	
-	
+	@Async
 	public void excluirDespesa(Long id) {
         Despesa despesa = despesaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Despesa não encontrada com o id: " + id));
         despesaRepository.delete(despesa);
     }
 	
+	@Async
 	public Double calcularValorTotalDespesas() {
 	    List<Despesa> despesas = despesaRepository.findAll();
 	    Double valorTotal = 0.0;
@@ -81,21 +83,22 @@ public class DespesaService {
 	}
 	
 	@Transactional
+	@Async
 	public List<Despesa> listarDespesas(Long idUsuario) {
         Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
         return usuario.getDespesas();
     }
 	
 	@Transactional
+	@Async
 	public List<Despesa> listarDespesaPeriodo(String dataInicio, String dataFim) {
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
 		Instant data1 = Instant.from(formatter.parse(dataInicio));
 		Instant data2 = Instant.from(formatter.parse(dataFim));
 	    return despesaRepository.findByDataDespesaBetween(data1, data2);
 	}
-	
+	@Async
 	public List<Despesa> listarDespesasCategoria(Categoria categoria) {
 	    return despesaRepository.findByCategoria(categoria.getCode());
 	}
-	
-	}
+}
