@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,24 +28,25 @@ public class ClienteService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-
+	@Async
 	public List<Cliente> findAll(){
 		return clienteRepository.findAll();
 	}
 	
+	@Async
 	public Cliente findById(Long id) {
 		Optional<Cliente> obj = clienteRepository.findById(id);
 		return obj.get();
 	}
 
 	//insere cliente no banco de dados
-	
+	@Async
 	public Cliente inserirCliente(Cliente obj) {
 		return clienteRepository.save(obj);
 	}
 	
 	//atualiza status do cliente no banco de dados
-	
+	@Async
 	public Cliente atualizarStatusCliente(Long id, Cliente obj) {
 		try {
 			Cliente entity = clienteRepository.getReferenceById(id);
@@ -56,7 +58,7 @@ public class ClienteService {
 	}
 	
 	//atualiza dados do cliente no banco de dados
-	
+	@Async
 	public Cliente atualizarCliente(Long id, Cliente obj) {
 		try {
 			Cliente entity = clienteRepository.getReferenceById(id);
@@ -67,6 +69,7 @@ public class ClienteService {
 		}
 	}
 	
+	@Async
 	private void atualizarDadosCliente(Cliente entity, Cliente obj) {
 		entity.setNome(obj.getNome());
 		entity.setEmail(obj.getEmail());
@@ -75,18 +78,20 @@ public class ClienteService {
 		entity.setDocumento(obj.getDocumento());
 	}
 	
-	
+	@Async
 	private void atualizarStatusCliente(Cliente entity, Cliente obj) {
 		entity.setStatusCliente(obj.getStatusCliente());
 	}
 	
 	@Transactional
+	@Async
 	public List<Cliente> listarClientes(Long idUsuario) {
         Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
         return usuario.getClientes();
     }
 	
 	@Transactional
+	@Async
 	public List<Cliente> listarClientePeriodo(String dataInicio, String dataFim) {
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
 		Instant data1 = Instant.from(formatter.parse(dataInicio));
