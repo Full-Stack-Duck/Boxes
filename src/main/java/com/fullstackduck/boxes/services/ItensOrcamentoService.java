@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.fullstackduck.boxes.entities.ItensOrcamento;
@@ -15,16 +16,18 @@ public class ItensOrcamentoService {
 	@Autowired
 	private ItensOrcamentoRepository repository;
 	
+	@Async
 	public List<ItensOrcamento> findAll(){
 		return repository.findAll();
 	}
 	
+	@Async
 	public ItensOrcamento findById(Long id) {
 		Optional<ItensOrcamento> obj = repository.findById(id);
 		return obj.get();
 	}
 
-	//insere orcamento no banco de dados
+	@Async
 	public ItensOrcamento inserirItensOrcamento(ItensOrcamento obj) {
 		return repository.save(obj);
 	}
