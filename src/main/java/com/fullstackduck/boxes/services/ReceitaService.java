@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,15 +30,18 @@ public class ReceitaService {
 	@Autowired
     private UsuarioRepository usuarioRepository;
 	
+	@Async
 	public List<Receita> findAll(){
 		return receitaRepository.findAll();
 	}
 	
+	@Async
 	public Receita findById(Long id) {
 		Optional<Receita> obj = receitaRepository.findById(id);
 		return obj.get();
 	}
 	
+	@Async
 	public double getTotalReceita() {
         double total = 0;
         List<Pagamento> pagamentos = pagamentoRepository.findAll();
@@ -48,12 +52,14 @@ public class ReceitaService {
     }
 	
 	@Transactional
+	@Async
 	public List<Orcamento> listarReceitas(Long idUsuario) {
         Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
         return usuario.getOrcamentos();
     }
 	
 	@Transactional
+	@Async
 	public List<Orcamento> listarReceitasPeriodo(String dataInicio, String dataFim) {
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
 		Instant data1 = Instant.from(formatter.parse(dataInicio));

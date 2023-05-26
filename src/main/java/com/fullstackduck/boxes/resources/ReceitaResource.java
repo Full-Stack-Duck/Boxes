@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import com.fullstackduck.boxes.services.ReceitaService;
 
 //Controlador Rest
 @RestController
+@EnableAsync
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "/receitas")
 public class ReceitaResource {
@@ -26,11 +28,7 @@ public class ReceitaResource {
 	@Autowired
 	private ReceitaService service;
 	
-	private final PagamentoRepository pagamentoRepository;
-
-    public ReceitaResource(PagamentoRepository pagamentoRepository) {
-        this.pagamentoRepository = pagamentoRepository;
-    }
+	private PagamentoRepository pagamentoRepository;
 	
 	@GetMapping
 	public ResponseEntity<List<Receita>> findAll(){
