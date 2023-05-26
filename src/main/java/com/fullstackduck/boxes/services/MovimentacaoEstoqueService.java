@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.fullstackduck.boxes.entities.MovimentacaoEstoque;
@@ -22,22 +23,24 @@ public class MovimentacaoEstoqueService {
     private ProdutoRepository produtoRepository;
 	
 	
-	
+	@Async
 	public List<MovimentacaoEstoque> findAll(){
 		return repository.findAll();
 	}
 	
+	@Async
 	public MovimentacaoEstoque findById(Long id) {
 		Optional<MovimentacaoEstoque> obj = repository.findById(id);
 		return obj.get();
 	}
 	
 	//insere movimentação de estoque no banco de dados
-	
+	@Async
 	public MovimentacaoEstoque inserirMovimentacaoEstoque(MovimentacaoEstoque obj) {
 		return repository.save(obj);
 	}
 	
+	@Async
 	public void adicionarItem(Long produto_id, Integer quantidade) {
 	    // Recupera o produto pelo ID
 	    Optional<Produto> optionalProduto = produtoRepository.findById(produto_id);
@@ -66,6 +69,7 @@ public class MovimentacaoEstoqueService {
 	    }
 	}
 	
+	@Async
 	public void removerItem(Long produto_id,Integer quantidade) {
 		
 		 // Recupera o produto pelo ID
