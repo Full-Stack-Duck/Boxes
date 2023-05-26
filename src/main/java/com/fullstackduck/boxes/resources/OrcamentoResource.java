@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +24,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fullstackduck.boxes.entities.ItensOrcamento;
 import com.fullstackduck.boxes.entities.Orcamento;
-import com.fullstackduck.boxes.entities.Pedido;
-import com.fullstackduck.boxes.services.ItensOrcamentoService;
 import com.fullstackduck.boxes.services.OrcamentoService;
 import com.fullstackduck.boxes.services.exceptions.EstoqueInsuficienteException;
 
@@ -32,14 +31,12 @@ import jakarta.validation.Valid;
 
 //Controlador Rest
 @RestController
+@EnableAsync
 @RequestMapping(value = "/orcamentos")
 public class OrcamentoResource {
 
 	@Autowired
 	private OrcamentoService service;
-	
-	@Autowired
-	private ItensOrcamentoService itensService;
 	
 	@GetMapping
 	public List<Orcamento> findAll(){

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +48,7 @@ public class OrcamentoService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
+	@Async
 	public List<Orcamento> findAll(){
 		List<Orcamento> orcamentos = orcamentoRepository.findAll();
 		for (Orcamento i: orcamentos) {
@@ -55,6 +57,7 @@ public class OrcamentoService {
 		return orcamentos;
 	}
 	
+	@Async
 	public Orcamento findById(Long id) {
 		Optional<Orcamento> obj = orcamentoRepository.findById(id);
 		Orcamento orcamento = obj.get();
@@ -63,11 +66,13 @@ public class OrcamentoService {
 	}
 
 	//insere orcamento no banco de dados
+	@Async
 	public Orcamento inserirOrcamento(Orcamento obj) {
 		return orcamentoRepository.save(obj);
 	}
 	
 	//atualiza status do orcamento no banco de dados
+	@Async
 	public Orcamento atualizarStatusOrcamento(Long id, Orcamento obj) {
 		try {
 			Orcamento entity = orcamentoRepository.getReferenceById(id);
@@ -79,6 +84,7 @@ public class OrcamentoService {
 	}
 	
 	//atualiza dados do orcamento no banco de dados
+	@Async
 	public Orcamento atualizarOrcamento(Long id, Orcamento obj) {
 		try {
 			Orcamento entity = orcamentoRepository.getReferenceById(id);
@@ -89,6 +95,7 @@ public class OrcamentoService {
 		}
 	}
 	
+	@Async
 	public Orcamento adicionarItem(Long orcamentoId, Integer produtoId, ItensOrcamento item) {
 	    Orcamento orcamento = orcamentoRepository.getReferenceById(orcamentoId);
 	    Produto produto = produtoRepository.getReferenceById(produtoId);
@@ -101,6 +108,7 @@ public class OrcamentoService {
 	    return orcamentoRepository.save(orcamento);
 	  }
 	
+	@Async
 	public Orcamento removerItem(Long orcamentoId, Long produtoId) {
 	    Orcamento orcamento = orcamentoRepository.findById(orcamentoId).orElseThrow(() -> new ResourceNotFoundException("Orcamento não encontrado com o id: " + orcamentoId));
 	    Produto produto = produtoRepository.findById(produtoId).orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado com o id: " + produtoId));
@@ -111,12 +119,14 @@ public class OrcamentoService {
 	}
 	
 	@Transactional
+	@Async
 	public List<Orcamento> listarOrcamentos(Long idUsuario) {
         Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
         return usuario.getOrcamentos();
     }
 	
 	@Transactional
+	@Async
 	public List<Orcamento> listarOrcamentoPeriodo(String dataInicio, String dataFim) {
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
 		Instant data1 = Instant.from(formatter.parse(dataInicio));
@@ -124,15 +134,17 @@ public class OrcamentoService {
 	    return orcamentoRepository.findByDataOrcamentoBetween(data1, data2);
 	}
 
-	
+	@Async
 	private void atualizarDados(Orcamento entity, Orcamento obj) {
 		entity.setTipoEntrega(obj.getTipoEntrega());
 	}
 	
+	@Async
 	private void atualizarStatus(Orcamento entity, Orcamento obj) {
 		entity.setStatus(obj.getStatus());
 	}
     
+	@Async
     public void calcularTotal(Orcamento obj) {
     	Double total = 0.0;
 		for(ItensOrcamento i: obj.getItens()) {
@@ -143,6 +155,7 @@ public class OrcamentoService {
 		orcamentoRepository.save(obj);
 	}
     
+	@Async
     private void validarItemEstoque(Orcamento orcamento) throws EstoqueInsuficienteException{
         for (ItensOrcamento item : orcamento.getItens()) {
         	Produto produto = item.getProduto();
@@ -156,6 +169,7 @@ public class OrcamentoService {
         }
     }
     
+	@Async
     public Pedido gerarPedido(Orcamento obj) throws EstoqueInsuficienteException {
     	/*Orcamento orcamento = orcamentoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Orcamento não encontrado com o id: " + id));*/
     	validarItemEstoque(obj);
