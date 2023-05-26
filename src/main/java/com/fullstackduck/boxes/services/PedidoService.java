@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,28 +37,32 @@ public class PedidoService {
 	@Autowired
 	private OrcamentoRepository orcamentoRepository;
 
+	@Async
 	public List<Pedido> findAll() {
 		return pedidoRepository.findAll();
 	}
 
+	@Async
 	public Pedido findById(Long id) {
 		Optional<Pedido> obj = pedidoRepository.findById(id);
 		return obj.get();
 	}
 
 	// insere cliente no banco de dados
-
+	@Async
 	public Pedido inserirPedido(Pedido obj) {
 		return pedidoRepository.save(obj);
 	}
 
 	@Transactional
+	@Async
 	public List<Pedido> listarPedidos(Long idUsuario) {
 		Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
 		return usuario.getPedidos();
 	}
 
 	@Transactional
+	@Async
 	public List<Pedido> listarPedidosPeriodo(String dataInicio, String dataFim) {
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
 		Instant data1 = Instant.from(formatter.parse(dataInicio));
@@ -66,6 +71,7 @@ public class PedidoService {
 	}
 
 	@Transactional
+	@Async
 	public Pedido atualizarStatusPagamentoPedido(Long id, Pedido obj) {
 		try {
 			Pedido entity = pedidoRepository.getReferenceById(id);
@@ -77,6 +83,7 @@ public class PedidoService {
 	}
 
 	@Transactional
+	@Async
 	private void atualizarDadosPagamentoPedido(Pedido entity, Pedido obj) {
 		entity.setStatusPagamentoPedido(obj.getStatusPagamentoPedido());
 
@@ -84,6 +91,7 @@ public class PedidoService {
 
 	// atualiza dados do cliente no banco de dados
 	@Transactional
+	@Async
 	public Pedido atualizarStatusPedido(Long id, Pedido obj) {
 		try {
 			Pedido entity = pedidoRepository.getReferenceById(id);
@@ -94,10 +102,12 @@ public class PedidoService {
 		}
 	}
 
+	@Async
 	private void atualizarDadosPedido(Pedido entity, Pedido obj) {
 		entity.setStatusPedido(obj.getStatusPedido());
 	}
 
+	@Async
 	public void cancelarPedido(Long id) {
 		Pedido obj = pedidoRepository.getReferenceById(id);
 		Orcamento orc = obj.getOrcamento();
