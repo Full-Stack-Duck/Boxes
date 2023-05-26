@@ -7,12 +7,12 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fullstackduck.boxes.entities.Licenca;
 import com.fullstackduck.boxes.entities.Usuario;
-import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.StatusLicenca;
 import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 import com.fullstackduck.boxes.repositories.LicencaRepository;
@@ -30,10 +30,12 @@ public class LicencaService {
 	@Autowired
     private UsuarioRepository usuarioRepository;
     
+	@Async
     public List<Licenca> findAll() {
         return licencaRepository.findAll();
     }
 
+	@Async
     public Licenca findById(Long id) {
         System.out.println("ID recebido: " + id);
         try {
@@ -44,6 +46,7 @@ public class LicencaService {
         }
     }
     
+	@Async
     public Licenca inserirLicenca(Licenca licenca, Integer id) {
     	Usuario usuario = usuarioRepository.getReferenceById(id);
     	licenca.setDataAquisicao(Instant.now());
@@ -55,6 +58,7 @@ public class LicencaService {
 	}
     
     @Transactional
+    @Async
     public Licenca atualizarStatusLicenca(Long id, Licenca obj) {
     	try {
 			Licenca entity = licencaRepository.getReferenceById(id);
@@ -66,6 +70,7 @@ public class LicencaService {
 	}
     
     @Transactional
+    @Async
     public Licenca renovarLicenca(Long id, Licenca obj) {
     	try {
 			Licenca entity = licencaRepository.getReferenceById(id);
@@ -77,6 +82,7 @@ public class LicencaService {
     }
     
     @Transactional
+    @Async
     public Licenca alterarLicenca(Licenca licenca, Integer usuarioId) {
     	inserirLicenca(licenca, usuarioId);
     	Usuario usuario = usuarioRepository.getReferenceById(usuarioId);
@@ -110,10 +116,12 @@ public class LicencaService {
 
 	
 	//métodos auxiliares
+    @Async
     private void atualizarStatusLicenca(Licenca entity, Licenca obj) {
 		entity.setStatusLicenca(obj.getStatusLicenca());
 	}
     
+    @Async
 	private void renovarLicenca(Licenca entity, Licenca obj) {
         TipoLicenca tipoLicenca = entity.getTipoLicenca();
         Instant novaDataValidadeLicenca = entity.getDataValidade();
