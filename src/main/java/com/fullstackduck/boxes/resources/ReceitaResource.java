@@ -20,8 +20,8 @@ import com.fullstackduck.boxes.services.ReceitaService;
 
 //Controlador Rest
 @RestController
-@EnableAsync
 @CrossOrigin(origins = "*")
+@EnableAsync
 @RequestMapping(value = "/receitas")
 public class ReceitaResource {
 
