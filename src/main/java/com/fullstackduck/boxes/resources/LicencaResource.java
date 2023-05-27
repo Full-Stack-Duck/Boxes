@@ -2,6 +2,7 @@ package com.fullstackduck.boxes.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,46 +22,45 @@ import com.fullstackduck.boxes.services.LicencaService;
 
 import jakarta.validation.Valid;
 
-//Controlador Rest
 @RestController
 @CrossOrigin(origins = "*")
 @EnableAsync
 @RequestMapping(value = "/licencas")
 public class LicencaResource {
 
-	@Autowired
-	private LicencaService service;
-	
-	
-	@GetMapping
-	public ResponseEntity<List<Licenca>> findAll(){
-		List<Licenca> list = service.findAll();
-		return ResponseEntity.ok().body(list);
-	}
-	
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<Licenca> findById(@PathVariable Long id){
-		Licenca obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
-	}
-	
-	@PostMapping(value = "/inserirLicenca/{usuarioId}")
-	public ResponseEntity<Licenca> inserirLicenca(@Valid @RequestBody Licenca obj, @PathVariable Integer usuarioId) {
-	    obj = service.inserirLicenca(obj, usuarioId);
-	    URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-	    return ResponseEntity.created(uri).body(obj);
-	}
-	
-	@PutMapping(value = "/{id}/renovarLicenca")
-	public ResponseEntity<Licenca> renovarLicenca(@PathVariable Long id, @RequestBody Licenca obj){
-		obj = service.renovarLicenca(id, obj);
-		return ResponseEntity.ok().body(obj);
-	}
-	
-	@PostMapping(value = "/alterarLicenca/{usuarioId}")
-	public ResponseEntity<Licenca> alterarLicenca(@Valid @RequestBody Licenca obj, @PathVariable Integer usuarioId){
-		obj = service.alterarLicenca(obj, usuarioId);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).body(obj);
-	}
+    @Autowired
+    private LicencaService service;
+
+    @GetMapping
+    public CompletableFuture<ResponseEntity<List<Licenca>>> findAll() {
+        return service.findAll().thenApply(ResponseEntity::ok);
+    }
+
+    @GetMapping(value = "/{id}")
+    public CompletableFuture<ResponseEntity<Licenca>> findById(@PathVariable Long id) {
+        return service.findById(id).thenApply(ResponseEntity::ok);
+    }
+
+    @PostMapping(value = "/inserirLicenca/{usuarioId}")
+    public CompletableFuture<ResponseEntity<Licenca>> inserirLicenca(@Valid @RequestBody Licenca obj,
+            @PathVariable Integer usuarioId) {
+        return service.inserirLicenca(obj, usuarioId).thenApply(l -> {
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(l.getId()).toUri();
+            return ResponseEntity.created(uri).body(l);
+        });
+    }
+
+    @PutMapping(value = "/{id}/renovarLicenca")
+    public CompletableFuture<ResponseEntity<Licenca>> renovarLicenca(@PathVariable Long id, @RequestBody Licenca obj) {
+        return service.renovarLicenca(id, obj).thenApply(ResponseEntity::ok);
+    }
+
+    @PostMapping(value = "/alterarLicenca/{usuarioId}")
+    public CompletableFuture<ResponseEntity<Licenca>> alterarLicenca(@Valid @RequestBody Licenca obj,
+            @PathVariable Integer usuarioId) {
+        return service.alterarLicenca(obj, usuarioId).thenApply(l -> {
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(l.getId()).toUri();
+            return ResponseEntity.created(uri).body(l);
+        });
+    }
 }

@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -21,74 +22,74 @@ import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
 
-@Service // Component registration
+@Service
 public class LicencaService {
 
-	@Autowired
+    @Autowired
     private LicencaRepository licencaRepository;
-	
-	@Autowired
+
+    @Autowired
     private UsuarioRepository usuarioRepository;
-    
-	@Async
-    public List<Licenca> findAll() {
-        return licencaRepository.findAll();
+
+    @Async
+    public CompletableFuture<List<Licenca>> findAll() {
+        return CompletableFuture.completedFuture(licencaRepository.findAll());
     }
 
-	@Async
-    public Licenca findById(Long id) {
+    @Async
+    public CompletableFuture<Licenca> findById(Long id) {
         System.out.println("ID recebido: " + id);
         try {
             Optional<Licenca> obj = licencaRepository.findById(id);
-            return obj.orElseThrow(() -> new ResourceNotFoundException("Licença não encontrada com o id: " + id));
+            return CompletableFuture.completedFuture(obj.orElseThrow(() -> new ResourceNotFoundException("Licença não encontrada com o id: " + id)));
         } catch (NoSuchElementException ex) {
             throw new ResourceNotFoundException("Licença não encontrada com o id: " + id);
         }
     }
-    
-	@Async
-    public Licenca inserirLicenca(Licenca licenca, Integer id) {
-    	Usuario usuario = usuarioRepository.getReferenceById(id);
-    	licenca.setDataAquisicao(Instant.now());
-    	licenca.setDataValidade(licenca.getDataAquisicao());
-    	licenca.calcularDiasLicenca();
-    	licenca.setValor();
-    	licenca.setUsuario(usuario);
-		return licencaRepository.save(licenca);
-	}
-    
-    @Transactional
+
     @Async
-    public Licenca atualizarStatusLicenca(Long id, Licenca obj) {
-    	try {
-			Licenca entity = licencaRepository.getReferenceById(id);
-			atualizarStatusLicenca(entity, obj);
-			return licencaRepository.save(entity);
-		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id);
-		}
-	}
-    
-    @Transactional
-    @Async
-    public Licenca renovarLicenca(Long id, Licenca obj) {
-    	try {
-			Licenca entity = licencaRepository.getReferenceById(id);
-			renovarLicenca(entity, obj);
-			return licencaRepository.save(entity);
-		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id);
-		}
+    public CompletableFuture<Licenca> inserirLicenca(Licenca licenca, Integer id) {
+        Usuario usuario = usuarioRepository.getReferenceById(id);
+        licenca.setDataAquisicao(Instant.now());
+        licenca.setDataValidade(licenca.getDataAquisicao());
+        licenca.calcularDiasLicenca();
+        licenca.setValor();
+        licenca.setUsuario(usuario);
+        return CompletableFuture.completedFuture(licencaRepository.save(licenca));
     }
-    
+
     @Transactional
     @Async
-    public Licenca alterarLicenca(Licenca licenca, Integer usuarioId) {
-    	inserirLicenca(licenca, usuarioId);
-    	Usuario usuario = usuarioRepository.getReferenceById(usuarioId);
-    	Licenca antigaLicenca = usuario.findLicenca();
-    	licenca.setDataAquisicao(antigaLicenca.getDataValidade());
-    	Instant novaDataValidadeLicenca = antigaLicenca.getDataValidade();
+    public CompletableFuture<Licenca> atualizarStatusLicenca(Long id, Licenca obj) {
+        try {
+            Licenca entity = licencaRepository.getReferenceById(id);
+            atualizarStatusLicenca(entity, obj);
+            return CompletableFuture.completedFuture(licencaRepository.save(entity));
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
+    }
+
+    @Transactional
+    @Async
+    public CompletableFuture<Licenca> renovarLicenca(Long id, Licenca obj) {
+        try {
+            Licenca entity = licencaRepository.getReferenceById(id);
+            renovarLicenca(entity, obj);
+            return CompletableFuture.completedFuture(licencaRepository.save(entity));
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
+    }
+
+    @Transactional
+    @Async
+    public CompletableFuture<Licenca> alterarLicenca(Licenca licenca, Integer usuarioId) {
+        inserirLicenca(licenca, usuarioId);
+        Usuario usuario = usuarioRepository.getReferenceById(usuarioId);
+        Licenca antigaLicenca = usuario.findLicenca();
+        licenca.setDataAquisicao(antigaLicenca.getDataValidade());
+        Instant novaDataValidadeLicenca = antigaLicenca.getDataValidade();
         Integer novoDiasLicenca = antigaLicenca.getDiasLicenca();
         TipoLicenca tipoLicenca = licenca.getTipoLicenca();
         if (tipoLicenca == TipoLicenca.MENSAL) {
@@ -105,30 +106,27 @@ public class LicencaService {
         licenca.setDataValidade(novaDataValidadeLicenca);
         licenca.calcularDiasLicenca();
         licenca.setValor();
-    	licenca.setUsuario(usuario);
-    	licenca.setDataAquisicao(Instant.now());
-    	antigaLicenca.setStatusLicenca(StatusLicenca.CANCELADA);
-    	licencaRepository.save(licenca);
-    	licencaRepository.save(antigaLicenca);
-		return licenca;
+        licenca.setUsuario(usuario);
+        licenca.setDataAquisicao(Instant.now());
+        antigaLicenca.setStatusLicenca(StatusLicenca.CANCELADA);
+        licencaRepository.save(licenca);
+        licencaRepository.save(antigaLicenca);
+        return CompletableFuture.completedFuture(licenca);
     }
 
-
-	
-	//métodos auxiliares
     @Async
     private void atualizarStatusLicenca(Licenca entity, Licenca obj) {
-		entity.setStatusLicenca(obj.getStatusLicenca());
-	}
-    
+        entity.setStatusLicenca(obj.getStatusLicenca());
+    }
+
     @Async
-	private void renovarLicenca(Licenca entity, Licenca obj) {
+    private void renovarLicenca(Licenca entity, Licenca obj) {
         TipoLicenca tipoLicenca = entity.getTipoLicenca();
         Instant novaDataValidadeLicenca = entity.getDataValidade();
         Integer novoDiasLicenca = entity.getDiasLicenca();
         if (tipoLicenca == TipoLicenca.MENSAL) {
             novaDataValidadeLicenca = novaDataValidadeLicenca.plus(Duration.ofDays(30));
-            novoDiasLicenca += 30; 
+            novoDiasLicenca += 30;
         } else if (tipoLicenca == TipoLicenca.SEMESTRAL) {
             novaDataValidadeLicenca = novaDataValidadeLicenca.plus(Duration.ofDays(180));
             novoDiasLicenca += 180;
