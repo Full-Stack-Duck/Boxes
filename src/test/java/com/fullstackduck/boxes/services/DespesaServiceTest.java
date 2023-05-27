@@ -12,6 +12,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -53,7 +54,7 @@ class DespesaServiceTest {
 		
 		when(repository.findAll()).thenReturn(despesas);
 		
-		Double valorTotal = service.calcularValorTotalDespesas();
+		CompletableFuture<Double> valorTotal = service.calcularValorTotalDespesas();
 		
 		assertEquals(150.0, valorTotal);
 	}
@@ -64,7 +65,7 @@ class DespesaServiceTest {
 		Despesa despesa = new Despesa(1L, "Despesa 1", Categoria.FIXA, 100.0, "Observação 1",null,null,null);
 		when(repository.findById(1L)).thenReturn(Optional.of(despesa));
 		
-		Despesa result = service.findById(1L);
+		CompletableFuture<Despesa> result = service.findById(1L);
 		
 		assertEquals(despesa, result);
 	}
@@ -74,7 +75,7 @@ class DespesaServiceTest {
 		Despesa despesa = new Despesa(1L, "Despesa 1", Categoria.FIXA, 100.0, "Observação 1",null,null,null);
 		when(repository.save(despesa)).thenReturn(despesa);
 		
-		Despesa result = service.inserirDespesa(despesa);
+		CompletableFuture<Despesa> result = service.inserirDespesa(despesa);
 		
 		assertEquals(despesa, result);
 	}
@@ -99,19 +100,20 @@ class DespesaServiceTest {
 	void testListarDespesasCategoria() {
 	    Categoria categoria = Categoria.FIXA;
 	    List<Despesa> despesas = new ArrayList<>();
-	    despesas.add(new Despesa(1L, "Despesa 1", Categoria.FIXA, 100.0, "Observação 1", null,null,null));
-	    despesas.add(new Despesa(2L, "Despesa 2", Categoria.MATERIA_PRIMA, 200.0, "Observação 2", null,null,null));
-	    despesas.add(new Despesa(3L, "Despesa 3", Categoria.FIXA, 50.0, "Observação 3", null,null,null));
-	    
+	    despesas.add(new Despesa(1L, "Despesa 1", Categoria.FIXA, 100.0, "Observação 1", null, null, null));
+	    despesas.add(new Despesa(2L, "Despesa 2", Categoria.MATERIA_PRIMA, 200.0, "Observação 2", null, null, null));
+	    despesas.add(new Despesa(3L, "Despesa 3", Categoria.FIXA, 50.0, "Observação 3", null, null, null));
+
 	    when(repository.findByCategoria(1)).thenReturn(despesas.stream().filter(d -> d.getCategoria() == categoria).collect(Collectors.toList()));
-	    
-	    List<Despesa> resultado = service.listarDespesasCategoria(categoria);
-	    
+
+	    CompletableFuture<List<Despesa>> resultado = service.listarDespesasCategoria(categoria);
+
 	    assertNotNull(resultado);
-	    assertEquals(2, resultado.size());
-	    assertTrue(resultado.contains(despesas.get(0)));
-	    assertTrue(resultado.contains(despesas.get(2)));
+	    assertEquals(2, resultado.join().size());
+	    assertTrue(resultado.join().contains(despesas.get(0)));
+	    assertTrue(resultado.join().contains(despesas.get(2)));
 	}
+
 	
 	@Test
 	void testListarDespesasPorPeriodo() {
@@ -128,13 +130,13 @@ class DespesaServiceTest {
 
 	    when(repository.findByDataDespesaBetween(instantDataInicio, instantDataFim)).thenReturn(despesas);
 
-	    List<Despesa> resultado = service.listarDespesaPeriodo(dataInicio, dataFim);
+	    CompletableFuture<List<Despesa>> resultado = service.listarDespesaPeriodo(dataInicio, dataFim);
 
 	    assertNotNull(resultado);
-	    assertEquals(2, resultado.size());
-	    assertTrue(resultado.contains(despesas.get(0)));
-	    assertTrue(resultado.contains(despesas.get(1)));
-	    assertFalse(resultado.contains(despesas.get(2)));
+	    assertEquals(2, resultado.join().size());
+	    assertTrue(resultado.join().contains(despesas.get(0)));
+	    assertTrue(resultado.join().contains(despesas.get(1)));
+	    assertFalse(resultado.join().contains(despesas.get(2)));
 	}
 
 
@@ -148,7 +150,7 @@ class DespesaServiceTest {
 	        when(usuarioMock.getDespesas()).thenReturn(despesasMock);
 
 	        // Chamar o método do serviço
-	        List<Despesa> resultado = service.listarDespesas(idUsuario);
+	        CompletableFuture<List<Despesa>> resultado = service.listarDespesas(idUsuario);
 
 	        // Verificar o resultado
 	        assertEquals(despesasMock, resultado);

@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -19,7 +20,7 @@ import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
 
-@Service //Registro de componente
+@Service
 public class DespesaService {
 
 	@Autowired
@@ -29,29 +30,28 @@ public class DespesaService {
 	private UsuarioRepository usuarioRepository;
 	
 	@Async
-	public List<Despesa> findAll(){
-		return despesaRepository.findAll();
+	public CompletableFuture<List<Despesa>> findAll(){
+		List<Despesa> despesas = despesaRepository.findAll();
+		return CompletableFuture.completedFuture(despesas);
 	}
 	
 	@Async
-	public Despesa findById(Long id) {
+	public CompletableFuture<Despesa> findById(Long id) {
 		Optional<Despesa> obj = despesaRepository.findById(id);
-		return obj.get();
+		return CompletableFuture.completedFuture(obj.get());
 	}
 
-	//insere despesa no banco de dados
 	@Async
-	public Despesa inserirDespesa(Despesa obj) {
-		return despesaRepository.save(obj);
+	public CompletableFuture<Despesa> inserirDespesa(Despesa obj) {
+		return CompletableFuture.completedFuture(despesaRepository.save(obj));
 	}
 	
-	//atualiza dados da despesa no banco de dados
 	@Async
-	public Despesa atualizarDespesa(Long id, Despesa obj) {
+	public CompletableFuture<Despesa> atualizarDespesa(Long id, Despesa obj) {
 		try {
 			Despesa entity = despesaRepository.getReferenceById(id);
 			atualizarDadosDespesa(entity, obj);
-			return despesaRepository.save(entity);
+			return CompletableFuture.completedFuture(despesaRepository.save(entity));
 		}catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
@@ -67,38 +67,40 @@ public class DespesaService {
 	}
 	
 	@Async
-	public void excluirDespesa(Long id) {
-        Despesa despesa = despesaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Despesa não encontrada com o id: " + id));
+	public CompletableFuture<Void> excluirDespesa(Long id) {
+		Despesa despesa = despesaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Despesa não encontrada com o id: " + id));
         despesaRepository.delete(despesa);
+        return CompletableFuture.completedFuture(null);
     }
 	
 	@Async
-	public Double calcularValorTotalDespesas() {
-	    List<Despesa> despesas = despesaRepository.findAll();
+	public CompletableFuture<Double> calcularValorTotalDespesas() {
+		List<Despesa> despesas = despesaRepository.findAll();
 	    Double valorTotal = 0.0;
 	    for (Despesa despesa : despesas) {
 	        valorTotal += despesa.getValor();
 	    }
-	    return valorTotal;
+	    return CompletableFuture.completedFuture(valorTotal);
 	}
 	
 	@Transactional
 	@Async
-	public List<Despesa> listarDespesas(Long idUsuario) {
+	public CompletableFuture<List<Despesa>> listarDespesas(Long idUsuario) {
         Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
-        return usuario.getDespesas();
+        return CompletableFuture.completedFuture(usuario.getDespesas());
     }
 	
 	@Transactional
 	@Async
-	public List<Despesa> listarDespesaPeriodo(String dataInicio, String dataFim) {
+	public CompletableFuture<List<Despesa>> listarDespesaPeriodo(String dataInicio, String dataFim) {
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
 		Instant data1 = Instant.from(formatter.parse(dataInicio));
 		Instant data2 = Instant.from(formatter.parse(dataFim));
-	    return despesaRepository.findByDataDespesaBetween(data1, data2);
+	    return CompletableFuture.completedFuture(despesaRepository.findByDataDespesaBetween(data1, data2));
 	}
+	
 	@Async
-	public List<Despesa> listarDespesasCategoria(Categoria categoria) {
-	    return despesaRepository.findByCategoria(categoria.getCode());
+	public CompletableFuture<List<Despesa>> listarDespesasCategoria(Categoria categoria) {
+	    return CompletableFuture.completedFuture(despesaRepository.findByCategoria(categoria.getCode()));
 	}
 }

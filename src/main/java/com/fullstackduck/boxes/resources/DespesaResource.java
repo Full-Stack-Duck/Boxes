@@ -2,6 +2,7 @@ package com.fullstackduck.boxes.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ import com.fullstackduck.boxes.services.DespesaService;
 
 import jakarta.validation.Valid;
 
-//Controlador Rest
+// Controlador Rest
 @RestController
 @CrossOrigin(origins = "*")
 @EnableAsync
@@ -33,51 +34,48 @@ public class DespesaResource {
 
 	@Autowired
 	private DespesaService service;
-	
-	
+
 	@GetMapping
-	public ResponseEntity<List<Despesa>> findAll(){
-		List<Despesa> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+	public CompletableFuture<ResponseEntity<List<Despesa>>> findAll() {
+		return service.findAll().thenApply(ResponseEntity::ok);
 	}
-	
+
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Despesa> findById(@PathVariable Long id){
-		Despesa obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+	public CompletableFuture<ResponseEntity<Despesa>> findById(@PathVariable Long id) {
+		return service.findById(id).thenApply(ResponseEntity::ok);
 	}
-	
+
 	@PostMapping
 	@Transactional
-	public ResponseEntity<Despesa> inserirDespesa(@Valid @RequestBody Despesa obj) {
-		obj = service.inserirDespesa(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).body(obj);
+	public CompletableFuture<ResponseEntity<Despesa>> inserirDespesa(@Valid @RequestBody Despesa obj) {
+		return service.inserirDespesa(obj).thenApply((despesa) -> {
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+					.buildAndExpand(despesa.getId()).toUri();
+			return ResponseEntity.created(uri).body(despesa);
+		});
 	}
-	
+
 	@DeleteMapping("/{id}")
 	@Transactional
-	public ResponseEntity<Despesa> excluirDespesa(@PathVariable Long id) {
-	    service.excluirDespesa(id);
-	    return ResponseEntity.noContent().build();
+	public CompletableFuture<ResponseEntity<Void>> excluirDespesa(@PathVariable Long id) {
+		return service.excluirDespesa(id).thenApply((Void) -> ResponseEntity.noContent().build());
 	}
-	
+
 	@PutMapping(value = "/{id}/attDespesa")
 	@Transactional
-	public ResponseEntity<Despesa> atualizarDespesa(@PathVariable Long id, @RequestBody Despesa obj){
-		obj = service.atualizarDespesa(id, obj);
-		return ResponseEntity.ok().body(obj);
+	public CompletableFuture<ResponseEntity<Despesa>> atualizarDespesa(@PathVariable Long id,
+			@RequestBody Despesa obj) {
+		return service.atualizarDespesa(id, obj).thenApply(ResponseEntity::ok);
 	}
-	
+
 	@GetMapping(value = "/{id}/despesas")
-	public ResponseEntity<List<Despesa>> listarDespesas(@PathVariable Long id) {
-	    List<Despesa> orcamentos = service.listarDespesas(id);
-	    return ResponseEntity.ok().body(orcamentos);
+	public CompletableFuture<ResponseEntity<List<Despesa>>> listarDespesas(@PathVariable Long id) {
+		return service.listarDespesas(id).thenApply(ResponseEntity::ok);
 	}
-	
+
 	@GetMapping(value = "/{id}/despesaspd")
-	public List<Despesa> listarDespesasPeriodo(@PathVariable Long id,@RequestParam String dataInicio, @RequestParam String dataFim){
-		List<Despesa> orcamentos = service.listarDespesaPeriodo(dataInicio, dataFim);
-		return orcamentos;
+	public CompletableFuture<List<Despesa>> listarDespesasPeriodo(@PathVariable Long id,
+			@RequestParam String dataInicio, @RequestParam String dataFim) {
+		return service.listarDespesaPeriodo(dataInicio, dataFim);
 	}
 }
