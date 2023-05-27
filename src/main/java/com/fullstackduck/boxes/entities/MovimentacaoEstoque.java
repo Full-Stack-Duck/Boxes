@@ -2,6 +2,7 @@ package com.fullstackduck.boxes.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.concurrent.CompletableFuture;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,4 +40,10 @@ public class MovimentacaoEstoque implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "produto_id")
 	@Getter @Setter private Produto produto;
+
+	public CompletableFuture<Void> thenApply(Object object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
