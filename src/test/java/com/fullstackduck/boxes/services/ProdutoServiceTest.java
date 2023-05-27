@@ -31,7 +31,7 @@ class ProdutoServiceTest {
   @BeforeEach
   void setup() {
     MockitoAnnotations.openMocks(this);
-    produtoService = new ProdutoService(repository);
+    produtoService = new ProdutoService();
   }
 
   @Test

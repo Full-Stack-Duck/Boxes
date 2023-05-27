@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -18,7 +19,7 @@ import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
 
-@Service //Registro de componente
+@Service
 public class ClienteService {
 
 	@Autowired
@@ -28,41 +29,42 @@ public class ClienteService {
 	private UsuarioRepository usuarioRepository;
 	
 	@Async
-	public List<Cliente> findAll(){
-		return clienteRepository.findAll();
+	public CompletableFuture<List<Cliente>> findAll(){
+		List<Cliente> clientes = clienteRepository.findAll();
+		return CompletableFuture.completedFuture(clientes);
 	}
 	
 	@Async
-	public Cliente findById(Long id) {
+	public CompletableFuture<Cliente> findById(Long id) {
 		Optional<Cliente> obj = clienteRepository.findById(id);
-		return obj.get();
+		return CompletableFuture.completedFuture(obj.get());
 	}
 
-	//insere cliente no banco de dados
 	@Async
-	public Cliente inserirCliente(Cliente obj) {
-		return clienteRepository.save(obj);
+	public CompletableFuture<Cliente> inserirCliente(Cliente obj) {
+		Cliente cliente = clienteRepository.save(obj);
+		return CompletableFuture.completedFuture(cliente);
 	}
 	
-	//atualiza status do cliente no banco de dados
 	@Async
-	public Cliente atualizarStatusCliente(Long id, Cliente obj) {
+	public CompletableFuture<Cliente> atualizarStatusCliente(Long id, Cliente obj) {
 		try {
 			Cliente entity = clienteRepository.getReferenceById(id);
 			atualizarStatusCliente(entity, obj);
-			return clienteRepository.save(entity);
-		} catch (EntityNotFoundException e) {
+			Cliente cliente = clienteRepository.save(entity);
+			return CompletableFuture.completedFuture(cliente);
+			} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
 	}
 	
-	//atualiza dados do cliente no banco de dados
 	@Async
-	public Cliente atualizarCliente(Long id, Cliente obj) {
+	public CompletableFuture<Cliente> atualizarCliente(Long id, Cliente obj) {
 		try {
 			Cliente entity = clienteRepository.getReferenceById(id);
 			atualizarDadosCliente(entity, obj);
-			return clienteRepository.save(entity);
+			Cliente cliente = clienteRepository.save(entity);
+			return CompletableFuture.completedFuture(cliente);
 		}catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
@@ -84,17 +86,19 @@ public class ClienteService {
 	
 	@Transactional
 	@Async
-	public List<Cliente> listarClientes(Long idUsuario) {
+	public CompletableFuture<List<Cliente>> listarClientes(Long idUsuario) {
         Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
-        return usuario.getClientes();
+        List<Cliente> clientes = usuario.getClientes();
+        return CompletableFuture.completedFuture(clientes);
     }
 	
 	@Transactional
 	@Async
-	public List<Cliente> listarClientePeriodo(String dataInicio, String dataFim) {
+	public CompletableFuture<List<Cliente>> listarClientePeriodo(String dataInicio, String dataFim) {
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
 		Instant data1 = Instant.from(formatter.parse(dataInicio));
 		Instant data2 = Instant.from(formatter.parse(dataFim));
-	    return clienteRepository.findByDataClienteBetween(data1, data2);
+	    List<Cliente> clientes = clienteRepository.findByDataClienteBetween(data1, data2);
+	    return CompletableFuture.completedFuture(clientes);
 	}
 }
