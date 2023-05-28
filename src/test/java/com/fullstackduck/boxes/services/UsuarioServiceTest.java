@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,11 +49,11 @@ public class UsuarioServiceTest {
 
         when(repository.findAll()).thenReturn(usuarios);
 
-        List<Usuario> result = service.findAll();
+        CompletableFuture<List<Usuario>> result = service.findAll();
 
-        Assertions.assertEquals(2, result.size());
-        Assertions.assertEquals("João", result.get(0).getNome());
-        Assertions.assertEquals("Maria", result.get(1).getNome());
+        Assertions.assertEquals(2, result.join().size());
+        Assertions.assertEquals("João", result.join().get(0).getNome());
+        Assertions.assertEquals("Maria", result.join().get(1).getNome());
     }
 
     @Test

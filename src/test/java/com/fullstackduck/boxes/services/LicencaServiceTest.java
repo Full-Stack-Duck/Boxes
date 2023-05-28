@@ -4,11 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,12 +17,10 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fullstackduck.boxes.entities.Licenca;
-import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.StatusLicenca;
 import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 import com.fullstackduck.boxes.repositories.LicencaRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
-import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
 @SpringBootTest
 public class LicencaServiceTest {
@@ -51,10 +48,10 @@ public class LicencaServiceTest {
         licencas.add(licenca);
         when(licencaRepositoryMock.findAll()).thenReturn(licencas);
 
-        List<Licenca> result = licencaService.findAll();
+        CompletableFuture<List<Licenca>> result = licencaService.findAll();
 
-        assertEquals(1, result.size());
-        assertEquals(TipoLicenca.MENSAL, result.get(0).getTipoLicenca());
+        assertEquals(1, result.join().size());
+        assertEquals(TipoLicenca.MENSAL, result.join().get(0).getTipoLicenca());
     }
 
     @Test
@@ -64,9 +61,9 @@ public class LicencaServiceTest {
         licenca.setTipoLicenca(TipoLicenca.MENSAL);
         when(licencaRepositoryMock.findById(id)).thenReturn(Optional.of(licenca));
 
-        Licenca result = licencaService.findById(id);
+        CompletableFuture<Licenca> result = licencaService.findById(id);
 
-        assertEquals(TipoLicenca.MENSAL, result.getTipoLicenca());
+        assertEquals(TipoLicenca.MENSAL, result.join().getTipoLicenca());
     }
 
         
@@ -80,9 +77,9 @@ public class LicencaServiceTest {
         Licenca obj = new Licenca();
         obj.setStatusLicenca(StatusLicenca.EXPIRADA);
 
-        Licenca result = licencaService.atualizarStatusLicenca(id, obj);
+        CompletableFuture<Licenca> result = licencaService.atualizarStatusLicenca(id, obj);
 
-        assertEquals(StatusLicenca.EXPIRADA, result.getStatusLicenca());
+        assertEquals(StatusLicenca.EXPIRADA, result.join().getStatusLicenca());
     }
     
    

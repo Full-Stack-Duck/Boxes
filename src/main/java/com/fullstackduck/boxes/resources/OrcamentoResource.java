@@ -3,6 +3,7 @@ package com.fullstackduck.boxes.resources;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,8 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fullstackduck.boxes.entities.ItensOrcamento;
 import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.services.OrcamentoService;
@@ -30,100 +29,94 @@ import com.fullstackduck.boxes.services.exceptions.EstoqueInsuficienteException;
 
 import jakarta.validation.Valid;
 
-//Controlador Rest
 @RestController
 @CrossOrigin(origins = "*")
 @EnableAsync
-@RequestMapping(value = "/orcamentos")
+@RequestMapping("/orcamentos")
 public class OrcamentoResource {
 
-	@Autowired
-	private OrcamentoService service;
-	
-	@GetMapping
-	public List<Orcamento> findAll(){
-		return service.findAll();
-	}
-	
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<Orcamento> findById(@PathVariable Long id){
-		Orcamento obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
-	}
+    @Autowired
+    private OrcamentoService orcamentoService;
 
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	@Transactional
-	public Orcamento inserirOrcamento(@Valid @RequestBody Orcamento obj) {
-		service.calcularTotal(obj);
-		return obj;
-	}
-	
-	@PutMapping(value = "/{id}/attStatus")
-	@Transactional
-	public ResponseEntity<Orcamento> atualizarStatusOrcamento(@PathVariable Long id, @RequestBody Orcamento obj){
-		obj = service.atualizarStatusOrcamento(id, obj);
-		return ResponseEntity.ok().body(obj);
-	}
+    @GetMapping
+    public CompletableFuture<List<Orcamento>> findAll() {
+        return orcamentoService.findAll();
+    }
 
-	
-	@PutMapping(value = "/{id}/attOrcamento")
-	@Transactional
-	public ResponseEntity<Orcamento> atualizarOrcamento(@PathVariable Long id, @RequestBody Orcamento obj){
-		obj = service.atualizarOrcamento(id, obj);
-		return ResponseEntity.ok().body(obj);
-	}
-	
-	@PutMapping(value = "/{id}/adicionarItem/{produtoId}")
-	@Transactional
-	public ResponseEntity<Orcamento> adicionarItem(@PathVariable Long id, @PathVariable Integer produtoId, @RequestBody ItensOrcamento item) {
-		Orcamento orcamento = service.adicionarItem(id, produtoId, item);
-		service.calcularTotal(orcamento);
-        return ResponseEntity.ok().body(orcamento);
-	  }
-	
-	@DeleteMapping(value = "/{id}")
-	@Transactional
-	public ResponseEntity<Orcamento> removerItem(@PathVariable Long id, @PathVariable Long produtoId) {
-		Orcamento orcamento = service.removerItem(id, produtoId);
-		service.calcularTotal(orcamento);
-        return ResponseEntity.ok().body(orcamento);
-	  }
-	
-	@GetMapping(value = "/{id}/orcamentos")
-	public ResponseEntity<List<Orcamento>> listarOrcamentos(@PathVariable Long id) {
-	    List<Orcamento> orcamentos = service.listarOrcamentos(id);
-	    return ResponseEntity.ok().body(orcamentos);
-	}
-	
-	@GetMapping(value = "/{id}/orcamentospd")
-	public List<Orcamento> listarOrcamentosPeriodo(@PathVariable Long id,@RequestParam String dataInicio, @RequestParam String dataFim){
-		List<Orcamento> orcamentos = service.listarOrcamentoPeriodo(dataInicio, dataFim);
-		return orcamentos;
-	}
-	
-	@PostMapping("/{id}/gerar-pedido")
-	public ResponseEntity<String> gerarPedido(@PathVariable Long id) throws JsonProcessingException {
-	    Orcamento orcamento = service.findById(id);
-	    try {
-	        service.gerarPedido(orcamento);
-	        String sucessMessage = "Pedido gerado com sucesso.";
-	        // Criar um objeto Map para encapsular a mensagem de erro
-	        Map<String, String> doneMap = new HashMap<>();
-	        doneMap.put("Feito", sucessMessage);
-	        // Converter o Map para uma string JSON usando o ObjectMapper do Jackson
-	        ObjectMapper objectMapper = new ObjectMapper();
-	        String json = objectMapper.writeValueAsString(doneMap);
-	        return ResponseEntity.status(HttpStatus.CREATED).body(json);
-	    } catch (EstoqueInsuficienteException e) {
-	        String errorMessage = e.getMessage();
-	        // Criar um objeto Map para encapsular a mensagem de erro
-	        Map<String, String> errorMap = new HashMap<>();
-	        errorMap.put("error", errorMessage);
-	        // Converter o Map para uma string JSON usando o ObjectMapper do Jackson
-	        ObjectMapper objectMapper = new ObjectMapper();
-	        String json = objectMapper.writeValueAsString(errorMap);
-	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(json);
-	    }
-	}
+    @GetMapping("/{id}")
+    public CompletableFuture<ResponseEntity<Orcamento>> findById(@PathVariable Long id) {
+        return orcamentoService.findById(id)
+                .thenApply(ResponseEntity::ok)
+                .exceptionally(e -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    @Transactional
+    public CompletableFuture<Orcamento> inserirOrcamento(@Valid @RequestBody Orcamento obj) {
+        return orcamentoService.inserirOrcamento(obj);
+    }
+
+    @PutMapping("/{id}/attStatus")
+    @Transactional
+    public CompletableFuture<ResponseEntity<Orcamento>> atualizarStatusOrcamento(@PathVariable Long id, @RequestBody Orcamento obj) {
+        return orcamentoService.atualizarStatusOrcamento(id, obj)
+                .thenApply(ResponseEntity::ok)
+                .exceptionally(e -> ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}/attOrcamento")
+    @Transactional
+    public CompletableFuture<ResponseEntity<Orcamento>> atualizarOrcamento(@PathVariable Long id, @RequestBody Orcamento obj) {
+        return orcamentoService.atualizarOrcamento(id, obj)
+                .thenApply(ResponseEntity::ok)
+                .exceptionally(e -> ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}/adicionarItem/{produtoId}")
+    @Transactional
+    public CompletableFuture<ResponseEntity<Orcamento>> adicionarItem(@PathVariable Long id, @PathVariable Integer produtoId, @RequestBody ItensOrcamento item) {
+        return orcamentoService.adicionarItem(id, produtoId, item)
+                .thenApply(ResponseEntity::ok)
+                .exceptionally(e -> ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public CompletableFuture<ResponseEntity<Orcamento>> removerItem(@PathVariable Long id, @RequestParam Long produtoId) {
+        return orcamentoService.removerItem(id, produtoId)
+                .thenApply(ResponseEntity::ok)
+                .exceptionally(e -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{id}/orcamentos")
+    public CompletableFuture<ResponseEntity<List<Orcamento>>> listarOrcamentos(@PathVariable Long id) {
+        return orcamentoService.listarOrcamentos(id)
+                .thenApply(ResponseEntity::ok)
+                .exceptionally(e -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{id}/orcamentospd")
+    public CompletableFuture<List<Orcamento>> listarOrcamentosPeriodo(@PathVariable Long id, @RequestParam String dataInicio, @RequestParam String dataFim) {
+        return orcamentoService.listarOrcamentoPeriodo(dataInicio, dataFim);
+    }
+
+    @PostMapping("/{id}/gerarPedido")
+    @Transactional
+    public CompletableFuture<ResponseEntity<Map<String, String>>> gerarPedido(@PathVariable Long id) {
+        try {
+            return orcamentoService.gerarPedido(id)
+                    .thenApply(pedido -> {
+                        Map<String, String> response = new HashMap<>();
+                        response.put("message", "Pedido gerado com sucesso.");
+                        response.put("pedidoId", pedido.getId().toString());
+                        return ResponseEntity.ok(response);
+                    })
+                    .exceptionally(e -> ResponseEntity.badRequest().build());
+        } catch (EstoqueInsuficienteException e) {
+            Map<String, String> response = new HashMap<>();
+            response.put("error", e.getMessage());
+            return CompletableFuture.completedFuture(ResponseEntity.badRequest().body(response));
+        }
+    }
 }

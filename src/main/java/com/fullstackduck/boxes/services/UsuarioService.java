@@ -3,6 +3,7 @@ package com.fullstackduck.boxes.services;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 import javax.security.auth.login.LoginException;
 
@@ -29,9 +30,10 @@ public class UsuarioService {
 	private UsuarioRepository repository;
 	
 	@Async
-	public List<Usuario> findAll(){
-		return repository.findAll();
-	}
+    public CompletableFuture<List<Usuario>> findAll() {
+        List<Usuario> usuarios = repository.findAll();
+        return CompletableFuture.completedFuture(usuarios);
+    }
 	
 	@Async
 	public Usuario findById(Long id) {

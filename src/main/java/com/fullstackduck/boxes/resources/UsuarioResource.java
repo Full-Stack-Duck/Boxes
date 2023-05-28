@@ -3,6 +3,7 @@ package com.fullstackduck.boxes.resources;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 import javax.security.auth.login.LoginException;
 
@@ -38,10 +39,9 @@ public class UsuarioResource {
 	private UsuarioService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Usuario>> findAll(){
-		List<Usuario> list = service.findAll();
-		return ResponseEntity.ok().body(list);
-	}
+	public CompletableFuture<ResponseEntity<List<Usuario>>> findAll() {
+        return service.findAll().thenApply(ResponseEntity::ok);
+    }
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Usuario> findById(@PathVariable Long id){
