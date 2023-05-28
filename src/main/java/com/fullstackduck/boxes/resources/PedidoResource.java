@@ -3,6 +3,7 @@ package com.fullstackduck.boxes.resources;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,60 +23,61 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fullstackduck.boxes.entities.Pedido;
 import com.fullstackduck.boxes.services.PedidoService;
 
-//Controlador Rest
 @RestController
 @CrossOrigin(origins = "*")
 @EnableAsync
 @RequestMapping(value = "/pedidos")
 public class PedidoResource {
 
-	@Autowired
-	private PedidoService service;
-	
-	@GetMapping
-	public ResponseEntity<List<Pedido>> findAll(){
-		List<Pedido> list = service.findAll();
-		return ResponseEntity.ok().body(list);
-	}
-	
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<Pedido> findById(@PathVariable Long id){
-		Pedido obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
-	}
-	
-	@GetMapping(value = "/{id}/pedidos")
-	public ResponseEntity<List<Pedido>> listarOrcamentos(@PathVariable Long id) {
-	    List<Pedido> pedidos = service.listarPedidos(id);
-	    return ResponseEntity.ok().body(pedidos);
-	}
-	
-	@GetMapping(value = "/{id}/orcamentospd")
-	public List<Pedido> listarOrcamentosPeriodo(@PathVariable Long id,@RequestParam String dataInicio, @RequestParam String dataFim){
-		List<Pedido> pedidos = service.listarPedidosPeriodo(dataInicio, dataFim);
-		return pedidos;
-	}
-	
-	@PutMapping(value = "/{id}/status-pedido")
-	public ResponseEntity<Pedido> atualizarStatusPedido(@PathVariable Long id, @RequestBody Pedido obj) {
-	    Pedido pedido = service.atualizarStatusPedido(id, obj);
-	    return ResponseEntity.ok().body(pedido);
-	}
+    @Autowired
+    private PedidoService service;
 
-	 @PutMapping(value = "/{id}/status-pagamento")
-	 public ResponseEntity<Pedido> atualizarStatusPagamentoPedido(@PathVariable Long id, @RequestBody Pedido obj) {
-	     Pedido pedido = service.atualizarStatusPagamentoPedido(id, obj);
-	     return ResponseEntity.ok().body(pedido);
-	 }
-	 
-	 @PutMapping(value = "/{id}/cancelarPedido")
-	 public ResponseEntity<String> cancelarPedido(@PathVariable Long id) throws JsonProcessingException{
-        service.cancelarPedido(id);
-        String sucessMessage = "Pedido cancelado";
-        Map<String, String> doneMap = new HashMap<>();
-        doneMap.put("Cancelado", sucessMessage);
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(doneMap);
-        return ResponseEntity.status(HttpStatus.CREATED).body(json);
-	 }    
+    @GetMapping
+    public CompletableFuture<ResponseEntity<List<Pedido>>> findAll() {
+        return service.findAll().thenApply(ResponseEntity::ok);
+    }
+
+    @GetMapping(value = "/{id}")
+    public CompletableFuture<ResponseEntity<Pedido>> findById(@PathVariable Long id) {
+        return service.findById(id).thenApply(ResponseEntity::ok);
+    }
+
+    @GetMapping(value = "/{id}/pedidos")
+    public CompletableFuture<ResponseEntity<List<Pedido>>> listarPedidos(@PathVariable Long id) {
+        return service.listarPedidos(id).thenApply(ResponseEntity::ok);
+    }
+
+    @GetMapping(value = "/{id}/orcamentospd")
+    public CompletableFuture<List<Pedido>> listarOrcamentosPeriodo(@PathVariable Long id, @RequestParam String dataInicio, @RequestParam String dataFim) {
+        return service.listarPedidosPeriodo(dataInicio, dataFim);
+    }
+
+    @PutMapping(value = "/{id}/status-pedido")
+    public CompletableFuture<ResponseEntity<Pedido>> atualizarStatusPedido(@PathVariable Long id, @RequestBody Pedido obj) {
+        return service.atualizarStatusPedido(id, obj).thenApply(ResponseEntity::ok);
+    }
+
+    @PutMapping(value = "/{id}/status-pagamento")
+    public CompletableFuture<ResponseEntity<Pedido>> atualizarStatusPagamentoPedido(@PathVariable Long id, @RequestBody Pedido obj) {
+        return service.atualizarStatusPagamentoPedido(id, obj).thenApply(ResponseEntity::ok);
+    }
+
+    @PutMapping(value = "/{id}/cancelarPedido")
+    public CompletableFuture<ResponseEntity<String>> cancelarPedido(@PathVariable Long id) throws JsonProcessingException {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                service.cancelarPedido(id);
+                String successMessage = "Pedido cancelado";
+                Map<String, String> doneMap = new HashMap<>();
+                doneMap.put("Cancelado", successMessage);
+
+                ObjectMapper objectMapper = new ObjectMapper();
+                String json = objectMapper.writeValueAsString(doneMap);
+                return ResponseEntity.status(HttpStatus.CREATED).body(json);
+            } catch (JsonProcessingException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao processar a resposta JSON");
+            }
+        });
+    }
+
 }
