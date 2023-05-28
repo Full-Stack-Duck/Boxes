@@ -21,11 +21,9 @@ import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
 
-@Service //Registro de componente
+@Service
 public class UsuarioService {
 	
-
-
 	@Autowired
 	private UsuarioRepository repository;
 	
@@ -36,37 +34,37 @@ public class UsuarioService {
     }
 	
 	@Async
-	public Usuario findById(Long id) {
+	public CompletableFuture<Usuario> findById(Long id) {
 		Optional<Usuario> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		return CompletableFuture.completedFuture(obj.orElseThrow(() -> new ResourceNotFoundException(id)));
 	}
 	
-	//insere usuario no banco de dados
 	@Async
-	public Usuario inserirUsuario(Usuario obj) {
+	public CompletableFuture<Usuario> inserirUsuario(Usuario obj) {
 		obj.setDatacadastro(Instant.now());
-	    return repository.save(obj);
+		Usuario usuario = repository.save(obj);
+		return CompletableFuture.completedFuture(usuario);
 	}
 	
-	//atualiza status do usuario no banco de dados
 	@Async
-	public Usuario atualizarStatusUsuario(Long id, Usuario obj) {
+	public CompletableFuture<Usuario> atualizarStatusUsuario(Long id, Usuario obj) {
 		try {
 			Usuario entity = repository.getReferenceById(id);
 			atualizarStatus(entity, obj);
-			return repository.save(entity);
+			Usuario usuario = repository.save(entity);
+			return CompletableFuture.completedFuture(usuario);
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
 	}
 	
-	//atualiza dados do usuario no banco de dados
 	@Async
-	public Usuario atualizarUsuario(Long id, Usuario obj) {
+	public CompletableFuture<Usuario> atualizarUsuario(Long id, Usuario obj) {
 		try {
 			Usuario entity = repository.getReferenceById(id);
 			atualizarDados(entity, obj);
-			return repository.save(entity);
+			Usuario usuario = repository.save(entity);
+			return CompletableFuture.completedFuture(usuario);
 		}catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
@@ -89,62 +87,58 @@ public class UsuarioService {
 	}
 	
 	@Async
-	public String recuperarSenha(String email) {
-        Usuario usuario = repository.findByEmail(email);
-        if (usuario == null) {
-            throw new ResourceNotFoundException("Usuário não encontrado para o email: " + email);
-        }
-        return usuario.getSenha();
-    }
+	public CompletableFuture<String> recuperarSenha(String email) {
+		Usuario usuario = repository.findByEmail(email);
+		if (usuario == null) {
+			throw new ResourceNotFoundException("Usuário não encontrado para o email: " + email);
+		}
+		return CompletableFuture.completedFuture(usuario.getSenha());
+	}
 
 	@Async
-    public boolean validarSenha(String email, String senha) {
-        Usuario usuario = repository.findByEmail(email);
-        if (usuario == null) {
-            return false;
-        }
-        return usuario.getSenha().equals(senha);
-    }
+	public CompletableFuture<Boolean> validarSenha(String email, String senha) {
+		Usuario usuario = repository.findByEmail(email);
+		if (usuario == null) {
+			return CompletableFuture.completedFuture(false);
+		}
+		return CompletableFuture.completedFuture(usuario.getSenha().equals(senha));
+	}
     
 	@Async
-    public List<Cliente> listarClientes(Long idUsuario) {
-        Usuario usuario = findById(idUsuario);
-        return usuario.getClientes();
-    }
+	public CompletableFuture<List<Cliente>> listarClientes(Long idUsuario) {
+		Usuario usuario = findById(idUsuario).join();
+		return CompletableFuture.completedFuture(usuario.getClientes());
+	}
     
 	@Async
-    public List<Orcamento> listarOrcamentos(Long idUsuario) {
-        Usuario usuario = repository.getReferenceById(idUsuario);
-        return usuario.getOrcamentos();
-    }
+	public CompletableFuture<List<Orcamento>> listarOrcamentos(Long idUsuario) {
+		Usuario usuario = repository.getReferenceById(idUsuario);
+		return CompletableFuture.completedFuture(usuario.getOrcamentos());
+	}
     
 	@Async
-    public List<Produto> listarProdutos(Long idUsuario) {
-        Usuario usuario = findById(idUsuario);
-        return usuario.getProdutos();
-    }
+	public CompletableFuture<List<Produto>> listarProdutos(Long idUsuario) {
+		Usuario usuario = findById(idUsuario).join();
+		return CompletableFuture.completedFuture(usuario.getProdutos());
+	}
     
 	@Async
-    public List<Receita> listarReceitas(Long idUsuario){
-    	Usuario usuario = repository.getReferenceById(idUsuario);
-    	return usuario.getReceitas();
-    }
+	public CompletableFuture<List<Receita>> listarReceitas(Long idUsuario){
+		Usuario usuario = repository.getReferenceById(idUsuario);
+		return CompletableFuture.completedFuture(usuario.getReceitas());
+	}
     
 	@Async
-    public Usuario login(String email, String senha) throws Exception {
-        Usuario usuario = repository.findByEmail(email);
-        if (usuario == null) {
-            throw new LoginException("Usuário não encontrado");
-        }
+	public CompletableFuture<Usuario> login(String email, String senha) throws LoginException {
+		Usuario usuario = repository.findByEmail(email);
+		if (usuario == null) {
+			throw new LoginException("Usuário não encontrado");
+		}
 
-        if (!usuario.getSenha().equals(senha)) {
-            throw new LoginException("Senha incorreta");
-        }
+		if (!usuario.getSenha().equals(senha)) {
+			throw new LoginException("Senha incorreta");
+		}
 
-        return usuario;
-    }
-    
-    
- 
+		return CompletableFuture.completedFuture(usuario);
+	}
 }
-
