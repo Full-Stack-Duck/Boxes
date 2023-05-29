@@ -1,9 +1,9 @@
 package com.fullstackduck.boxes.services;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -21,6 +21,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fullstackduck.boxes.entities.Cliente;
 import com.fullstackduck.boxes.entities.Usuario;
@@ -28,6 +30,7 @@ import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
 import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
+@SpringBootTest
 public class UsuarioServiceTest {
 
     @Mock
@@ -35,6 +38,9 @@ public class UsuarioServiceTest {
 
     @InjectMocks
     private UsuarioService service;
+    
+    @InjectMocks
+    private BCryptPasswordEncoder passwordEncoder;
 
     @BeforeEach
     void setUp() {
@@ -57,17 +63,20 @@ public class UsuarioServiceTest {
     }
 
     @Test
-    public void testFindById() {
+    public void testFindById() throws Exception {
         Long id = 1L;
         Usuario usuario = new Usuario(id, "João", "12345678901", "joao@example.com", "123456", "11999999999", "Rua A, 123", "logo1.png", null, Status.ATIVO);
 
         when(repository.findById(id)).thenReturn(Optional.of(usuario));
 
-        Usuario result = service.findById(id);
+        CompletableFuture<Usuario> result = service.findById(id);
 
-        Assertions.assertEquals(id, result.getId());
-        Assertions.assertEquals("João", result.getNome());
+        Usuario retrievedUsuario = result.get();
+
+        Assertions.assertEquals(id, retrievedUsuario.getId());
+        Assertions.assertEquals("João", retrievedUsuario.getNome());
     }
+
 
     @Test
     public void testFindByIdNotFound() {
@@ -81,26 +90,35 @@ public class UsuarioServiceTest {
     }
 
     @Test
-    public void testInserirUsuario() {
-        Usuario usuario = new Usuario(1L, "João", "12345678901", "joao@example.com", "123456", "11999999999", "Rua A, 123", "logo1.png", null, Status.ATIVO);
+    public void testInserirUsuario() throws Exception {
+    Usuario usuario = new Usuario(1L, "João", "12345678901", "joao@example.com", "123456", "11999999999", "Rua A, 123", "logo1.png", null, Status.ATIVO);
+    when(repository.save(any(Usuario.class))).thenReturn(usuario);
 
-        when(repository.save(any(Usuario.class))).thenReturn(usuario);
+    CompletableFuture<Usuario> result = service.inserirUsuario(usuario);
 
-        Usuario result = service.inserirUsuario(usuario);
+    Usuario insertedUsuario = result.get();
 
-        Assertions.assertEquals(1L, result.getId());
-        Assertions.assertEquals("João", result.getNome());
+    Assertions.assertEquals(1L, insertedUsuario.getId());
+    Assertions.assertEquals("João", insertedUsuario.getNome());
     }
     
+    
+
     @Test
-    public void testValidarSenha() {
+    public void testValidarSenha() throws Exception {
         String email = "fulano@teste.com";
         String senha = "senha123";
-        Usuario usuario = new Usuario(null, "Fulano", "11122233344", email, "12345678",senha, "Rua A", "logo.jpg", Instant.now(), Status.ATIVO);
+        Usuario usuario = new Usuario(null, "Fulano", "11122233344", email, "12345678", senha, "Rua A", "logo.jpg", Instant.now(), Status.ATIVO);
         Mockito.when(repository.findByEmail(email)).thenReturn(usuario);
-        assertTrue(service.validarSenha(email, senha));
-        assertFalse(service.validarSenha(email, "senha456"));
+
+        CompletableFuture<Boolean> senhaValida = service.validarSenha(email, senha);
+        assertTrue(senhaValida.get());
+
+        CompletableFuture<Boolean> senhaInvalida = service.validarSenha(email, "senha456");
+        assertFalse(senhaInvalida.get());
     }
+
+
     
    
 
@@ -117,7 +135,7 @@ public class UsuarioServiceTest {
     }
     
     @Test
-    public void testListarClientes() {
+    public void testListarClientes() throws Exception {
         // Cria um usuário com clientes vinculados
         Cliente c1 = new Cliente(null, "Cliente 1", null, null, null, null, null, null, null);
         Cliente c2 = new Cliente(null, "Cliente 2", null, null, null, null, null, null, null);
@@ -125,15 +143,15 @@ public class UsuarioServiceTest {
         usuario.getClientes().addAll(Arrays.asList(c1, c2));
 
         // Mock da resposta do repositório
-        when(repository.findById(1L)).thenReturn(Optional.of(usuario));
+        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(usuario));
 
         // Chama o método de listagem de clientes do service
-        List<Cliente> clientes = service.listarClientes(1L);
+        CompletableFuture<List<Cliente>> clientes = service.listarClientes(1L);
 
         // Verifica se a lista retornada contém os clientes vinculados ao usuário
-        assertEquals(2, clientes.size());
-        assertEquals("Cliente 1", clientes.get(0).getNome());
-        assertEquals("Cliente 2", clientes.get(1).getNome());
+        assertEquals(2, clientes.get().size());
+        assertEquals("Cliente 1", clientes.get().get(0).getNome());
+        assertEquals("Cliente 2", clientes.get().get(1).getNome());
     }
 
     

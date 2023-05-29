@@ -1,13 +1,13 @@
 package com.fullstackduck.boxes.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,7 +57,7 @@ public class OrcamentoServiceTest {
     when(orcamentoRepository.findAll()).thenReturn(orcamentos);
 
     // when
-    List<Orcamento> result = orcamentoService.findAll();
+    CompletableFuture<List<Orcamento>> result = orcamentoService.findAll();
 
     // then
     assertEquals(orcamentos, result);
@@ -73,7 +73,7 @@ public class OrcamentoServiceTest {
     when(orcamentoRepository.findById(id)).thenReturn(Optional.of(orcamento));
 
     // when
-    Orcamento result = orcamentoService.findById(id);
+    CompletableFuture<Orcamento> result = orcamentoService.findById(id);
 
     // then
     assertEquals(orcamento, result);
@@ -87,7 +87,7 @@ public class OrcamentoServiceTest {
     when(orcamentoRepository.save(orcamento)).thenReturn(orcamento);
 
     // when
-    Orcamento result = orcamentoService.inserirOrcamento(orcamento);
+    CompletableFuture<Orcamento> result = orcamentoService.inserirOrcamento(orcamento);
 
     // then
     assertEquals(orcamento, result);
@@ -106,7 +106,7 @@ public class OrcamentoServiceTest {
     when(orcamentoRepository.save(entity)).thenReturn(entity);
 
     // when
-    Orcamento result = orcamentoService.atualizarStatusOrcamento(id, obj);
+    CompletableFuture<Orcamento> result = orcamentoService.atualizarStatusOrcamento(id, obj);
 
     // then
     assertEquals(entity, result);
@@ -127,7 +127,7 @@ public class OrcamentoServiceTest {
     when(orcamentoRepository.save(entity)).thenReturn(entity);
 
     // when
-    Orcamento result = orcamentoService.atualizarOrcamento(id, obj);
+    CompletableFuture<Orcamento> result = orcamentoService.atualizarOrcamento(id, obj);
 
     // then
     assertEquals(entity, result);
@@ -139,41 +139,42 @@ public class OrcamentoServiceTest {
 
   @Test
   public void testAdicionarItem() {
-      // Criando um objeto Orcamento para ser usado no teste
-      Orcamento orcamento = new Orcamento();
-      orcamento.setId(1L);
-
-      // Criando um objeto Produto para ser usado no teste
-      Produto produto = new Produto();
-      produto.setId((long) 1);
-      produto.setValor(50.0);
-
-      // Criando um objeto ItensOrcamento para ser usado no teste
-      ItensOrcamento item = new ItensOrcamento();
-      item.setProduto(produto);
-      item.setPrecoUnit(produto.getValor());
-      item.setQuantidade(2);
-      item.setOrcamento(orcamento);
-      item.setPrecoTotal(produto.getValor() * 2);
-
-      // Mockando o comportamento dos repositórios e services
-      when(orcamentoRepository.getReferenceById(1L)).thenReturn(orcamento);
-      when(produtoRepository.getReferenceById(1)).thenReturn(produto);
-      when(itensRepository.save(item)).thenReturn(item);
-      when(orcamentoRepository.save(orcamento)).thenReturn(orcamento);
-
-      // Chamando o método a ser testado
-      Orcamento resultado = orcamentoService.adicionarItem(1L, 1, item);
-
-      // Verificando se o método chamado foi o esperado e se o resultado está correto
-      verify(orcamentoRepository).getReferenceById(1L);
-      verify(produtoRepository).getReferenceById(1);
-      verify(itensRepository).save(item);
-      verify(orcamentoRepository).save(orcamento);
-      assertEquals(1L, resultado.getId().longValue());
-      assertEquals(1, resultado.getItens().size());
-      assertEquals(item, resultado.getItens().iterator().next());
+  // Criando um objeto Orcamento para ser usado no teste
+    Orcamento orcamento = new Orcamento();
+    orcamento.setId(1L);
+	//Criando um objeto Produto para ser usado no teste
+	Produto produto = new Produto();
+	produto.setId((long) 1);
+	produto.setValor(50.0);
+	
+	//Criando um objeto ItensOrcamento para ser usado no teste
+	ItensOrcamento item = new ItensOrcamento();
+	item.setProduto(produto);
+	item.setPrecoUnit(produto.getValor());
+	item.setQuantidade(2);
+	item.setOrcamento(orcamento);
+	item.setPrecoTotal(produto.getValor() * 2);
+	
+	//Mockando o comportamento dos repositórios e services
+	when(orcamentoRepository.getReferenceById(1L)).thenReturn(orcamento);
+	when(produtoRepository.getReferenceById(1)).thenReturn(produto);
+	when(itensRepository.save(item)).thenReturn(item);
+	when(orcamentoRepository.save(orcamento)).thenReturn(orcamento);
+	
+	//Chamando o método a ser testado
+	CompletableFuture<Orcamento> resultado = orcamentoService.adicionarItem(1L, 1, item);
+	
+	//Verificando se o método chamado foi o esperado e se o resultado está correto
+	verify(orcamentoRepository).getReferenceById(1L);
+	verify(produtoRepository).getReferenceById(1);
+	verify(itensRepository).save(item);
+	verify(orcamentoRepository).save(orcamento);
+	assertEquals(1L, resultado..getId().longValue());
+	assertEquals(1, resultado.getItens().size());
+	assertEquals(item, resultado.getItens().iterator().next());
   }
+
+
 
 }
 
