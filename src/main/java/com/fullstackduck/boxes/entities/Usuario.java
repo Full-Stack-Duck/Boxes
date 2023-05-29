@@ -51,7 +51,7 @@ public class Usuario implements Serializable {
 	@Getter @Setter private String logo;
 	@Getter @Setter private Instant datacadastro;
 	private Integer status;
-	/*private String role;*/
+	/*private Set<Role> roles = new HashSet<>();*/
 	
 	@NotBlank
 	@Email
@@ -59,7 +59,6 @@ public class Usuario implements Serializable {
 	@Getter @Setter private String email;
 	
 	@NotBlank
-	@Size(min=8 , max = 20)
 	/*@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", message = "A senha deve ter pelo menos 8 caracteres, uma letra e um número")*/
 	@Getter @Setter private String senha;
 	
@@ -135,10 +134,14 @@ public class Usuario implements Serializable {
 		return atual;
 	}
 
-	/*@Override
+	/*public Set<Role> getRoles() {
+		return roles;
+	}
+
+	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		 return List.of(new SimpleGrantedAuthority(role));
+		return roles.stream().map(role -> new SimpleGrantedAuthority(((GrantedAuthority) role).getAuthority()))
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -175,5 +178,5 @@ public class Usuario implements Serializable {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
-	}*/
+	} */
 }

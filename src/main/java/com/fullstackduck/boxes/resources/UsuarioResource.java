@@ -47,7 +47,7 @@ public class UsuarioResource {
 	
 	@PostMapping
 	@Transactional
-	public CompletableFuture<ResponseEntity<Usuario>> inserirUsuario(@Valid @RequestBody Usuario obj) {
+	public CompletableFuture<ResponseEntity<Usuario>> inserirUsuario(@RequestBody Usuario obj) {
 		return service.inserirUsuario(obj).thenApply(usuario -> {
 			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(usuario.getId()).toUri();
 			return ResponseEntity.created(uri).body(usuario);

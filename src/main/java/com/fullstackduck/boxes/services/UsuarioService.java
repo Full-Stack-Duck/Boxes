@@ -9,6 +9,7 @@ import javax.security.auth.login.LoginException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.fullstackduck.boxes.entities.Cliente;
@@ -27,6 +28,10 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository repository;
 	
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+	
 	@Async
     public CompletableFuture<List<Usuario>> findAll() {
         List<Usuario> usuarios = repository.findAll();
@@ -39,12 +44,13 @@ public class UsuarioService {
 		return CompletableFuture.completedFuture(obj.orElseThrow(() -> new ResourceNotFoundException(id)));
 	}
 	
-	@Async
-	public CompletableFuture<Usuario> inserirUsuario(Usuario obj) {
-		obj.setDatacadastro(Instant.now());
-		Usuario usuario = repository.save(obj);
-		return CompletableFuture.completedFuture(usuario);
-	}
+	 public CompletableFuture<Usuario> inserirUsuario(Usuario obj) {
+	        obj.setDatacadastro(Instant.now());
+	        String encodedPassword = passwordEncoder.encode(obj.getSenha());
+	        obj.setSenha(encodedPassword);
+	        Usuario usuario = repository.save(obj);
+	        return CompletableFuture.completedFuture(usuario);
+	    }
 	
 	@Async
 	public CompletableFuture<Usuario> atualizarStatusUsuario(Long id, Usuario obj) {
