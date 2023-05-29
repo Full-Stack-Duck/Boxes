@@ -3,13 +3,10 @@ package com.fullstackduck.boxes.services;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 import javax.security.auth.login.LoginException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.fullstackduck.boxes.entities.Cliente;
@@ -22,61 +19,51 @@ import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
 
-@Service
+@Service //Registro de componente
 public class UsuarioService {
 	
+
+
 	@Autowired
 	private UsuarioRepository repository;
 	
-
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
-	
-	@Async
-    public CompletableFuture<List<Usuario>> findAll() {
-        List<Usuario> usuarios = repository.findAll();
-        return CompletableFuture.completedFuture(usuarios);
-    }
-	
-	@Async
-	public CompletableFuture<Usuario> findById(Long id) {
-		Optional<Usuario> obj = repository.findById(id);
-		return CompletableFuture.completedFuture(obj.orElseThrow(() -> new ResourceNotFoundException(id)));
+	public List<Usuario> findAll(){
+		return repository.findAll();
 	}
 	
-	 public CompletableFuture<Usuario> inserirUsuario(Usuario obj) {
-	        obj.setDatacadastro(Instant.now());
-	        String encodedPassword = passwordEncoder.encode(obj.getSenha());
-	        obj.setSenha(encodedPassword);
-	        Usuario usuario = repository.save(obj);
-	        return CompletableFuture.completedFuture(usuario);
-	    }
+	public Usuario findById(Long id) {
+		Optional<Usuario> obj = repository.findById(id);
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+	}
 	
-	@Async
-	public CompletableFuture<Usuario> atualizarStatusUsuario(Long id, Usuario obj) {
+	//insere usuario no banco de dados
+	public Usuario inserirUsuario(Usuario obj) {
+		obj.setDatacadastro(Instant.now());
+	    return repository.save(obj);
+	}
+	
+	//atualiza status do usuario no banco de dados
+	public Usuario atualizarStatusUsuario(Long id, Usuario obj) {
 		try {
 			Usuario entity = repository.getReferenceById(id);
 			atualizarStatus(entity, obj);
-			Usuario usuario = repository.save(entity);
-			return CompletableFuture.completedFuture(usuario);
+			return repository.save(entity);
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
 	}
 	
-	@Async
-	public CompletableFuture<Usuario> atualizarUsuario(Long id, Usuario obj) {
+	//atualiza dados do usuario no banco de dados
+	public Usuario atualizarUsuario(Long id, Usuario obj) {
 		try {
 			Usuario entity = repository.getReferenceById(id);
 			atualizarDados(entity, obj);
-			Usuario usuario = repository.save(entity);
-			return CompletableFuture.completedFuture(usuario);
+			return repository.save(entity);
 		}catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
 	}
 	
-	@Async
 	private void atualizarDados(Usuario entity, Usuario obj) {
 		entity.setNome(obj.getNome());
 		entity.setDocumento(obj.getDocumento());
@@ -87,64 +74,60 @@ public class UsuarioService {
 		entity.setLogo(obj.getLogo());
 	}
 	
-	@Async
 	private void atualizarStatus(Usuario entity, Usuario obj) {
 		entity.setStatus(obj.getStatus());
 	}
 	
-	@Async
-	public CompletableFuture<String> recuperarSenha(String email) {
-		Usuario usuario = repository.findByEmail(email);
-		if (usuario == null) {
-			throw new ResourceNotFoundException("Usuário não encontrado para o email: " + email);
-		}
-		return CompletableFuture.completedFuture(usuario.getSenha());
-	}
+	public String recuperarSenha(String email) {
+        Usuario usuario = repository.findByEmail(email);
+        if (usuario == null) {
+            throw new ResourceNotFoundException("Usuário não encontrado para o email: " + email);
+        }
+        return usuario.getSenha();
+    }
 
-	@Async
-	public CompletableFuture<Boolean> validarSenha(String email, String senha) {
-		Usuario usuario = repository.findByEmail(email);
-		if (usuario == null) {
-			return CompletableFuture.completedFuture(false);
-		}
-		return CompletableFuture.completedFuture(usuario.getSenha().equals(senha));
-	}
+    public boolean validarSenha(String email, String senha) {
+        Usuario usuario = repository.findByEmail(email);
+        if (usuario == null) {
+            return false;
+        }
+        return usuario.getSenha().equals(senha);
+    }
     
-	@Async
-	public CompletableFuture<List<Cliente>> listarClientes(Long idUsuario) {
-		Usuario usuario = findById(idUsuario).join();
-		return CompletableFuture.completedFuture(usuario.getClientes());
-	}
+    public List<Cliente> listarClientes(Long idUsuario) {
+        Usuario usuario = findById(idUsuario);
+        return usuario.getClientes();
+    }
     
-	@Async
-	public CompletableFuture<List<Orcamento>> listarOrcamentos(Long idUsuario) {
-		Usuario usuario = repository.getReferenceById(idUsuario);
-		return CompletableFuture.completedFuture(usuario.getOrcamentos());
-	}
+    public List<Orcamento> listarOrcamentos(Long idUsuario) {
+        Usuario usuario = repository.getReferenceById(idUsuario);
+        return usuario.getOrcamentos();
+    }
     
-	@Async
-	public CompletableFuture<List<Produto>> listarProdutos(Long idUsuario) {
-		Usuario usuario = findById(idUsuario).join();
-		return CompletableFuture.completedFuture(usuario.getProdutos());
-	}
+    public List<Produto> listarProdutos(Long idUsuario) {
+        Usuario usuario = findById(idUsuario);
+        return usuario.getProdutos();
+    }
     
-	@Async
-	public CompletableFuture<List<Receita>> listarReceitas(Long idUsuario){
-		Usuario usuario = repository.getReferenceById(idUsuario);
-		return CompletableFuture.completedFuture(usuario.getReceitas());
-	}
+    public List<Receita> listarReceitas(Long idUsuario){
+    	Usuario usuario = repository.getReferenceById(idUsuario);
+    	return usuario.getReceitas();
+    }
     
-	@Async
-	public CompletableFuture<Usuario> login(String email, String senha) throws LoginException {
-		Usuario usuario = repository.findByEmail(email);
-		if (usuario == null) {
-			throw new LoginException("Usuário não encontrado");
-		}
+    public Usuario login(String email, String senha) throws Exception {
+        Usuario usuario = repository.findByEmail(email);
+        if (usuario == null) {
+            throw new LoginException("Usuário não encontrado");
+        }
 
-		if (!usuario.getSenha().equals(senha)) {
-			throw new LoginException("Senha incorreta");
-		}
+        if (!usuario.getSenha().equals(senha)) {
+            throw new LoginException("Senha incorreta");
+        }
 
-		return CompletableFuture.completedFuture(usuario);
-	}
+        return usuario;
+    }
+    
+    
+ 
 }
+

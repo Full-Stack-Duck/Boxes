@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,7 +47,7 @@ class ClienteServiceTest {
 	    clientes.add(new Cliente(3L, "Cliente 3", "email3", "3333333333", Instant.now(), "987654321", Instant.now(), StatusCliente.ATIVA, null));
 	    when(repository.findAll()).thenReturn(clientes);
 	    
-	    CompletableFuture<List<Cliente>> result = service.findAll();
+	    List<Cliente> result = service.findAll();
 	    
 	    assertEquals(clientes, result);
 	}
@@ -59,7 +58,7 @@ class ClienteServiceTest {
 		Cliente cliente = new Cliente(1L, "Cliente 1", "email", "1111113354", Instant.now(), "123456789", Instant.now(), StatusCliente.ATIVA, null);
 		when(repository.findById(1L)).thenReturn(Optional.of(cliente));
 		
-		CompletableFuture<Cliente> result = service.findById(1L);
+		Cliente result = service.findById(1L);
 		
 		assertEquals(cliente, result);
 	}
@@ -69,7 +68,7 @@ class ClienteServiceTest {
 		Cliente cliente = new Cliente(1L, "Cliente 1", "email", "1111113354", Instant.now(), "123456789", Instant.now(), StatusCliente.ATIVA, null);
 		when(repository.save(cliente)).thenReturn(cliente);
 		
-		CompletableFuture<Cliente> result = service.inserirCliente(cliente);
+		Cliente result = service.inserirCliente(cliente);
 		
 		assertEquals(cliente, result);
 	}
@@ -82,7 +81,7 @@ class ClienteServiceTest {
 		when(repository.getReferenceById(id)).thenReturn(cliente);
 		when(repository.save(cliente)).thenReturn(clienteAtualizada);
 		
-		CompletableFuture<Cliente> result = service.atualizarStatusCliente(id, clienteAtualizada);
+		Cliente result = service.atualizarStatusCliente(id, clienteAtualizada);
 		
 		assertEquals(clienteAtualizada, result);
 	}
@@ -120,7 +119,7 @@ class ClienteServiceTest {
         when(repository.findByDataClienteBetween(data1, data2)).thenReturn(clientesMock);
 
         // Chamar o método do serviço
-        CompletableFuture<List<Cliente>> resultado = service.listarClientePeriodo(dataInicio, dataFim);
+        List<Cliente> resultado = service.listarClientePeriodo(dataInicio, dataFim);
 
         // Verificar o resultado
         assertEquals(clientesMock, resultado);

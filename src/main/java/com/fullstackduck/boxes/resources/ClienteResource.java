@@ -2,13 +2,10 @@ package com.fullstackduck.boxes.resources;
 
 import java.net.URI;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,9 +21,8 @@ import com.fullstackduck.boxes.services.ClienteService;
 
 import jakarta.validation.Valid;
 
+//Controlador Rest
 @RestController
-@CrossOrigin(origins = "*")
-@EnableAsync
 @RequestMapping(value = "/clientes")
 public class ClienteResource {
 
@@ -35,47 +31,52 @@ public class ClienteResource {
 	
 	
 	@GetMapping
-	public CompletableFuture<ResponseEntity<List<Cliente>>> findAll(){
-		return service.findAll().thenApply(ResponseEntity::ok);
+	public ResponseEntity<List<Cliente>> findAll(){
+		List<Cliente> list = service.findAll();
+		return ResponseEntity.ok().body(list);
 	}
 	
 	
 	@GetMapping(value = "/{id}")
-	public CompletableFuture<ResponseEntity<Cliente>> findById(@PathVariable Long id){
-		return service.findById(id).thenApply(ResponseEntity::ok);
+	public ResponseEntity<Cliente> findById(@PathVariable Long id){
+		Cliente obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
 	}
 
 	
 	@PostMapping
 	@Transactional
-	public CompletableFuture<ResponseEntity<Cliente>> inserirCliente(@Valid @RequestBody Cliente obj) {
-		return service.inserirCliente(obj).thenApply(cliente -> {
-			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId()).toUri();
-			return ResponseEntity.created(uri).body(cliente);
-		});
+	public ResponseEntity<Cliente> inserirCliente(@Valid @RequestBody Cliente obj) {
+		obj = service.inserirCliente(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).body(obj);
 	}
 	
 
 	@PutMapping(value = "/{id}/attStatusCliente")
 	@Transactional
-	public CompletableFuture<ResponseEntity<Cliente>> atualizarStatusCliente(@PathVariable Long id, @RequestBody Cliente obj){
-		return service.atualizarStatusCliente(id, obj).thenApply(ResponseEntity::ok);
+	public ResponseEntity<Cliente> atualizarStatusCliente(@PathVariable Long id, @RequestBody Cliente obj){
+		obj = service.atualizarStatusCliente(id, obj);
+		return ResponseEntity.ok().body(obj);
 	}
 	
 	
 	@PutMapping(value = "/{id}/attCliente")
 	@Transactional
-	public CompletableFuture<ResponseEntity<Cliente>> atualizarCliente(@PathVariable Long id, @RequestBody Cliente obj){
-		return service.atualizarCliente(id, obj).thenApply(ResponseEntity::ok);
+	public ResponseEntity<Cliente> atualizarCliente(@PathVariable Long id, @RequestBody Cliente obj){
+		obj = service.atualizarCliente(id, obj);
+		return ResponseEntity.ok().body(obj);
 	}
 	
 	@GetMapping(value = "/{id}/orcamentos")
-	public CompletableFuture<ResponseEntity<List<Cliente>>> listarClientes(@PathVariable Long id) {
-	    return service.listarClientes(id).thenApply(ResponseEntity::ok);
+	public ResponseEntity<List<Cliente>> listarClientes(@PathVariable Long id) {
+	    List<Cliente> clientes = service.listarClientes(id);
+	    return ResponseEntity.ok().body(clientes);
 	}
 	
 	@GetMapping(value = "/{id}/orcamentospd")
-	public CompletableFuture<List<Cliente>> listarClientesPeriodo(@PathVariable Long id,@RequestParam String dataInicio, @RequestParam String dataFim){
-		return service.listarClientePeriodo(dataInicio, dataFim);
+	public List<Cliente> listarClientesPeriodo(@PathVariable Long id,@RequestParam String dataInicio, @RequestParam String dataFim){
+		List<Cliente> clientes = service.listarClientePeriodo(dataInicio, dataFim);
+		return clientes;
 	}
 }

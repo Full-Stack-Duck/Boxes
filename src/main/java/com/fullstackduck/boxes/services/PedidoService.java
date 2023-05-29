@@ -3,10 +3,9 @@ package com.fullstackduck.boxes.services;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,89 +24,80 @@ import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
 
-@Service
+@Service // Registro de componente
 public class PedidoService {
 
-    @Autowired
-    private PedidoRepository pedidoRepository;
+	@Autowired
+	private PedidoRepository pedidoRepository;
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private OrcamentoRepository orcamentoRepository;
 
-    @Autowired
-    private OrcamentoRepository orcamentoRepository;
+	public List<Pedido> findAll() {
+		return pedidoRepository.findAll();
+	}
 
-    @Async
-    public CompletableFuture<List<Pedido>> findAll() {
-        return CompletableFuture.completedFuture(pedidoRepository.findAll());
-    }
+	public Pedido findById(Long id) {
+		Optional<Pedido> obj = pedidoRepository.findById(id);
+		return obj.get();
+	}
 
-    @Async
-    public CompletableFuture<Pedido> findById(Long id) {
-        return pedidoRepository.findById(id)
-                .map(CompletableFuture::completedFuture)
-                .orElseThrow(() -> new ResourceNotFoundException(id));
-    }
+	// insere cliente no banco de dados
 
-    @Transactional
-    @Async
-    public CompletableFuture<Pedido> inserirPedido(Pedido obj) {
-        return CompletableFuture.completedFuture(pedidoRepository.save(obj));
-    }
+	public Pedido inserirPedido(Pedido obj) {
+		return pedidoRepository.save(obj);
+	}
 
-    @Transactional
-    @Async
-    public CompletableFuture<List<Pedido>> listarPedidos(Long idUsuario) {
-        Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
-        return CompletableFuture.completedFuture(usuario.getPedidos());
-    }
+	@Transactional
+	public List<Pedido> listarPedidos(Long idUsuario) {
+		Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
+		return usuario.getPedidos();
+	}
 
-    @Transactional
-    @Async
-    public CompletableFuture<List<Pedido>> listarPedidosPeriodo(String dataInicio, String dataFim) {
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
-        Instant data1 = Instant.from(formatter.parse(dataInicio));
-        Instant data2 = Instant.from(formatter.parse(dataFim));
-        return CompletableFuture.completedFuture(pedidoRepository.findByDataPedidoBetween(data1, data2));
-    }
+	@Transactional
+	public List<Pedido> listarPedidosPeriodo(String dataInicio, String dataFim) {
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
+		Instant data1 = Instant.from(formatter.parse(dataInicio));
+		Instant data2 = Instant.from(formatter.parse(dataFim));
+		return pedidoRepository.findByDataPedidoBetween(data1, data2);
+	}
 
-    @Transactional
-    @Async
-    public CompletableFuture<Pedido> atualizarStatusPagamentoPedido(Long id, Pedido obj) {
-    	try {
+	@Transactional
+	public Pedido atualizarStatusPagamentoPedido(Long id, Pedido obj) {
+		try {
 			Pedido entity = pedidoRepository.getReferenceById(id);
-			atualizarDadosPedido(entity, obj);
-			Pedido pedido = pedidoRepository.save(entity);
-			return CompletableFuture.completedFuture(pedido);
-		}catch (EntityNotFoundException e) {
+			atualizarDadosPagamentoPedido(entity, obj);
+			return pedidoRepository.save(entity);
+		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
-    }
+	}
 
-    @Async
-    private void atualizarDadosPagamentoPedido(Pedido entity, Pedido obj) {
-        entity.setStatusPagamentoPedido(obj.getStatusPagamentoPedido());
-    }
+	@Transactional
+	private void atualizarDadosPagamentoPedido(Pedido entity, Pedido obj) {
+		entity.setStatusPagamentoPedido(obj.getStatusPagamentoPedido());
 
-    @Transactional
-    @Async
-    public CompletableFuture<Pedido> atualizarStatusPedido(Long id, Pedido obj) {
-    	try {
+	}
+
+	// atualiza dados do cliente no banco de dados
+	@Transactional
+	public Pedido atualizarStatusPedido(Long id, Pedido obj) {
+		try {
 			Pedido entity = pedidoRepository.getReferenceById(id);
 			atualizarDadosPedido(entity, obj);
-			Pedido pedido = pedidoRepository.save(entity);
-			return CompletableFuture.completedFuture(pedido);
-		}catch (EntityNotFoundException e) {
+			return pedidoRepository.save(entity);
+		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
-    }
+	}
 
-    @Async
-    private void atualizarDadosPedido(Pedido entity, Pedido obj) {
-        entity.setStatusPedido(obj.getStatusPedido());
-    }
+	private void atualizarDadosPedido(Pedido entity, Pedido obj) {
+		entity.setStatusPedido(obj.getStatusPedido());
+	}
 
-    @Async
 	public void cancelarPedido(Long id) {
 		Pedido obj = pedidoRepository.getReferenceById(id);
 		Orcamento orc = obj.getOrcamento();

@@ -3,10 +3,8 @@ package com.fullstackduck.boxes.services;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.fullstackduck.boxes.entities.MovimentacaoEstoque;
@@ -14,72 +12,88 @@ import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.repositories.MovimentacaoEstoqueRepository;
 import com.fullstackduck.boxes.repositories.ProdutoRepository;
 
-@Service
+@Service //Registro de componente
 public class MovimentacaoEstoqueService {
 
-    @Autowired
-    private MovimentacaoEstoqueRepository repository;
-
-    @Autowired
+	@Autowired
+	private MovimentacaoEstoqueRepository repository;
+	
+	@Autowired
     private ProdutoRepository produtoRepository;
+	
+	
+	
+	public List<MovimentacaoEstoque> findAll(){
+		return repository.findAll();
+	}
+	
+	public MovimentacaoEstoque findById(Long id) {
+		Optional<MovimentacaoEstoque> obj = repository.findById(id);
+		return obj.get();
+	}
+	
+	//insere movimentação de estoque no banco de dados
+	
+	public MovimentacaoEstoque inserirMovimentacaoEstoque(MovimentacaoEstoque obj) {
+		return repository.save(obj);
+	}
+	
+	public void adicionarItem(Long produto_id, Integer quantidade) {
+	    // Recupera o produto pelo ID
+	    Optional<Produto> optionalProduto = produtoRepository.findById(produto_id);
 
-    @Async
-    public CompletableFuture<List<MovimentacaoEstoque>> findAll() {
-        return CompletableFuture.completedFuture(repository.findAll());
-    }
+	    if (optionalProduto.isPresent()) {
+	        Produto produto = optionalProduto.get();
 
-    @Async
-    public CompletableFuture<MovimentacaoEstoque> findById(Long id) {
-        return repository.findById(id).map(CompletableFuture::completedFuture)
-                .orElse(CompletableFuture.completedFuture(null));
-    }
+	        // Atualiza a quantidade do produto
+	        int quantidadeExistente = produto.getQuantidade();
+	        int novaQuantidade = quantidadeExistente + quantidade;
+	        produto.setQuantidade(novaQuantidade);
 
-    @Async
-    public CompletableFuture<MovimentacaoEstoque> inserirMovimentacaoEstoque(MovimentacaoEstoque obj) {
-        return CompletableFuture.completedFuture(repository.save(obj));
-    }
+	        // Cria uma nova movimentação de estoque
+	        MovimentacaoEstoque movimentacaoEstoque = new MovimentacaoEstoque();
+	        movimentacaoEstoque.setProduto(produto);
+	        movimentacaoEstoque.setQuantidade(quantidade);
+	        movimentacaoEstoque.setDataMovimentacao(Instant.now());
+	        // Defina outras propriedades da movimentação de estoque, se necessário
 
-    @Async
-    public CompletableFuture<Void> adicionarItem(Long produto_id, Integer quantidade) {
-        Optional<Produto> optionalProduto = produtoRepository.findById(produto_id);
+	        // Salva as alterações no produto e cria a nova movimentação de estoque
+	        produtoRepository.save(produto);
+	        repository.save(movimentacaoEstoque);
+	    } else {
+	        // Lidar com o caso em que o produto não foi encontrado
+	        throw new IllegalArgumentException("Produto não encontrado com ID: " + produto_id);
+	    }
+	}
+	
+	public void removerItem(Long produto_id,Integer quantidade) {
+		
+		 // Recupera o produto pelo ID
+	    Optional<Produto> optionalProduto = produtoRepository.findById(produto_id);
 
-        if (optionalProduto.isPresent()) {
-            Produto produto = optionalProduto.get();
-            int quantidadeExistente = produto.getQuantidade();
-            int novaQuantidade = quantidadeExistente + quantidade;
-            produto.setQuantidade(novaQuantidade);
+	    if (optionalProduto.isPresent()) {
+	        Produto produto = optionalProduto.get();
 
-            MovimentacaoEstoque movimentacaoEstoque = new MovimentacaoEstoque();
-            movimentacaoEstoque.setProduto(produto);
-            movimentacaoEstoque.setQuantidade(quantidade);
-            movimentacaoEstoque.setDataMovimentacao(Instant.now());
+	        // Atualiza a quantidade do produto
+	        int quantidadeExistente = produto.getQuantidade();
+	        int novaQuantidade = quantidadeExistente - quantidade;
+	        produto.setQuantidade(novaQuantidade);
 
-            produtoRepository.save(produto);
-            return repository.save(movimentacaoEstoque).thenApply(null);
-        } else {
-            throw new IllegalArgumentException("Produto não encontrado com ID: " + produto_id);
-        }
-    }
+	        // Cria uma nova movimentação de estoque
+	        MovimentacaoEstoque movimentacaoEstoque = new MovimentacaoEstoque();
+	        movimentacaoEstoque.setProduto(produto);
+	        movimentacaoEstoque.setQuantidade(quantidade);
+	        movimentacaoEstoque.setDataMovimentacao(Instant.now());
+	        // Defina outras propriedades da movimentação de estoque, se necessário
 
-    @Async
-    public CompletableFuture<Void> removerItem(Long produto_id, Integer quantidade) {
-        Optional<Produto> optionalProduto = produtoRepository.findById(produto_id);
+	        // Salva as alterações no produto e cria a nova movimentação de estoque
+	        produtoRepository.save(produto);
+	        repository.save(movimentacaoEstoque);
+	    } else {
+	        // Lidar com o caso em que o produto não foi encontrado
+	        throw new IllegalArgumentException("Produto não encontrado com ID: " + produto_id);
+	    }
+  	}
 
-        if (optionalProduto.isPresent()) {
-            Produto produto = optionalProduto.get();
-            int quantidadeExistente = produto.getQuantidade();
-            int novaQuantidade = quantidadeExistente - quantidade;
-            produto.setQuantidade(novaQuantidade);
 
-            MovimentacaoEstoque movimentacaoEstoque = new MovimentacaoEstoque();
-            movimentacaoEstoque.setProduto(produto);
-            movimentacaoEstoque.setQuantidade(quantidade);
-            movimentacaoEstoque.setDataMovimentacao(Instant.now());
-
-            produtoRepository.save(produto);
-            return repository.save(movimentacaoEstoque).thenApply(null);
-        } else {
-            throw new IllegalArgumentException("Produto não encontrado com ID: " + produto_id);
-        }
-    }
 }

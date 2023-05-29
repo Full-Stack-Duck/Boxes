@@ -18,6 +18,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -51,7 +52,6 @@ public class Usuario implements Serializable {
 	@Getter @Setter private String logo;
 	@Getter @Setter private Instant datacadastro;
 	private Integer status;
-	/*private Set<Role> roles = new HashSet<>();*/
 	
 	@NotBlank
 	@Email
@@ -59,6 +59,7 @@ public class Usuario implements Serializable {
 	@Getter @Setter private String email;
 	
 	@NotBlank
+	@Size(min=8 , max = 20)
 	/*@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", message = "A senha deve ter pelo menos 8 caracteres, uma letra e um número")*/
 	@Getter @Setter private String senha;
 	
@@ -133,50 +134,4 @@ public class Usuario implements Serializable {
 		}
 		return atual;
 	}
-
-	/*public Set<Role> getRoles() {
-		return roles;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return roles.stream().map(role -> new SimpleGrantedAuthority(((GrantedAuthority) role).getAuthority()))
-				.collect(Collectors.toList());
-	}
-
-	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return senha;
-	}
-
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return email;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return true;
-	} */
 }

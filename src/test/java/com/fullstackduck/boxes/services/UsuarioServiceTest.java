@@ -1,9 +1,9 @@
 package com.fullstackduck.boxes.services;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,8 +20,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fullstackduck.boxes.entities.Cliente;
 import com.fullstackduck.boxes.entities.Usuario;
@@ -30,7 +27,6 @@ import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
 import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
-@SpringBootTest
 public class UsuarioServiceTest {
 
     @Mock
@@ -38,9 +34,6 @@ public class UsuarioServiceTest {
 
     @InjectMocks
     private UsuarioService service;
-    
-    @InjectMocks
-    private BCryptPasswordEncoder passwordEncoder;
 
     @BeforeEach
     void setUp() {
@@ -55,28 +48,25 @@ public class UsuarioServiceTest {
 
         when(repository.findAll()).thenReturn(usuarios);
 
-        CompletableFuture<List<Usuario>> result = service.findAll();
+        List<Usuario> result = service.findAll();
 
-        Assertions.assertEquals(2, result.join().size());
-        Assertions.assertEquals("João", result.join().get(0).getNome());
-        Assertions.assertEquals("Maria", result.join().get(1).getNome());
+        Assertions.assertEquals(2, result.size());
+        Assertions.assertEquals("João", result.get(0).getNome());
+        Assertions.assertEquals("Maria", result.get(1).getNome());
     }
 
     @Test
-    public void testFindById() throws Exception {
+    public void testFindById() {
         Long id = 1L;
         Usuario usuario = new Usuario(id, "João", "12345678901", "joao@example.com", "123456", "11999999999", "Rua A, 123", "logo1.png", null, Status.ATIVO);
 
         when(repository.findById(id)).thenReturn(Optional.of(usuario));
 
-        CompletableFuture<Usuario> result = service.findById(id);
+        Usuario result = service.findById(id);
 
-        Usuario retrievedUsuario = result.get();
-
-        Assertions.assertEquals(id, retrievedUsuario.getId());
-        Assertions.assertEquals("João", retrievedUsuario.getNome());
+        Assertions.assertEquals(id, result.getId());
+        Assertions.assertEquals("João", result.getNome());
     }
-
 
     @Test
     public void testFindByIdNotFound() {
@@ -90,35 +80,26 @@ public class UsuarioServiceTest {
     }
 
     @Test
-    public void testInserirUsuario() throws Exception {
-    Usuario usuario = new Usuario(1L, "João", "12345678901", "joao@example.com", "123456", "11999999999", "Rua A, 123", "logo1.png", null, Status.ATIVO);
-    when(repository.save(any(Usuario.class))).thenReturn(usuario);
+    public void testInserirUsuario() {
+        Usuario usuario = new Usuario(1L, "João", "12345678901", "joao@example.com", "123456", "11999999999", "Rua A, 123", "logo1.png", null, Status.ATIVO);
 
-    CompletableFuture<Usuario> result = service.inserirUsuario(usuario);
+        when(repository.save(any(Usuario.class))).thenReturn(usuario);
 
-    Usuario insertedUsuario = result.get();
+        Usuario result = service.inserirUsuario(usuario);
 
-    Assertions.assertEquals(1L, insertedUsuario.getId());
-    Assertions.assertEquals("João", insertedUsuario.getNome());
+        Assertions.assertEquals(1L, result.getId());
+        Assertions.assertEquals("João", result.getNome());
     }
     
-    
-
     @Test
-    public void testValidarSenha() throws Exception {
+    public void testValidarSenha() {
         String email = "fulano@teste.com";
         String senha = "senha123";
-        Usuario usuario = new Usuario(null, "Fulano", "11122233344", email, "12345678", senha, "Rua A", "logo.jpg", Instant.now(), Status.ATIVO);
+        Usuario usuario = new Usuario(null, "Fulano", "11122233344", email, "12345678",senha, "Rua A", "logo.jpg", Instant.now(), Status.ATIVO);
         Mockito.when(repository.findByEmail(email)).thenReturn(usuario);
-
-        CompletableFuture<Boolean> senhaValida = service.validarSenha(email, senha);
-        assertTrue(senhaValida.get());
-
-        CompletableFuture<Boolean> senhaInvalida = service.validarSenha(email, "senha456");
-        assertFalse(senhaInvalida.get());
+        assertTrue(service.validarSenha(email, senha));
+        assertFalse(service.validarSenha(email, "senha456"));
     }
-
-
     
    
 
@@ -135,7 +116,7 @@ public class UsuarioServiceTest {
     }
     
     @Test
-    public void testListarClientes() throws Exception {
+    public void testListarClientes() {
         // Cria um usuário com clientes vinculados
         Cliente c1 = new Cliente(null, "Cliente 1", null, null, null, null, null, null, null);
         Cliente c2 = new Cliente(null, "Cliente 2", null, null, null, null, null, null, null);
@@ -143,15 +124,15 @@ public class UsuarioServiceTest {
         usuario.getClientes().addAll(Arrays.asList(c1, c2));
 
         // Mock da resposta do repositório
-        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(usuario));
+        when(repository.findById(1L)).thenReturn(Optional.of(usuario));
 
         // Chama o método de listagem de clientes do service
-        CompletableFuture<List<Cliente>> clientes = service.listarClientes(1L);
+        List<Cliente> clientes = service.listarClientes(1L);
 
         // Verifica se a lista retornada contém os clientes vinculados ao usuário
-        assertEquals(2, clientes.get().size());
-        assertEquals("Cliente 1", clientes.get().get(0).getNome());
-        assertEquals("Cliente 2", clientes.get().get(1).getNome());
+        assertEquals(2, clientes.size());
+        assertEquals("Cliente 1", clientes.get(0).getNome());
+        assertEquals("Cliente 2", clientes.get(1).getNome());
     }
 
     
