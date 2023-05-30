@@ -30,7 +30,6 @@ public class MovimentacaoEstoque implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter private Long id;
 	
-	@NotBlank
 	@Getter @Setter private Integer quantidade;
 	
 	@Getter @Setter private Instant dataMovimentacao;

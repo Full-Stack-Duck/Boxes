@@ -13,6 +13,8 @@ import com.fullstackduck.boxes.entities.enums.TipoEntrega;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -34,10 +36,9 @@ public class Pedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//Atributos da classe
-	@Id /*@GeneratedValue(strategy = GenerationType.IDENTITY)*/
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter @Setter private Long id;
 	
-	@NotNull
 	@Getter @Setter private Double total;
 	
 	private Integer tipoEntrega;

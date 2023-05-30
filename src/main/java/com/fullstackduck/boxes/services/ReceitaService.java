@@ -48,13 +48,13 @@ public class ReceitaService {
     }
 	
 	@Transactional
-	public List<Orcamento> listarReceitas(Long idUsuario) {
+	public List<Receita> listarReceitas(Long idUsuario) {
         Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
-        return usuario.getOrcamentos();
+        return usuario.getReceitas();
     }
 	
 	@Transactional
-	public List<Orcamento> listarReceitasPeriodo(String dataInicio, String dataFim) {
+	public List<Receita> listarReceitasPeriodo(String dataInicio, String dataFim) {
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
 		Instant data1 = Instant.from(formatter.parse(dataInicio));
 		Instant data2 = Instant.from(formatter.parse(dataFim));

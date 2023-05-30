@@ -28,10 +28,8 @@ public class ItensOrcamento implements Serializable {
 	
 	@Getter @Setter private Integer quantidade;
 	
-	@NotNull
 	@Getter private Double precoUnit;
 	
-	@NotNull
 	private Double precoTotal;
 	
 	

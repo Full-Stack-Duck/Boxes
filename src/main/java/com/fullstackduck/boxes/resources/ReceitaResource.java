@@ -54,14 +54,14 @@ public class ReceitaResource {
     }
 	
 	@GetMapping(value = "/{id}/Receita")
-	public ResponseEntity<List<Orcamento>> listarReceita(@PathVariable Long id) {
-	    List<Orcamento> receita = service.listarReceitas(id);
+	public ResponseEntity<List<Receita>> listarReceita(@PathVariable Long id) {
+	    List<Receita> receita = service.listarReceitas(id);
 	    return ResponseEntity.ok().body(receita);
 	}
 	
 	@GetMapping(value = "/{id}/Receitapd")
-	public List<Orcamento> listarReceitaPeriodo(@PathVariable Long id,@RequestParam String dataInicio, @RequestParam String dataFim){
-		List<Orcamento> receita = service.listarReceitasPeriodo(dataInicio, dataFim);
+	public List<Receita> listarReceitaPeriodo(@PathVariable Long id,@RequestParam String dataInicio, @RequestParam String dataFim){
+		List<Receita> receita = service.listarReceitasPeriodo(dataInicio, dataFim);
 		return receita;
 	}
 }

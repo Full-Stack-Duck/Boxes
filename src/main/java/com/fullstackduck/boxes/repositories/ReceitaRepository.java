@@ -12,6 +12,6 @@ import com.fullstackduck.boxes.entities.Receita;
 @Repository
 public interface ReceitaRepository extends JpaRepository<Receita, Long>{
 
-	List<Orcamento> findByDataReceitaBetween(Instant data1, Instant data2);
+	List<Receita> findByDataReceitaBetween(Instant data1, Instant data2);
 
 }

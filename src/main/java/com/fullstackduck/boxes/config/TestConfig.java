@@ -214,7 +214,7 @@ public class TestConfig implements CommandLineRunner{
 		
 		//Teste Pedido
 
-		/*Pedido pd01 = new Pedido(null, o01.getTotal(), o01.getTipoEntrega(), o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o01.getUsuario(), o01.getCliente(), o01);
+		Pedido pd01 = new Pedido(null, o01.getTotal(), o01.getTipoEntrega(), o01.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o01.getUsuario(), o01.getCliente(), o01);
 		Pedido pd02 = new Pedido(null, o02.getTotal(), o02.getTipoEntrega(), o02.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o02.getUsuario(), o02.getCliente(), o02);
 		Pedido pd03 = new Pedido(null, o03.getTotal(), o03.getTipoEntrega(), o03.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o03.getUsuario(), o03.getCliente(), o03);
 		Pedido pd04 = new Pedido(null, o04.getTotal(), o04.getTipoEntrega(), o04.getDataOrcamento(), Instant.now(), Status.ATIVO, StatusPedido.EM_FILA_PREPARACAO, StatusPagamentoPedido.INTEGRALMENTE_PAGO, o04.getUsuario(), o04.getCliente(), o04);
@@ -297,6 +297,6 @@ public class TestConfig implements CommandLineRunner{
 		Receita r25 = new Receita(null, Instant.now(), pg25.getPedido().getUsuario(), pg25);
 		
 		receitaRepository.saveAll(Arrays.asList(r01, r02, r03, r04, r05, r06, r07, r08, r09, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19,
-				r20, r21, r22, r23, r24, r25));*/
+				r20, r21, r22, r23, r24, r25));
 	}
 }

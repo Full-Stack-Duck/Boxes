@@ -33,7 +33,6 @@ public class Pagamento implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter private Long id;
 	
-	@NotNull
 	@Getter @Setter private Double valor;
 	
 	@Getter @Setter private Instant dataPagamento;

@@ -41,7 +41,6 @@ public class Produto implements Serializable {
 	@NotBlank
 	@Getter @Setter private String nome;
 	
-	@NotNull
 	@Getter @Setter private Double valor;
 	
 	
