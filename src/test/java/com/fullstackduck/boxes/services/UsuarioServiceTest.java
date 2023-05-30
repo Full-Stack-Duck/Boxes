@@ -2,16 +2,20 @@ package com.fullstackduck.boxes.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import javax.security.auth.login.LoginException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,11 +25,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.fullstackduck.boxes.entities.Cliente;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
 import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 
 public class UsuarioServiceTest {
 
@@ -116,25 +121,131 @@ public class UsuarioServiceTest {
     }
     
     @Test
-    public void testListarClientes() {
-        // Cria um usuário com clientes vinculados
-        Cliente c1 = new Cliente(null, "Cliente 1", null, null, null, null, null, null, null);
-        Cliente c2 = new Cliente(null, "Cliente 2", null, null, null, null, null, null, null);
-        Usuario usuario = new Usuario(null, "Usuário de Teste", null, null, null, null, null, null, null, null);
-        usuario.getClientes().addAll(Arrays.asList(c1, c2));
+    public void testAtualizarStatusUsuario_ExistingUsuario_Success() {
+        // Criação de um objeto Usuario existente para ser atualizado
+        Long usuarioId = 1L;
+        Usuario existingUsuario = new Usuario();
+        existingUsuario.setId(usuarioId);
+        existingUsuario.setStatus(Status.ATIVO);
 
-        // Mock da resposta do repositório
-        when(repository.findById(1L)).thenReturn(Optional.of(usuario));
+        // Criação de um objeto Usuario com o status atualizado
+        Usuario updatedUsuario = new Usuario();
+        updatedUsuario.setStatus(Status.INATIVO);
 
-        // Chama o método de listagem de clientes do service
-        List<Cliente> clientes = service.listarClientes(1L);
+        // Configuração do comportamento do mock do repository
+        when(repository.getReferenceById(usuarioId)).thenReturn(existingUsuario);
+        when(repository.save(existingUsuario)).thenReturn(existingUsuario);
 
-        // Verifica se a lista retornada contém os clientes vinculados ao usuário
-        assertEquals(2, clientes.size());
-        assertEquals("Cliente 1", clientes.get(0).getNome());
-        assertEquals("Cliente 2", clientes.get(1).getNome());
+        // Chamada do método a ser testado
+        Usuario result = service.atualizarStatusUsuario(usuarioId, updatedUsuario);
+
+        // Verificação do resultado
+        assertNotNull(result);
+        assertEquals(Status.INATIVO, result.getStatus());
+
+        // Verificação de chamada do método getReferenceById e save no repository
+        verify(repository, times(1)).getReferenceById(usuarioId);
+        verify(repository, times(1)).save(existingUsuario);
     }
 
+    @Test
+    public void testAtualizarStatusUsuario_NonExistingUsuario_ExceptionThrown() {
+        // Criação de um objeto Usuario não existente para ser atualizado
+        Long nonExistingUsuarioId = 1L;
+        Usuario updatedUsuario = new Usuario();
+        updatedUsuario.setStatus(Status.INATIVO);
+
+        // Configuração do comportamento do mock do repository
+        when(repository.getReferenceById(nonExistingUsuarioId)).thenThrow(new EntityNotFoundException());
+
+        // Chamada do método a ser testado e verificação de exceção
+        assertThrows(ResourceNotFoundException.class, () -> {
+            service.atualizarStatusUsuario(nonExistingUsuarioId, updatedUsuario);
+        });
+
+        // Verificação de chamada do método getReferenceById no repository
+        verify(repository, times(1)).getReferenceById(nonExistingUsuarioId);
+    }
+    
+    @Test
+    public void testRecuperarSenha_ExistingUsuario_Success() {
+        // Criação de um objeto Usuario existente para ser recuperada a senha
+        String email = "teste@example.com";
+        Usuario existingUsuario = new Usuario();
+        existingUsuario.setEmail(email);
+        existingUsuario.setSenha("senha123");
+
+        // Configuração do comportamento do mock do repository
+        when(repository.findByEmail(email)).thenReturn(existingUsuario);
+
+        // Chamada do método a ser testado
+        String senhaRecuperada = service.recuperarSenha(email);
+
+        // Verificação do resultado
+        assertNotNull(senhaRecuperada);
+        assertEquals("senha123", senhaRecuperada);
+
+        // Verificação de chamada do método findByEmail no repository
+        verify(repository, times(1)).findByEmail(email);
+    }
+
+    @Test
+    public void testRecuperarSenha_NonExistingUsuario_ExceptionThrown() {
+        // Criação de um email de Usuario não existente para recuperar a senha
+        String nonExistingEmail = "naoexiste@example.com";
+
+        // Configuração do comportamento do mock do repository
+        when(repository.findByEmail(nonExistingEmail)).thenReturn(null);
+
+        // Chamada do método a ser testado e verificação de exceção
+        assertThrows(ResourceNotFoundException.class, () -> {
+            service.recuperarSenha(nonExistingEmail);
+        });
+
+        // Verificação de chamada do método findByEmail no repository
+        verify(repository, times(1)).findByEmail(nonExistingEmail);
+    }
+    
+    @Test
+    public void testLogin_CorrectCredentials_Success() throws Exception {
+        // Criação de um objeto Usuario existente para realizar o login
+        String email = "teste@example.com";
+        String senha = "senha123";
+        Usuario existingUsuario = new Usuario();
+        existingUsuario.setEmail(email);
+        existingUsuario.setSenha(senha);
+
+        // Configuração do comportamento do mock do repository
+        when(repository.findByEmail(email)).thenReturn(existingUsuario);
+
+        // Chamada do método a ser testado
+        Usuario loggedUsuario = service.login(email, senha);
+
+        // Verificação do resultado
+        assertNotNull(loggedUsuario);
+        assertEquals(existingUsuario, loggedUsuario);
+
+        // Verificação de chamada do método findByEmail no repository
+        verify(repository, times(1)).findByEmail(email);
+    }
+
+    @Test
+    public void testLogin_IncorrectCredentials_ExceptionThrown() throws Exception {
+        // Criação de um email e senha incorretos para realizar o login
+        String email = "teste@example.com";
+        String senha = "senha123";
+
+        // Configuração do comportamento do mock do repository
+        when(repository.findByEmail(email)).thenReturn(null);
+
+        // Chamada do método a ser testado e verificação de exceção
+        assertThrows(LoginException.class, () -> {
+            service.login(email, senha);
+        });
+
+        // Verificação de chamada do método findByEmail no repository
+        verify(repository, times(1)).findByEmail(email);
+    }
     
   
 
