@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fullstackduck.boxes.entities.enums.StatusCliente;
+import com.fullstackduck.boxes.entities.enums.Status;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -48,7 +48,7 @@ public class Cliente implements Serializable {
 	@Getter @Setter private Instant dataNascimento = null;
 	@Getter @Setter private String documento = null;
 	@Getter @Setter private Instant dataCliente = Instant.now();
-	private Integer statusCliente;
+	private Integer status;
 	
 	//Relacionamento com a entidade de Usuario
 	@ManyToOne
@@ -67,7 +67,7 @@ public class Cliente implements Serializable {
     @Getter private List<Pedido> pedidos = new ArrayList<>();
 
 	public Cliente(Long id, String nome, String email, String telefone, Instant dataNascimento, String documento,
-			Instant dataCadastro, StatusCliente statusCliente, Usuario usuario) {
+			Instant dataCadastro, Status status, Usuario usuario) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -76,17 +76,17 @@ public class Cliente implements Serializable {
 		this.dataNascimento = dataNascimento;
 		this.documento = documento;
 		this.dataCliente = dataCadastro;
-		setStatusCliente(statusCliente);
+		setStatus(status);
 		this.usuario = usuario;
 	}
 
-	public StatusCliente getStatusCliente() {
-		return StatusCliente.valueOf(statusCliente);
+	public Status getStatus() {
+		return Status.valueOf(status);
 	}
 
-	public void setStatusCliente(StatusCliente statusCliente) {
-		if(statusCliente != null) {
-			this.statusCliente = statusCliente.getCode();
+	public void setStatus(Status status) {
+		if(status != null) {
+			this.status = status.getCode();
 		}
 	}
 	

@@ -1,11 +1,14 @@
 package com.fullstackduck.boxes.resources;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,9 +27,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fullstackduck.boxes.entities.ItensOrcamento;
 import com.fullstackduck.boxes.entities.Orcamento;
-import com.fullstackduck.boxes.entities.Pedido;
 import com.fullstackduck.boxes.services.ItensOrcamentoService;
 import com.fullstackduck.boxes.services.OrcamentoService;
+import com.fullstackduck.boxes.services.PdfService;
 import com.fullstackduck.boxes.services.exceptions.EstoqueInsuficienteException;
 
 import jakarta.validation.Valid;
@@ -43,6 +46,9 @@ public class OrcamentoResource {
 	@Autowired
 	private ItensOrcamentoService itensService;
 	
+	@Autowired
+	private PdfService pdfService;
+	
 	@GetMapping
 	public List<Orcamento> findAll(){
 		return service.findAll();
@@ -58,7 +64,7 @@ public class OrcamentoResource {
 	@ResponseStatus(HttpStatus.CREATED)
 	@Transactional
 	public Orcamento inserirOrcamento(@Valid @RequestBody Orcamento obj) {
-		service.calcularTotal(obj);
+		service.calcularSubTotal(obj);
 		return obj;
 	}
 	
@@ -81,7 +87,7 @@ public class OrcamentoResource {
 	@Transactional
 	public ResponseEntity<Orcamento> adicionarItem(@PathVariable Long id, @PathVariable Integer produtoId, @RequestBody ItensOrcamento item) {
 		Orcamento orcamento = service.adicionarItem(id, produtoId, item);
-		service.calcularTotal(orcamento);
+		service.calcularSubTotal(orcamento);
         return ResponseEntity.ok().body(orcamento);
 	  }
 	
@@ -89,7 +95,7 @@ public class OrcamentoResource {
 	@Transactional
 	public ResponseEntity<Orcamento> removerItem(@PathVariable Long id, @PathVariable Long produtoId) {
 		Orcamento orcamento = service.removerItem(id, produtoId);
-		service.calcularTotal(orcamento);
+		service.calcularSubTotal(orcamento);
         return ResponseEntity.ok().body(orcamento);
 	  }
 	
@@ -128,5 +134,13 @@ public class OrcamentoResource {
 	        String json = objectMapper.writeValueAsString(errorMap);
 	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(json);
 	    }
+	}
+	
+	@GetMapping(value = "/{id}/orcamentosPDF", produces=MediaType.APPLICATION_PDF_VALUE)
+	public ResponseEntity<byte[]> baixarPdf(@PathVariable Long id){
+		var bytes = pdfService.generatePDF(id);
+		var header = new HttpHeaders();
+		header.add(HttpHeaders.CONTENT_DISPOSITION, String.format("attachment; filename=%d.pdf", new Date().getTime()));
+		return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).headers(header).body(bytes);
 	}
 }

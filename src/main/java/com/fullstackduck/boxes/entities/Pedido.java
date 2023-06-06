@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fullstackduck.boxes.entities.enums.FormaPagamento;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.StatusPagamentoPedido;
 import com.fullstackduck.boxes.entities.enums.StatusPedido;
@@ -21,7 +22,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,6 +47,7 @@ public class Pedido implements Serializable {
 	private Integer status;
 	private Integer statusPedido;
 	private Integer statusPagamentoPedido;
+	private Integer formaPag;
 
 	//Relacionamento com a entidade de Usuario
 	@JsonIgnore
@@ -72,7 +73,7 @@ public class Pedido implements Serializable {
     @Getter private List<Pagamento> pagamentos = new ArrayList<>();
 
 	public Pedido(Long id, Double total, TipoEntrega tipoEntrega, Instant dataPedido, Instant dataEntrega,
-			Status status, StatusPedido statusPedido, StatusPagamentoPedido statusPagamentoPedido, Usuario usuario, Cliente cliente, Orcamento orcamento) {
+			Status status, FormaPagamento formaPag, StatusPedido statusPedido, StatusPagamentoPedido statusPagamentoPedido, Usuario usuario, Cliente cliente, Orcamento orcamento) {
 		super();
 		this.id = id;
 		this.total = total;
@@ -80,6 +81,7 @@ public class Pedido implements Serializable {
 		this.dataPedido = dataPedido;
 		this.dataEntrega = dataEntrega;
 		setStatus(status);
+		setFormaPagamento(formaPag);
 		setStatusPedido(statusPedido);
 		setStatusPagamentoPedido(statusPagamentoPedido);
 		this.usuario = usuario;
@@ -104,6 +106,16 @@ public class Pedido implements Serializable {
 	public void setStatus(Status status) {
 		if(status != null) {
 		this.status = status.getCode();
+		}
+	}
+	
+	public FormaPagamento getFormaPagamento() {
+		return FormaPagamento.valueOf(formaPag);
+	}
+
+	public void setFormaPagamento(FormaPagamento formaPag) {
+		if(formaPag != null) {
+		this.formaPag = formaPag.getCode();
 		}
 	}
 

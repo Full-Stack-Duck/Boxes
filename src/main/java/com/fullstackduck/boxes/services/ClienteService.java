@@ -77,7 +77,7 @@ public class ClienteService {
 	
 	
 	private void atualizarStatusCliente(Cliente entity, Cliente obj) {
-		entity.setStatusCliente(obj.getStatusCliente());
+		entity.setStatus(obj.getStatus());
 	}
 	
 	@Transactional

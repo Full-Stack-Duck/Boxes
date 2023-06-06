@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fullstackduck.boxes.entities.enums.FormaPagamento;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.TipoEntrega;
 
@@ -21,7 +22,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,9 +39,9 @@ public class Orcamento implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter @Setter private Long id;
 	
+	@Getter @Setter private Double total;
 	
-	@Getter @Setter private Double total ;
-	
+	@Getter @Setter private String endereco;
 	private Integer tipoEntrega;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
@@ -51,7 +51,9 @@ public class Orcamento implements Serializable {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	@Getter @Setter private Instant dataEntrega;
 	
+	private Integer formaPag;
 	@Getter @Setter private Double desconto = 0.0;
+	@Getter @Setter private Double taxaEntrega = 0.0;
 
 	//Relacionamento com a entidade de Usuario
 	@JsonIgnore
@@ -73,13 +75,14 @@ public class Orcamento implements Serializable {
 	@OneToMany(mappedBy = "id.orcamento", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@Getter private  Set<ItensOrcamento> itens = new HashSet<ItensOrcamento>();
 	
-	public Orcamento(Long id, TipoEntrega tipoEntrega, Instant dataOrcamento, Instant dataEntrega, Status status, Usuario usuario, Cliente cliente) {
+	public Orcamento(Long id, TipoEntrega tipoEntrega, Instant dataOrcamento, Instant dataEntrega, Status status, FormaPagamento formaPag, Usuario usuario, Cliente cliente, String endereco) {
 		super();
 		this.id = id;
 		setTipoEntrega(tipoEntrega);
 		this.dataOrcamento = dataOrcamento;
 		this.dataEntrega = dataEntrega;
 		setStatus(status);
+		setFormaPagamento(formaPag);
 		setTotal(total);
 		this.usuario = usuario;
 		this.cliente = cliente;
@@ -106,6 +109,16 @@ public class Orcamento implements Serializable {
 	public void setStatus(Status status) {
 		if(status != null) {
 		this.status = status.getCode();
+		}
+	}
+	
+	public FormaPagamento getFormaPagamento() {
+		return FormaPagamento.valueOf(formaPag);
+	}
+
+	public void setFormaPagamento(FormaPagamento formaPag) {
+		if(formaPag != null) {
+		this.formaPag = formaPag.getCode();
 		}
 	}
 	

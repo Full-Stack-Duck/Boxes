@@ -50,7 +50,7 @@ public class OrcamentoService {
 	public List<Orcamento> findAll(){
 		List<Orcamento> orcamentos = orcamentoRepository.findAll();
 		for (Orcamento i: orcamentos) {
-		    calcularTotal(i);
+		    calcularSubTotal(i);
 		}
 		return orcamentos;
 	}
@@ -58,7 +58,7 @@ public class OrcamentoService {
 	public Orcamento findById(Long id) {
 		Optional<Orcamento> obj = orcamentoRepository.findById(id);
 		Orcamento orcamento = obj.get();
-	    calcularTotal(orcamento);
+	    calcularSubTotal(orcamento);
 	    return orcamento;
 	}
 
@@ -133,14 +133,15 @@ public class OrcamentoService {
 		entity.setStatus(obj.getStatus());
 	}
     
-    public void calcularTotal(Orcamento obj) {
-    	Double total = 0.0;
+	public Double calcularSubTotal(Orcamento obj) {
+		Double total = 0.0;
 		for(ItensOrcamento i: obj.getItens()) {
 			total = total + i.getPrecoTotal();
 		}
 		total -= obj.getDesconto();
 		obj.setTotal(total);
 		orcamentoRepository.save(obj);
+		return total;
 	}
     
     private void validarItemEstoque(Orcamento orcamento) throws EstoqueInsuficienteException{
