@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.security.auth.login.LoginException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.fullstackduck.boxes.entities.Cliente;
@@ -23,7 +24,8 @@ import jakarta.persistence.EntityNotFoundException;
 @Service //Registro de componente
 public class UsuarioService {
 	
-
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@Autowired
 	private UsuarioRepository repository;
@@ -44,6 +46,8 @@ public class UsuarioService {
 		obj.setStatus(Status.ATIVO);
 		obj.setTelefone(null);
 		obj.setDatacadastro(Instant.now());
+		String senhaCodificada = passwordEncoder.encode(obj.getSenha());
+		obj.setSenha(senhaCodificada);
 	    return repository.save(obj);
 	}
 	

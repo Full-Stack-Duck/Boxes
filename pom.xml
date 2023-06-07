@@ -16,9 +16,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
-		 <!--<jvmArguments>spring.jpa.open-in-view=false</jvmArguments>-->
-
-		
+		 		
 		
 	</properties>
 	<dependencies>
@@ -88,6 +86,21 @@
 			<version>2.0.25</version>
 		</dependency>	
 		
+		<dependency>
+		      <groupId>org.springframework.boot</groupId>
+		      <artifactId>spring-boot-starter-security</artifactId>
+		    </dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		  <groupId>com.auth0</groupId>
+		  <artifactId>java-jwt</artifactId>
+		  <version>4.4.0</version>
+		</dependency>
+		
 
 	</dependencies>
 
@@ -96,11 +109,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-                <jvmArguments>
-                    -Dspring.jpa.open-in-view=false
-                </jvmArguments>
-            </configuration>
 			</plugin>
 		</plugins>
 	</build>
