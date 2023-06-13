@@ -1,7 +1,5 @@
 package com.fullstackduck.boxes.services;
 
-import java.time.Instant;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.entities.Usuario;
+import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.TipoArmazenamento;
 import com.fullstackduck.boxes.entities.enums.TipoProduto;
 import com.fullstackduck.boxes.repositories.ProdutoRepository;
@@ -46,6 +44,8 @@ public class ProdutoService {
 	//insere usuario no banco de dados
 	
 	public Produto inserirProduto(Produto obj) {
+		obj.setStatus(Status.ATIVO);
+		obj.setQuantidade(0);
 		return produtoRepository.save(obj);
 	}
 	

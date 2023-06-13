@@ -42,10 +42,10 @@ import com.fullstackduck.boxes.repositories.ProdutoRepository;
 import com.fullstackduck.boxes.repositories.ReceitaRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
 
-// Classe auxiliar de configuração para o perfil de testes
-@Configuration
-@Profile("test")
-public class TestConfig implements CommandLineRunner{
+	// Classe auxiliar de configuração para o perfil de testes
+	@Configuration
+	@Profile("test")
+	public class TestConfig implements CommandLineRunner{
 
 	@Autowired
 	private LicencaRepository licencaRepository;
@@ -87,7 +87,7 @@ public class TestConfig implements CommandLineRunner{
 		Usuario u1 = new Usuario(null, "Bruno", "123456789", "bruno@gmail.com", "7512345678", "$2a$12$BodnS42Y3/ALFPXFGYUZEuQ7qqAO.ZmVuEEDvCikvA1VhKOX656sG", "Tomba", "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngwing.com%2Fen%2Fsearch%3Fq%3Djava&psig=AOvVaw3tTPnzEE5A094sE5h23Ik0&ust=1685803990633000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPjGjbXrpP8CFQAAAAAdAAAAABAE", null, Status.ATIVO);
 		Usuario u2 = new Usuario(null, "José", "123456789", "jose@gmail.com", "7512345678", "$2a$12$xzA6d8BHkEWEbeOfWY6IHuluK4dWShZkYbfVAmS3/gACPJwJVCnmC", "Tomba", null, null, Status.ATIVO);
 		Usuario u3 = new Usuario(null, "Kelvin", "123456789", "kelvin@gmail.com", "7512345678", "cccccccc", "Tomba", null, null, Status.ATIVO);
-		Usuario u4 = new Usuario(null, "Lucas", "123456789", "lucas@gmail.com", "7512345678", "dddddddd", "Tomba", null, null, Status.ATIVO);
+		Usuario u4 = new Usuario(null, "Lucas", "123456789", "lucas@gmail.com", "7512345678", "$2a$12$lBg90tLpan7VnnvFk6OnF.DGS19rqyi2DcXbO.Qiiyhf4OGW6qEW2", "Tomba", null, null, Status.ATIVO);
 		Usuario u5 = new Usuario(null, "Vinícius", "123456789", "vinicius@gmail.com", "7512345678", "eeeeeeee", "Tomba", null, null, Status.ATIVO);
 		
 		usuarioRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5));
@@ -114,16 +114,16 @@ public class TestConfig implements CommandLineRunner{
 
 		
 		//Teste Cliente
-		Cliente c01 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", null, Status.ATIVO, u1);
-		Cliente c02 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", null, Status.ATIVO, u1);
-		Cliente c03 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", null, Status.ATIVO, u2);
-		Cliente c04 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", null, Status.ATIVO, u2);
-		Cliente c05 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", null, Status.ATIVO, u3);
-		Cliente c06 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", null, Status.ATIVO, u3);
-		Cliente c07 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", null, Status.ATIVO, u4);
-		Cliente c08 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", null, Status.ATIVO, u4);
-		Cliente c09 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", null, Status.ATIVO, u5);
-		Cliente c10 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", null, Status.ATIVO, u5);
+		Cliente c01 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", Instant.now(), Status.ATIVO, u1);
+		Cliente c02 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", Instant.now(), Status.ATIVO, u1);
+		Cliente c03 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", Instant.now(), Status.ATIVO, u2);
+		Cliente c04 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", Instant.now(), Status.ATIVO, u2);
+		Cliente c05 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", Instant.now(), Status.ATIVO, u3);
+		Cliente c06 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", Instant.now(), Status.ATIVO, u3);
+		Cliente c07 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", Instant.now(), Status.ATIVO, u4);
+		Cliente c08 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", Instant.now(), Status.ATIVO, u4);
+		Cliente c09 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", Instant.now(), Status.ATIVO, u5);
+		Cliente c10 = new Cliente(null, "Vinicius","vinicius@gmail.com", "7512345678", null, "123456789", Instant.now(), Status.ATIVO, u5);
 		
 		clienteRepository.saveAll(Arrays.asList(c01, c02, c03, c04, c05, c06, c07, c08, c09, c10));
 		

@@ -44,7 +44,6 @@ public class UsuarioService {
 		obj.setEndereco(null);
 		obj.setLogo(null);
 		obj.setStatus(Status.ATIVO);
-		obj.setTelefone(null);
 		obj.setDatacadastro(Instant.now());
 		String senhaCodificada = passwordEncoder.encode(obj.getSenha());
 		obj.setSenha(senhaCodificada);

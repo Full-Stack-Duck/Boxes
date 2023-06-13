@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fullstackduck.boxes.entities.Cliente;
-import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.entities.Usuario;
+import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.repositories.ClienteRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
 import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
@@ -40,6 +40,10 @@ public class ClienteService {
 	//insere cliente no banco de dados
 	
 	public Cliente inserirCliente(Cliente obj) {
+		obj.setDataCliente(Instant.now());
+		obj.setDataNascimento(null);
+		obj.setDocumento(null);
+		obj.setStatus(Status.ATIVO);
 		return clienteRepository.save(obj);
 	}
 	
