@@ -1,16 +1,19 @@
-import { useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import logoIcon from '../assets/logo-icon.svg'
 import styles from '../components/CadastrarUsuario.module.css'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import {zodResolver} from '@hookform/resolvers/zod'
+import axios from 'axios'
+import { Loading } from '../assets/aux_components/Loading'
+import { api } from '../server/api'
 
 
 const userSchema = z.object({
     nome: z.string()
     .nonempty('Por favor, preencha o campo de nome.'),
 
-    documentNumber: z.string()
+    documento: z.string()
     .nonempty('Por favor, preencha o campo com CPF ou CNPJ.')
     .min(11, 'Faltam dígitos em seu CPF ou CNPJ.')
     .max(14, 'Tem números demais em seu CNPJ'),
@@ -26,7 +29,7 @@ const userSchema = z.object({
     senhaConfirmada: z.string()
     .nonempty('Preencha o campo de confirmação de senha'),
 
-    termoDeUso: z.boolean()
+    termoDeUso: z.boolean() 
     .refine((value) => value === true, 'Para continuar, aceite os termos.'),
 
     tipoDePessoa: z.string(),
@@ -36,16 +39,18 @@ const userSchema = z.object({
     message: 'Senha incorreta, confirme sua senha'
 })
 
-type UserData = z.infer<typeof userSchema>
+export type UserData = z.infer<typeof userSchema>
 
 export function CadastrarUsuario(){
 
     const [output, setOutput ]= useState('')
 
     const [ radioOption, setRadioOption ] = useState(true)
+    const [isSendingFeedback, setIsSendingFeedback] = useState<boolean>(false)
 
-    function handlePersonTypeChange( isCPF : boolean ){
-        setRadioOption(!isCPF)
+
+    function handlePersonTypeChange(){
+        setRadioOption(!radioOption)
     }
 
     const { register,
@@ -55,9 +60,27 @@ export function CadastrarUsuario(){
             resolver: zodResolver(userSchema)
         })
 
-    function criarUsuario(data: UserData){
-        setOutput(JSON.stringify(data, null, 2))
-    }
+        const [nome, setNome] = useState('');
+        const [documento, setDocumento] = useState('');
+        const [email, setEmail] = useState('');
+        const [senha, setSenha] = useState('');
+
+        async function  criarUsuario() {
+            try {
+                setIsSendingFeedback(true)
+                const response = await api.post('/usuarios', {
+                    nome,
+                    documento,
+                    email,
+                    senha,
+                });
+                setIsSendingFeedback(false)
+                console.log(JSON.stringify(response))
+            } catch (error) {
+                console.log(error)
+                setIsSendingFeedback(false)
+            }
+          };
 
     return (
         <div className="flex justify-center px-7 w-full">
@@ -72,18 +95,18 @@ export function CadastrarUsuario(){
                 </article>
             </div>
             <form 
-            className='flex flex-col gap-2 w-full'
+            className='flex flex-col gap-2 w-full px-5'
             onSubmit={handleSubmit(criarUsuario)}
             >
-                <div className='flex gap-4 items-center justify-between w-[23rem]'>
-                    <div className='flex gap-2 items-center'>
+                <div className='flex items-center gap-4 justify-between w-full flex-wrap sm:justify-center sm:gap-28'>
+                    <div className='flex gap-2 items-center flex-wrap'>
                         <input 
                         type="radio" 
                         id="person1" 
                         className={styles.inputRadio} 
                         {...register('tipoDePessoa')} 
                         value='Pessoa Fisica'
-                        onChange={() => handlePersonTypeChange(radioOption)}
+                        onChange={() => handlePersonTypeChange()}
                         checked={radioOption}
                         />
                         <label 
@@ -93,14 +116,14 @@ export function CadastrarUsuario(){
                             Pessoa Física
                             </label>
                     </div>
-                    <div className='flex gap-2 items-center'>
+                    <div className='flex gap-2 items-center flex-wrap'>
                         <input 
                         type="radio"  
                         id="person2" 
                         className={styles.inputRadio} 
                         {...register('tipoDePessoa')} 
                         value='Pessoa Juridica'
-                        onChange={() => handlePersonTypeChange(radioOption)}
+                        onChange={() => handlePersonTypeChange()}
                         />
                         <label 
                         htmlFor="person2" 
@@ -113,7 +136,7 @@ export function CadastrarUsuario(){
 
                 <div>
                     <label htmlFor="email" className={styles.labelsStyles}>E-mail:</label>
-                    <input type="text" placeholder='E-mail' className={styles.inputStyles} {...register('email')}/>
+                    <input type="text" placeholder='E-mail' className={styles.inputStyles} {...register('email')} onChange={(e) => setEmail(e.target.value)}/>
                 </div>
                 <span className='text-xs text-red-600 h-3'>{errors.email && errors.email.message}</span>
 
@@ -124,13 +147,14 @@ export function CadastrarUsuario(){
                     placeholder='Nome' 
                     className={styles.inputStyles} 
                     {...register('nome')}
+                    onChange={(e) => setNome(e.target.value)}
                     />
                 </div>
                 <span className='text-xs text-red-600 h-3'>{errors.nome && errors.nome.message}</span>
 
                 <div>
                     <label 
-                    htmlFor="documentNumber" 
+                    htmlFor="documento" 
                     className={styles.labelsStyles}>{radioOption? "CPF" : "CNPJ"}
                         <span className='text-xs'>
                         (apenas números)
@@ -141,14 +165,15 @@ export function CadastrarUsuario(){
                     type="text" 
                     placeholder={radioOption? 'Ex.: 000.000.000-00' : 'Ex.: 00.000.000/0001-00'} 
                     className={styles.inputStyles} 
-                    {...register('documentNumber')}
+                    {...register('documento')}
+                    onChange={(e) => setDocumento(e.target.value)}
                     />    
                 </div>
-                <span className='text-xs text-red-600 h-3'>{errors.documentNumber && errors.documentNumber.message}</span>
+                <span className='text-xs text-red-600 h-3'>{errors.documento && errors.documento.message}</span>
                     
                 <div>
                     <label htmlFor="senha" className={styles.labelsStyles}>Senha:</label>
-                    <input type="password" placeholder='Senha' className={styles.inputStyles} {...register('senha')}/>
+                    <input type="password" placeholder='Senha' className={styles.inputStyles} {...register('senha')} onChange={(e) => setSenha(e.target.value)}/>
                 </div>
                 <span className='text-xs text-red-600 h-3'>{errors.senha && errors.senha.message}</span>
 
@@ -164,7 +189,13 @@ export function CadastrarUsuario(){
                 </div>
                 <span className='text-xs text-red-600 whitespace-nowrap h-4'>{errors.termoDeUso && errors.termoDeUso.message}</span>
 
-            <button type="submit" className='bg-purple-medium border py-2 w-full rounded-xl hover:bg-purple-dark text-white font-bold mt-1'>Avançar</button>
+            <button 
+            type="submit" 
+            className='flex justify-center items-center disabled:bg-purple-medium/80 disabled:hover:bg-purple-900/70 bg-purple-medium border py-2 w-full rounded-xl hover:bg-purple-900 text-white font-bold mt-1'
+            disabled={isSendingFeedback}
+            >
+                { isSendingFeedback ? <Loading /> :'Avançar' }
+            </button>
             </form>
 
             <span className='text-purple-stroke text-sm mt-9'>Já tem uma conta? <a href="_blank" className='font-semibold text-purple-medium text-base' >FAÇA O LOGIN</a></span>
