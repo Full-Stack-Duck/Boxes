@@ -1,16 +1,19 @@
 package com.fullstackduck.boxes.services;
 
+import java.text.Normalizer;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fullstackduck.boxes.entities.Despesa;
-import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.Categoria;
 import com.fullstackduck.boxes.repositories.DespesaRepository;
@@ -97,5 +100,25 @@ public class DespesaService {
 	public List<Despesa> listarDespesasCategoria(Categoria categoria) {
 	    return despesaRepository.findByCategoria(categoria.getCode());
 	}
-	
+
+	public List<Despesa> buscarDespesasPorNome(String nome, Long id) {
+	    Usuario obj = usuarioRepository.getReferenceById(id);
+	    List<Despesa> prej = new ArrayList<>();
+	    String normalizedNome = Normalizer.normalize(nome, Normalizer.Form.NFD);
+	    String patternString = "(?i).*" + normalizedNome.replaceAll("\\p{M}", "") + ".*";
+	    Pattern pattern = Pattern.compile(patternString);
+	    for (Despesa despesa : obj.getDespesas()) {
+	        String normalizedDespesaNome = Normalizer.normalize(despesa.getNome(), Normalizer.Form.NFD);
+	        Matcher matcher = pattern.matcher(normalizedDespesaNome.replaceAll("\\p{M}", ""));
+	        if (matcher.matches()) {
+	            prej.add(despesa);
+	        }
+	    }
+	    return prej;
+
 	}
+	
+
+	}
+
+

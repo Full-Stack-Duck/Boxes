@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.fullstackduck.boxes.entities.Orcamento;
+import com.fullstackduck.boxes.entities.Cliente;
 import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.entities.enums.TipoArmazenamento;
 import com.fullstackduck.boxes.entities.enums.TipoProduto;
@@ -75,9 +75,9 @@ public class ProdutoResource {
 	    return ResponseEntity.ok().body(produtos);
 	}
 	
-	@GetMapping(value = "/categoria")
-	public ResponseEntity<List<Produto>> listarProdutosCategoria(@RequestParam(value = "categoria") TipoArmazenamento categoria) {
-		List<Produto> produtos = service.listarProdutosCategoria(categoria);
+	@GetMapping(value = "{id}/categoria")
+	public ResponseEntity<List<Produto>> listarProdutosCategoria(@RequestParam(value = "categoria") TipoArmazenamento categoria, @PathVariable Long id) {
+		List<Produto> produtos = service.listarProdutosCategoria(categoria, id);
 		return ResponseEntity.ok().body(produtos);
 	}
 	
@@ -86,4 +86,10 @@ public class ProdutoResource {
 		List<Produto> produtos = service.listarProdutosTipo(tipo);
 		return ResponseEntity.ok().body(produtos);
 	}
+	
+	@GetMapping("{id}/produtospn")
+    public ResponseEntity<List<Produto>> buscarProdutosPorNome(@RequestParam(value="nome") String nome, @PathVariable Long id) {
+        List<Produto> produtos = service.buscarProdutosPorNome(nome, id);
+        return ResponseEntity.ok(produtos);
+    }
 }

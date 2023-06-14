@@ -1,11 +1,15 @@
 package com.fullstackduck.boxes.services;
 
+
+import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.entities.Usuario;
@@ -82,7 +86,6 @@ public class ProdutoService {
 		entity.setObservacao(obj.getObservacao());
 	}
 	
-	@Transactional
 	public List<Produto> listarProdutos(Long idUsuario) {
         Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
         return usuario.getProdutos();
@@ -92,11 +95,35 @@ public class ProdutoService {
 		entity.setStatus(obj.getStatus());
 	}
 	
-	public List<Produto> listarProdutosCategoria(TipoArmazenamento categoria) {
-	    return produtoRepository.findByCategoria(categoria);
+	public List<Produto> listarProdutosCategoria(TipoArmazenamento categoria, Long id) {
+		Usuario obj = usuarioRepository.getReferenceById(id);
+		List<Produto> prod = new ArrayList<>();
+		for (Produto i : obj.getProdutos()) {
+			if(i.getCategoria() == categoria) {
+				prod.add(i);
+			}
+		}
+		//List<Produto> prod = listarProdutos(id);
+	    return prod;
 	}
 
 	public List<Produto> listarProdutosTipo(TipoProduto tipo) {
 	    return produtoRepository.findByTipo(tipo);
+	}
+	
+	public List<Produto> buscarProdutosPorNome(String nome, Long id) {
+	    Usuario obj = usuarioRepository.getReferenceById(id);
+	    List<Produto> prod = new ArrayList<>();
+	    String normalizedNome = Normalizer.normalize(nome, Normalizer.Form.NFD);
+	    String patternString = "(?i).*" + normalizedNome.replaceAll("\\p{M}", "") + ".*";
+	    Pattern pattern = Pattern.compile(patternString);
+	    for (Produto produto : obj.getProdutos()) {
+	        String normalizedProdutoNome = Normalizer.normalize(produto.getNome(), Normalizer.Form.NFD);
+	        Matcher matcher = pattern.matcher(normalizedProdutoNome.replaceAll("\\p{M}", ""));
+	        if (matcher.matches()) {
+	            prod.add(produto);
+	        }
+	    }
+	    return prod;
 	}
 }

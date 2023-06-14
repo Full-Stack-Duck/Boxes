@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fullstackduck.boxes.entities.Cliente;
+import com.fullstackduck.boxes.entities.Despesa;
 import com.fullstackduck.boxes.services.ClienteService;
 
 //Controlador Rest
@@ -79,4 +80,10 @@ public class ClienteResource {
 		List<Cliente> clientes = service.listarClientePeriodo(dataInicio, dataFim);
 		return clientes;
 	}
+	
+	@GetMapping("{id}/clientespn")
+    public ResponseEntity<List<Cliente>> buscarClientesPorNome(@RequestParam(value="nome") String nome, @PathVariable Long id) {
+        List<Cliente> clientes = service.buscarClientesPorNome(nome, id);
+        return ResponseEntity.ok(clientes);
+    }
 }

@@ -1,15 +1,20 @@
 package com.fullstackduck.boxes.services;
 
+import java.text.Normalizer;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fullstackduck.boxes.entities.Cliente;
+import com.fullstackduck.boxes.entities.Despesa;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.repositories.ClienteRepository;
@@ -96,5 +101,21 @@ public class ClienteService {
 		Instant data1 = Instant.from(formatter.parse(dataInicio));
 		Instant data2 = Instant.from(formatter.parse(dataFim));
 	    return clienteRepository.findByDataClienteBetween(data1, data2);
+	}
+	
+	public List<Cliente> buscarClientesPorNome(String nome, Long id) {
+	    Usuario obj = usuarioRepository.getReferenceById(id);
+	    List<Cliente> client = new ArrayList<>();
+	    String normalizedNome = Normalizer.normalize(nome, Normalizer.Form.NFD);
+	    String patternString = "(?i).*" + normalizedNome.replaceAll("\\p{M}", "") + ".*";
+	    Pattern pattern = Pattern.compile(patternString);
+	    for (Cliente cliente : obj.getClientes()) {
+	        String normalizedClienteNome = Normalizer.normalize(cliente.getNome(), Normalizer.Form.NFD);
+	        Matcher matcher = pattern.matcher(normalizedClienteNome.replaceAll("\\p{M}", ""));
+	        if (matcher.matches()) {
+	            client.add(cliente);
+	        }
+	    }
+	    return client;
 	}
 }

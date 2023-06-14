@@ -79,4 +79,10 @@ public class DespesaResource {
 		List<Despesa> orcamentos = service.listarDespesaPeriodo(dataInicio, dataFim);
 		return orcamentos;
 	}
+	
+	@GetMapping("{id}/despesaspn")
+    public ResponseEntity<List<Despesa>> buscarDespesasPorNome(@RequestParam(value="nome") String nome, @PathVariable Long id) {
+        List<Despesa> despesas = service.buscarDespesasPorNome(nome, id);
+        return ResponseEntity.ok(despesas);
+    }
 }
