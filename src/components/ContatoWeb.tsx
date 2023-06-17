@@ -3,7 +3,7 @@ import wppIcon from '../assets/whatsapp-verde.svg'
 export function Contato(){
     return(
         <div className="bg-purple-medium">
-            <section className="flex flex-col text-white font-quicksand mx-6 py-8 lg:px-32">
+            <section className="flex flex-col text-white font-quicksand mx-6 py-8 lg:px-32 lg:mx-0">
                 <div className="lg:flex lg:flex-row">
                     <article className="text-center lg:text-left">
                         <h2 className="font-playfair font-bold text-3xl tracking-wide pb-4 lg:text-4xl">CONTATO</h2>
@@ -13,7 +13,7 @@ export function Contato(){
                         </div>
                     </article>
                 
-                    <form action="">
+                    <form action="" className="lg:pl-8">
                         <div className="flex mb-4 text-sm gap-x-2">
                             <div className="flex-1">
                                 <input className="w-full border rounded-lg h-8 placeholder:text-xs placeholder:px-3 placeholder:italic placeholder:text-purple-light placeholder:font-nunito bg-purple-dark" type="text" placeholder="Nome*" />
