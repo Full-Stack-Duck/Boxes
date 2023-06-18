@@ -4,7 +4,7 @@ export function Contato(){
     return(
         <div className="bg-purple-medium">
             <section className="flex flex-col text-white font-quicksand mx-6 py-8 lg:px-32 lg:mx-0">
-                <div className="lg:flex lg:flex-row">
+                <div className="lg:flex lg:flex-row lg:justify-around">
                     <article className="text-center lg:text-left">
                         <h2 className="font-playfair font-bold text-3xl tracking-wide pb-4 lg:text-4xl">CONTATO</h2>
                         <div className="mb-4 lg:text-lg ">
@@ -13,7 +13,7 @@ export function Contato(){
                         </div>
                     </article>
                 
-                    <form action="" className="lg:pl-8">
+                    <form action="" className="">
                         <div className="flex mb-4 text-sm gap-x-2">
                             <div className="flex-1">
                                 <input className="w-full border rounded-lg h-8 placeholder:text-xs placeholder:px-3 placeholder:italic placeholder:text-purple-light placeholder:font-nunito bg-purple-dark" type="text" placeholder="Nome*" />
@@ -37,8 +37,7 @@ export function Contato(){
                     </form>
                 </div>
                 
-
-                <div className="flex justify-center">
+                <div className="flex justify-around">
                     <div className="hidden lg:block lg:w-1/2"></div>
                     <button className="flex bg-green-medium border border-green-dark rounded-3xl px-5 py-1.5 mt-2 gap-x-2 shadow-md shadow-stone-700">FALE POR WHATSAPP<img src={wppIcon} alt="" /></button>
                 </div>
