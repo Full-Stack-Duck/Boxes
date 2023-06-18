@@ -66,20 +66,20 @@ export function CadastrarUsuario(){
         const [senha, setSenha] = useState('');
 
         async function  criarUsuario() {
-            try {
-                setIsSendingFeedback(true)
-                const response = await api.post('/usuarios', {
-                    nome,
-                    documento,
-                    email,
-                    senha,
-                });
-                setIsSendingFeedback(false)
-                console.log(JSON.stringify(response))
-            } catch (error) {
-                console.log(error)
-                setIsSendingFeedback(false)
-            }
+            try { 
+                setIsSendingFeedback(true) 
+                const response = await api.post('/usuarios', { 
+                    nome, 
+                    email, 
+                    documento, 
+                    senha, 
+                }); 
+                setIsSendingFeedback(false) 
+                console.log(JSON.stringify(response)) 
+            } catch (error) { 
+                console.log(error) 
+                setIsSendingFeedback(false) 
+            } 
           };
 
     return (
