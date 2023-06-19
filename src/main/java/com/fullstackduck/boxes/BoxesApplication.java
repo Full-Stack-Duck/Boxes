@@ -9,5 +9,6 @@ public class BoxesApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BoxesApplication.class, args);
 	}
-
+	
+	
 }

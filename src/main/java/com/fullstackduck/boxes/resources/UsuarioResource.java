@@ -24,6 +24,7 @@ import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.services.UsuarioService;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.validation.Valid;
 	
 	//Controlador Rest
@@ -47,6 +48,7 @@ import jakarta.validation.Valid;
 			return ResponseEntity.ok().body(obj);
 		}
 		
+		@PermitAll
 		@PostMapping
 		@Transactional
 		public ResponseEntity<Usuario> inserirUsuario(@Valid @RequestBody Usuario obj) {

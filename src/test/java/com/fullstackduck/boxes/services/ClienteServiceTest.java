@@ -20,7 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fullstackduck.boxes.entities.Cliente;
-import com.fullstackduck.boxes.entities.enums.StatusCliente;
+import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.repositories.ClienteRepository;
 
 @SpringBootTest
@@ -42,9 +42,9 @@ class ClienteServiceTest {
 	@Test
 	void testFindAll() {
 	    List<Cliente> clientes = new ArrayList<>();
-	    clientes.add(new Cliente(1L, "Cliente 1", "email1", "1111111111", Instant.now(), "123456789", Instant.now(), StatusCliente.ATIVA, null));
-	    clientes.add(new Cliente(2L, "Cliente 2", "email2", "2222222222", Instant.now(), "987654321", Instant.now(), StatusCliente.INATIVO, null));
-	    clientes.add(new Cliente(3L, "Cliente 3", "email3", "3333333333", Instant.now(), "987654321", Instant.now(), StatusCliente.ATIVA, null));
+	    clientes.add(new Cliente(1L, "Cliente 1", "email1", "1111111111", Instant.now(), "123456789", Instant.now(), Status.ATIVO, null));
+	    clientes.add(new Cliente(2L, "Cliente 2", "email2", "2222222222", Instant.now(), "987654321", Instant.now(), Status.INATIVO, null));
+	    clientes.add(new Cliente(3L, "Cliente 3", "email3", "3333333333", Instant.now(), "987654321", Instant.now(), Status.ATIVO, null));
 	    when(repository.findAll()).thenReturn(clientes);
 	    
 	    List<Cliente> result = service.findAll();
@@ -55,7 +55,7 @@ class ClienteServiceTest {
 	
 	@Test
 	void testFindById() {
-		Cliente cliente = new Cliente(1L, "Cliente 1", "email", "1111113354", Instant.now(), "123456789", Instant.now(), StatusCliente.ATIVA, null);
+		Cliente cliente = new Cliente(1L, "Cliente 1", "email", "1111113354", Instant.now(), "123456789", Instant.now(), Status.ATIVO, null);
 		when(repository.findById(1L)).thenReturn(Optional.of(cliente));
 		
 		Cliente result = service.findById(1L);
@@ -65,7 +65,7 @@ class ClienteServiceTest {
 	
 	@Test
 	void testInserirCliente() {
-		Cliente cliente = new Cliente(1L, "Cliente 1", "email", "1111113354", Instant.now(), "123456789", Instant.now(), StatusCliente.ATIVA, null);
+		Cliente cliente = new Cliente(1L, "Cliente 1", "email", "1111113354", Instant.now(), "123456789", Instant.now(), Status.ATIVO, null);
 		when(repository.save(cliente)).thenReturn(cliente);
 		
 		Cliente result = service.inserirCliente(cliente);
@@ -76,8 +76,8 @@ class ClienteServiceTest {
 	@Test
 	void testAtualizarStatusCliente() {
 		Long id = 1L;
-		Cliente cliente = new Cliente(1L, "Cliente 1", "email", "1111113354", Instant.now(), "123456789", Instant.now(), StatusCliente.ATIVA, null);
-		Cliente clienteAtualizada = new Cliente(1L, "Cliente 1", "email", "1111113354", Instant.now(), "123456789", Instant.now(), StatusCliente.INATIVO, null);
+		Cliente cliente = new Cliente(1L, "Cliente 1", "email", "1111113354", Instant.now(), "123456789", Instant.now(), Status.ATIVO, null);
+		Cliente clienteAtualizada = new Cliente(1L, "Cliente 1", "email", "1111113354", Instant.now(), "123456789", Instant.now(), Status.INATIVO, null);
 		when(repository.getReferenceById(id)).thenReturn(cliente);
 		when(repository.save(cliente)).thenReturn(clienteAtualizada);
 		
@@ -89,8 +89,8 @@ class ClienteServiceTest {
 	@Test
 	void testAtualizarCliente() {
 	Long id = 1L;
-	Cliente cliente = new Cliente(1L, "Cliente 1", "email", "1111113354", Instant.now(), "123456789", Instant.now(), StatusCliente.ATIVA, null);
-	Cliente clienteAtualizada = new Cliente(1L, "Cliente 1", "emailFINAL", "1111113354", Instant.now(), "123456789", Instant.now(), StatusCliente.ATIVA, null);
+	Cliente cliente = new Cliente(1L, "Cliente 1", "email", "1111113354", Instant.now(), "123456789", Instant.now(), Status.ATIVO, null);
+	Cliente clienteAtualizada = new Cliente(1L, "Cliente 1", "emailFINAL", "1111113354", Instant.now(), "123456789", Instant.now(), Status.ATIVO, null);
 	Mockito.when(repository.getReferenceById(id)).thenReturn(cliente);
 	service.atualizarCliente(id, clienteAtualizada);
 	Mockito.verify(repository, Mockito.times(1)).save(cliente);
@@ -100,7 +100,7 @@ class ClienteServiceTest {
 	assertEquals(clienteAtualizada.getDataNascimento(), cliente.getDataNascimento());
 	assertEquals(clienteAtualizada.getDocumento(), cliente.getDocumento());
 	assertEquals(clienteAtualizada.getDataCliente(), cliente.getDataCliente());
-	assertEquals(clienteAtualizada.getStatusCliente(), cliente.getStatusCliente());
+	assertEquals(clienteAtualizada.getStatus(), cliente.getStatus());
 	
 
 	}
