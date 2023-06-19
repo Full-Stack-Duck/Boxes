@@ -6,7 +6,7 @@ export function HeaderWeb(){
         <header className="flex px-7 justify-between items-center bg-purple-dark w-full h-16 lg:px-32">
         <div className="w-[50%] flex items-center">
           <a href="" className="pr-4">
-            <img src={logoIcon} alt="Logomarca da Manager Box" />
+            <img src={logoIcon} alt="Logomarca Boxes" />
           </a>
           <div className="w-0.5 h-9 bg-purple-light"></div>
           <h1 className="font-viga text-2xl tracking-widest text-white pl-4">Boxes</h1>
