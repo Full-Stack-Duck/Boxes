@@ -2,8 +2,8 @@ import client_plus_icon from "../assets/client_plus_icon.svg";
 
 export function ClientesCadastrados() {
   return (
-    <section className="flex flex-col">
-      <div className="flex flex-col px-7 items-start border-b-2 lg:px-0">
+    <section className="flex flex-col lg:border lg:border-purple-light lg:rounded-xl lg:p-4">
+      <div className="flex flex-col px-7 items-start border-b-2 lg:px-0 lg:border-0">
         <h1 className=" font-quicksand font-bold text-lg pt-3">
           Clientes Cadastrados
         </h1>
