@@ -24,7 +24,7 @@ const resources = {
     }
 }
 
-function descobrindoMaior(){
+export function descobrindoMaior(){
 
     let quant : number = 0
     let maisVendido = ""

@@ -2,9 +2,10 @@ import clienteIcon from "../assets/costumer-icon-on.svg";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { api } from "../server/api";
+import { api, token } from "../server/api";
 import { Loading } from "../assets/aux_components/Loading";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Cookies from "js-cookie";
 
 const clientSchema = z.object({
   nome: z.string(),
@@ -27,13 +28,13 @@ export function CadastrarClientes() {
   async function insertNewClient(){
     setIsSendingFeedback(true);
     try {
-      const response = await api.post("/clientes", {
+      await api.post("/clientes", {
         nome,
         email,
         telefone,
-      });     
+      }, {headers: {Authorization: `Bearer ${token()}`}});
       setIsSendingFeedback(false)
-      console.log(JSON.stringify(response))
+      //console.log(JSON.stringify(response)) deve ficar comentada pois aqui possui dados sensíveis
   } catch (error) {
       console.log(error)
       setIsSendingFeedback(false)

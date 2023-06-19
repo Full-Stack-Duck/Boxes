@@ -43,12 +43,20 @@ export function Dashboard() {
       .catch(error => console.log(error))
     }, [])
     
-    const totalVendas = Dinero({amount: (resources.vendas.total.espacoTempo * 100), currency: "BRL"}).toFormat("$0,0.00")
+    const totalVendas = Dinero({amount: (resources.vendas.total.espacoTempo * 100), currency: "BRL"}).setLocale('pt-BR').toFormat("$0,0.00")
     
     const [gastoTotal, setGastoTotal] = useState<TB_RECEITA[]>([])
     const [vendasTotal, setVendasTotal] = useState(totalVendas)
 
-
+    function defGastoTotal(userID : number, list : TB_RECEITA[]): number{
+      let valor : number = 0
+      list.forEach(element => {
+        if(verifyUser(element.usuario_id, userID)){
+          valor += element.valor_pagamento
+        }
+      });
+      return valor
+    }
 
     function verifyUser(id : number, idDesejado : number){
       if (id == idDesejado) {
@@ -75,7 +83,7 @@ export function Dashboard() {
             <p className="font-quicksand text-lg font-normal">Vendas</p>
             <div className="flex items-center">
               <p className="font-bold text-3xl text-purple-medium">
-                {vendasTotal.replace('.', ',').replace(',', '.')}
+                {vendasTotal}
               </p>
               <div className="flex items-center bg-green-300 rounded-xl h-5 w-14 ml-3 justify-center gap-0.5">
                 <div className="rotate-180 -mt-2">
@@ -92,11 +100,11 @@ export function Dashboard() {
           <div className="">
             <p className="font-quicksand text-lg font-normal">Gastos</p>
             <div className="flex items-center">
-              {gastoTotal.map(( gasto, index ) => (
-                  <p className="font-bold text-3xl text-purple-medium" key={index}>
-                  {verifyUser(gasto.usuario_id, resources.usuario) && Dinero({amount: gasto.valor_pagamento, currency: "BRL"}).setLocale('pt-BR').toFormat("$0,0.00")}
+              <p className="font-bold text-3xl text-purple-medium">
+                  {
+                  Dinero({amount: defGastoTotal(resources.usuario, gastoTotal), currency: "BRL"}).setLocale('pt-BR').toFormat("$0,0.00")
+                  }
                 </p>
-              ))}
               <div className="flex items-center bg-red-400 rounded-xl h-5 w-14 ml-3 justify-center">
                 <img src={polygon_despesaR_icon} className="animate-bounce transition-opacity mt-2"></img>
                 <span className="font-bold text-xs text-red-900">{resources.gastos.estatistica.espacoTempo}%</span>

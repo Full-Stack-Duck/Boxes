@@ -26,6 +26,10 @@ import { ResultadoCliente } from "./ResultadoCliente";
 import { CadastrarProdutos } from "./CadastrarProdutos";
 import { ResultadoPadrao } from "./ResultadoPadrao";
 import { PesquisarEstoque } from "./PesquisarEstoque";
+import Cadastro from "./Cadastro";
+import { Login } from "./Login";
+import { NewCadastrarPedidos } from "./NewCadastrarPedido";
+import { CadastrarProduto1 } from "./CadastrarProduto1";
 
 
 const setinha = <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -160,17 +164,17 @@ export function Navbar() {
                     </Tab.Panel>
                     {/* PEDIDOS */}
                     <Tab.Panel>
-                        <CadastrarPedidos />
-                        <ItemPedido />
+                        {/* <Login /> */}
+                        <NewCadastrarPedidos />
+                        {/* <ItemPedido />
                         <ValoresPedido />
                         <Pesquisar />
-                        <LegendaPedido />
+                        <LegendaPedido /> */}
                     </Tab.Panel>
                     {/* CLIENTES */}
                     <Tab.Panel>
                         <CadastrarClientes />
                         <Pesquisar />
-                        <ResultadoCliente />
                     </Tab.Panel>
                     {/* PRODUTOS */}
                     <Tab.Panel>
@@ -180,7 +184,10 @@ export function Navbar() {
                     </Tab.Panel>
                     {/* CONFIGURACÕES */}
                     <Tab.Panel>
+                        {/* <NewCadastrarPedidos /> */}
                         <CadastrarUsuario />
+                        {/* <Cadastro /> */}
+                        <Login />
                     </Tab.Panel>
 
                 </Tab.Panels>

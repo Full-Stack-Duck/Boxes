@@ -9,137 +9,196 @@ import { Loading } from '../assets/aux_components/Loading'
 import { api } from '../server/api'
 
 
-const userSchema = z.object({
-    nome: z.string()
-    .nonempty('Por favor, preencha o campo de nome.'),
+// const userSchema = z.object({
+//     nome: z.string()
+//     .nonempty('Por favor, preencha o campo de nome.'),
 
-    documento: z.string()
-    .nonempty('Por favor, preencha o campo com CPF ou CNPJ.')
-    .min(11, 'Faltam dígitos em seu CPF ou CNPJ.')
-    .max(14, 'Tem números demais em seu CNPJ'),
+//     documento: z.string()
+//     .nonempty('Por favor, preencha o campo com CPF ou CNPJ.')
+//     .min(11, 'Faltam dígitos em seu CPF ou CNPJ.')
+//     .max(14, 'Tem números demais em seu CNPJ'),
 
-    email: z.string()
-    .nonempty('Por favor, preencha o campo de e-mail.')
-    .email('O e-mail não é válido.'),
+//     email: z.string()
+//     .nonempty('Por favor, preencha o campo de e-mail.')
+//     .email('O e-mail não é válido.'),
 
-    senha: z.string()
-    .min(7, 'A senha deve conter no mínimo 7 caracteres.')
-    .nonempty('Preencha o campo de senha'),
+//     senha: z.string()
+//     .min(7, 'A senha deve conter no mínimo 7 caracteres.')
+//     .nonempty('Preencha o campo de senha'),
 
-    senhaConfirmada: z.string()
-    .nonempty('Preencha o campo de confirmação de senha'),
+//     senhaConfirmada: z.string()
+//     .nonempty('Preencha o campo de confirmação de senha'),
 
-    termoDeUso: z.boolean() 
-    .refine((value) => value === true, 'Para continuar, aceite os termos.'),
+//     termoDeUso: z.boolean() 
+//     .refine((value) => value === true, 'Para continuar, aceite os termos.'),
 
-    tipoDePessoa: z.string(),
+//     tipoDePessoa: z.string(),
 
-}).refine((field) => field.senha === field.senhaConfirmada , {
-    path: ['senhaConfirmada'],
-    message: 'Senha incorreta, confirme sua senha'
-})
+// }).refine((field) => field.senha === field.senhaConfirmada , {
+//     path: ['senhaConfirmada'],
+//     message: 'Senha incorreta, confirme sua senha'
+// })
 
-export type UserData = z.infer<typeof userSchema>
+// export type UserData = z.infer<typeof userSchema>
 
-export function CadastrarUsuario(){
 
-    const [output, setOutput ]= useState('')
+const enumType = [
+    "Selecione o tipo...",
+    "FRITO",
+    "FORNO",
+    "PRATO",
+    "BEBIDA",
+    "SOBREMESA",
+    "DOCE",
+    "ACOMPANHAMENTO",
+    "BEBIDA_NE",
+    "BOLOS E TORTAS",
+  ] as const;
+  
+  const enumCategory = [
+    "ESTOCAVEL", 
+    "NAO-ESTOCAVEL"
+  ] as const;
+  
+  const produtoSchema = z.object({
+    nome: z.string(),
+    valor: z.number(),
+    categoria: z.number(),
+    tipo: z.number(),
+    observacao: z.string().default('')
+  });
+  
+  type ProdutoType = z.infer<typeof produtoSchema>;
 
+
+
+export function CadastrarProduto1(){
+
+    // const [output, setOutput ]= useState('')
+
+    // const [ radioOption, setRadioOption ] = useState(true)
+    // const [isSendingFeedback, setIsSendingFeedback] = useState<boolean>(false)
+
+
+    // function handlePersonTypeChange(){
+    //     setRadioOption(!radioOption)
+    // }
+
+    // const { register,
+    //         handleSubmit,
+    //         formState : { errors }
+    //         } = useForm<UserData>({
+    //         resolver: zodResolver(userSchema)
+    //     })
+
+    //     const [nome, setNome] = useState('');
+    //     const [documento, setDocumento] = useState('');
+    //     const [email, setEmail] = useState('');
+    //     const [senha, setSenha] = useState('');
+
+    //     async function  criarUsuario() {
+    //         try {
+    //             setIsSendingFeedback(true)
+    //             const response = await api.post('/usuarios', {
+    //                 nome,
+    //                 documento,
+    //                 email,
+    //                 senha,
+    //             });
+    //             setIsSendingFeedback(false)
+    //             console.log(JSON.stringify(response))
+    //         } catch (error) {
+    //             console.log(error)
+    //             setIsSendingFeedback(false)
+    //         }
+    //       };
+
+    const { register, handleSubmit } = useForm<ProdutoType>({
+    resolver: zodResolver(produtoSchema),
+    });
+
+    const [isSendingFeedback, setIsSendingFeedback] = useState<boolean>(false);
     const [ radioOption, setRadioOption ] = useState(true)
-    const [isSendingFeedback, setIsSendingFeedback] = useState<boolean>(false)
 
+    function handleProductTypeChange(){
+    setRadioOption(!radioOption)
+    radioOption 
+    ? 
+    setCategoria(1) 
+    : 
+    setCategoria(0) 
 
-    function handlePersonTypeChange(){
-        setRadioOption(!radioOption)
     }
 
-    const { register,
-            handleSubmit,
-            formState : { errors }
-            } = useForm<UserData>({
-            resolver: zodResolver(userSchema)
-        })
+    const [nome, setNome] = useState<string>('')
+    const [valor, setValor] = useState<number>(0)
+    const [tipo, setTipo] = useState<number>(0)
+    const [categoria, setCategoria] = useState<number>(0)
+    const [observacao, setObservacao] = useState<string>('')
 
-        const [nome, setNome] = useState('');
-        const [documento, setDocumento] = useState('');
-        const [email, setEmail] = useState('');
-        const [senha, setSenha] = useState('');
-
-        async function  criarUsuario() {
-            try {
-                setIsSendingFeedback(true)
-                const response = await api.post('/usuarios', {
-                    nome,
-                    email,
-                    documento,
-                    senha,
-                });
-                setIsSendingFeedback(false)
-                console.log(JSON.stringify(response))
-            } catch (error) {
-                console.log(error)
-                setIsSendingFeedback(false)
-            }
-          };
+    async function insertNewProduto(){
+    setIsSendingFeedback(true);
+    console.log('Apertou')
+    try {
+        const response = await api.post("/produtos", {
+        nome,
+        valor,
+        tipo,
+        categoria,
+        observacao
+        });
+        setIsSendingFeedback(false);
+        console.log(JSON.stringify(response));
+    } catch (error) {
+        console.log(error);
+        setIsSendingFeedback(false);
+    }
+    }
 
     return (
         <div className="flex justify-center px-7 w-full">
             <div className="flex flex-col w-[23rem] sm:w-[50rem] h-fit justify-center items-center">
-            <div>
-                <article className="flex flex-col justify-center items-center mb-3">
-                    <div>
-                    <img src={logoIcon} alt="logomarca"/>
-                    </div>
-                    <h1 className="font-semibold tracking-wider text-2xl">Seja bem-vindo</h1>
-                    <h3 className="text-xs text-gray-lightgray">Por favor, insira seus dados</h3>
-                </article>
-            </div>
             <form 
             className='flex flex-col gap-2 w-full px-5'
-            onSubmit={handleSubmit(criarUsuario)}
+            onSubmit={handleSubmit(insertNewProduto)}
             >
                 <div className='flex items-center gap-4 justify-between w-full flex-wrap sm:justify-center sm:gap-28'>
                     <div className='flex gap-2 items-center flex-wrap'>
                         <input 
                         type="radio" 
-                        id="person1" 
+                        id={`${enumCategory[0]}`} 
                         className={styles.inputRadio} 
-                        {...register('tipoDePessoa')} 
-                        value='Pessoa Fisica'
-                        onChange={() => handlePersonTypeChange()}
+                        {...register('categoria')} 
+                        value={0}
+                        onChange={() => handleProductTypeChange()}
                         checked={radioOption}
                         />
                         <label 
-                        htmlFor="person1" 
-                        className='cursor-pointer text-purple-medium uppercase font-semibold'
+                        htmlFor={`${enumCategory[0]}`} 
+                        className='cursor-pointer text-purple-medium uppercase font-semibold
+                        '
                         >
-                            Pessoa Física
+                            {enumCategory[0]}
                             </label>
                     </div>
                     <div className='flex gap-2 items-center flex-wrap'>
                         <input 
                         type="radio"  
-                        id="person2" 
+                        id={`${enumCategory[1]}`} 
                         className={styles.inputRadio} 
-                        {...register('tipoDePessoa')} 
-                        value='Pessoa Juridica'
-                        onChange={() => handlePersonTypeChange()}
+                        {...register('categoria')} 
+                        value={1}
+                        onChange={() => handleProductTypeChange()}
                         checked={!radioOption}
                         />
                         <label 
-                        htmlFor="person2" 
+                        htmlFor={`${enumCategory[1]}`} 
                         className='cursor-pointer text-purple-medium uppercase font-semibold'
-                        >
-                            Pessoa Jurídica
+                        >  
+                            {enumCategory[1]}
                             </label>
                     </div>
                 </div>
-
-                <div>
-                    <label htmlFor="email" className={styles.labelsStyles}>E-mail:</label>
-                    <input type="text" placeholder='E-mail' className={styles.inputStyles} {...register('email')} onChange={(e) => setEmail(e.target.value)}/>
-                </div>
-                <span className='text-xs text-red-600 h-3'>{errors.email && errors.email.message}</span>
 
                 <div>
                     <label htmlFor="nome" className={styles.labelsStyles}>Nome de usuário:</label>
