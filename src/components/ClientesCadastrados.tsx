@@ -8,7 +8,7 @@ export function ClientesCadastrados() {
           Clientes Cadastrados
         </h1>
 
-        <div className="py-5">
+        <div className="">
           <p className=" font-quicksand text-gray-400 text-sm font-semibold ">
             TOTAL DE CLIENTES
           </p>
@@ -20,8 +20,8 @@ export function ClientesCadastrados() {
           </p>
           <p className="text-purple-medium text-3xl font-bold">5</p>
         </div>
-        <div className="w-full flex justify-between items-center pb-5">
-          <p className="text-xs text-gray-400 lg:pr-6">
+        <div className="w-full flex justify-between items-center">
+          <p className="text-xs text-gray-400 lg:pr-2">
             *Dentro do período selecionado
           </p>
           <a className="flex items-center justify-center w-10 h-10 border-purple-medium">
