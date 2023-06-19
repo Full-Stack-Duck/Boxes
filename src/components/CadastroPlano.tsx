@@ -30,8 +30,8 @@ export function CadastroPlano(){
                                 <h4 className="font-semibold tracking-widest">Essencial</h4>
                                 <h5>1 mês</h5>
                             </div>
-                            <h2 className="flex align-middle font-montserrat font-bold tracking-widest text-2xl ml-10 whitespace-nowrap">R$ 59</h2>
-                            <p className="text-xs">,90/mês</p>
+                            <h2 className="flex align-middle font-montserrat font-bold tracking-widest text-2xl ml-10 whitespace-nowrap">R$ 90</h2>
+                            <p className="text-xs"></p>
 
                         </div>
 
@@ -41,8 +41,8 @@ export function CadastroPlano(){
                                 <h4 className="font-semibold tracking-widest">Extra</h4>
                                 <h5>6 meses</h5>
                             </div>
-                            <h2 className="flex align-middle font-montserrat font-bold tracking-widest text-2xl ml-10 whitespace-nowrap">R$ 79</h2>
-                            <p className="text-xs">,90/mês</p>
+                            <h2 className="flex align-middle font-montserrat font-bold tracking-widest text-2xl ml-10 whitespace-nowrap">R$ 86</h2>
+                            <p className="text-xs">,40/mês</p>
                         </div>
 
                         <div className="flex p-4 items-center py-1.5 my-2 font-medium bg-purple-plano text-white rounded-xl">
@@ -51,8 +51,8 @@ export function CadastroPlano(){
                                 <h4 className="font-semibold tracking-widest">Deluxe</h4>
                                 <h5>12 meses</h5>
                             </div>
-                            <h2 className="align-middle font-montserrat font-bold tracking-widest text-2xl ml-10 whitespace-nowrap">R$ 99</h2>
-                            <p className="text-xs">,90/mês</p>
+                            <h2 className="align-middle font-montserrat font-bold tracking-widest text-2xl ml-10 whitespace-nowrap">R$ 82</h2>
+                            <p className="text-xs">,10/mês</p>
                         </div>
 
                         <div className="flex pb-1.5 font-quicksand text-gray-lightgray text-xs whitespace-nowrap">
