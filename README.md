@@ -34,5 +34,5 @@ Essa parte do TCC é destinada ao front-end (React + TypeScript + NodeJS + Tailw
 - https://date-fns.org/docs/Getting-Started#installation
     npm install date-fns --save
 
-    js-cookie
+- js-cookie
     npm i js-cookie
