@@ -155,7 +155,7 @@ export function Navbar() {
                         <div className="hidden lg:block">
                             <FiltroDashboard />
                         </div>
-                        <div className="lg:flex lg:px-32 lg:pt-10 lg:justify-between">
+                        <div className="lg:flex lg:px-32 lg:pt-10 lg:justify-between lg:mb-5">
                             <Dashboard />
                             <PedidosOrcamentos />
                             <ProdutosEstoque /> 
