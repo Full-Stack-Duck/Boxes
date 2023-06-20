@@ -67,7 +67,7 @@ export function Dashboard() {
     }
 
   return (
-    <section className="flex w-full justify-center py-3.5 lg:w-1/3 lg:py-0">
+    <section className="flex w-full justify-center py-3.5 lg:w-1/4 lg:py-0">
 
       <div className="flex flex-col items-center w-[23rem] sm:w-[50rem]">
         <div className="w-full flex items-center justify-between py-4 border-b-2 lg:hidden">
