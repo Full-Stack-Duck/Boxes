@@ -10,6 +10,7 @@ import { Tab } from "@headlessui/react";
 import { CadastrarDespesa } from "./CadastrarDespesas";
 import { Pesquisar } from "./Pesquisar";
 import { Financeiro } from "./Financeiro";
+import { FiltroDashboard } from "./FiltroDashboard";
 import { Dashboard } from "./Dashboard";
 import { PedidosOrcamentos } from "./PedidosOrcamentos";
 import { ClientesCadastrados } from "./ClientesCadastrados";
@@ -148,13 +149,19 @@ export function Navbar() {
                     </div>
                 </div>
 
-                <Tab.Panels>
+                <Tab.Panels className="">
                     {/* DASHBOARD */}
-                    <Tab.Panel>
-                        <Dashboard />
-                        <PedidosOrcamentos />
-                        <ClientesCadastrados />
-                        <ProdutosEstoque />
+                    <Tab.Panel >
+                        <FiltroDashboard />
+                        <div className="lg:flex lg:px-32 lg:pt-10">
+                            <Dashboard />
+                            <PedidosOrcamentos />
+                            <ProdutosEstoque /> 
+                        </div>
+                        <div className="lg:flex lg:justify-between lg:pb-4 lg:px-32">
+                            <div className="lg:w-2/3 lg:border lg:border-purple-light lg:rounded-xl"></div>
+                            <ClientesCadastrados />
+                        </div>
                     </Tab.Panel>
                     {/* FINANCAS */}
                     <Tab.Panel>
