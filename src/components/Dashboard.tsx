@@ -67,18 +67,18 @@ export function Dashboard() {
     }
 
   return (
-    <section className="flex w-full justify-center py-3.5">
+    <section className="flex w-full justify-center py-3.5 lg:w-1/3 lg:py-0">
+
       <div className="flex flex-col items-center w-[23rem] sm:w-[50rem]">
-        <div className="w-full flex items-center justify-between py-4 border-b-2">
+        <div className="w-full flex items-center justify-between py-4 border-b-2 lg:hidden">
           <p className="font-quicksand font-bold pl-7 text-2xl">Dashboard</p>
           <ListboxSelector />
         </div>
-        <div className="flex w-full px-7 justify-start">
-          <p className=" font-quicksand font-bold text-lg">
+
+        <div className="flex items-center justify-between flex-wrap w-full border-b-2 px-7 py-5 lg:p-4 lg:border lg:rounded-xl lg:border-purple-light">
+          <p className=" font-quicksand font-bold text-lg pb-2">
             Vendas & Gastos
           </p>
-        </div>
-        <div className="flex items-center justify-between flex-wrap w-full border-b-2 px-7 py-5">
           <div className="pb-5">
             <p className="font-quicksand text-lg font-normal">Vendas</p>
             <div className="flex items-center">
