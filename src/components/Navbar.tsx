@@ -149,11 +149,13 @@ export function Navbar() {
                     </div>
                 </div>
 
-                <Tab.Panels className="">
+                <Tab.Panels >
                     {/* DASHBOARD */}
                     <Tab.Panel >
-                        <FiltroDashboard />
-                        <div className="lg:flex lg:px-32 lg:pt-10">
+                        <div className="hidden lg:block">
+                            <FiltroDashboard />
+                        </div>
+                        <div className="lg:flex lg:px-32 lg:pt-10 lg:justify-between">
                             <Dashboard />
                             <PedidosOrcamentos />
                             <ProdutosEstoque /> 
