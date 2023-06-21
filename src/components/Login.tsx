@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { Loading } from '../assets/aux_components/Loading'
 import { api } from '../server/api'
 import Cookies from 'js-cookie'
+import { useNavigate } from 'react-router-dom';
 
 const usuarioSchema = z.object({
     email: z.string(),
@@ -15,6 +16,7 @@ const usuarioSchema = z.object({
 type UserData = z.infer<typeof usuarioSchema>
 
 export function Login(){
+    const navigate = useNavigate();
     
     const [isLogging, setIsLogging] = useState<boolean>(false)
     const [email, setEmail] = useState('');
@@ -42,6 +44,7 @@ export function Login(){
         // console.log('do toJson', toJson.data.token)
         // console.log(response.data.token)
         console.log(token)
+        navigate('/dashboard');
         setIsLogging(false)
     } catch(e) {
         console.log(e)

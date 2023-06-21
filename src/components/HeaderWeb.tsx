@@ -1,5 +1,6 @@
 import { DotsThreeVertical, UserCircle } from "phosphor-react";
 import logoIcon from '../assets/logoIcon.svg'
+import { Link } from 'react-router-dom';
 
 export function HeaderWeb(){
     return(
@@ -13,10 +14,10 @@ export function HeaderWeb(){
         </div>
         <div className="w-[50%] flex items-center justify-end">
           <div className="mr-3">
-            <a href="" className="text-white font-quicksand text-sm tracking-wider px-3 py-1 bg-purple-medium border rounded-md border-white">Cadastrar</a>
+          <Link to="/cadastro" className="text-white font-quicksand text-sm tracking-wider px-3 py-1 bg-purple-medium border rounded-md border-white">Cadastrar</Link>
           </div>
           <div className="mr-3 hidden md:block">
-            <a href="" className="text-white font-quicksand text-sm tracking-wider px-7 py-1 bg-purple-dark border rounded-md border-white">Entrar</a>
+          <Link to="/login" className="text-white font-quicksand text-sm tracking-wider px-7 py-1 bg-purple-dark border rounded-md border-white">Entrar</Link>
           </div>
           <button className="hover:bg-purple-400 hover:bg-opacity-10 rounded-full">
             <DotsThreeVertical size={32} weight="duotone" className="text-[#fff]"/>

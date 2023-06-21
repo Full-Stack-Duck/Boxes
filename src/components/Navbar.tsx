@@ -196,7 +196,7 @@ export function Navbar() {
                         {/* <NewCadastrarPedidos /> */}
                         <CadastrarUsuario />
                         {/* <Cadastro /> */}
-                        <Login />
+                       {/*} <Login /> */}
                     </Tab.Panel>
 
                 </Tab.Panels>

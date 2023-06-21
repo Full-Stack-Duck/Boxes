@@ -1,18 +1,26 @@
-import { Header } from "./components/Header"
-import { Navbar } from "./components/Navbar"
-import { FooterNav } from "./components/FooterNav"
-import { Footer } from "./components/Footer"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Header } from './components/Header';
+import { Navbar } from './components/Navbar';
+import { FooterNav } from './components/FooterNav';
+import { Footer } from './components/Footer';
+import { CadastrarUsuario } from './components/CadastrarUsuario';
+import { Login } from './components/Login';
+import { HomePage } from './components/HomePage';
+import { Principal } from './components/Principal';
 
 export function App() {
-
-
   return (
-   <>
-    <Header />
-    <Navbar />
-    <FooterNav />
-    <Footer />
-   </>
-  )
+    <Router>
+       <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/cadastro" element={<CadastrarUsuario />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Principal />} />
+      </Routes>
+      <Footer />
+      
+    </Router>
+  );
 }
+
 
