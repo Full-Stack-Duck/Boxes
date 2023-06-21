@@ -108,7 +108,7 @@ export function Login(){
                     </form>
                     <div className="flex justify-center gap-2 py-4 items-center">
                         <p className="text-xs text-gray-lightgray">Não tem uma conta?</p>
-                        <a href="#" className="text-sm text-purple-medium">CADASTRE-SE</a>
+                        <a href="/cadastro" className="text-sm text-purple-medium">CADASTRE-SE</a>
                     </div>
                 </article>
                 
