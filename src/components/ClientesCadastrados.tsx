@@ -24,9 +24,9 @@ export function ClientesCadastrados() {
           <p className="text-xs text-gray-400 lg:pr-2">
             *Dentro do período selecionado
           </p>
-          <a className="flex items-center justify-center w-10 h-10 border-purple-medium">
+          <button className="flex items-center justify-center w-10 h-10 border-purple-medium">
             <img src={client_plus_icon} className="w-7 h-7" />
-          </a>
+          </button>
         </div>
       </div>
     </section>
