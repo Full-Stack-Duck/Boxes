@@ -1,12 +1,12 @@
 import { useState, ChangeEvent } from 'react';
 import productIcon from "../assets/product-icon-active.svg";
 import styles from "../components/CadastrarUsuario.module.css";
-import { api } from "../server/api";
+import { api,token } from "../server/api";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loading } from "../assets/aux_components/Loading";
-
+import Cookies from "js-cookie";
 
 const enumType = [
   "Selecione o tipo...",
@@ -70,7 +70,7 @@ export function CadastrarProdutos() {
         tipo,
         categoria,
         observacao
-      });
+      }, {headers: {Authorization: `Bearer ${token()}`}});
       setIsSendingFeedback(false);
       console.log(JSON.stringify(response));
     } catch (error) {
