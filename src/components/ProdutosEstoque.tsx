@@ -82,23 +82,21 @@ export function ProdutosEstoque() {
                 </div>
                 <div className="flex flex-col w-full gap-3">
                     <div>
+                        <p className=" font-quicksand text-gray-400 text-sm font-semibold">PRODUTO MAIS POPULAR</p>
+                        <div className="flex items-center justify-between w-full">
+                            <span className="text-purple-medium text-xl font-bold">{produtoMaisVendido}</span>
+                        </div>
+                    </div>
+                    <div>
                         <p className="font-quicksand text-gray-400 text-sm font-semibold">PRODUTO MENOS POPULAR</p>
                         <div className="flex items-center justify-between">
                             { }
                             <span className="text-purple-medium text-xl font-bold">{produtoMenosVendido}</span>
-                            
-                            <img 
-                            src={product_plus_icon} 
-                            alt="Adicionar produto em novo pedido" />
-                        </div>
-                    </div>
-                    <div>
-                        <p className=" font-quicksand text-gray-400 text-sm font-semibold">PRODUTO MAIS POPULAR</p>
-                        <div className="flex items-center justify-between w-full">
-                            <span className="text-purple-medium text-xl font-bold">{produtoMaisVendido}</span>
-                            <img 
-                            src={product_plus_icon} 
-                            alt="Adicionar produto em novo pedido" />
+                            <button>
+                                <img 
+                                src={product_plus_icon} 
+                                alt="cadastrar novo produto" />
+                            </button>
                         </div>
                     </div>
                 </div>
