@@ -43,7 +43,7 @@ export function Navbar() {
         <>
             <Tab.Group>
                 <div className="max-h-12 min-h-12 bg-purple-medium">
-                    <div className="flex items-center w-full h-full max-w-[100%] overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide">
+                    <div className='flex items-center w-full h-full max-w-[100%] overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide'>
                         <Tab.List className="flex items-center gap-5 px-3">
                             <Tab>
                                 {({ selected }) => (
