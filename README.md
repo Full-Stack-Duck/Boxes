@@ -7,6 +7,7 @@ Essa parte do TCC é destinada ao front-end (React + TypeScript + NodeJS + Tailw
 ## Bibliotecas:
 - https://dinerojs.com/
     npm i @types/dinero.js
+    npm i dinero.js
 
 - https://react-hook-form.com/  <br/> <br/>
     npm i react-hook-form
@@ -36,3 +37,9 @@ Essa parte do TCC é destinada ao front-end (React + TypeScript + NodeJS + Tailw
 
 - js-cookie
     npm i js-cookie
+
+-react-router-dom
+ npm i react-router-dom
+
+- react-toastify
+npm i react-toastify  
