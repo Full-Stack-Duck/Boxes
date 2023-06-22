@@ -47,9 +47,9 @@ export function CadastrarClientes() {
   }
 
   return (
-    <section className="w-full flex flex-col items-center">
-      <p className="font-quicksand font-bold text-2xl py-3 px-7">Clientes</p>
-      <div className="flex-col items-center px-7 my-1 bg-white font-quicksand font-semibold border-y w-[23rem] sm:w-[50rem] ">
+    <section className="w-full flex flex-col lg:w-1/2">
+      <p className="font-quicksand font-bold text-2xl py-3 px-7 lg:hidden">Clientes</p>
+      <div className="flex-col items-center px-7 my-1 lg:my-0 bg-white font-quicksand font-semibold border-y lg:border-purple-light lg:border lg:rounded-xl">
         <div>
           <h3 className="text-lg py-2">Cadastrar Cliente</h3>
         <form
