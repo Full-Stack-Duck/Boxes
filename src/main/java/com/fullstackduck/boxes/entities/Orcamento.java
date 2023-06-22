@@ -5,8 +5,12 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fullstackduck.boxes.entities.DTO.ItemDTO;
 import com.fullstackduck.boxes.entities.enums.FormaPagamento;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.TipoEntrega;
@@ -22,6 +26,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +37,7 @@ import lombok.Setter;
 @Table(name="tb_orcamento")
 @NoArgsConstructor
 @EqualsAndHashCode(of="id")
+@JsonIgnoreProperties(value="itemTemp", allowSetters = true, allowGetters = false)
 public class Orcamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -44,9 +50,10 @@ public class Orcamento implements Serializable {
 	@Getter @Setter private String endereco;
 	private Integer tipoEntrega;
 	
+	@CreationTimestamp
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	@Getter @Setter private Instant dataOrcamento;
-	private Integer status;
+	private Integer status = 1;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	@Getter @Setter private Instant dataEntrega;
@@ -73,7 +80,10 @@ public class Orcamento implements Serializable {
 	
 	//Relacionamento com a entidade de ItensOrcamento
 	@OneToMany(mappedBy = "id.orcamento", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-	@Getter private  Set<ItensOrcamento> itens = new HashSet<ItensOrcamento>();
+	@Getter private Set<ItensOrcamento> itens = new HashSet<ItensOrcamento>();
+	
+	@Transient
+	@Getter private Set<ItemDTO> itemTemp = new HashSet<ItemDTO>();
 	
 	public Orcamento(Long id, TipoEntrega tipoEntrega, Instant dataOrcamento, Instant dataEntrega, Status status, FormaPagamento formaPag, Usuario usuario, Cliente cliente, String endereco) {
 		super();

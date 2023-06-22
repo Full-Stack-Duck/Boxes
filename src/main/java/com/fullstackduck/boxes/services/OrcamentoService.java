@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fullstackduck.boxes.entities.Cliente;
 import com.fullstackduck.boxes.entities.ItensOrcamento;
 import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.entities.Pedido;
@@ -19,6 +20,7 @@ import com.fullstackduck.boxes.entities.enums.StatusPagamentoPedido;
 import com.fullstackduck.boxes.entities.enums.StatusPedido;
 import com.fullstackduck.boxes.entities.enums.TipoArmazenamento;
 import com.fullstackduck.boxes.entities.pk.ItensOrcamentoPK;
+import com.fullstackduck.boxes.repositories.ClienteRepository;
 import com.fullstackduck.boxes.repositories.ItensOrcamentoRepository;
 import com.fullstackduck.boxes.repositories.OrcamentoRepository;
 import com.fullstackduck.boxes.repositories.PedidoRepository;
@@ -47,6 +49,9 @@ public class OrcamentoService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
 	public List<Orcamento> findAll(){
 		List<Orcamento> orcamentos = orcamentoRepository.findAll();
 		for (Orcamento i: orcamentos) {
@@ -63,8 +68,17 @@ public class OrcamentoService {
 	}
 
 	//insere orcamento no banco de dados
-	public Orcamento inserirOrcamento(Orcamento obj) {
-		return orcamentoRepository.save(obj);
+	public Orcamento inserirOrcamento(Orcamento obj, Long clienteId) {
+		Cliente cliente = clienteRepository.findById(clienteId).orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado com o id: " + clienteId));
+		obj.setCliente(cliente);
+		obj.setUsuario(cliente.getUsuario());
+		orcamentoRepository.save(obj);
+		if (!obj.getItemTemp().isEmpty()) {
+			for (var item : obj.getItemTemp()) {
+				adicionarItem(obj.getId(), item.getProdutoId(), item.getQuantidade());
+			}
+		}
+		return obj;
 	}
 	
 	//atualiza status do orcamento no banco de dados
@@ -89,11 +103,14 @@ public class OrcamentoService {
 		}
 	}
 	
-	public Orcamento adicionarItem(Long orcamentoId, Integer produtoId, ItensOrcamento item) {
-	    Orcamento orcamento = orcamentoRepository.getReferenceById(orcamentoId);
-	    Produto produto = produtoRepository.getReferenceById(produtoId);
+	@Transactional
+	public Orcamento adicionarItem(Long orcamentoId, Long produtoId, Integer qtd) {
+		Orcamento orcamento = orcamentoRepository.findById(orcamentoId).orElseThrow(() -> new ResourceNotFoundException("Orcamento não encontrado com o id: " + orcamentoId));
+	    Produto produto = produtoRepository.findById(produtoId).orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado com o id: " + produtoId));
+	    ItensOrcamento item = new ItensOrcamento();
 	    item.setProduto(produto);
 	    item.setPrecoUnit(produto.getValor());
+	    item.setQuantidade(qtd);
 	    item.setOrcamento(orcamento);
 	    item.setPrecoTotal(produto.getValor());
 	    orcamento.adicionarItem(item);

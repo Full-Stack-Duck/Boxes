@@ -65,8 +65,8 @@ public class OrcamentoResource {
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity<Orcamento> inserirOrcamento(@Valid @RequestBody Orcamento obj) {
-		obj = service.inserirOrcamento(obj);
+	public ResponseEntity<Orcamento> inserirOrcamento(@Valid @RequestBody Orcamento obj, @RequestParam Long clienteId) {
+		obj = service.inserirOrcamento(obj, clienteId);
 		service.calcularSubTotal(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);
@@ -89,13 +89,13 @@ public class OrcamentoResource {
 	
 	@PutMapping(value = "/{id}/adicionarItem/{produtoId}")
 	@Transactional
-	public ResponseEntity<Orcamento> adicionarItem(@PathVariable Long id, @PathVariable Integer produtoId, @RequestBody ItensOrcamento item) {
-		Orcamento orcamento = service.adicionarItem(id, produtoId, item);
+	public ResponseEntity<Orcamento> adicionarItem(@PathVariable Long id, @PathVariable Long produtoId, @RequestParam Integer qtd) {
+		Orcamento orcamento = service.adicionarItem(id, produtoId, qtd);
 		service.calcularSubTotal(orcamento);
         return ResponseEntity.ok().body(orcamento);
 	  }
 	
-	@DeleteMapping(value = "/{id}")
+	@DeleteMapping(value = "/{id}/removeItem/{produtoId}")
 	@Transactional
 	public ResponseEntity<Orcamento> removerItem(@PathVariable Long id, @PathVariable Long produtoId) {
 		Orcamento orcamento = service.removerItem(id, produtoId);

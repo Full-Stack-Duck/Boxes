@@ -71,7 +71,7 @@ public class ItensOrcamento implements Serializable {
 	public void setPrecoTotal(Double precoUnit) {
 		if (desconto >= 0 && desconto <= precoUnit) {
 			Integer quantidade = getQuantidade();
-			Double precoTotal =  (precoUnit - this.desconto) * quantidade;
+			Double precoTotal = (precoUnit - this.desconto) * quantidade;
 			this.precoTotal = precoTotal;
 		} else {
 			//lançar exceção de desconto inválido
