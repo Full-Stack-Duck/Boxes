@@ -7,6 +7,8 @@ import { CadastrarUsuario } from './components/CadastrarUsuario';
 import { Login } from './components/Login';
 import { HomePage } from './components/HomePage';
 import { Principal } from './components/Principal';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function App() {
   return (
@@ -18,6 +20,7 @@ export function App() {
         <Route path="/dashboard" element={<Principal />} />
       </Routes>
       <Footer />
+      <ToastContainer />
       
     </Router>
   );

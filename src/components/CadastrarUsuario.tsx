@@ -7,6 +7,10 @@ import {zodResolver} from '@hookform/resolvers/zod'
 import axios from 'axios'
 import { Loading } from '../assets/aux_components/Loading'
 import { api } from '../server/api'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+
 
 
 const userSchema = z.object({
@@ -47,6 +51,7 @@ export function CadastrarUsuario(){
 
     const [ radioOption, setRadioOption ] = useState(true)
     const [isSendingFeedback, setIsSendingFeedback] = useState<boolean>(false)
+    const navigate = useNavigate();
 
 
     function handlePersonTypeChange(){
@@ -76,8 +81,12 @@ export function CadastrarUsuario(){
                 });
                 setIsSendingFeedback(false)
                 console.log(JSON.stringify(response))
+                toast.success('Usuário cadastrado com sucesso!');
+                navigate('/login');
+
             } catch (error) {
                 console.log(error)
+                toast.error('Erro ao cadastrar usuário. Por favor, tente novamente.');
                 setIsSendingFeedback(false)
             }
           };
