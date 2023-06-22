@@ -52,7 +52,7 @@ public class DespesaService {
 	
 	public Despesa atualizarDespesa(Long id, Despesa obj) {
 		try {
-			Despesa entity = despesaRepository.getReferenceById(id);
+			Despesa entity = despesaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Despesa não encontrada com o id: " + id));
 			atualizarDadosDespesa(entity, obj);
 			return despesaRepository.save(entity);
 		}catch (EntityNotFoundException e) {
@@ -85,7 +85,7 @@ public class DespesaService {
 	
 	@Transactional
 	public List<Despesa> listarDespesas(Long idUsuario) {
-        Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + idUsuario));
         return usuario.getDespesas();
     }
 	
@@ -102,7 +102,7 @@ public class DespesaService {
 	}
 
 	public List<Despesa> buscarDespesasPorNome(String nome, Long id) {
-	    Usuario obj = usuarioRepository.getReferenceById(id);
+	    Usuario obj = usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + id));
 	    List<Despesa> prej = new ArrayList<>();
 	    String normalizedNome = Normalizer.normalize(nome, Normalizer.Form.NFD);
 	    String patternString = "(?i).*" + normalizedNome.replaceAll("\\p{M}", "") + ".*";

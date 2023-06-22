@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fullstackduck.boxes.entities.Cliente;
-import com.fullstackduck.boxes.entities.Despesa;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.repositories.ClienteRepository;
@@ -28,7 +27,7 @@ public class ClienteService {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
-	
+	           
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
@@ -56,7 +55,7 @@ public class ClienteService {
 	
 	public Cliente atualizarStatusCliente(Long id, Cliente obj) {
 		try {
-			Cliente entity = clienteRepository.getReferenceById(id);
+			Cliente entity = clienteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado com o id: " + id));
 			atualizarStatusCliente(entity, obj);
 			return clienteRepository.save(entity);
 		} catch (EntityNotFoundException e) {
@@ -68,7 +67,7 @@ public class ClienteService {
 	
 	public Cliente atualizarCliente(Long id, Cliente obj) {
 		try {
-			Cliente entity = clienteRepository.getReferenceById(id);
+			Cliente entity = clienteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado com o id: " + id));
 			atualizarDadosCliente(entity, obj);
 			return clienteRepository.save(entity);
 		}catch (EntityNotFoundException e) {
@@ -91,7 +90,7 @@ public class ClienteService {
 	
 	@Transactional
 	public List<Cliente> listarClientes(Long idUsuario) {
-        Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + idUsuario));
         return usuario.getClientes();
     }
 	
@@ -104,7 +103,7 @@ public class ClienteService {
 	}
 	
 	public List<Cliente> buscarClientesPorNome(String nome, Long id) {
-	    Usuario obj = usuarioRepository.getReferenceById(id);
+	    Usuario obj = usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + id));
 	    List<Cliente> client = new ArrayList<>();
 	    String normalizedNome = Normalizer.normalize(nome, Normalizer.Form.NFD);
 	    String patternString = "(?i).*" + normalizedNome.replaceAll("\\p{M}", "") + ".*";

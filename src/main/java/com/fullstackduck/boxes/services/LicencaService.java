@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fullstackduck.boxes.entities.Licenca;
 import com.fullstackduck.boxes.entities.Usuario;
-import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.StatusLicenca;
 import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 import com.fullstackduck.boxes.repositories.LicencaRepository;
@@ -44,8 +43,8 @@ public class LicencaService {
         }
     }
     
-    public Licenca inserirLicenca(Licenca licenca, Integer id) {
-    	Usuario usuario = usuarioRepository.getReferenceById(id);
+    public Licenca inserirLicenca(Licenca licenca, Long id) {
+    	Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + id));
     	licenca.setDataAquisicao(Instant.now());
     	licenca.setDataValidade(licenca.getDataAquisicao());
     	licenca.calcularDiasLicenca();
@@ -57,7 +56,7 @@ public class LicencaService {
     @Transactional
     public Licenca atualizarStatusLicenca(Long id, Licenca obj) {
     	try {
-			Licenca entity = licencaRepository.getReferenceById(id);
+			Licenca entity = licencaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Licença não encontrada com o id: " + id));
 			atualizarStatusLicenca(entity, obj);
 			return licencaRepository.save(entity);
 		} catch (EntityNotFoundException e) {
@@ -68,7 +67,7 @@ public class LicencaService {
     @Transactional
     public Licenca renovarLicenca(Long id, Licenca obj) {
     	try {
-			Licenca entity = licencaRepository.getReferenceById(id);
+			Licenca entity = licencaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Licença não encontrada com o id: " + id));
 			renovarLicenca(entity, obj);
 			return licencaRepository.save(entity);
 		} catch (EntityNotFoundException e) {
@@ -77,9 +76,9 @@ public class LicencaService {
     }
     
     @Transactional
-    public Licenca alterarLicenca(Licenca licenca, Integer usuarioId) {
+    public Licenca alterarLicenca(Licenca licenca, Long usuarioId) {
     	inserirLicenca(licenca, usuarioId);
-    	Usuario usuario = usuarioRepository.getReferenceById(usuarioId);
+    	Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + usuarioId));
     	Licenca antigaLicenca = usuario.findLicenca();
     	licenca.setDataAquisicao(antigaLicenca.getDataValidade());
     	Instant novaDataValidadeLicenca = antigaLicenca.getDataValidade();

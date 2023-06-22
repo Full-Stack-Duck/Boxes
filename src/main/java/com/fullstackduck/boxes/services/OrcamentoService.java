@@ -84,7 +84,7 @@ public class OrcamentoService {
 	//atualiza status do orcamento no banco de dados
 	public Orcamento atualizarStatusOrcamento(Long id, Orcamento obj) {
 		try {
-			Orcamento entity = orcamentoRepository.getReferenceById(id);
+			Orcamento entity = orcamentoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Orcamento não encontrado com o id: " + id));
 			atualizarStatus(entity, obj);
 			return orcamentoRepository.save(entity);
 		} catch (EntityNotFoundException e) {
@@ -95,7 +95,7 @@ public class OrcamentoService {
 	//atualiza dados do orcamento no banco de dados
 	public Orcamento atualizarOrcamento(Long id, Orcamento obj) {
 		try {
-			Orcamento entity = orcamentoRepository.getReferenceById(id);
+			Orcamento entity = orcamentoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Orcamento não encontrado com o id: " + id));
 			atualizarDados(entity, obj);
 			return orcamentoRepository.save(entity);
 		}catch (EntityNotFoundException e) {
@@ -129,7 +129,7 @@ public class OrcamentoService {
 	
 	@Transactional
 	public List<Orcamento> listarOrcamentos(Long idUsuario) {
-        Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + idUsuario));
         return usuario.getOrcamentos();
     }
 	

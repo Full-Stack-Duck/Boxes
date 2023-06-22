@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fullstackduck.boxes.entities.Pagamento;
 import com.fullstackduck.boxes.entities.enums.StatusPagamento;
 import com.fullstackduck.boxes.repositories.PagamentoRepository;
-import com.fullstackduck.boxes.repositories.PedidoRepository;
 import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -19,29 +18,29 @@ import jakarta.persistence.EntityNotFoundException;
 public class PagamentoService {
 
 	@Autowired
-	private PagamentoRepository repository;
+	private PagamentoRepository pagamentoRepository;
 
 	public List<Pagamento> findAll() {
-		return repository.findAll();
+		return pagamentoRepository.findAll();
 	}
 
 	public Pagamento findById(Long id) {
-		Optional<Pagamento> obj = repository.findById(id);
+		Optional<Pagamento> obj = pagamentoRepository.findById(id);
 		return obj.get();
 	}
 
 	// insere pagamento no banco de dados
 	public Pagamento inserirPagamento(Pagamento obj) {
-		return repository.save(obj);
+		return pagamentoRepository.save(obj);
 	}
 
 	// atualiza dados do cliente no banco de dados
 	@Transactional
 	public Pagamento atualizarPagamento(Long id, Pagamento obj) {
 		try {
-			Pagamento entity = repository.getReferenceById(id);
+			Pagamento entity = pagamentoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Pagamento não encontrado com o id: " + id));
 			atualizarDadosPagamento(entity, obj);
-			return repository.save(entity);
+			return pagamentoRepository.save(entity);
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
@@ -50,9 +49,9 @@ public class PagamentoService {
 	@Transactional
 	public Pagamento atualizarStatusPagamento(Long id, Pagamento obj) {
 		try {
-			Pagamento entity = repository.getReferenceById(id);
+			Pagamento entity = pagamentoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Pagamento não encontrado com o id: " + id));
 			devolverPagamento(entity, obj);
-			return repository.save(entity);
+			return pagamentoRepository.save(entity);
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}

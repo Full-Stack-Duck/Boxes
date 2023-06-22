@@ -38,9 +38,9 @@ public class MovimentacaoEstoqueService {
 		return repository.save(obj);
 	}
 	
-	public void adicionarItem(Long produto_id, Integer quantidade) {
+	public void adicionarItem(Long produtoId, Integer quantidade) {
 	    // Recupera o produto pelo ID
-	    Optional<Produto> optionalProduto = produtoRepository.findById(produto_id);
+	    Optional<Produto> optionalProduto = produtoRepository.findById(produtoId);
 
 	    if (optionalProduto.isPresent()) {
 	        Produto produto = optionalProduto.get();
@@ -62,14 +62,14 @@ public class MovimentacaoEstoqueService {
 	        repository.save(movimentacaoEstoque);
 	    } else {
 	        // Lidar com o caso em que o produto não foi encontrado
-	        throw new IllegalArgumentException("Produto não encontrado com ID: " + produto_id);
+	        throw new IllegalArgumentException("Produto não encontrado com ID: " + produtoId);
 	    }
 	}
 	
-	public void removerItem(Long produto_id,Integer quantidade) {
+	public void removerItem(Long produtoId,Integer quantidade) {
 		
 		 // Recupera o produto pelo ID
-	    Optional<Produto> optionalProduto = produtoRepository.findById(produto_id);
+	    Optional<Produto> optionalProduto = produtoRepository.findById(produtoId);
 
 	    if (optionalProduto.isPresent()) {
 	        Produto produto = optionalProduto.get();
@@ -91,7 +91,7 @@ public class MovimentacaoEstoqueService {
 	        repository.save(movimentacaoEstoque);
 	    } else {
 	        // Lidar com o caso em que o produto não foi encontrado
-	        throw new IllegalArgumentException("Produto não encontrado com ID: " + produto_id);
+	        throw new IllegalArgumentException("Produto não encontrado com ID: " + produtoId);
 	    }
   	}
 

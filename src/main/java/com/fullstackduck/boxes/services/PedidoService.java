@@ -46,14 +46,13 @@ public class PedidoService {
 	}
 
 	// insere cliente no banco de dados
-
 	public Pedido inserirPedido(Pedido obj) {
 		return pedidoRepository.save(obj);
 	}
 
 	@Transactional
 	public List<Pedido> listarPedidos(Long idUsuario) {
-		Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
+		Usuario usuario = usuarioRepository.findById(idUsuario).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + idUsuario));
 		return usuario.getPedidos();
 	}
 
@@ -68,7 +67,7 @@ public class PedidoService {
 	@Transactional
 	public Pedido atualizarStatusPagamentoPedido(Long id, Pedido obj) {
 		try {
-			Pedido entity = pedidoRepository.getReferenceById(id);
+			Pedido entity = pedidoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Pedido não encontrado com o id: " + id));
 			atualizarDadosPagamentoPedido(entity, obj);
 			return pedidoRepository.save(entity);
 		} catch (EntityNotFoundException e) {
@@ -86,7 +85,7 @@ public class PedidoService {
 	@Transactional
 	public Pedido atualizarStatusPedido(Long id, Pedido obj) {
 		try {
-			Pedido entity = pedidoRepository.getReferenceById(id);
+			Pedido entity = pedidoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Pedido não encontrado com o id: " + id));
 			atualizarDadosPedido(entity, obj);
 			return pedidoRepository.save(entity);
 		} catch (EntityNotFoundException e) {
@@ -99,7 +98,7 @@ public class PedidoService {
 	}
 
 	public void cancelarPedido(Long id) {
-		Pedido obj = pedidoRepository.getReferenceById(id);
+		Pedido obj = pedidoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Pedido não encontrado com o id: " + id));
 		Orcamento orc = obj.getOrcamento();
 		for (ItensOrcamento item : orc.getItens()) {
         	Produto produto = item.getProduto();

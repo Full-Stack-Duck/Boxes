@@ -45,7 +45,7 @@ public class LicencaResource {
 	}
 	
 	@PostMapping(value = "/inserirLicenca/{usuarioId}")
-	public ResponseEntity<Licenca> inserirLicenca(@Valid @RequestBody Licenca obj, @PathVariable Integer usuarioId) {
+	public ResponseEntity<Licenca> inserirLicenca(@Valid @RequestBody Licenca obj, @PathVariable Long usuarioId) {
 	    obj = service.inserirLicenca(obj, usuarioId);
 	    URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 	    return ResponseEntity.created(uri).body(obj);
@@ -58,7 +58,7 @@ public class LicencaResource {
 	}
 	
 	@PostMapping(value = "/alterarLicenca/{usuarioId}")
-	public ResponseEntity<Licenca> alterarLicenca(@Valid @RequestBody Licenca obj, @PathVariable Integer usuarioId){
+	public ResponseEntity<Licenca> alterarLicenca(@Valid @RequestBody Licenca obj, @PathVariable Long usuarioId){
 		obj = service.alterarLicenca(obj, usuarioId);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);

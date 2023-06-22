@@ -57,7 +57,7 @@ public class ProdutoService {
 	
 	public Produto atualizarStatusProduto(Long id, Produto obj) {
 		try {
-			Produto entity = produtoRepository.getReferenceById(id);
+			Produto entity = produtoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado com o id: " + id));
 			atualizarStatus(entity, obj);
 			return produtoRepository.save(entity);
 		} catch (EntityNotFoundException e) {
@@ -69,7 +69,7 @@ public class ProdutoService {
 	
 	public Produto atualizarProduto(Long id, Produto obj) {
 		try {
-			Produto entity = produtoRepository.getReferenceById(id);
+			Produto entity = produtoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado com o id: " + id));
 			atualizarDados(entity, obj);
 			return produtoRepository.save(entity);
 		}catch (EntityNotFoundException e) {
@@ -87,7 +87,7 @@ public class ProdutoService {
 	}
 	
 	public List<Produto> listarProdutos(Long idUsuario) {
-        Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + idUsuario));
         return usuario.getProdutos();
     }
 	
@@ -96,7 +96,7 @@ public class ProdutoService {
 	}
 	
 	public List<Produto> listarProdutosCategoria(TipoArmazenamento categoria, Long id) {
-		Usuario obj = usuarioRepository.getReferenceById(id);
+		Usuario obj = usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + id));
 		List<Produto> prod = new ArrayList<>();
 		for (Produto i : obj.getProdutos()) {
 			if(i.getCategoria() == categoria) {

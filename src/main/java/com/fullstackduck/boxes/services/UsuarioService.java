@@ -28,14 +28,14 @@ public class UsuarioService {
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@Autowired
-	private UsuarioRepository repository;
+	private UsuarioRepository usuarioRepository;
 	
 	public List<Usuario> findAll(){
-		return repository.findAll();
+		return usuarioRepository.findAll();
 	}
 	
 	public Usuario findById(Long id) {
-		Optional<Usuario> obj = repository.findById(id);
+		Optional<Usuario> obj = usuarioRepository.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
@@ -47,15 +47,15 @@ public class UsuarioService {
 		obj.setDatacadastro(Instant.now());
 		String senhaCodificada = passwordEncoder.encode(obj.getSenha());
 		obj.setSenha(senhaCodificada);
-	    return repository.save(obj);
+	    return usuarioRepository.save(obj);
 	}
 	
 	//atualiza status do usuario no banco de dados
 	public Usuario atualizarStatusUsuario(Long id, Usuario obj) {
 		try {
-			Usuario entity = repository.getReferenceById(id);
+			Usuario entity = usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + id));
 			atualizarStatus(entity, obj);
-			return repository.save(entity);
+			return usuarioRepository.save(entity);
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
@@ -64,9 +64,9 @@ public class UsuarioService {
 	//atualiza dados do usuario no banco de dados
 	public Usuario atualizarUsuario(Long id, Usuario obj) {
 		try {
-			Usuario entity = repository.getReferenceById(id);
+			Usuario entity = usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + id));
 			atualizarDados(entity, obj);
-			return repository.save(entity);
+			return usuarioRepository.save(entity);
 		}catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
@@ -87,7 +87,7 @@ public class UsuarioService {
 	}
 	
 	public String recuperarSenha(String email) {
-        Usuario usuario = repository.findByEmail(email);
+        Usuario usuario = usuarioRepository.findByEmail(email);
         if (usuario == null) {
             throw new ResourceNotFoundException("Usuário não encontrado para o email: " + email);
         }
@@ -95,7 +95,7 @@ public class UsuarioService {
     }
 
     public boolean validarSenha(String email, String senha) {
-        Usuario usuario = repository.findByEmail(email);
+        Usuario usuario = usuarioRepository.findByEmail(email);
         if (usuario == null) {
             return false;
         }
@@ -103,27 +103,27 @@ public class UsuarioService {
     }
     
     public List<Cliente> listarClientes(Long idUsuario) {
-        Usuario usuario = findById(idUsuario);
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + idUsuario));
         return usuario.getClientes();
     }
     
     public List<Orcamento> listarOrcamentos(Long idUsuario) {
-        Usuario usuario = repository.getReferenceById(idUsuario);
+        Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
         return usuario.getOrcamentos();
     }
     
     public List<Produto> listarProdutos(Long idUsuario) {
-        Usuario usuario = findById(idUsuario);
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + idUsuario));
         return usuario.getProdutos();
     }
     
     public List<Receita> listarReceitas(Long idUsuario){
-    	Usuario usuario = repository.getReferenceById(idUsuario);
+    	Usuario usuario = usuarioRepository.findById(idUsuario).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + idUsuario));
     	return usuario.getReceitas();
     }
     
     public Usuario login(String email, String senha) throws Exception {
-        Usuario usuario = repository.findByEmail(email);
+        Usuario usuario = usuarioRepository.findByEmail(email);
         if (usuario == null) {
             throw new LoginException("Usuário não encontrado");
         }

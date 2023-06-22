@@ -16,6 +16,7 @@ import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.repositories.PagamentoRepository;
 import com.fullstackduck.boxes.repositories.ReceitaRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
+import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
 @Service //Registro de componente
 public class ReceitaService {
@@ -49,7 +50,7 @@ public class ReceitaService {
 	
 	@Transactional
 	public List<Receita> listarReceitas(Long idUsuario) {
-        Usuario usuario = usuarioRepository.getReferenceById(idUsuario);
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + idUsuario));
         return usuario.getReceitas();
     }
 	
