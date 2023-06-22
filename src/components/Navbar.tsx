@@ -31,6 +31,7 @@ import Cadastro from "./Cadastro";
 import { Login } from "./Login";
 import { NewCadastrarPedidos } from "./NewCadastrarPedido";
 import { CadastrarProduto1 } from "./CadastrarProduto1";
+import { CabecalhoCliente } from "./CabecalhoCliente";
 
 
 const setinha = <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +43,7 @@ export function Navbar() {
         <>
             <Tab.Group>
                 <div className="max-h-12 min-h-12 bg-purple-medium">
-                    <div className='flex items-center w-full h-full max-w-[100%] overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide'>
+                    <div className="flex items-center w-full h-full max-w-[100%] overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide">
                         <Tab.List className="flex items-center gap-5 px-3">
                             <Tab>
                                 {({ selected }) => (
@@ -182,8 +183,13 @@ export function Navbar() {
                     </Tab.Panel>
                     {/* CLIENTES */}
                     <Tab.Panel>
-                        <CadastrarClientes />
-                        <Pesquisar />
+                        <div className="hidden lg:block">
+                            <CabecalhoCliente />
+                        </div>
+                        <div className="lg:flex lg:px-32 lg:pt-10 lg:justify-between lg:mb-5">
+                            <CadastrarClientes />
+                            <Pesquisar />
+                        </div>
                     </Tab.Panel>
                     {/* PRODUTOS */}
                     <Tab.Panel>
