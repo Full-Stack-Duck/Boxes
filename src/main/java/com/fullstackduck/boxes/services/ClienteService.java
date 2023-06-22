@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,7 +49,17 @@ public class ClienteService {
 		obj.setDataNascimento(null);
 		obj.setDocumento(null);
 		obj.setStatus(Status.ATIVO);
-		return clienteRepository.save(obj);
+		// Obtém o nome de usuário do token JWT
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        // Busca o usuário pelo nome de usuário
+        Usuario user = usuarioRepository.findByNome(username);
+
+        if (user != null) {
+            // Associa o produto ao usuário
+            obj.setUsuario(user);
+            // Salva o produto no banco de dados
+        }
+        return clienteRepository.save(obj);
 	}
 	
 	//atualiza status do cliente no banco de dados
