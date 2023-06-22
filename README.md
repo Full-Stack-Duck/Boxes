@@ -37,6 +37,7 @@ Essa parte do TCC é destinada ao front-end (React + TypeScript + NodeJS + Tailw
 
 - js-cookie
     npm i js-cookie
+    npm i --save-dev @types/js-cookie
 
 -react-router-dom
  npm i react-router-dom
