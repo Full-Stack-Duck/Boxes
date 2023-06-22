@@ -7,6 +7,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loading } from "../assets/aux_components/Loading";
 import Cookies from "js-cookie";
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
 
 const enumType = [
   "Selecione o tipo...",
@@ -73,8 +76,10 @@ export function CadastrarProdutos() {
       }, {headers: {Authorization: `Bearer ${token()}`}});
       setIsSendingFeedback(false);
       console.log(JSON.stringify(response));
+      toast.success('Produto cadastrado com sucesso!');
     } catch (error) {
       console.log(error);
+      toast.error('Produto não cadastrado!');
       setIsSendingFeedback(false);
     }
   }

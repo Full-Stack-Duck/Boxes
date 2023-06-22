@@ -7,6 +7,9 @@ import { Loading } from '../assets/aux_components/Loading'
 import { api } from '../server/api'
 import Cookies from 'js-cookie'
 import { useNavigate } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
 
 const usuarioSchema = z.object({
     email: z.string(),
@@ -44,10 +47,12 @@ export function Login(){
         // console.log('do toJson', toJson.data.token)
         // console.log(response.data.token)
         console.log(token)
+        toast.success('Usuário Logado com sucesso!');
         navigate('/dashboard');
         setIsLogging(false)
     } catch(e) {
         console.log(e)
+        toast.error('Erro ao Logar usuário. Por favor, tente novamente.');
         setIsLogging(false)
         }
         

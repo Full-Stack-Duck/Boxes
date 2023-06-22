@@ -6,6 +6,9 @@ import { api, token } from "../server/api";
 import { Loading } from "../assets/aux_components/Loading";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Cookies from "js-cookie";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const clientSchema = z.object({
   nome: z.string(),
@@ -34,9 +37,11 @@ export function CadastrarClientes() {
         telefone,
       }, {headers: {Authorization: `Bearer ${token()}`}});
       setIsSendingFeedback(false)
+      toast.success('Cliente cadastrado com sucesso!');
       //console.log(JSON.stringify(response)) deve ficar comentada pois aqui possui dados sensíveis
   } catch (error) {
       console.log(error)
+      toast.error('Cliente não cadastrado , verifique os dados e tente novamente!');
       setIsSendingFeedback(false)
   }
   }
