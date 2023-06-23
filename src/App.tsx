@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { CadastroPlano } from './components/CadastroPlano';
 
 export function App() {
+  
   return (
     <Router>
        <Routes>

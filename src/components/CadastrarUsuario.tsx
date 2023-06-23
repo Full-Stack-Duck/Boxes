@@ -8,6 +8,8 @@ import axios from 'axios'
 import { Loading } from '../assets/aux_components/Loading'
 import { api } from '../server/api'
 import { useNavigate } from 'react-router-dom';
+import { HeaderWeb } from './HeaderWeb'
+
 
 
 
@@ -88,6 +90,8 @@ export function CadastrarUsuario(){
           };
 
     return (
+<>
+        <HeaderWeb />
         <div className="flex justify-center w-full">
             <div className="hidden bg-purple-medium lg:block lg:w-1/2 lg:rounded-r-3xl"></div>
 
@@ -212,7 +216,7 @@ export function CadastrarUsuario(){
                 <pre className='bg-purple-dark text-white font-bold text-sm mt-8'>{output}</pre>
             </div>
             
-
-        </div>
+           
+        </div> </>
     )
 }

@@ -2,6 +2,7 @@ import logoIcon from '../assets/logoIcon.svg'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import { HeaderWeb } from './HeaderWeb'
 
 export function CadastroPlano(){
     const navigate = useNavigate();
@@ -11,7 +12,8 @@ export function CadastroPlano(){
     navigate('/dashboard');
   }
     return(
-        
+        <>
+        <HeaderWeb />
         
         <section className='w-full flex justify-center'>
             <div className="flex flex-col w-[23rem] sm:w-[50rem] h-fit justify-center items-center lg:px-32">
@@ -80,8 +82,8 @@ export function CadastroPlano(){
                     </div>
                 </article>
             </div>
-
+            
             <div className="hidden lg:bg-purple-medium lg:block lg:w-1/2 lg:rounded-l-3xl"></div>
-        </section>
+        </section></>
     )
 }

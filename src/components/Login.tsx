@@ -9,6 +9,7 @@ import Cookies from 'js-cookie'
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
+import { HeaderWeb } from './HeaderWeb'
 
 
 const usuarioSchema = z.object({
@@ -59,6 +60,8 @@ export function Login(){
     }
 
     return(
+        <>
+        <HeaderWeb />
         <section className="font-quicksand flex justify-center w-full">
             <div className="hidden bg-purple-medium lg:block lg:w-1/2 lg:rounded-r-3xl"></div>
 
@@ -118,6 +121,6 @@ export function Login(){
                 </article>
                 
             </div>
-        </section>
+        </section></>
     )
 }
