@@ -39,7 +39,7 @@ export function Contato(){
                 
                 <div className="flex lg:justify-center">
                     <div className="hidden lg:block lg:w-1/2"></div>
-                    <button className="flex bg-green-medium border border-green-dark rounded-3xl px-5 py-1.5 mt-2 gap-x-2 shadow-md shadow-stone-700">FALE POR WHATSAPP<img src={wppIcon} alt="" /></button>
+                    <a href="https://api.whatsapp.com/send?phone=5575991988661" target="_blank" className="flex bg-green-medium border border-green-dark rounded-3xl px-5 py-1.5 mt-2 gap-x-2 shadow-md shadow-stone-700 cursor-pointer">FALE POR WHATSAPP<img src={wppIcon} alt="" /></a>
                 </div>
             </section>
         </div>
