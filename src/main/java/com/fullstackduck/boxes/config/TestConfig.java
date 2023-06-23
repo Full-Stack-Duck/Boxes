@@ -84,11 +84,11 @@ import com.fullstackduck.boxes.repositories.UsuarioRepository;
 	public void run(String... args) throws Exception {
 		
 		//Teste Usuário
-		Usuario u1 = new Usuario(null, "Bruno", "123456789", "bruno@gmail.com", "7512345678", "$2a$12$BodnS42Y3/ALFPXFGYUZEuQ7qqAO.ZmVuEEDvCikvA1VhKOX656sG", "Tomba", "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngwing.com%2Fen%2Fsearch%3Fq%3Djava&psig=AOvVaw3tTPnzEE5A094sE5h23Ik0&ust=1685803990633000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPjGjbXrpP8CFQAAAAAdAAAAABAE", null, Status.ATIVO);
-		Usuario u2 = new Usuario(null, "José", "123456789", "jose@gmail.com", "7512345678", "$2a$12$xzA6d8BHkEWEbeOfWY6IHuluK4dWShZkYbfVAmS3/gACPJwJVCnmC", "Tomba", null, null, Status.ATIVO);
-		Usuario u3 = new Usuario(null, "Kelvin", "123456789", "kelvin@gmail.com", "7512345678", "cccccccc", "Tomba", null, null, Status.ATIVO);
-		Usuario u4 = new Usuario(null, "Lucas", "123456789", "lucas@gmail.com", "7512345678", "$2a$12$lBg90tLpan7VnnvFk6OnF.DGS19rqyi2DcXbO.Qiiyhf4OGW6qEW2", "Tomba", null, null, Status.ATIVO);
-		Usuario u5 = new Usuario(null, "Vinícius", "123456789", "vinicius@gmail.com", "7512345678", "eeeeeeee", "Tomba", null, null, Status.ATIVO);
+		Usuario u1 = new Usuario(null, "Bruno", "123456789", "bruno@gmail.com", "7512345678", "$2a$12$BodnS42Y3/ALFPXFGYUZEuQ7qqAO.ZmVuEEDvCikvA1VhKOX656sG", "Tomba", "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngwing.com%2Fen%2Fsearch%3Fq%3Djava&psig=AOvVaw3tTPnzEE5A094sE5h23Ik0&ust=1685803990633000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPjGjbXrpP8CFQAAAAAdAAAAABAE", null, Status.ATIVO, TipoLicenca.GRATUITA);
+		Usuario u2 = new Usuario(null, "José", "123456789", "jose@gmail.com", "7512345678", "$2a$12$xzA6d8BHkEWEbeOfWY6IHuluK4dWShZkYbfVAmS3/gACPJwJVCnmC", "Tomba", null, null, Status.ATIVO, TipoLicenca.GRATUITA);
+		Usuario u3 = new Usuario(null, "Kelvin", "123456789", "kelvin@gmail.com", "7512345678", "cccccccc", "Tomba", null, null, Status.ATIVO, TipoLicenca.GRATUITA);
+		Usuario u4 = new Usuario(null, "Lucas", "123456789", "lucas@gmail.com", "7512345678", "$2a$12$lBg90tLpan7VnnvFk6OnF.DGS19rqyi2DcXbO.Qiiyhf4OGW6qEW2", "Tomba", null, null, Status.ATIVO, TipoLicenca.GRATUITA);
+		Usuario u5 = new Usuario(null, "Vinícius", "123456789", "vinicius@gmail.com", "7512345678", "eeeeeeee", "Tomba", null, null, Status.ATIVO, TipoLicenca.GRATUITA);
 		
 		usuarioRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5));
 		
