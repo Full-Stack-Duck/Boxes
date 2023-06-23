@@ -1,7 +1,17 @@
 import logoIcon from '../assets/logoIcon.svg'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 export function CadastroPlano(){
+    const navigate = useNavigate();
+
+  function handleCadastroClick() {
+    toast.success('Usuário Cadastrado com sucesso!');
+    navigate('/dashboard');
+  }
     return(
+        
         
         <section className='w-full flex justify-center'>
             <div className="flex flex-col w-[23rem] sm:w-[50rem] h-fit justify-center items-center lg:px-32">
@@ -60,7 +70,7 @@ export function CadastroPlano(){
                         </div>
                     </form>
                     <div>
-                        <button type='submit' className="flex items-center justify-center w-full h-10 mt-2 mb-4 rounded-xl  bg-purple-medium shadow-md shadow-purple-shadow text-white tracking-widest">
+                        <button type='submit' onClick={handleCadastroClick} className="flex items-center justify-center w-full h-10 mt-2 mb-4 rounded-xl  bg-purple-medium shadow-md shadow-purple-shadow text-white tracking-widest">
                             Cadastrar
                         </button>
                     </div>
