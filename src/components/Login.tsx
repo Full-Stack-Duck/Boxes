@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import { HeaderWeb } from './HeaderWeb'
+import { FooterNavWeb } from './FooterNavWeb'
 
 
 const usuarioSchema = z.object({
@@ -121,6 +122,6 @@ export function Login(){
                 </article>
                 
             </div>
-        </section></>
+        </section><FooterNavWeb /></>
     )
 }

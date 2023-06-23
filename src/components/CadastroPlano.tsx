@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { HeaderWeb } from './HeaderWeb'
+import { FooterNavWeb } from './FooterNavWeb'
 
 export function CadastroPlano(){
     const navigate = useNavigate();
@@ -84,6 +85,6 @@ export function CadastroPlano(){
             </div>
             
             <div className="hidden lg:bg-purple-medium lg:block lg:w-1/2 lg:rounded-l-3xl"></div>
-        </section></>
+        </section><FooterNavWeb /></>
     )
 }
