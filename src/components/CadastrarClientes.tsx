@@ -47,7 +47,7 @@ export function CadastrarClientes() {
   }
 
   return (
-    <section className="w-full flex flex-col lg:w-1/2">
+    <section className="w-full flex flex-col lg:w-1/2 lg:mr-5">
       <p className="font-quicksand font-bold text-2xl py-3 px-7 lg:hidden">Clientes</p>
       <div className="flex-col items-center px-7 my-1 lg:my-0 bg-white font-quicksand font-semibold border-y lg:border-purple-light lg:border lg:rounded-xl">
         <div>
@@ -90,13 +90,13 @@ export function CadastrarClientes() {
             <button
               type="submit"
 
-              className=" flex items-center justify-evenly w-full h-10 mt-2 mb-4 border-2 rounded  bg-purple-medium border-purple-dark shadow-md shadow-purple-shadow text-white text-base"
+              className=" flex items-center justify-center w-full h-10 mt-2 mb-4 border-2 rounded  bg-purple-medium border-purple-dark shadow-md shadow-purple-shadow text-white text-base"
 
               disabled={isSendingFeedback}
             >
               <span>{""}</span>
               {isSendingFeedback ? <Loading /> : "CADASTRAR CLIENTE"}
-              <img className="mx-1" src={clienteIcon} alt="" />
+              <img className="ml-3" src={clienteIcon} alt="" />
             </button>
           </form>
         </div>

@@ -32,6 +32,7 @@ import { Login } from "./Login";
 import { NewCadastrarPedidos } from "./NewCadastrarPedido";
 import { CadastrarProduto1 } from "./CadastrarProduto1";
 import { CabecalhoCliente } from "./CabecalhoCliente";
+import { PesquisarCliente } from "./PesquisarCliente";
 
 
 const setinha = <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -188,7 +189,7 @@ export function Navbar() {
                         </div>
                         <div className="lg:flex lg:px-32 lg:pt-10 lg:justify-between lg:mb-5">
                             <CadastrarClientes />
-                            <Pesquisar />
+                            <PesquisarCliente />
                         </div>
                     </Tab.Panel>
                     {/* PRODUTOS */}
