@@ -72,7 +72,7 @@ export function ProdutosEstoque() {
     const produtoMaisVendido = descobrindoMaior()
 
     return (
-        <section className="w-full flex justify-center items-center mb-5 lg:mb-0 lg:w-1/3 lg:border lg:border-purple-light lg:rounded-xl lg:p-4">
+        <section className="w-full flex justify-center items-center mb-5 lg:mb-0 lg:w-1/3 lg:border lg:border-purple-light lg:rounded-xl lg:p-4 lg:ml-2">
             <div className="px-7 flex flex-col justify-center items-start w-[23rem] sm:w-[50rem] lg:px-0">
             <h1 className="font-quicksand font-bold text-lg pt-3 lg:pt-0">Produtos & Estoque</h1>
             <div className="my-3 flex flex-col justify-start items-start gap-2 w-full">
