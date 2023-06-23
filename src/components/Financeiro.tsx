@@ -4,7 +4,7 @@ import polygon_despesaR_icon from '../assets/polygon_despesa_R.svg'
 export function Financeiro() {
     return (
         <section className='flex justify-center w-full lg:w-1/3'>
-            <div className='flex flex-col w-[23rem] sm:w-[50rem] border-b-2'>
+            <div className='flex flex-col w-[23rem] sm:w-[50rem] border-b-2 lg:border-0'>
                 <div className="flex justify-between py-4 lg:hidden">
                     <p className="font-quicksand font-bold pl-7 text-2xl">Financeiro</p>
                 </div>
