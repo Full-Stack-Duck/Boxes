@@ -33,6 +33,7 @@ import { NewCadastrarPedidos } from "./NewCadastrarPedido";
 import { CadastrarProduto1 } from "./CadastrarProduto1";
 import { CabecalhoCliente } from "./CabecalhoCliente";
 import { PesquisarCliente } from "./PesquisarCliente";
+import { CabecalhoFinanceiro } from "./CabecalhoFinanceiro";
 
 
 const setinha = <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -169,9 +170,16 @@ export function Navbar() {
                     </Tab.Panel>
                     {/* FINANCAS */}
                     <Tab.Panel>
-                        <Financeiro />
-                        <CadastrarDespesa />
-                        <Pesquisar />
+                    <div className="hidden lg:block">
+                            <CabecalhoFinanceiro />
+                        </div>
+                        <div className="lg:flex lg:justify-between lg:pb-4 lg:px-32 lg:pt-10">
+                            <Financeiro />
+                            <CadastrarDespesa />
+                        </div>
+                        <div className="lg:flex lg:justify-between lg:pb-4 lg:px-32">
+                            <Pesquisar />
+                        </div>
                     </Tab.Panel>
                     {/* PEDIDOS */}
                     <Tab.Panel>
