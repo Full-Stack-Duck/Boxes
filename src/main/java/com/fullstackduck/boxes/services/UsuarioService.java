@@ -16,6 +16,7 @@ import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.entities.Receita;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.Status;
+import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
 import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
@@ -47,6 +48,7 @@ public class UsuarioService {
 		obj.setDatacadastro(Instant.now());
 		String senhaCodificada = passwordEncoder.encode(obj.getSenha());
 		obj.setSenha(senhaCodificada);
+		obj.setTipoLicenca(TipoLicenca.GRATUITA);
 	    return usuarioRepository.save(obj);
 	}
 	

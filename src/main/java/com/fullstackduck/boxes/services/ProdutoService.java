@@ -9,6 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.fullstackduck.boxes.entities.Produto;
@@ -50,6 +52,17 @@ public class ProdutoService {
 	public Produto inserirProduto(Produto obj) {
 		obj.setStatus(Status.ATIVO);
 		obj.setQuantidade(0);
+		// Extrai o ID do usuário do token JWT
+	    Long userId = getUserIdFromToken();
+	    
+	    // Busca o usuário pelo ID
+	    Usuario user = usuarioRepository.findById(userId).orElse(null);
+
+        if (user != null) {
+            // Associa o produto ao usuário
+            obj.setUsuario(user);
+            // Salva o produto no banco de dados
+        }
 		return produtoRepository.save(obj);
 	}
 	
@@ -125,5 +138,16 @@ public class ProdutoService {
 	        }
 	    }
 	    return prod;
+	}
+	
+	private Long getUserIdFromToken() {
+	    // Obtém o ID do usuário do token JWT
+	    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+	    if (principal instanceof UserDetails) {
+	        return ((Usuario) principal).getId();
+	    } else {
+	        return Long.parseLong(principal.toString());
+	    }
 	}
 }

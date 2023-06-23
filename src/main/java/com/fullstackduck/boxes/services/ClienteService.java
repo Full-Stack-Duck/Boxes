@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,10 +50,11 @@ public class ClienteService {
 		obj.setDataNascimento(null);
 		obj.setDocumento(null);
 		obj.setStatus(Status.ATIVO);
-		// Obtém o nome de usuário do token JWT
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        // Busca o usuário pelo nome de usuário
-        Usuario user = usuarioRepository.findByNome(username);
+	    // Extrai o ID do usuário do token JWT
+	    Long userId = getUserIdFromToken();
+	    
+	    // Busca o usuário pelo ID
+	    Usuario user = usuarioRepository.findById(userId).orElse(null);
 
         if (user != null) {
             // Associa o produto ao usuário
@@ -127,5 +129,16 @@ public class ClienteService {
 	        }
 	    }
 	    return client;
+	}
+	
+	private Long getUserIdFromToken() {
+	    // Obtém o ID do usuário do token JWT
+	    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+	    if (principal instanceof UserDetails) {
+	        return ((Usuario) principal).getId();
+	    } else {
+	        return Long.parseLong(principal.toString());
+	    }
 	}
 }

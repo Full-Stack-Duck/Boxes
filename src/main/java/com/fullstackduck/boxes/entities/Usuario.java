@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.StatusLicenca;
+import com.fullstackduck.boxes.entities.enums.TipoLicenca;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -56,6 +57,7 @@ public class Usuario implements Serializable,UserDetails {
 	@Getter @Setter private String logo;
 	@Getter @Setter private Instant datacadastro;
 	private Integer status;
+	private Integer tipoLicenca;
 	
 	@NotBlank
 	@Email
@@ -103,7 +105,7 @@ public class Usuario implements Serializable,UserDetails {
 	
 
 	public Usuario(Long id, String nome, String documento, String email, String telefone, String senha, String endereco,
-			String logo,Instant datacadastro, Status status) {
+			String logo,Instant datacadastro, Status status, TipoLicenca tipoLicenca) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -115,6 +117,7 @@ public class Usuario implements Serializable,UserDetails {
 		this.logo = logo;
 		this.datacadastro = datacadastro;
 		setStatus(status);
+		setTipoLicenca(tipoLicenca);
 	}
 	
 	public Status getStatus() {
@@ -124,6 +127,16 @@ public class Usuario implements Serializable,UserDetails {
 	public void setStatus(Status status) {
 		if(status != null) {
 			this.status = status.getCode();
+		} 
+	}
+	
+	public TipoLicenca getTipoLicenca() {
+		return TipoLicenca.valueOf(tipoLicenca);
+	}
+
+	public void setTipoLicenca(TipoLicenca tipoLicenca) {
+		if(tipoLicenca != null) {
+			this.tipoLicenca = tipoLicenca.getCode();
 		} 
 	}
 	
