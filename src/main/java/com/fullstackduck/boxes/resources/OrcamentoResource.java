@@ -109,10 +109,9 @@ public class OrcamentoResource {
 	    return ResponseEntity.ok().body(orcamentos);
 	}
 	
-	@GetMapping(value = "/{id}/orcamentospd")
-	public List<Orcamento> listarOrcamentosPeriodo(@PathVariable Long id,@RequestParam String dataInicio, @RequestParam String dataFim){
-		List<Orcamento> orcamentos = service.listarOrcamentoPeriodo(dataInicio, dataFim);
-		return orcamentos;
+	@GetMapping(value = "/{usuarioId}/orcamentospd")
+	public Integer listarOrcamentosPeriodo(@PathVariable Long usuarioId, @RequestParam String dataInicio, @RequestParam String dataFim){
+		return service.listarOrcamentoPeriodo(usuarioId, dataInicio, dataFim);
 	}
 	
 	@PostMapping("/{id}/gerar-pedido")

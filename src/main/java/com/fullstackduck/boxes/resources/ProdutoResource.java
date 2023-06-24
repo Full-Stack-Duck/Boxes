@@ -92,4 +92,9 @@ public class ProdutoResource {
         List<Produto> produtos = service.buscarProdutosPorNome(nome, id);
         return ResponseEntity.ok(produtos);
     }
+	
+	@GetMapping(value = "/{usuarioId}/totalprodutos")
+	public Integer totalDeProdutos(@PathVariable Long usuarioId){
+		return service.totalDeProdutos(usuarioId);
+	}
 }

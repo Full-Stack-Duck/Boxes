@@ -64,4 +64,9 @@ public class ReceitaResource {
 		List<Receita> receita = service.listarReceitasPeriodo(dataInicio, dataFim);
 		return receita;
 	}
+	
+	@GetMapping(value = "/{usuarioId}/totalreceitaspd")
+	public Double listarOrcamentosPeriodo(@PathVariable Long usuarioId, @RequestParam String dataInicio, @RequestParam String dataFim){
+		return service.totalReceitasPeriodo(usuarioId, dataInicio, dataFim);
+	}
 }

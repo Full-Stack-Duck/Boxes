@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.entities.Pagamento;
 import com.fullstackduck.boxes.entities.Receita;
 import com.fullstackduck.boxes.entities.Usuario;
+import com.fullstackduck.boxes.entities.enums.StatusPagamento;
 import com.fullstackduck.boxes.repositories.PagamentoRepository;
 import com.fullstackduck.boxes.repositories.ReceitaRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
@@ -60,5 +60,23 @@ public class ReceitaService {
 		Instant data1 = Instant.from(formatter.parse(dataInicio));
 		Instant data2 = Instant.from(formatter.parse(dataFim));
 	    return receitaRepository.findByDataReceitaBetween(data1, data2);
+	}
+	
+	@Transactional
+	public Double totalReceitasPeriodo(Long usuarioId, String dataInicio, String dataFim) {
+		Usuario user = usuarioRepository.findById(usuarioId).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + usuarioId));
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
+		Instant data1 = Instant.from(formatter.parse(dataInicio));
+		Instant data2 = Instant.from(formatter.parse(dataFim));
+		List<Receita> totalpd = receitaRepository.findByDataReceitaBetween(data1, data2);
+		Double total = 0.0;
+		for (Receita i : totalpd) {
+			if (i.getUsuario().equals(user)) {
+				if (i.getPagamento().getStatusPagamento() == StatusPagamento.PAGO) {
+					total += i.getPagamento().getValor();
+				}
+			}
+		}
+	    return total;
 	}
 }

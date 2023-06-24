@@ -85,4 +85,9 @@ public class DespesaResource {
         List<Despesa> despesas = service.buscarDespesasPorNome(nome, id);
         return ResponseEntity.ok(despesas);
     }
+	
+	@GetMapping(value = "/{usuarioId}/totaldespesaspd")
+	public Double listarOrcamentosPeriodo(@PathVariable Long usuarioId, @RequestParam String dataInicio, @RequestParam String dataFim){
+		return service.totalDespesasPeriodo(usuarioId, dataInicio, dataFim);
+	}
 }

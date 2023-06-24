@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -107,4 +108,14 @@ import jakarta.validation.Valid;
 	            return ResponseEntity.badRequest().build();
 	        }
 	    }
+		
+		@GetMapping(value = "/{usuarioId}/totalclientes")
+		public Integer totalDeClientes(@PathVariable Long usuarioId){
+			return service.totalDeClientes(usuarioId);
+		}
+		
+		@GetMapping(value = "/{usuarioId}/novosclientes")
+		public Integer novosClientesPeriodo(@PathVariable Long usuarioId, @RequestParam String dataInicio, @RequestParam String dataFim){
+			return service.novosClientesPeriodo(usuarioId, dataInicio, dataFim);
+		}
 	}

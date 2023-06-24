@@ -1,6 +1,7 @@
 package com.fullstackduck.boxes.services;
 
 import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,14 +10,17 @@ import javax.security.auth.login.LoginException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fullstackduck.boxes.entities.Cliente;
+import com.fullstackduck.boxes.entities.Despesa;
 import com.fullstackduck.boxes.entities.Orcamento;
 import com.fullstackduck.boxes.entities.Produto;
 import com.fullstackduck.boxes.entities.Receita;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.entities.enums.TipoLicenca;
+import com.fullstackduck.boxes.repositories.ClienteRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
 import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
 
@@ -30,6 +34,9 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
 	
 	public List<Usuario> findAll(){
 		return usuarioRepository.findAll();
@@ -137,7 +144,28 @@ public class UsuarioService {
         return usuario;
     }
     
+    public Integer totalDeClientes(Long usuarioId) {
+		Usuario user = usuarioRepository.findById(usuarioId).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + usuarioId));
+		List<Cliente> client = user.getClientes();
+		Integer total = client.size();
+		return total;
+	}
     
+    @Transactional
+	public Integer novosClientesPeriodo(Long usuarioId, String dataInicio, String dataFim) {
+		Usuario user = usuarioRepository.findById(usuarioId).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + usuarioId));
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
+		Instant data1 = Instant.from(formatter.parse(dataInicio));
+		Instant data2 = Instant.from(formatter.parse(dataFim));
+		List<Cliente> totalpd = clienteRepository.findByDataClienteBetween(data1, data2);
+		Integer total = 0;
+		for (Cliente i : totalpd) {
+			if (i.getUsuario().equals(user)) {
+				total ++;
+			}
+		}
+	    return total;
+	}
  
 }
 

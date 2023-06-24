@@ -150,4 +150,16 @@ public class ProdutoService {
 	        return Long.parseLong(principal.toString());
 	    }
 	}
+	
+	public Integer totalDeProdutos(Long usuarioId) {
+		Usuario user = usuarioRepository.findById(usuarioId).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + usuarioId));
+		List<Produto> prod = user.getProdutos();
+		Integer total = 0;
+		for (Produto i : prod) {
+			if (i.getQuantidade() != null) {
+				total += i.getQuantidade();
+			}
+		}
+		return total;
+	}
 }

@@ -49,10 +49,14 @@ public class PedidoResource {
 	    return ResponseEntity.ok().body(pedidos);
 	}
 	
-	@GetMapping(value = "/{id}/orcamentospd")
-	public List<Pedido> listarOrcamentosPeriodo(@PathVariable Long id,@RequestParam String dataInicio, @RequestParam String dataFim){
-		List<Pedido> pedidos = service.listarPedidosPeriodo(dataInicio, dataFim);
-		return pedidos;
+	@GetMapping(value = "/{usuarioId}/pedidospd")
+	public Double listarOrcamentosPeriodo(@PathVariable Long usuarioId, @RequestParam String dataInicio, @RequestParam String dataFim){
+		return service.listarPedidosPeriodo(usuarioId, dataInicio, dataFim);
+	}
+	
+	@GetMapping(value = "/{usuarioId}/npedidostotal")
+	public Integer totalDePedidos(@PathVariable Long usuarioId){
+		return service.totalDePedidos(usuarioId);
 	}
 	
 	@PutMapping(value = "/{id}/status-pedido")

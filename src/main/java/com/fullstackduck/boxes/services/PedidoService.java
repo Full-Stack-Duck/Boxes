@@ -35,6 +35,9 @@ public class PedidoService {
 	
 	@Autowired
 	private OrcamentoRepository orcamentoRepository;
+	
+	@Autowired
+	private OrcamentoService orcamentoService;
 
 	public List<Pedido> findAll() {
 		return pedidoRepository.findAll();
@@ -56,12 +59,33 @@ public class PedidoService {
 		return usuario.getPedidos();
 	}
 
+	//Valor médio dos pedidos
 	@Transactional
-	public List<Pedido> listarPedidosPeriodo(String dataInicio, String dataFim) {
+	public Double listarPedidosPeriodo(Long usuarioId, String dataInicio, String dataFim) {
+		orcamentoService.findAll();
+		Usuario user = usuarioRepository.findById(usuarioId).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + usuarioId));
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
 		Instant data1 = Instant.from(formatter.parse(dataInicio));
 		Instant data2 = Instant.from(formatter.parse(dataFim));
-		return pedidoRepository.findByDataPedidoBetween(data1, data2);
+		List<Pedido> totalpd = pedidoRepository.findByDataPedidoBetween(data1, data2);
+		Double total = 0.0;
+		int cont = 0;
+		for (Pedido i : totalpd) {
+			if (i.getUsuario().equals(user)) {
+				i.setTotal(i.getOrcamento().getTotal());
+				total += i.getTotal();
+				cont ++;
+			}
+		}
+	    return total/cont;
+	}
+	
+	//Número total de pedidos
+	public Integer totalDePedidos(Long usuarioId) {
+		orcamentoService.findAll();
+		Usuario user = usuarioRepository.findById(usuarioId).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + usuarioId));
+		List<Pedido> totalpd = user.getPedidos();
+		return totalpd.size();
 	}
 
 	@Transactional

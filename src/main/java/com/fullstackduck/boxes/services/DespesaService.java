@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fullstackduck.boxes.entities.Despesa;
+import com.fullstackduck.boxes.entities.Pedido;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.Categoria;
 import com.fullstackduck.boxes.repositories.DespesaRepository;
@@ -142,7 +143,21 @@ public class DespesaService {
 	    }
 	}
 	
-
+	@Transactional
+	public Double totalDespesasPeriodo(Long usuarioId, String dataInicio, String dataFim) {
+		Usuario user = usuarioRepository.findById(usuarioId).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + usuarioId));
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
+		Instant data1 = Instant.from(formatter.parse(dataInicio));
+		Instant data2 = Instant.from(formatter.parse(dataFim));
+		List<Despesa> totalpd = despesaRepository.findByDataDespesaBetween(data1, data2);
+		Double total = 0.0;
+		for (Despesa i : totalpd) {
+			if (i.getUsuario().equals(user)) {
+				total += i.getValor();
+			}
+		}
+	    return total;
+	}
 	}
 
 

@@ -133,12 +133,21 @@ public class OrcamentoService {
         return usuario.getOrcamentos();
     }
 	
+	//Número total de Orcamentos
 	@Transactional
-	public List<Orcamento> listarOrcamentoPeriodo(String dataInicio, String dataFim) {
+	public Integer listarOrcamentoPeriodo(Long usuarioId, String dataInicio, String dataFim) {
+		Usuario user = usuarioRepository.findById(usuarioId).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + usuarioId));
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
 		Instant data1 = Instant.from(formatter.parse(dataInicio));
 		Instant data2 = Instant.from(formatter.parse(dataFim));
-	    return orcamentoRepository.findByDataOrcamentoBetween(data1, data2);
+		List<Orcamento> totalpd = orcamentoRepository.findByDataOrcamentoBetween(data1, data2);
+		int cont = 0;
+		for (Orcamento i : totalpd) {
+			if (i.getUsuario().equals(user)) {
+				cont++;
+			}
+		}
+	    return cont;
 	}
 
 	
@@ -190,4 +199,6 @@ public class OrcamentoService {
     	pedido.setOrcamento(obj);
     	return pedidoRepository.save(pedido);
     }
+    
+    
 }
