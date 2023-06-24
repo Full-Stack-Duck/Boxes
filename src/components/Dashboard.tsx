@@ -87,7 +87,7 @@ export function Dashboard() {
               </p>
               <div className="flex items-center bg-green-300 rounded-xl h-5 w-14 ml-3 justify-center gap-0.5">
                 <div className="rotate-180 -mt-2">
-                <img src={polygon_despesaG_icon} className="animate-bounce transition-all"/>
+                  <img src={polygon_despesaG_icon} className="animate-bounce transition-all"/>
                 </div>
                 <span className="font-bold text-xs text-green-800">{resources.vendas.estatistica.espacoTempo}%</span>
               </div>

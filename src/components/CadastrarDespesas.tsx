@@ -2,8 +2,8 @@ import despesaIcon from '../assets/despesaIcon.svg'
 
 export function CadastrarDespesa(){
     return(
-        <section className='flex flex-col justify-center w-full lg:w-2/3 lg:border lg:rounded-xl lg:border-purple-light lg:ml-4'> 
-            <form className="px-7 my-1 bg-white font-quicksand font-semibold border-y lg:border-0 lg:m-0 lg:p-4">
+        <section className='flex flex-col justify-center w-full lg:w-2/3  lg:ml-4'> 
+            <form className="px-7 my-1 bg-white font-quicksand font-semibold border-y lg:m-0 lg:p-4 lg:border lg:rounded-xl lg:border-purple-light">
                 <div className='w-full'>
                     <h3 className="text-lg pb-2 font-bold">Cadastrar Despesas</h3>
                 </div>
@@ -43,8 +43,8 @@ export function CadastrarDespesa(){
                         </article>
                     </div>
                 </div>
-                <div className="">
-                    <button className="flex items-center justify-center w-full h-10 mt-2 mb-4 border-2 rounded bg-purple-medium border-purple-dark shadow-md shadow-purple-shadow text-white lg:mb-0"> CADASTRAR DESPESA
+                <div className="flex w-full justify-center">
+                    <button className="flex items-center h-10 mt-2 mb-4 border-2 rounded bg-purple-medium border-purple-dark shadow-md shadow-purple-shadow text-white px-10 font-normal lg:mb-0 lg:px-14 lg:mt-1"> CADASTRAR DESPESA
                         <img className="ml-2" src={despesaIcon} alt="" />
                     </button>
                 </div>
