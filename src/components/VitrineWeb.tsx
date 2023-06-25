@@ -17,7 +17,7 @@ export function Vitrine(){
 
 
             <div className="flex items-center justify-center w-full py-6">
-                <button className="bg-purple-medium px-4 rounded-3xl w-52 h-10 tracking-widest font-medium">Assine Grátis!</button>
+                <button className="bg-purple-medium px-4 rounded-3xl w-52 h-10 tracking-widest font-medium hover:bg-purple-400">Assine Grátis!</button>
             </div>
 
         </section>

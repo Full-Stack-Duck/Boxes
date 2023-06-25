@@ -31,7 +31,7 @@ export function Contato(){
                             <textarea className="w-full h-28 resize-none over-flow-y-auto border rounded-lg placeholder:text-xs placeholder:px-3 placeholder:pt-2 placeholder:italic placeholder:text-purple-light placeholder:font-nunito bg-purple-dark" id="" name="" placeholder="Insira sua mensagem..." />
                             <p className="italic text-xs">* Campos obrigatórios</p>
                             <div className="ml-auto">
-                                <button className="border border-purple-dark rounded-2xl px-4 py-0.5 mt-2 shadow-md shadow-stone-700">Enviar mensagem</button>
+                                <button className="border border-purple-dark rounded-2xl px-4 py-0.5 mt-2 shadow-md shadow-stone-700 hover:bg-purple-dark">Enviar mensagem</button>
                             </div>
                         </div>
                     </form>
@@ -39,7 +39,7 @@ export function Contato(){
                 
                 <div className="flex lg:justify-center">
                     <div className="hidden lg:block lg:w-1/2"></div>
-                    <a href="https://api.whatsapp.com/send?phone=5575991988661" target="_blank" className="flex bg-green-medium border border-green-dark rounded-3xl px-5 py-1.5 mt-2 gap-x-2 shadow-md shadow-stone-700 cursor-pointer">FALE POR WHATSAPP<img src={wppIcon} alt="" /></a>
+                    <a href="https://api.whatsapp.com/send?phone=5575991988661" target="_blank" className="flex bg-green-medium border border-green-dark rounded-3xl px-5 py-1.5 mt-2 gap-x-2 shadow-md shadow-stone-700 cursor-pointer hover:scale-110 hover:duration-500">FALE POR WHATSAPP<img src={wppIcon} alt="" /></a>
                 </div>
             </section>
         </div>
