@@ -216,7 +216,9 @@ export function Navbar() {
                         <div className="hidden lg:block">
                             <CabecalhoEstoque />
                         </div>
-                        <PesquisarEstoque />
+                        <div className="lg:flex lg:px-32 lg:pt-10 lg:justify-between lg:mb-5">
+                            <PesquisarEstoque />
+                        </div>
                     </Tab.Panel>
                     {/* CONFIGURACÕES */}
                     <Tab.Panel>
