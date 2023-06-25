@@ -1,4 +1,4 @@
-
+import { Link } from 'react-router-dom';
 
 export function Vitrine(){
     return(
@@ -16,8 +16,8 @@ export function Vitrine(){
             </div>
 
 
-            <div className="flex items-center justify-center w-full py-6">
-                <button className="bg-purple-medium px-4 rounded-3xl w-52 h-10 tracking-widest font-medium hover:bg-purple-400">Assine Grátis!</button>
+            <div className="flex justify-center w-full py-6">
+                <Link to="/cadastro" className="bg-purple-medium px-4 rounded-3xl w-52 h-10 flex justify-center items-center tracking-widest font-medium hover:bg-purple-400">Assine Grátis!</Link>
             </div>
 
         </section>
