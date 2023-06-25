@@ -92,15 +92,15 @@ export function CadastrarProdutos() {
 
 
   return (
-    <section className="w-full flex justify-center">
+    <section className="w-full flex justify-center lg:w-1/2">
       <div className="flex flex-col w-[23rem] sm:w-[50rem]">
-        <h1 className="font-quicksand font-bold text-2xl py-3 px-7">
+        <h1 className="font-quicksand font-bold text-2xl py-3 px-7 lg:hidden">
           Produtos
         </h1>
-          <div className="flex-col px-7 my-1 bg-white font-quicksand font-semibold border-y">
-        <form onSubmit={handleSubmit(insertNewProduto)}>
-              <h3 className="text-lg py-2">Cadastrar Produtos</h3>
-                <article className="flex justify-betwen mx-16 mb-4 text-sm">
+          <div className="flex-col px-7 my-1 bg-white font-quicksand font-semibold text-purple-medium border-y lg:border lg:border-purple-light lg:rounded-xl lg:p-4 lg:m-0">
+            <form onSubmit={handleSubmit(insertNewProduto)}>
+              <h3 className="text-lg py-2 text-black lg:pt-0">Cadastrar Produtos</h3>
+                <article className="flex justify-between mx-4 mb-4 text-sm">
                   <div className="flex items-center justify-center w-1/2">
                     <input
                       type="radio"
@@ -113,7 +113,7 @@ export function CadastrarProdutos() {
                       />
                     <label htmlFor={`${enumCategory[0]}`} className="cursor-pointer px-1.5">
                       ESTOCÁVEL
-                    *</label>
+                    </label>
                   </div>
                   <div className="flex items-center justify-center w-1/2">
                     <input
@@ -127,10 +127,10 @@ export function CadastrarProdutos() {
                     />
                     <label htmlFor={`${enumCategory[1]}`} className="cursor-pointer px-1.5">
                       NÃO-ESTOCÁVEL
-                    *</label>
+                    </label>
                   </div>
                   </article>
-                  <label>NOME DO PRODUTO*</label>
+                  <label>NOME DO PRODUTO</label>
                   <input
                     type="text"
                     className="w-full h-8 border rounded border-purple-light mb-4"
@@ -141,7 +141,7 @@ export function CadastrarProdutos() {
                   <div className="flex flex-col w-1/2">
                     <label>
                       PREÇO UNITÁRIO
-                    *</label>
+                    </label>
                     <input
                       className="border rounded h-8 placeholder:text-xs placeholder:p-2 placeholder:italic placeholder:text-gray-lightgray"
                       type="number"
@@ -151,7 +151,7 @@ export function CadastrarProdutos() {
                       />
                   </div>
                   <div className="flex flex-col w-1/2">
-                    <label htmlFor="">TIPO*</label>
+                    <label htmlFor="">TIPO</label>
                     <select
                       className="border rounded font-nunito h-8"
                       {...register('tipo')}

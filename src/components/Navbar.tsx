@@ -9,6 +9,7 @@ import styles from "../components/Navbar.module.css";
 import { Tab } from "@headlessui/react";
 import { CadastrarDespesa } from "./CadastrarDespesas";
 import { Pesquisar } from "./Pesquisar";
+import { PesquisarProduto } from "./PesquisarProduto";
 import { Financeiro } from "./Financeiro";
 import { FiltroDashboard } from "./FiltroDashboard";
 import { Dashboard } from "./Dashboard";
@@ -210,7 +211,7 @@ export function Navbar() {
                         </div>
                         <div className="lg:flex lg:px-32 lg:pt-10 lg:justify-between lg:mb-5">
                             <CadastrarProdutos />
-                            <Pesquisar />
+                            <PesquisarProduto />
                         </div>
                         <div className="hidden lg:block">
                             <CabecalhoEstoque />
