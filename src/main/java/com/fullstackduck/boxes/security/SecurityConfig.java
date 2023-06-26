@@ -32,8 +32,8 @@ public class SecurityConfig {
 	            .authorizeHttpRequests(req -> {
 	                req.requestMatchers(HttpMethod.POST, "/login").permitAll();
 	                req.requestMatchers(HttpMethod.POST, "/usuarios").permitAll();
-	                //req.anyRequest().authenticated();
-	                req.anyRequest().permitAll();
+	                req.anyRequest().authenticated();
+	                //req.anyRequest().permitAll();
 	            })
 	            .addFilterBefore(securityFilter,UsernamePasswordAuthenticationFilter.class)
 	            .build();

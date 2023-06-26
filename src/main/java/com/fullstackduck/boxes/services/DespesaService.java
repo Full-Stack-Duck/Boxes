@@ -19,6 +19,7 @@ import com.fullstackduck.boxes.entities.Despesa;
 import com.fullstackduck.boxes.entities.Pedido;
 import com.fullstackduck.boxes.entities.Usuario;
 import com.fullstackduck.boxes.entities.enums.Categoria;
+import com.fullstackduck.boxes.entities.enums.Status;
 import com.fullstackduck.boxes.repositories.DespesaRepository;
 import com.fullstackduck.boxes.repositories.UsuarioRepository;
 import com.fullstackduck.boxes.services.exceptions.ResourceNotFoundException;
@@ -59,6 +60,7 @@ public class DespesaService {
             obj.setUsuario(user);
             // Salva o produto no banco de dados
         }
+        obj.setStatus(Status.ATIVO);
 		return despesaRepository.save(obj);
 	}
 	
