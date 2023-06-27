@@ -9,7 +9,7 @@ import { ResultadoCliente } from "./ResultadoCliente";
 import { Values, z } from "zod";
 import { api } from "../server/api";
 import { ChangeEvent, useEffect, useState } from "react";
-import Dinero from 'dinero.js';
+// import Dinero from 'dinero.js';
 
 const enumType = [
   "Selecione o filtro...",

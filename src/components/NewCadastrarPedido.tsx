@@ -11,7 +11,7 @@ import { z } from "zod";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loading } from "../assets/aux_components/Loading";
-import Dinero from "dinero.js";
+// import Dinero from "dinero.js";
 
 import { Fragment, useEffect } from "react";
 import { Combobox, Transition } from "@headlessui/react";

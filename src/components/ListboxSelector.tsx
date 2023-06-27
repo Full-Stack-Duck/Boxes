@@ -1,19 +1,23 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 // import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { CaretDown } from "phosphor-react";
 import { CheckFat } from '@phosphor-icons/react';
+interface PeriodoProps {
+  name: string,
+  periodo: number
+}
 
-
-const people = [
-  { name: 'Últimos 30 dias', periodo: 30 },
-  { name: 'Últimos trimestre' , periodo: 90},
-  { name: 'Últimos semestre', periodo: 180},
-  { name: 'Últimos ano', periodo: 360 },
+const periodoSelect = [
+  { name: 'Últimos 30 dias', periodo: 30},
+  { name: 'Últimos 90 dias' , periodo: 90},
+  { name: 'Últimos 180 dias', periodo: 180},
+  { name: 'Últimos 360 dias', periodo: 360},
 ]
 
+
 export default function ListboxSelector() {
-  const [selected, setSelected] = useState(people[0])
+  const [selected, setSelected] = useState<PeriodoProps>(periodoSelect[0])
 
   return (
     <div className="relative w-52 p-2 whitespace-nowrap lg:p-0">
@@ -32,7 +36,7 @@ export default function ListboxSelector() {
             leaveTo="opacity-0"
           >
             <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              {people.map((person, personIdx) => (
+              {periodoSelect.map((person, personIdx) => (
                 <Listbox.Option
                   key={personIdx}
                   className={({ active }) =>

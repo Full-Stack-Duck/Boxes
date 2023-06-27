@@ -9,7 +9,7 @@ import { ResultadoCliente } from "./ResultadoCliente";
 import { Values, z } from "zod";
 import { api } from "../server/api";
 import { ChangeEvent, useEffect, useState } from "react";
-import Dinero from 'dinero.js';
+import { formatPrice } from '../utils/format-price';
 
 const enumType = [
   "Selecione o tipo...",
@@ -211,7 +211,7 @@ function filtrarProdutosPor(
                 <span className='w-[12rem]'>{res.quantidade}UND.</span>
                 <span className='w-[12rem]'>{res.tipo}</span>
                 <span className='w-[12rem]'>{res.categoria}</span>
-                <span className='w-[12rem]'>{Dinero({amount: res.valor * 100, currency: "BRL"}).setLocale('pt-BR').toFormat("$0,0.00")}</span>
+                <span className='w-[12rem]'>{formatPrice(res.valor)}</span>
                 </div>
                 <div className="flex w-[50%] justify-evenly">
                     <a href="#" className="flex items-center justify-center h-[32px] min-w-[32px] rounded-full bg-purple-medium"><img src={verIcon} alt="ver-resultado" className="w-5 h-5" /></a>
