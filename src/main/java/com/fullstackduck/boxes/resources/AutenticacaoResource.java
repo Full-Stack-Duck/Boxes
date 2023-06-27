@@ -40,9 +40,10 @@ public class AutenticacaoResource {
 		var authenticationToken = new UsernamePasswordAuthenticationToken(dados.email(), dados.senha());
 		var authentication = manager.authenticate(authenticationToken);
 		
-		var tokenJWT = tokenService.gerarToken((Usuario)authentication.getPrincipal());
+		var usuarioAutenticado = (Usuario) authentication.getPrincipal();
+		var tokenJWT = tokenService.gerarToken(usuarioAutenticado);
 		
-		return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
+		return ResponseEntity.ok(new DadosTokenJWT(tokenJWT,usuarioAutenticado.getId()));
 	}
 
 	@GetMapping
