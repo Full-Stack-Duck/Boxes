@@ -105,14 +105,14 @@ public class ProdutoService {
     }
 	
 	private void atualizarStatus(Produto entity, Produto obj) {
-		entity.setStatus(obj.getStatus());
+		entity.setStatus(Status.INATIVO);
 	}
 	
 	public List<Produto> listarProdutosCategoria(TipoArmazenamento categoria, Long id) {
 		Usuario obj = usuarioRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o id: " + id));
 		List<Produto> prod = new ArrayList<>();
 		for (Produto i : obj.getProdutos()) {
-			if(i.getCategoria() == categoria) {
+			if(i.getCategoria() == categoria && i.getStatus().equals(Status.ATIVO)) {
 				prod.add(i);
 			}
 		}
