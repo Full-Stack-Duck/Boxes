@@ -29,16 +29,16 @@
 ## <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" heigt=20px width=20px/> Figma
 - https://www.figma.com/file/9nVVBEDxGZxFZkrxh9TRRH/BBM?node-id=0%3A1
 
-# Autores
-- <h3>Bruno Marques</h3> <a href="https://www.linkedin.com/in/b-marques/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/o-Drive"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
+# Co-criadores
+- <h3>Bruno Marques</h3><p>(Front-end Team | UI/UX Designer)</p> <a href="https://www.linkedin.com/in/b-marques/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/o-Drive"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
 
-- <h3>José Marcos</h3> <a href="https://www.linkedin.com/in/jos%C3%A9-marcos-8761b419b/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/socramcz"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
+- <h3>José Marcos</h3><p>(Front-end Team)</p> <a href="https://www.linkedin.com/in/jos%C3%A9-marcos-8761b419b/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/socramcz"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
 
-- <h3>Kelvin Argolo</h3> <a href="https://www.linkedin.com/in/kelvin-argolo-923846138/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/Kelvin4rgolo"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
+- <h3>Kelvin Argolo</h3><p>(Front-end Team Leader)</p> <a href="https://www.linkedin.com/in/kelvin-argolo-923846138/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/Kelvin4rgolo"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
 
-- <h3>Lucas Mendes</h3> <a href="https://www.linkedin.com/in/luckasz-mendes/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/Luckaszfsa/"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
+- <h3>Lucas Mendes</h3><p>(Back-end Team | Scrum Master)</p> <a href="https://www.linkedin.com/in/luckasz-mendes/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/Luckaszfsa/"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
 
-- <h3>Vinícius de Assis</h3> <a href="https://www.linkedin.com/in/viniciusdevassis/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/ViniciusDevAssis/"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
+- <h3>Vinícius de Assis</h3><p>(Back-end Team Leader | Database Administrator)</p> <a href="https://www.linkedin.com/in/viniciusdevassis/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"> <a href="https://github.com/ViniciusDevAssis/"> <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank">
 
 # Agradecimento
 - Orientador: *Erik do Carmo Marques*, **Gerente de Sistemas**
